@@ -206,6 +206,9 @@ function utmost_core(returning_user){
 					orientation: 'vertical',
 					color: '#333'
 				},
+				legend: {
+					position: 'top'
+				},
 				xField: 'crash_type',
 				yField: ['crash_count', 'crash_count_fake']
 			}]
