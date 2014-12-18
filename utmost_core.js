@@ -207,35 +207,8 @@ function utmost_core(returning_user){
 					color: '#333'
 				},
 				xField: 'crash_type',
-				yField: 'crash_count'
-			},{
-				type: 'column',
-				axis: 'left',
-				highlight: true,
-				tips: {
-				  trackMouse: true,
-				  width: 140,
-				  height: 28,
-				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ': ' + storeItem.get('crash_count_fake'));
-				  }
-				},
-				style: {
-                    fill: '#FFD119',
-					align: "right"
-                },
-				label: {
-				  display: 'insideEnd',
-				  'text-anchor': 'middle',
-					field: 'data',
-					renderer: Ext.util.Format.numberRenderer('0'),
-					orientation: 'vertical',
-					color: '#333'
-				},
-				xField: 'crash_type',
-				yField: 'crash_count_fake'
-			}
-		]
+				yField: ['crash_count', crash_count_fake]
+			}]
 	});
 	
 	Ext.create('Ext.container.Viewport', {
