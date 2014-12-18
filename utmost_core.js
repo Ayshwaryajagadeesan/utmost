@@ -261,7 +261,5 @@ var utmost_core = new function (){
 	
 	
 	Ext.resumeLayouts(true);
-});
-	
-
 }
+	
