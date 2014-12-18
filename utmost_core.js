@@ -1,6 +1,6 @@
 //UI core
 
-function utmost_core(returning_user = 1){
+function utmost_core(returning_user){
 
 	Ext.suspendLayouts();
 
