@@ -212,7 +212,7 @@ function utmost_core(returning_user){
 				},
 				xField: 'crash_type',
 				yField: ['crash_count', 'crash_count_fake'],
-				title: ['Crash Count', 'Adjusted Crash Count']
+				title: ['Baseline Crash Count', 'Adjusted Crash Count']
 			}]
 	});
 	//totals chart code
@@ -270,7 +270,7 @@ function utmost_core(returning_user){
 				},
 				xField: 'crash_type',
 				yField: ['crash_count', 'crash_count_fake'],
-				title: ['Crash Count', 'Adjusted Crash Count']
+				title: ['Baseline Crash Count', 'Adjusted Crash Count']
 			}]
 	});
 	var utmost_totals_panel = Ext.create('Ext.panel.Panel', {
