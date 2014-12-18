@@ -109,6 +109,7 @@ function utmost_core(returning_user){
 						title: form_values['cm_name'],
 						closable: true,
 						bodyPadding: 5,
+						margin: 5,
 						html: "<p>Effectiveness: "+form_values['cm_effect']+"%</p>" + "<p>Fleet Penetration: "+form_values['cm_pen']+"%</p>"
 					}));
 				}
@@ -119,7 +120,7 @@ function utmost_core(returning_user){
 	
 	var active_countermeasure_panel = Ext.create('Ext.panel.Panel', {
         title: 'Active Countermeasures',
-        bodyPadding: 10,
+        bodyPadding: 5,
         autoScroll: true,
         region: 'center'
 	});
