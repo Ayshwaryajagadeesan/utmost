@@ -2,7 +2,7 @@
 
 function utmost_core(returning_user){
 
-	Ext.suspendLayouts();
+	//Ext.suspendLayouts();
 
 
 	//var returning_user = 1;
@@ -260,6 +260,6 @@ function utmost_core(returning_user){
 	});
 	
 	
-	Ext.resumeLayouts(true);
+	//Ext.resumeLayouts(true);
 }
 	
