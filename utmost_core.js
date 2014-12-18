@@ -224,7 +224,7 @@ function utmost_core(returning_user){
 	var utmost_totals_chart = Ext.create('Ext.chart.Chart', {
 		store: utmost__totals_chart_values,
 		animate: true,
-		theme: 'Blue',		
+		theme: 'Green',		
 		legend: {
 			position: 'top'
 		},
