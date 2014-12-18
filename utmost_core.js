@@ -230,17 +230,15 @@ function utmost_core(returning_user){
 		},
 		axes: [
 			{
-				title: 'Crash Count',
 				type: 'Numeric',
-				position: 'left',
+				position: 'bottom',
 				grid: true,
 				fields: ['crash_count'],
 				minimum: 0,
 				maximum: 200
 			}, {
-				title: 'Crash Type',
 				type: 'Category',
-				position: 'bottom',
+				position: 'left',
 				fields: ['crash_type']
 			}
 		],
