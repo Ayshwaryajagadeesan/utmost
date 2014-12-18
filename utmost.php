@@ -11,7 +11,7 @@
 	<body>
 		<script type="text/javascript">
 			Ext.onReady(function(){
-				var core = new utmost_core(1);
+				utmost_core(1);
 			});
 		</script>
 	
