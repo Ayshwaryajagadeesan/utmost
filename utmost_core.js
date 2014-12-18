@@ -165,7 +165,10 @@ function utmost_core(returning_user){
 	var utmost_chart = Ext.create('Ext.chart.Chart', {
 		store: utmost_chart_values,
 		animate: true,
-		theme: 'Blue',
+		theme: 'Blue',		
+		legend: {
+			position: 'top'
+		},
 		axes: [
 			{
 				title: 'Crash Count',
@@ -205,9 +208,6 @@ function utmost_core(returning_user){
 					renderer: Ext.util.Format.numberRenderer('0'),
 					orientation: 'vertical',
 					color: '#333'
-				},
-				legend: {
-					position: 'top'
 				},
 				xField: 'crash_type',
 				yField: ['crash_count', 'crash_count_fake']
