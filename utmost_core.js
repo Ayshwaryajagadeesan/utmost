@@ -1,11 +1,11 @@
 //UI core
 
-var utmost_core = new function (returning_user = 0){
+var utmost_core = new function (){
 
 	Ext.suspendLayouts();
 
 
-	var returning_user = 0;
+	var returning_user = 1;
 	
 	
 	Ext.tip.QuickTipManager.init();

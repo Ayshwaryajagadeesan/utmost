@@ -9,5 +9,11 @@
 
 	</head>
 	<body>
+		<script type="text/javascript">
+			Ext.onReady(function(){
+				
+			});
+		</script>
+	
 	</body>
 </html>
