@@ -195,6 +195,9 @@ function utmost_core(returning_user){
 					this.setTitle(storeItem.get('crash_type') + ': ' + storeItem.get('crash_count'));
 				  }
 				},
+				style: {
+                    align: "left"
+                },
 				label: {
 				  display: 'insideEnd',
 				  'text-anchor': 'middle',
@@ -218,7 +221,8 @@ function utmost_core(returning_user){
 				  }
 				},
 				style: {
-                    fill: '#FFD119'
+                    fill: '#FFD119',
+					align: "right"
                 },
 				label: {
 				  display: 'insideEnd',
