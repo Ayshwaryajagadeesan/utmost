@@ -313,7 +313,7 @@ function utmost_core(returning_user){
 						type: 'border',
 						align: 'stretch'
 					},
-					items:[world_panel, totals_panel, countermeasure_panel]
+					items:[world_panel, utmost_totals_panel, countermeasure_panel]
 				},{
 					xtype: 'panel',
 					title: 'Chart',
