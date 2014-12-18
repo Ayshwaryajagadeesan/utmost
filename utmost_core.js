@@ -207,7 +207,7 @@ function utmost_core(returning_user){
 					color: '#333'
 				},
 				xField: 'crash_type',
-				yField: ['crash_count', crash_count_fake]
+				yField: ['crash_count', 'crash_count_fake']
 			}]
 	});
 	
