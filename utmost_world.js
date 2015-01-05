@@ -35,4 +35,3 @@
 			fieldLabel: 'Chart Variable'	
 		}]
 	});
-	

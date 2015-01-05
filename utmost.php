@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<script type "text/javascript" src="lib/ext-all-debug.js"></script>
-		<!-- <script type="text/javascript" src="utmost_model.js"></script>
+		<script type="text/javascript" src="utmost_model.js"></script>
 		<script type="text/javascript" src="utmost_chart.js"></script>
-		<script type="text/javascript" src="utmost_countermeasure.js"></script> -->
+		<script type="text/javascript" src="utmost_countermeasure.js"></script>
 		<script type="text/javascript" src="utmost_core.js"></script>
 		<link rel="stylesheet" type="text/css" href="lib/resources/css/ext-all.css">
 
