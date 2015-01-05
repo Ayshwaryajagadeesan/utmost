@@ -1,4 +1,5 @@
 //World Panel Code
+	Ext.namespace('UTMOST');
 	
 	var outcome_vals = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],

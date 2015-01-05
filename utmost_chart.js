@@ -1,3 +1,5 @@
+	Ext.namespace('UTMOST');
+
 // Chart Code
 	Ext.define('Crash_Type_Count', {
 		extend: 'Ext.data.Model',

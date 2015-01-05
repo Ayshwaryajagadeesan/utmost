@@ -1,3 +1,5 @@
+	Ext.namespace('UTMOST');
+	
 //CM Panel Code
 	var cm_types = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],
