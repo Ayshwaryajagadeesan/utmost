@@ -39,9 +39,9 @@
 				tips: {
 				  trackMouse: true,
 				  width: 140,
-				  height: 28,
+				  height: 90,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' \n Baseline: ' + storeItem.get('crash_count')+ ' \n Adjusted: ' +storeItem.get('crash_count_adj'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('crash_count')+ '  <br/>Adjusted: ' +storeItem.get('crash_count_adj'));
 				  }
 				},
 				style: {
