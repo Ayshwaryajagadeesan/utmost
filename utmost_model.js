@@ -43,7 +43,8 @@
 			type: 'ajax',
 			url : 'utmost_data.php',
 			reader: {
-				type: 'json'
+				type: 'json',
+				model: 'Crash_Type_Count'
 			}
 		}
 	});
