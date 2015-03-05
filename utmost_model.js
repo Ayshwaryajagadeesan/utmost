@@ -4,7 +4,7 @@
 	
 	Ext.define('Crash_Type_Count', {
 		extend: 'Ext.data.Model',
-		fields: ['crash_count', 'crash_type', 'crash_count_adj']
+		fields: [ 'crash_type', 'crash_count', 'crash_count_adj']
 	});
 	
 	/*
