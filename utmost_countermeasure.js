@@ -89,7 +89,7 @@
 							}
 						}
 					}));
-					data-update();
+					data_update();
 				}
 			}
 		],
