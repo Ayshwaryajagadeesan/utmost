@@ -54,8 +54,8 @@
 		var cm_string = get_coeffs_string();
 		utmost_chart_values.load({
 		params: {
-			filter-string: cm_string,
-			coeffs-string: cm_cf_string
+			filter_string: cm_string,
+			coeffs_string: cm_cf_string
 		}
 	});
 	
