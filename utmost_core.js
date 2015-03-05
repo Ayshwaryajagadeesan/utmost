@@ -12,7 +12,7 @@ function utmost_core(returning_user){
 	
 	Ext.tip.QuickTipManager.init();
 	
-	data-update();
+	data_update();
 	
 	//Core UI
 	Ext.create('Ext.container.Viewport', {

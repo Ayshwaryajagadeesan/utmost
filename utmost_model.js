@@ -49,7 +49,7 @@
 	});
 	
 	
-	function data-update(){
+	function data_update(){
 		var cm_string = get_countermeasure_string();
 		var cm_string = get_coeffs_string();
 		utmost_chart_values.load({
