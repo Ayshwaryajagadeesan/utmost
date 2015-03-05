@@ -64,7 +64,7 @@
 					countermeasure_edit_window.hide();
 					cm_types.clearFilter();
 					var form_values = countermeasure_edit_form.getValues();
-					var rec = cm_types.find(name, form_values['cm_name']);
+					var rec = cm_types.find('name', form_values['cm_name']);
 					rec.set('active', 1);
 					rec.set('effectiveness', form_values['cm_effect']);
 					rec.set('fleet_pen', form_values['cm_pen']);
