@@ -16,19 +16,22 @@
 			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":100,"fleet_pen":100}
 		]
 	});
+	
+	var countermeasure_list = Ext.create('Ext.form.field.ComboBox', {
+		xtype: 'combobox',
+		name: 'cm_name',
+		width: "100%",
+		store: cm_types,
+		queryMode: 'local',
+		displayField: 'name',
+		valueField: 'name',
+		fieldLabel: 'Select Countermeasure'
+	});
 	var countermeasure_edit_form = Ext.create('Ext.form.Panel', {
 		layout: "form",
 		items: [
+			countermeasure_list, 
 			{
-				xtype: 'combobox',
-				name: 'cm_name',
-                width: "100%",
-				store: cm_types,
-				queryMode: 'local',
-				displayField: 'name',
-				valueField: 'name',
-				fieldLabel: 'Select Countermeasure'
-			}, {
 				fieldLabel: "Countermeasure Effectiveness:",
 				name: 'cm_effect',
 				xtype: "sliderfield",
@@ -109,6 +112,7 @@
                 text: "Add New Countermeasure",
 				handler: function(){
 					cm_types.filter('active',0);
+					countermeasure_list.clearValue();
 					countermeasure_edit_window.show();
 				}
             }
