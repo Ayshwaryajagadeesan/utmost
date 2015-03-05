@@ -2,12 +2,18 @@
 	
 //CM Panel Code
 	var cm_types = Ext.create('Ext.data.Store', {
-		fields: ['val', 'name'],
+		fields: ['val', 'name', 'active', 'effectiveness', 'fleet_pen'],
 		data : [
-			{"val":"cm_fcw", "name":"Forward Collision Warning"},
-			{"val":"cm_ldw", "name":"Lane Departure Warning"},
-			{"val":"cm_esc", "name":"Electronic Stability Control"}
-			
+			{"val":"LDW", "name":"Lane Departure Warning","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"ACC", "name":"Adaptive Cruise Control","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"Alcohol_Interlock", "name":"Alcohol Interlock","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"FCW", "name":"Forward Collision Warning","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"LCW", "name":"Lateral Collision Warning","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"Lane_Keeping_Assist", "name":"Lane-Keeping Assist","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"Pedestrian_Detection", "name":"Pedestrian Detection","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"Backing_Collision_Warning", "name":"Backing Collision Warning","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"ESC", "name":"Electronic Stability Control","active":0,"effectiveness":100,"fleet_pen":100},
+			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":100,"fleet_pen":100}
 		]
 	});
 	var countermeasure_edit_form = Ext.create('Ext.form.Panel', {
@@ -56,13 +62,28 @@
                 width: "100%",
 				handler: function(){
 					countermeasure_edit_window.hide();
+					cm_types.clearFilter();
 					var form_values = countermeasure_edit_form.getValues();
+					var rec = cm_types.find(name, form_values['cm_name']);
+					rec.set('active', 1);
+					rec.set('effectiveness', form_values['cm_effect']);
+					rec.set('fleet_pen', form_values['cm_pen']);
 					active_countermeasure_panel.add(Ext.create('Ext.panel.Panel', {
 						title: form_values['cm_name'],
 						closable: true,
 						bodyPadding: 5,
 						margin: 5,
-						html: "<p>Effectiveness: "+form_values['cm_effect']+"%</p>" + "<p>Fleet Penetration: "+form_values['cm_pen']+"%</p>"
+						html: "<p>Effectiveness: "+form_values['cm_effect']+"%</p>" + "<p>Fleet Penetration: "+form_values['cm_pen']+"%</p>",
+						listeners:{
+							close:{
+								fn: function(){
+									//clear filter activity
+									var targ_name = this.title;
+									var rec = cm_types.find('name', targ_name);
+									rec.set('active', 0);
+								}
+							}
+						}
 					}));
 				}
 			}
@@ -87,6 +108,7 @@
                 xtype: 'button',
                 text: "Add New Countermeasure",
 				handler: function(){
+					cm_types.filter('active',0);
 					countermeasure_edit_window.show();
 				}
             }
