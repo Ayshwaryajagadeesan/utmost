@@ -1,4 +1,4 @@
-<?php>
+<?php
 
 //	SELECT distinct crash_type, sum(Frequency) as crash_count, sum(Frequency *(1-(0))) as crash_count_adj FROM `utmost_data` WHERE 1  GROUP BY crash_type
 
