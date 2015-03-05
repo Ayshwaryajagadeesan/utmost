@@ -125,7 +125,7 @@
 	function get_countermeasure_string () {
 		var index = 0;
 		var res = [];
-		while (index < cm_types.count){
+		while (index < cm_types.count()){
 			var test = cm_types.getAt(index);
 			if (test.get('active') == 1){
 				res.push(test.get('val'));
@@ -138,7 +138,7 @@
 	function get_coeffs_string () {
 		var index = 0;
 		var res = [];
-		while (index < cm_types.count){
+		while (index < cm_types.count()){
 			var test = cm_types.getAt(index);
 			if (test.get('active') == 1){
 				res.push((test.get('effectiveness')/100) * (test.get('fleet_pen')/100));
