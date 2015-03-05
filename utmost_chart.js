@@ -23,7 +23,12 @@
 				title: 'Crash Type',
 				type: 'Category',
 				position: 'bottom',
-				fields: ['crash_type']
+				fields: ['crash_type'],
+				label: {
+					rotate: {
+						degrees: 270
+					}
+				}
 			}
 		],
 		series: [
