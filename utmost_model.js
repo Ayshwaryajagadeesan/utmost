@@ -38,7 +38,7 @@
 	
 	
 	var utmost_chart_values = Ext.create('Ext.data.Store', {
-		model: 'Crash_Type_Count'
+		model: 'Crash_Type_Count',
 		proxy: {
 			type: 'ajax',
 			url : 'utmost_data.php',
