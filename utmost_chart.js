@@ -1,22 +1,7 @@
 	Ext.namespace('UTMOST');
 
 // Chart Code
-	Ext.define('Crash_Type_Count', {
-		extend: 'Ext.data.Model',
-		fields: ['crash_count', 'crash_type', 'crash_count_fake']
-	});
-	
-	
-	var utmost_chart_values = Ext.create('Ext.data.Store', {
-		model: 'Crash_Type_Count',
-		data : [
-			{crash_count: "100", crash_type: "Rear End", crash_count_fake: "75"},
-			{crash_count: "50", crash_type: "Frontal", crash_count_fake: "15"},
-			{crash_count: "45", crash_type: "Rollover", crash_count_fake: "25"},
-			{crash_count: "37", crash_type: "Side Impact", crash_count_fake: "13"},
-			{crash_count: "64", crash_type: "Pedestrian", crash_count_fake: "57"}
-		]
-	});
+
 	
 	var utmost_chart = Ext.create('Ext.chart.Chart', {
 		store: utmost_chart_values,
@@ -66,7 +51,7 @@
 					color: '#333'
 				},
 				xField: 'crash_type',
-				yField: ['crash_count', 'crash_count_fake'],
+				yField: ['crash_count', 'crash_count_adj'],
 				title: ['Baseline Crash Count', 'Adjusted Crash Count']
 			}]
 	});
@@ -76,7 +61,7 @@
 	var utmost__totals_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
-			{crash_count: "150", crash_type: "Total", crash_count_fake: "115"}
+			{crash_count: "150", crash_type: "Total", crash_count_adj: "115"}
 		]
 	});
 	
@@ -126,7 +111,7 @@
 					color: '#333'
 				},
 				xField: 'crash_type',
-				yField: ['crash_count', 'crash_count_fake'],
+				yField: ['crash_count', 'crash_count_adj'],
 				title: ['Baseline Crash Count', 'Adjusted Crash Count']
 			}]
 	});
