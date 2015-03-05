@@ -39,7 +39,7 @@
 				tips: {
 				  trackMouse: true,
 				  width: 140,
-				  height: 90,
+				  height: 45,
 				  renderer: function(storeItem, item) {
 					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('crash_count')+ '  <br/>Adjusted: ' +storeItem.get('crash_count_adj'));
 				  }
