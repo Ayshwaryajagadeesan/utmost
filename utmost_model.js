@@ -7,7 +7,7 @@
 		fields: ['crash_count', 'crash_type', 'crash_count_adj']
 	});
 	
-	
+	/*
 	var utmost_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
@@ -32,7 +32,33 @@
 			{crash_count: "64", crash_type: "XPaths@Non-Signal", crash_count_adj: "57"},
 			{crash_count: "50", crash_type: "XPaths@Signal", crash_count_adj: "15"}
 		]
-	});
+	});*/
 
 	
 	
+	
+	var utmost_chart_values = Ext.create('Ext.data.Store', {
+		model: 'Crash_Type_Count'
+		proxy: {
+			type: 'ajax',
+			url : 'utmost_data.php',
+			reader: {
+				type: 'json'
+			}
+		}
+	});
+	
+	
+	function data-update(){
+		var cm_string = get_countermeasure_string();
+		var cm_string = get_coeffs_string();
+		utmost_chart_values.load({
+		params: {
+			filter-string: cm_string,
+			coeffs-string: cm_cf_string
+		}
+	});
+	
+}
+
+

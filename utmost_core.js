@@ -1,5 +1,7 @@
 //UI core
 
+
+
 function utmost_core(returning_user){
 
 	//Ext.suspendLayouts();
@@ -10,9 +12,7 @@ function utmost_core(returning_user){
 	
 	Ext.tip.QuickTipManager.init();
 	
-	
-	
-
+	data-update();
 	
 	//Core UI
 	Ext.create('Ext.container.Viewport', {

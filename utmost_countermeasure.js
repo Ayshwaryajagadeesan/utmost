@@ -56,6 +56,7 @@
 		layout: "form",
 		title: "Adjust Countermeasure",
         width: "50%",
+		closeable: false,
 		resizable: false,
 		items: [
 			countermeasure_edit_form,
@@ -88,6 +89,7 @@
 							}
 						}
 					}));
+					data-update();
 				}
 			}
 		],
@@ -119,3 +121,29 @@
 			
 		}]
 	});
+	
+	function get_countermeasure_string () {
+		var index = 0;
+		var res = [];
+		while (index < cm_types.count){
+			var test = cm_types.getAt(index);
+			if (test.get('active') == 1){
+				res.push(test.get('val'));
+			}
+			index++;
+		}
+		return res.join('~');
+	}
+	
+	function get_coeffs_string () {
+		var index = 0;
+		var res = [];
+		while (index < cm_types.count){
+			var test = cm_types.getAt(index);
+			if (test.get('active') == 1){
+				res.push((test.get('effectiveness')/100) * (test.get('fleet_pen')/100));
+			}
+			index++;
+		}
+		return res.join('~');
+	}
