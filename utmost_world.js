@@ -22,6 +22,7 @@
 		items:[{
 			xtype: 'combobox',
 			store: outcome_vals,
+			value: 'Crash Count',
 			queryMode: 'local',
 			displayField: 'name',
 			valueField: 'val',
@@ -30,6 +31,7 @@
 		}, {
 			xtype: 'combobox',
 			store: chart_vars,
+			value: 'Crash Type',
 			queryMode: 'local',
 			valueField: 'val',
 			displayField: 'name',
