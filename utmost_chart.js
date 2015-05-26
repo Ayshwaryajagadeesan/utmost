@@ -28,11 +28,7 @@
 					rotate: {
 						degrees: 270
 					}
-				},
-				dashSize: 1,
-				majorTickSteps: 1,
-				minimum = 0,
-				maximum = 30
+				}
 			}
 		],
 		series: [
