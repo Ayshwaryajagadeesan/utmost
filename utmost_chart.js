@@ -28,7 +28,8 @@
 					rotate: {
 						degrees: 270
 					}
-				}
+				},
+				dashSize: 1
 			}
 		],
 		series: [
