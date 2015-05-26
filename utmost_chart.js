@@ -29,7 +29,8 @@
 						degrees: 270
 					}
 				},
-				dashSize: 1
+				dashSize: 1,
+				majorTickSteps: 1
 			}
 		],
 		series: [
