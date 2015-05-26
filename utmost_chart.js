@@ -6,8 +6,7 @@
 	var utmost_chart = Ext.create('Ext.chart.Chart', {
 		store: utmost_chart_values,
 		animate: true,
-		theme: 'Yellow',	
-		overflowX: 'auto',
+		theme: 'Yellow',
 		legend: {
 			position: 'top'
 		},
