@@ -7,7 +7,7 @@
 		fields: [ 'crash_type', 'crash_count', 'crash_count_adj']
 	});
 	
-	/*
+	
 	var utmost_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
@@ -32,35 +32,13 @@
 			{crash_count: "64", crash_type: "XPaths@Non-Signal", crash_count_adj: "57"},
 			{crash_count: "50", crash_type: "XPaths@Signal", crash_count_adj: "15"}
 		]
-	});*/
+	});
 
 	
 	
 	
-	var utmost_chart_values = Ext.create('Ext.data.Store', {
+	/*var utmost_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
-		data : [
-			{crash_count: "100", crash_type: "Animal", crash_count_adj: "75"},
-			{crash_count: "50", crash_type: "Avoidance", crash_count_adj: "15"},
-			{crash_count: "45", crash_type: "Backing", crash_count_adj: "25"},
-			{crash_count: "37", crash_type: "Change lanes", crash_count_adj: "13"},
-			{crash_count: "64", crash_type: "Ctl Loss", crash_count_adj: "57"},
-			{crash_count: "100", crash_type: "Drifting", crash_count_adj: "75"},
-			{crash_count: "50", crash_type: "Object", crash_count_adj: "15"},
-			{crash_count: "45", crash_type: "Opp direction", crash_count_adj: "25"},
-			{crash_count: "37", crash_type: "Other", crash_count_adj: "13"},
-			{crash_count: "64", crash_type: "Parking", crash_count_adj: "57"},
-			{crash_count: "100", crash_type: "Pedicyclist", crash_count_adj: "75"},
-			{crash_count: "50", crash_type: "Rear End", crash_count_adj: "15"},
-			{crash_count: "45", crash_type: "Road Depart", crash_count_adj: "25"},
-			{crash_count: "37", crash_type: "Road Depart/Backing", crash_count_adj: "13"},
-			{crash_count: "64", crash_type: "Rollover", crash_count_adj: "57"},
-			{crash_count: "50", crash_type: "Run light/stop", crash_count_adj: "15"},
-			{crash_count: "45", crash_type: "Turning/same dir", crash_count_adj: "25"},
-			{crash_count: "37", crash_type: "Veh Failure", crash_count_adj: "13"},
-			{crash_count: "64", crash_type: "XPaths@Non-Signal", crash_count_adj: "57"},
-			{crash_count: "50", crash_type: "XPaths@Signal", crash_count_adj: "15"}
-		],
 		proxy: {
 			type: 'ajax',
 			url : 'utmost_data.php',
@@ -69,7 +47,7 @@
 				model: 'Crash_Type_Count'
 			}
 		}
-	});
+	});*/
 	
 	
 	function data_update(){
