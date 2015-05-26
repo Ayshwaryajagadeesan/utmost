@@ -18,7 +18,7 @@
 				grid: true,
 				fields: ['crash_count'],
 				minimum: 0,
-				maximum: 150
+				maximum: 1250000
 			}, {
 				title: 'Crash Type',
 				type: 'Category',
