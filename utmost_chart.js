@@ -56,7 +56,7 @@
 					color: '#333'
 				},
 				xField: 'crash_type',
-				gutter: 0,
+				groupGutter: 0,
 				yField: ['crash_count', 'crash_count_adj'],
 				title: ['Baseline Crash Count', 'Adjusted Crash Count']
 			}]
