@@ -8,7 +8,7 @@
 	});
 	
 	
-	var utmost_chart_values = Ext.create('Ext.data.Store', {
+	/*var utmost_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
 			{crash_count: "100", crash_type: "Animal", crash_count_adj: "75"},
@@ -32,12 +32,12 @@
 			{crash_count: "64", crash_type: "XPaths@Non-Signal", crash_count_adj: "57"},
 			{crash_count: "50", crash_type: "XPaths@Signal", crash_count_adj: "15"}
 		]
-	});
+	});*/
 
 	
 	
 	
-	/*var utmost_chart_values = Ext.create('Ext.data.Store', {
+	var utmost_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		proxy: {
 			type: 'ajax',
@@ -47,7 +47,7 @@
 				model: 'Crash_Type_Count'
 			}
 		}
-	});*/
+	});
 	
 	
 	function data_update(){
