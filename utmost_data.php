@@ -5,14 +5,13 @@
 // (0 value replaced by set of cms enabled)
 		$data = array();
 		$filters = $_GET["filter_string"];
+		$utmost_link= mysql_connect('cmisst-live-db.miserver.it.umich.edu', 'mtcf-sys', 'a1s2d3f4');
+		mysql_select_db('UTMOST', $utmost_link);
 		if ($_GET["filter_string"] != ""){
 			$coeffs = $_GET["coeffs_string"];
 			$filter_array = explode('~', $filters);
 			$coeff_array = explode('~', $filters);
-			$utmost_link= mysql_connect('cmisst-live-db.miserver.it.umich.edu', 'mtcf-sys', 'a1s2d3f4');
-			mysql_select_db('UTMOST', $utmost_link);
-			
-			$query = "SELECT distinct crash_type, sum(Frequency) as crash_count, sum(Frequency *(1-(0))) as crash_count_adj FROM `utmost_data` GROUP BY crash_type";
+			//$query = "SELECT distinct crash_type, sum(Frequency) as crash_count, sum(Frequency *(1-(0))) as crash_count_adj FROM `utmost_data` GROUP BY crash_type";
 			
 			$counter = 0;
 			$builder_array = array();
