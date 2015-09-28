@@ -62,9 +62,9 @@
 				coeffs_string: cm_cf_string
 			}
 		});
-		int total = 0;
-		int adj_total = 0;
-		for (int i = 0; i < utmost_chart_values.count(), i++){
+		var total = 0;
+		var adj_total = 0;
+		for (i = 0; i < utmost_chart_values.count(), i++){
 			total += utmost_chart_values.getAt(i).get('crash_count');
 			adj_total += utmost_chart_values.getAt(i).get('crash_count_adj');
 		}
