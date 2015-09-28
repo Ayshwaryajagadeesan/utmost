@@ -103,7 +103,7 @@
 				  width: 140,
 				  height: 28,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ': ' + storeItem.get('crash_count'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('crash_count')+ '  <br/>Adjusted: ' +storeItem.get('crash_count_adj'));
 				  }
 				},
 				style: {
