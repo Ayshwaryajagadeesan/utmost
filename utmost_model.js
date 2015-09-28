@@ -61,16 +61,19 @@
 				filter_string: cm_string,
 				coeffs_string: cm_cf_string
 			}
+			callback: function(records, operation, success){
+				var total = 0;
+				var adj_total = 0;
+				var count = utmost_chart_values.count();
+				for (i = 0; i < count; i++){
+					total += parseInt(utmost_chart_values.getAt(i).get('crash_count'));
+					adj_total += parseInt(utmost_chart_values.getAt(i).get('crash_count_adj'));
+				}
+				utmost_totals_chart_values.getAt(0).set('crash_count', total);
+				utmost_totals_chart_values.getAt(0).set('crash_count_adj', adj_total);
+			}
 		});
-		var total = 0;
-		var adj_total = 0;
-		var count = utmost_chart_values.count();
-		for (i = 0; i < count; i++){
-			total += parseInt(utmost_chart_values.getAt(i).get('crash_count'));
-			adj_total += parseInt(utmost_chart_values.getAt(i).get('crash_count_adj'));
-		}
-		utmost_totals_chart_values.getAt(0).set('crash_count', total);
-		utmost_totals_chart_values.getAt(0).set('crash_count_adj', adj_total);
+		
 	}
 
 
