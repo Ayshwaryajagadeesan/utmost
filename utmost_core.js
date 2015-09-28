@@ -64,7 +64,6 @@ function utmost_core(returning_user){
 			}]
 		}]
 	});
-	utmost_chart.redraw();
 	
 	//Ext.resumeLayouts(true);
 }

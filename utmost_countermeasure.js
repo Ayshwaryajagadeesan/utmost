@@ -90,7 +90,6 @@
 						}
 					}));
 					data_update();
-					utmost_chart.redraw();
 				}
 			}
 		],
