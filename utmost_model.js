@@ -62,7 +62,6 @@
 				coeffs_string: cm_cf_string
 			}
 		});
-		utmost_chart.redraw(false);
 		
 	}
 
