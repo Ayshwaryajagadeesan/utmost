@@ -85,6 +85,7 @@
 									var targ_name = this.title;
 									var rec = cm_types.findRecord('name', targ_name);
 									rec.set('active', 0);
+									data_update();
 								}
 							}
 						}
