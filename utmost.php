@@ -14,6 +14,7 @@
 		<script type="text/javascript">
 			Ext.onReady(function(){
 				utmost_core(1);
+				data_update();
 			});
 		</script>
 	

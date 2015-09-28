@@ -65,8 +65,6 @@ function utmost_core(returning_user){
 		}]
 	});
 	
-	data_update();
-	
 	//Ext.resumeLayouts(true);
 }
 	
