@@ -125,7 +125,7 @@
 	var utmost_totals_panel = Ext.create('Ext.panel.Panel', {
 		title: 'Total Change',
 		bodyPadding: 5,
-		minHeight: 150,
+		minHeight: 200,
 		region: 'north',
 		layout: 'fit',
 		items:[utmost_totals_chart]
