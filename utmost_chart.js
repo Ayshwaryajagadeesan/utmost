@@ -68,7 +68,7 @@
 	var utmost_totals_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
-			{crash_count: "122729152", crash_type: "Total", crash_count_adj: "122729152"}
+			{crash_count: 122729152, crash_type: "Total", crash_count_adj: 122729152}
 		]
 	});
 	
