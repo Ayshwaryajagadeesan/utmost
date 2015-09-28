@@ -7,7 +7,6 @@ function utmost_core(returning_user){
 	//Ext.suspendLayouts();
 
 
-	//var returning_user = 1;
 	
 	
 	Ext.tip.QuickTipManager.init();
