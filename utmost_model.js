@@ -64,7 +64,8 @@
 		});
 		var total = 0;
 		var adj_total = 0;
-		for (i = 0; i < utmost_chart_values.count(), i++){
+		var count = utmost_chart_values.count();
+		for (i = 0; i < count, i++){
 			total += utmost_chart_values.getAt(i).get('crash_count');
 			adj_total += utmost_chart_values.getAt(i).get('crash_count_adj');
 		}
