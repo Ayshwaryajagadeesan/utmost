@@ -60,7 +60,7 @@
 			params: {
 				filter_string: cm_string,
 				coeffs_string: cm_cf_string
-			}
+			},
 			callback: function(records, operation, success){
 				var total = 0;
 				var adj_total = 0;
