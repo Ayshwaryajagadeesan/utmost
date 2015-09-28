@@ -24,6 +24,7 @@
 				type: 'Category',
 				position: 'bottom',
 				fields: ['crash_type'],
+				to: 20,
 				label: {
 					rotate: {
 						degrees: 270
