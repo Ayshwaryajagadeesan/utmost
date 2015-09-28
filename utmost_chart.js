@@ -65,7 +65,7 @@
 	
 	
 		//totals chart code
-	var utmost__totals_chart_values = Ext.create('Ext.data.Store', {
+	var utmost_totals_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
 			{crash_count: "150", crash_type: "Total", crash_count_adj: "115"}
@@ -73,7 +73,7 @@
 	});
 	
 	var utmost_totals_chart = Ext.create('Ext.chart.Chart', {
-		store: utmost__totals_chart_values,
+		store: utmost_totals_chart_values,
 		animate: true,
 		theme: 'Green',		
 		legend: {
@@ -86,7 +86,7 @@
 				grid: true,
 				fields: ['crash_count'],
 				minimum: 0,
-				maximum: 200
+				maximum: 125000000
 			}, {
 				type: 'Category',
 				position: 'left',
