@@ -65,7 +65,7 @@
 		var total = 0;
 		var adj_total = 0;
 		var count = utmost_chart_values.count();
-		for (i = 0; i < count, i++){
+		for (i = 0; i < count; i++){
 			total += utmost_chart_values.getAt(i).get('crash_count');
 			adj_total += utmost_chart_values.getAt(i).get('crash_count_adj');
 		}
