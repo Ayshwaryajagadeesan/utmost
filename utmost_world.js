@@ -26,7 +26,12 @@
 			queryMode: 'local',
 			valueField: 'val',
 			displayField: 'name',
-			fieldLabel: 'Chart Variable'	
+			fieldLabel: 'Chart Variable',
+			listeners: {
+				select: function( combo, records, eOpts ){
+					data_update();
+				}
+			}
 	});
 	
 	var world_panel = Ext.create('Ext.panel.Panel', {
