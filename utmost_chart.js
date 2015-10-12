@@ -1,14 +1,6 @@
 	Ext.namespace('UTMOST');
 
 // Chart Code
-	var utmost_count_axis = Ext.create('Ext.chart.axis.Numeric', {
-		title: 'Count',
-		position: 'left',
-		grid: true,
-		fields: ['crash_count'],
-		minimum: 0,
-		maximum: 30000000
-	});
 	
 	var utmost_chart = Ext.create('Ext.chart.Chart', {
 		store: utmost_chart_values,
@@ -18,8 +10,15 @@
 			position: 'top'
 		},
 		axes: [
-			utmost_count_axis, 
 			{
+				title: 'Count',
+				type: 'Numeric',
+				position: 'left',
+				grid: true,
+				fields: ['crash_count'],
+				minimum: 0,
+				maximum: 30000000
+			}, {
 				title: 'Crash Type',
 				type: 'Category',
 				position: 'bottom',
