@@ -60,7 +60,7 @@
 		utmost_chart_values.load({
 			params: {
 				filter_string: cm_string,
-				coeffs_string: cm_cf_string
+				coeffs_string: cm_cf_string,
 				group_type: data_categories
 			},
 			callback: function(records, operation, success){
