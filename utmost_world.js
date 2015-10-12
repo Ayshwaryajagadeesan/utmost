@@ -10,8 +10,23 @@
 	var chart_vars = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],
 		data : [
-			{"val":"crash_type", "name":"Crash Type"}
+			{"val":"crash_type", "name":"Crash Type"},
+			{"val":"Vehicle_Type", "name":"Vehicle Type"},
+			{"val":"crash_direction", "name":"Crash Direction"},
+			{"val":"age", "name":"Age"},
+			{"val":"sex", "name":"Sex"},
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement"}
 		]
+	});
+	
+	var chart_variable_selector = Ext.create('Ext.form.ComboBox', {
+			xtype: 'combobox',
+			store: chart_vars,
+			value: 'Crash Type',
+			queryMode: 'local',
+			valueField: 'val',
+			displayField: 'name',
+			fieldLabel: 'Chart Variable'	
 	});
 	
 	var world_panel = Ext.create('Ext.panel.Panel', {
@@ -28,13 +43,10 @@
 			valueField: 'val',
 			fieldLabel: 'Outcome Value'	
 			
-		}, {
-			xtype: 'combobox',
-			store: chart_vars,
-			value: 'Crash Type',
-			queryMode: 'local',
-			valueField: 'val',
-			displayField: 'name',
-			fieldLabel: 'Chart Variable'	
-		}]
+		}, chart_variable_selector
+		]
 	});
+	
+	var get_data_cateogories = function(){
+		return chart_variable_selector.getValue();
+	}

@@ -56,10 +56,12 @@
 	function data_update(){
 		var cm_string = get_countermeasure_string();
 		var cm_cf_string = get_coeffs_string();
+		var data_categories = get_data_cateogories();
 		utmost_chart_values.load({
 			params: {
 				filter_string: cm_string,
 				coeffs_string: cm_cf_string
+				group_type: data_categories
 			},
 			callback: function(records, operation, success){
 				var total = 0;
