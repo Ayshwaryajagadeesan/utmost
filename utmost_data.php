@@ -27,7 +27,7 @@
 				$query = "SELECT distinct ".$group_type.", sum(Frequency) as crash_count, sum(Frequency *(1-(0 + ".$filter_query_string."))) as crash_count_adj FROM `utmost_data` GROUP BY ".$group_type;
 			}
 		} else {
-			$query = "SELECT distinct ".$group_type.", sum(Frequency) as crash_count, sum(Frequency) as crash_count_adj FROM `utmost_data` GROUP BY ".$group_type;
+			$query = "SELECT distinct ".$group_type." as crash_type, sum(Frequency) as crash_count, sum(Frequency) as crash_count_adj FROM `utmost_data` GROUP BY ".$group_type;
 		}
 		error_log($query);
         $rs=mysql_query($query ,$utmost_link);
