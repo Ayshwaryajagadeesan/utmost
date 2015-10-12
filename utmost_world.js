@@ -48,5 +48,5 @@
 	});
 	
 	var get_data_cateogories = function(){
-		return chart_variable_selector.getValue();
+		return chart_variable_selector.getSubmitValue();
 	}
