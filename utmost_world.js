@@ -22,7 +22,7 @@
 	var chart_variable_selector = Ext.create('Ext.form.ComboBox', {
 			xtype: 'combobox',
 			store: chart_vars,
-			value: 'Crash Type',
+			value: 'crash_type',
 			queryMode: 'local',
 			valueField: 'val',
 			displayField: 'name',
