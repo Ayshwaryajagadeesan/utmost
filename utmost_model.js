@@ -79,7 +79,7 @@
 				}
 				utmost_totals_chart_values.getAt(0).set('crash_count', total);
 				utmost_totals_chart_values.getAt(0).set('crash_count_adj', adj_total);
-				utmost_chart.axes.get(0).maximum = max;
+				utmost_chart.axes.get(0).maximum = max * 1.25;
 			}
 		});
 		
