@@ -3,7 +3,6 @@
 // Chart Code
 	var utmost_count_axis = Ext.create('Ext.chart.axis.Numeric', {
 		title: 'Count',
-		type: 'Numeric',
 		position: 'left',
 		grid: true,
 		fields: ['crash_count'],
