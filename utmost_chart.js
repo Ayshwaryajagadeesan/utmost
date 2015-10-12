@@ -11,7 +11,7 @@
 		},
 		axes: [
 			{
-				title: 'Count',
+				title: 'Crash Count',
 				type: 'Numeric',
 				position: 'left',
 				grid: true,
@@ -19,7 +19,7 @@
 				minimum: 0,
 				maximum: 30000000
 			}, {
-				title: 'Crash Type',
+				title: 'Type',
 				type: 'Category',
 				position: 'bottom',
 				fields: ['crash_type'],
