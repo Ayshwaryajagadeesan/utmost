@@ -6,7 +6,7 @@
 		$data = array();
 		$filters = $_GET["filter_string"];
 		//$group_type = "crash_type";
-		$group_type =  $_GET["group_type"]
+		$group_type =  $_GET["group_type"];
 		$utmost_link= mysql_connect('cmisst-live-db.miserver.it.umich.edu', 'mtcf-sys', 'a1s2d3f4');
 		mysql_select_db('UTMOST', $utmost_link);
 		if ($_GET["filter_string"] != ""){
