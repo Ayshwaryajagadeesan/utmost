@@ -64,15 +64,22 @@
 				group_type: data_categories
 			},
 			callback: function(records, operation, success){
+				var max = 0;
+				var top_count = 0
 				var total = 0;
 				var adj_total = 0;
 				var count = utmost_chart_values.count();
 				for (i = 0; i < count; i++){
-					total += parseInt(utmost_chart_values.getAt(i).get('crash_count'));
+					top_count = parseInt(utmost_chart_values.getAt(i).get('crash_count'));
+					if (max < top_count){
+						max = top_count;
+					}
+					total += top_count;
 					adj_total += parseInt(utmost_chart_values.getAt(i).get('crash_count_adj'));
 				}
 				utmost_totals_chart_values.getAt(0).set('crash_count', total);
 				utmost_totals_chart_values.getAt(0).set('crash_count_adj', adj_total);
+				utmost_count_axis.maximum = max;
 			}
 		});
 		
