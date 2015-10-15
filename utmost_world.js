@@ -11,7 +11,7 @@
 		fields: ['val', 'name'],
 		data : [
 			{"val":"crash_type", "name":"Crash Type" },
-/*			{"val":"Vehicle_Type", "name":"Vehicle Type"}*/,
+/*			{"val":"Vehicle_Type", "name":"Vehicle Type"},*/
 			
 			{"val":"crash_direction", "name":"Crash Direction"},
 			{"val":"age", "name":"Age"}
