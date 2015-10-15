@@ -10,12 +10,12 @@
 	var chart_vars = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],
 		data : [
-			{"val":"crash_type", "name":"Crash Type"},
-			{"val":"Vehicle_Type", "name":"Vehicle Type"},
+			{"val":"crash_type", "name":"Crash Type", },
+/*			{"val":"Vehicle_Type", "name":"Vehicle Type"}*/,
 			{"val":"crash_direction", "name":"Crash Direction"},
-			{"val":"age", "name":"Age"},
+			{"val":"age", "name":"Age"}/*,
 			{"val":"sex", "name":"Sex"},
-			{"val":"alcohol_involvement", "name":"Alcohol Involvement"}
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement"}*/
 		]
 	});
 	
@@ -29,6 +29,13 @@
 			fieldLabel: 'Chart Variable',
 			listeners: {
 				select: function( combo, records, eOpts ){
+					if (chart_variable_selector.getSubmitValue() == "crash_type"){
+						utmost_chart.axes.getAt(0).maximum = 50000000;
+					} else if (chart_variable_selector.getSubmitValue() == "crash_direction"){
+						utmost_chart.axes.getAt(0).maximum = 60000000;
+					} else if (chart_variable_selector.getSubmitValue() == "age"){
+						utmost_chart.axes.getAt(0).maximum = 50000000;
+					}
 					data_update();
 				}
 			}

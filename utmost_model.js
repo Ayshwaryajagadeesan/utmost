@@ -70,16 +70,12 @@
 				var adj_total = 0;
 				var count = utmost_chart_values.count();
 				for (i = 0; i < count; i++){
-					top_count = parseInt(utmost_chart_values.getAt(i).get('crash_count'));
-					if (max < top_count){
-						max = top_count;
-					}
-					total += top_count;
+					total += parseInt(utmost_chart_values.getAt(i).get('crash_count'));
 					adj_total += parseInt(utmost_chart_values.getAt(i).get('crash_count_adj'));
 				}
 				utmost_totals_chart_values.getAt(0).set('crash_count', total);
 				utmost_totals_chart_values.getAt(0).set('crash_count_adj', adj_total);
-				utmost_chart.axes.getAt(0).maximum = max * 1.25;
+				//utmost_chart.axes.getAt(0).maximum = max * 1.25;
 				utmost_chart.axes.getAt(1).title = chart_variable_selector.getValue();
 				utmost_chart.redraw(true);
 			}
