@@ -12,7 +12,7 @@
 		if ($_GET["filter_string"] != ""){
 			$coeffs = $_GET["coeffs_string"];
 			$filter_array = explode('~', $filters);
-			$coeff_array = explode('~', $filters);
+			$coeff_array = explode('~', $coeffs);
 			//$query = "SELECT distinct crash_type, sum(Frequency) as crash_count, sum(Frequency *(1-(0))) as crash_count_adj FROM `utmost_data` GROUP BY crash_type";
 			
 			$counter = 0;
