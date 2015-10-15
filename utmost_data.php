@@ -25,6 +25,7 @@
 			if (count($filter_array) > 0){
 				$filter_query_string = implode(" + ", $builder_array);
 				$query = "SELECT distinct ".$group_type." as crash_type, sum(Frequency) as crash_count, sum(Frequency *(1-(0 + ".$filter_query_string."))) as crash_count_adj FROM `utmost_data` GROUP BY ".$group_type;
+				error_log($query);
 			}
 		} else {
 			$query = "SELECT distinct ".$group_type." as crash_type, sum(Frequency) as crash_count, sum(Frequency) as crash_count_adj FROM `utmost_data` GROUP BY ".$group_type;
