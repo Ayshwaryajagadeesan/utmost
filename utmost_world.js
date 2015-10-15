@@ -10,10 +10,12 @@
 	var chart_vars = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],
 		data : [
-			{"val":"crash_type", "name":"Crash Type", },
+			{"val":"crash_type", "name":"Crash Type" },
 /*			{"val":"Vehicle_Type", "name":"Vehicle Type"}*/,
+			
 			{"val":"crash_direction", "name":"Crash Direction"},
-			{"val":"age", "name":"Age"}/*,
+			{"val":"age", "name":"Age"}
+			/*,
 			{"val":"sex", "name":"Sex"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement"}*/
 		]
