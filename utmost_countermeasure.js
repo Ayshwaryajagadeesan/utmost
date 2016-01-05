@@ -1,19 +1,33 @@
 	Ext.namespace('UTMOST');
 	
 //CM Panel Code
+
+	Ext.define('Countermeasure_Type_Count', {
+		extend: 'Ext.data.Model',
+		fields: [ 
+				{name: 'val', type: 'string'}, 
+				{name: 'name', type: 'string'}, 
+				{name: 'active', type: 'int'},
+				{name: 'effectiveness', type: 'int'}, 
+				{name: 'fleet_pen', type: 'int'}, 
+				{name: 'description', type: 'string'}
+				]
+	});
+	
 	var cm_types = Ext.create('Ext.data.Store', {
-		fields: ['val', 'name', 'active', 'effectiveness', 'fleet_pen'],
+		//fields: ['val', 'name', 'active', 'effectiveness', 'fleet_pen', 'description'],
+		model: 'Countermeasure_Type_Count',
 		data : [
-			{"val":"LDW", "name":"Lane Departure Warning","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"ACC", "name":"Adaptive Cruise Control","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"Alcohol_Interlock", "name":"Alcohol Interlock","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"FCW", "name":"Forward Collision Warning","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"LCW", "name":"Lateral Collision Warning","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"Lane_Keeping_Assist", "name":"Lane-Keeping Assist","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"Pedestrian_Detection", "name":"Pedestrian Detection","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"Backing_Collision_Warning", "name":"Backing Collision Warning","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"ESC", "name":"Electronic Stability Control","active":0,"effectiveness":100,"fleet_pen":100},
-			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":100,"fleet_pen":100}
+			{"val":"LDW", "name":"Lane Departure Warning","active":0,"effectiveness":25,"fleet_pen":100, "description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)"},
+			{"val":"ACC", "name":"Adaptive Cruise Control","active":0,"effectiveness":29,"fleet_pen":100, "description":"Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decellerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998)"},
+			{"val":"Alcohol_Interlock", "name":"Alcohol Interlock","active":0,"effectiveness":18,"fleet_pen":100, "description":"Alcohol Interlock is a system that checks the blood alcohol of the driver before allowing the vehicle to be turned on. Alcohol interlocks are estimated to reduce 18% of crashes where alcohol was a factor (eSafety Forum 2005)"},
+			{"val":"FCW", "name":"Forward Collision Warning","active":0,"effectiveness":50,"fleet_pen":100, "description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)"},
+			{"val":"LCW", "name":"Lane Change Warning","active":0,"effectiveness":38,"fleet_pen":100, "description":"Lane Change Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in a nearby lane. Lane change warning systems are estimated to reduce 37-40% of drifting and lane change crashes (FHWA 1998, Kaniantrha and Murtig 1997, McKeever 1998)"},
+			{"val":"Lane_Keeping_Assist", "name":"Lane-Keeping Assist","active":0,"effectiveness":25,"fleet_pen":100, "description":"Lane-Keeping Assist is a system that scans the road and automatically keeps a vehicle within its own lane. Lane keeping assistance systems are estimated to reduce 17-25% of off-path crashes (eSafety Forum 2005, FHWA 1998, eImpact Project 2005), 24% of head-on collisions (eImpact Project 2005), and 60% of sideswipe collisions (eImpact Project 2005)"},
+			{"val":"Pedestrian_Detection", "name":"Pedestrian Detection","active":0,"effectiveness":5,"fleet_pen":100, "description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle, potentially out of sight of the driver. There are no currently published estimates on the effectiveness of pedestrian detection systems."},
+			{"val":"Backing_Collision_Warning", "name":"Reverse Collision Warning","active":0,"effectiveness":65,"fleet_pen":100, "description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)"},
+			{"val":"ESC", "name":"Electronic Stability Control","active":0,"effectiveness":40,"fleet_pen":100, "description":"Electronic Stability Control is a system that automatically adjust the braking and/or engine power to multiple wheels in order to maintain vehicle stability in adverse conditions. Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS)."},
+			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":24,"fleet_pen":100, "description":"Road Departure Warning is a system that alerts the driver when the vehicle is detected to be departing the roadway. Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)"}
 		]
 	});
 	
@@ -27,30 +41,48 @@
 		valueField: 'name',
 		fieldLabel: 'Select Countermeasure'
 	});
+	var cm_description = Ext.create('Ext.panel.Panel',{
+		name: 'cm_desc',
+		title: "Description",
+		bodyPadding: 5,
+		height: "100%",
+		flex: 1
+	});
+	var effectiveness_slider = Ext.create('Ext.slider.Single', {
+		fieldLabel: "Countermeasure Effectiveness:",
+		name: 'cm_effect',
+		//xtype: "sliderfield",
+		width: "100%",
+		value: 50,
+		increment: 1,
+		minValue: 0,
+		maxValue: 100
+	});
+	var penetration_slider = Ext.create('Ext.slider.Single', {
+		fieldLabel: "Fleet Penetration:",
+		//xtype: "sliderfield",
+		name: 'cm_pen',
+		width: "100%",
+		value: 50,
+		increment: 1,
+		minValue: 0,
+		maxValue: 100
+	});
 	var countermeasure_edit_form = Ext.create('Ext.form.Panel', {
 		layout: "form",
+		title: "Parameters",
+		flex: 1,
+		bodyPadding: 5,
 		items: [
-			countermeasure_list, 
-			{
-				fieldLabel: "Countermeasure Effectiveness:",
-				name: 'cm_effect',
-				xtype: "sliderfield",
-				width: "100%",
-				value: 50,
-				increment: 1,
-				minValue: 0,
-				maxValue: 100
-			}, {
-				fieldLabel: "Fleet Penetration:",
-				xtype: "sliderfield",
-				name: 'cm_pen',
-				width: "100%",
-				value: 50,
-				increment: 1,
-				minValue: 0,
-				maxValue: 100
-			}
+			countermeasure_list,
+			effectiveness_slider, 
+			penetration_slider
 		]
+	});
+	countermeasure_list.on('select', function(combo, record, index){
+		cm_description.update(record[0].get('description'));
+		effectiveness_slider.setValue(record[0].get('effectiveness'));
+		penetration_slider.setValue(record[0].get('fleet_pen'));
 	});
 	var countermeasure_edit_window = Ext.create('Ext.window.Window', {
 		layout: "form",
@@ -59,7 +91,11 @@
 		closeable: false,
 		resizable: false,
 		items: [
-			countermeasure_edit_form,
+			{
+				xtype: 'panel',
+				layout: 'hbox',
+				items: [countermeasure_edit_form, cm_description]
+			},
 			{
 				xtype: "button",
 				text: "Save",

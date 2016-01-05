@@ -1,6 +1,6 @@
 //UI core
 
-
+var utmost_references = "<h3>References</h3><br/><br/>Abele, J., Kerlen, C., Krueger, S., Baum, H., Geisler, T., Grawenhoff, S., Schneider, J., & Schulz, W.H. (2005). Exploratory study on the potential socio-economic impact of the introduction of intelligent safety systems in road vehicles. Tetlow, Germany: VDI/VDE Innovation.<br/><br/>Bayly, M., Fildes, B., Regan, M., and Young, K. (2007) Review of crash effectiveness of Intelligent Transport Systems, TRACE.<br/><br/>CRTAS (2010) China Road Traffic Accidents Statistics. Traffic Administration Bureau of China State Security Ministry, Beijing, China.<br/><br/>eSafety Forum (2001). Attempt to assess the impact of Telematics systems on the improvement of the accident situation.<br/><br/>eSafety Forum. (2005). Final report and recommendations of the implementation road map working group.<br/><br/>FHWA. (1998). The future of transportation starts here. Intelligent Transport Systems. Washington DC: U.S. Department of Transportation, Federal Highway Administration. <br/><br/>Kanianthra, J.N., & Mertig, A.A. (1997). Opportunities for collision countermeasures using intelligent technologies. Washington DC: National Highway Traffic Safety Administration. <br/><br/>Lee, J.D., McGehee, D.V., Brown, T.L., & Reyes, M.L. (2002). Collision warning timing, driver distraction, and driver response to imminent rear-end collisions in a high-fidelity driving  simulator. <i>Human Factors</i> 44:314-335.<br/><br/>McKeever, B.B. (1998). Working paper: Estimating the potential safety benefits of intelligent transport systems.  Washington DC: Mitretek Systems.<br/><br/>NHTSA (2001). Status of NHTSA’s rear-end crash prevention programme. National Highway Traffic Safety Administration. Available at: <a>http://www-nrd.nhtsa.dot.gov/pdf/nrd-01/esv/esv19/05-0282-O.pdf</a>. Accessed: 23/11/2006.<br/><br/>Regan, M.A., Mitsopoulos, E., Haworth, N., & Young, K. (2002). Acceptability of in-vehicle Intelligent Transport Systems to Victorian car drivers. Clayton, Australia: Monash University Accident Research Centre.<br/><br/>Regan, M.A., Oxley, J.A., Godley, S.T., & Tingvall, C. (2001). Intelligent Transport Systems: Safety and human factors issues. Clayton, Australia: Monash University Accident Research Centre.<br/><br/>Sugimoto, Y., & Sauer, C. (2005). Effectiveness estimation method for advanced driver assistance system and its application to collision mitigation brake system. <i>Proceedings of the 19th International Technical Conference on the Enhanced Safety of Vehicles.</i> Washington, DC.";
 
 function utmost_core(returning_user){
 
@@ -23,7 +23,12 @@ function utmost_core(returning_user){
 			autoScroll: true,
 			activeTab: returning_user,
 			items: [{
-				title: 'Instructions'
+				title: 'Instructions',
+				tabConfig: {
+					title: 'Instructions',
+					tooltip: 'Instructions'
+				},
+				html: 'Welcome to UTMOST! <br/> <br/>  UTMOST is a tool that demonstrates the impact of various crash avoidance technologies on the population of US crashes.  <br/> <br/> The population data are drawn from the National Automotive Sampling System General Estimate System (NASS GES), a representative sample of US crashes. <br/> <br/> Chosen countermeasures apply to the types of crashes relevant to the systems.  Users are then able to set a chosen <b>Effectiveness</b> of each system, as well as the degree of <b>Fleet Penetration</b> that system has within the greater population. '
 			}, {
 				title: 'Data Tool',
 				tabConfig: {
@@ -59,7 +64,8 @@ function utmost_core(returning_user){
 				tabConfig: {
 					title: 'References',
 					tooltip: 'UTMOST References and Documentation'
-				}
+				},
+				html: utmost_references
 			}]
 		}]
 	});
