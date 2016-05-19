@@ -4,7 +4,7 @@
 	var outcome_vals = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],
 		data : [
-			{"val":"crash_count", "name":"Crash Count"}
+			{"val":"person_count", "name":"Person Count"}
 		]
 	});
 	var chart_vars = Ext.create('Ext.data.Store', {
@@ -51,7 +51,7 @@
 		items:[{
 			xtype: 'combobox',
 			store: outcome_vals,
-			value: 'Crash Count',
+			value: 'Person Count',
 			queryMode: 'local',
 			displayField: 'name',
 			valueField: 'val',

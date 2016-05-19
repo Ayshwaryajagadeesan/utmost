@@ -6,8 +6,8 @@
 		extend: 'Ext.data.Model',
 		fields: [ 
 				{name: 'crash_type', type: 'string'}, 
-				{name: 'crash_count', type: 'float'}, 
-				{name: 'crash_count_adj', type: 'float'}]
+				{name: 'person_count', type: 'float'}, 
+				{name: 'person_count_adj', type: 'float'}]
 	});
 	
 	
@@ -70,11 +70,11 @@
 				var adj_total = 0;
 				var count = utmost_chart_values.count();
 				for (i = 0; i < count; i++){
-					total += parseInt(utmost_chart_values.getAt(i).get('crash_count'));
-					adj_total += parseInt(utmost_chart_values.getAt(i).get('crash_count_adj'));
+					total += parseInt(utmost_chart_values.getAt(i).get('person_count'));
+					adj_total += parseInt(utmost_chart_values.getAt(i).get('person_count_adj'));
 				}
-				utmost_totals_chart_values.getAt(0).set('crash_count', total);
-				utmost_totals_chart_values.getAt(0).set('crash_count_adj', adj_total);
+				utmost_totals_chart_values.getAt(0).set('person_count', total);
+				utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
 				//utmost_chart.axes.getAt(0).maximum = max * 1.25;
 				utmost_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
 				utmost_chart.redraw(true);

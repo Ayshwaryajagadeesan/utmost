@@ -11,11 +11,11 @@
 		},
 		axes: [
 			{
-				title: 'Crash Count',
+				title: 'Person Count',
 				type: 'Numeric',
 				position: 'left',
 				grid: true,
-				fields: ['crash_count'],
+				fields: ['person_count'],
 				minimum: 0,
 				maximum: 50000000
 			}, {
@@ -41,7 +41,7 @@
 				  width: 140,
 				  height: 45,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('crash_count')+ '  <br/>Adjusted: ' +storeItem.get('crash_count_adj'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count')+ '  <br/>Adjusted: ' +storeItem.get('person_count_adj'));
 				  }
 				},
 				style: {
@@ -57,8 +57,8 @@
 				},
 				xField: 'crash_type',
 				groupGutter: 0,
-				yField: ['crash_count', 'crash_count_adj'],
-				title: ['Baseline Crash Count', 'Adjusted Crash Count']
+				yField: ['person_count', 'person_count_adj'],
+				title: ['Baseline Person Count', 'Adjusted Person Count']
 			}]
 	});
 	
@@ -67,7 +67,7 @@
 	var utmost_totals_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
-			{crash_count: 122729152, crash_type: "Total", crash_count_adj: 122729152}
+			{person_count: 122729152, crash_type: "Total", person_count_adj: 122729152}
 		]
 	});
 	
@@ -83,7 +83,7 @@
 				type: 'Numeric',
 				position: 'bottom',
 				grid: true,
-				fields: ['crash_count'],
+				fields: ['person_count'],
 				minimum: 0,
 				maximum: 125000000
 			}, {
@@ -102,7 +102,7 @@
 				  width: 140,
 				  height: 45,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('crash_count')+ '  <br/>Adjusted: ' +storeItem.get('crash_count_adj'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count')+ '  <br/>Adjusted: ' +storeItem.get('person_count_adj'));
 				  }
 				},
 				style: {
@@ -117,8 +117,8 @@
 					color: '#333'
 				},
 				xField: 'crash_type',
-				yField: ['crash_count', 'crash_count_adj'],
-				title: ['Baseline Crash Count', 'Adjusted Crash Count']
+				yField: ['person_count', 'person_count_adj'],
+				title: ['Baseline', 'Adjusted']
 			}]
 	});
 	var utmost_totals_panel = Ext.create('Ext.panel.Panel', {
