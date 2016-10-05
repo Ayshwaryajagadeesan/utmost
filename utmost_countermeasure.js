@@ -102,6 +102,11 @@
 		name: 'cm_radio',
 		hidden: true
 	});
+	var countermeasure_population_selector = Ext.create('Ext.panel.Panel',{
+		width: "100%",
+		name: 'cm_population',
+		hidden: true
+	});
 	var countermeasure_edit_form = Ext.create('Ext.form.Panel', {
 		layout: "form",
 		title: "Parameters",
@@ -112,7 +117,8 @@
 			effectiveness_slider, 
 			penetration_slider,
 			countermeasure_category_multiselector,
-			countermeasure_category_singleselector
+			countermeasure_category_singleselector,
+			countermeasure_population_selector
 		]
 	});
 	countermeasure_list.on('select', function(combo, record, index){
@@ -122,6 +128,8 @@
 			penetration_slider.setVisible(true);
 			countermeasure_category_singleselector.setVisible(false);
 			countermeasure_category_multiselector.setVisible(false);
+			countermeasure_population_selector.setVisible(false);
+			
 			cm_description.update(record[0].get('description'));
 			effectiveness_slider.setValue(record[0].get('effectiveness'));
 			penetration_slider.setValue(record[0].get('fleet_pen'));
@@ -129,15 +137,18 @@
 			//clear child selectors
 			countermeasure_category_singleselector.removeAll();
 			countermeasure_category_multiselector.removeAll();
+			countermeasure_population_selector.removeAll();
 		} else if (selected_cm_type == "category_unique"){
 			effectiveness_slider.setVisible(false);
 			penetration_slider.setVisible(false);
 			countermeasure_category_singleselector.setVisible(true);
 			countermeasure_category_multiselector.setVisible(false);
+			countermeasure_population_selector.setVisible(false);
 			
 			//clear child selectors
 			countermeasure_category_singleselector.removeAll();
 			countermeasure_category_multiselector.removeAll();
+			countermeasure_population_selector.removeAll();
 			
 			//Set label
 			countermeasure_category_singleselector.setFieldLabel(record[0].get('name'));
@@ -158,10 +169,12 @@
 			penetration_slider.setVisible(false);
 			countermeasure_category_singleselector.setVisible(false);
 			countermeasure_category_multiselector.setVisible(true);
+			countermeasure_population_selector.setVisible(false);
 			
 			//clear child selectors
 			countermeasure_category_singleselector.removeAll();
 			countermeasure_category_multiselector.removeAll();
+			countermeasure_population_selector.removeAll();
 			
 			//Set label
 			countermeasure_category_multiselector.setFieldLabel(record[0].get('name'));
@@ -175,6 +188,27 @@
 			cm_options.each(function(record){
 				//If slow change this to a single add of an array of boxes
 				countermeasure_category_multiselector.add({boxLabel:record.get('name'), name:record.get('name'), inputValue:record.get('target_val')});
+			});
+		} else if (selected_cm_type == "population"){
+			effectiveness_slider.setVisible(false);
+			penetration_slider.setVisible(false);
+			countermeasure_category_singleselector.setVisible(false);
+			countermeasure_category_multiselector.setVisible(false);
+			countermeasure_population_selector.setVisible(true);
+			
+			//clear child selectors
+			countermeasure_category_singleselector.removeAll();
+			countermeasure_category_multiselector.removeAll();
+			countermeasure_population_selector.removeAll();
+			
+			//add correct child selectors
+			cm_options.clearFilter();
+			cm_options.filter('category_val', record[0].get('val'));
+			cm_options.each(function(record){
+				//create set of sliders at default value
+				countermeasure_category_multiselector.add({boxLabel:record.get('name'), name:record.get('name'), inputValue:record.get('target_val')});
+				
+				//handle multislider function?
 			});
 		}
 	});
@@ -255,7 +289,38 @@
 						data_update();
 					} else if(countermeasure_category_multiselector.isVisible()){
 						/*Fix querying to support multiselect*/
-					}
+					} else if(countermeasure_population_selector.isVisible()){
+						countermeasure_edit_window.hide();
+						cm_types.clearFilter();
+						var form_values = countermeasure_category_singleselector.getValue();
+						var cm_title = countermeasure_category_singleselector.getFieldLabel();
+						var rec = cm_types.findRecord('name', cm_title);
+						rec.set('active', 1);
+						for (var item in form_values){
+							var modifier_lookup = cm_options.findRecord('name', item);
+							rec.set('effectiveness', modifier_lookup.get('effectiveness'));
+							rec.set('fleet_pen', modifier_lookup.get('fleet_pen'));
+							active_countermeasure_panel.add(Ext.create('Ext.panel.Panel', {
+								title:cm_title,
+								closable: true,
+								bodyPadding: 5,
+								margin: 5,
+								html: "<p>Active Law: "+item,
+								listeners:{
+									close:{
+										fn: function(){
+											//clear filter activity
+											var targ_name = this.title;
+											var rec = cm_types.findRecord('name', targ_name);
+											rec.set('active', 0);
+											data_update();
+										}
+									}
+								}
+							}));
+						}
+						data_update();
+					
 					cm_options.clearFilter();
 				}
 			}
