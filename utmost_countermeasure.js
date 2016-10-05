@@ -30,26 +30,30 @@
 			{"val":"Backing_Collision_Warning", "name":"Reverse Collision Warning","active":0,"effectiveness":65,"fleet_pen":100, "description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)", 'selector_type': "numeric"},
 			{"val":"ESC", "name":"Electronic Stability Control","active":0,"effectiveness":40,"fleet_pen":100, "description":"Electronic Stability Control is a system that automatically adjust the braking and/or engine power to multiple wheels in order to maintain vehicle stability in adverse conditions. Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 'selector_type': "numeric"},
 			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":24,"fleet_pen":100, "description":"Road Departure Warning is a system that alerts the driver when the vehicle is detected to be departing the roadway. Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)", 'selector_type': "numeric"},
-			{"val":"FCW", "name":"Helmet Laws","active":0,"effectiveness":100,"fleet_pen":100, "description":"Michigan thought it was totally brilliant to defang it's motorcycle helmet law and has been collecting vegetables since. It's basically as good as no law.  Instead, choose proper laws.  ", 'selector_type': "category_unique"}
+			{"val":"FCW", "name":"Helmet Laws","active":0,"effectiveness":100,"fleet_pen":100, "description":"Hopefully by the time this is on display, all of the sliding issues are fixed and this looks awesome.  Else, this demo will likely be pitiful and underwhelming.", 'selector_type': "population"}
 		]
 	});
 	
-	Ext.define('Countermeasure_Box_Category', {
+	Ext.define('Countermeasure_Detail', {
 		extend: 'Ext.data.Model',
 		fields: [ 
 				{name: 'category_val', type: 'string'}, 
 				{name: 'name', type: 'string'}, 
 				{name: 'target_val', type: 'string'},
 				{name: 'effectiveness', type: 'int'}, 
-				{name: 'fleet_pen', type: 'int'}
+				{name: 'proportion', type: 'int'},
+				{name: 'lock', type: 'int'}
 				]
 	});
 	
 	var cm_options = Ext.create('Ext.data.Store', {
-		model: 'Countermeasure_Box_Category',
+		model: 'Countermeasure_Detail',
 		data : [
-			{"category_val":"FCW", 'name':"Real Law", 'target_val':"FCW", 'effectiveness':100, 'fleet_pen':100},
-			{"category_val":"FCW", 'name':"Fake Law", 'target_val':"FCW", 'effectiveness':5, 'fleet_pen':5}
+			{"category_val":"FCW", 'name':"Law Grade 1", 'target_val':"FCW", 'effectiveness':5, 'proportion':10, 'lock': 0},
+			{"category_val":"FCW", 'name':"Law Grade 2", 'target_val':"FCW", 'effectiveness':25, 'proportion':20, 'lock': 0},
+			{"category_val":"FCW", 'name':"Law Grade 3", 'target_val':"FCW", 'effectiveness':50, 'proportion':15, 'lock': 0},
+			{"category_val":"FCW", 'name':"Law Grade 4", 'target_val':"FCW", 'effectiveness':75, 'proportion':5, 'lock': 0},
+			{"category_val":"FCW", 'name':"Law Grade 5", 'target_val':"FCW", 'effectiveness':100, 'proportion':50, 'lock': 0}
 		]
 	});
 	
@@ -201,13 +205,99 @@
 			countermeasure_category_multiselector.removeAll();
 			countermeasure_population_selector.removeAll();
 			
+			//group description
+			cm_description.update(record[0].get('description'));
+			
 			//add correct child selectors
 			cm_options.clearFilter();
 			cm_options.filter('category_val', record[0].get('val'));
 			cm_options.each(function(record){
 				//create set of sliders at default value
-				countermeasure_category_multiselector.add({boxLabel:record.get('name'), name:record.get('name'), inputValue:record.get('target_val')});
+				countermeasure_population_selector.add({
+					xtype:'sliderfield', 
+					width:'100%',
+					fieldLabel: record.get('name'), 
+					name: record.get('name'), 
+					value: record.get('proportion'),
+					increment: 1,
+					minValue: 0,
+					maxValue: 100,
+					listeners: {
+						beforechange: {
+							fn: function(slider, newValue, oldValue){
+								var rec = cm_options.findRecord('name', slider.getFieldLabel());
+								var delta = newValue - rec.get('proportion');
+								rec.set('proportion', newValue);
+								var total_count = countermeasure_population_selector.items.getCount();
+								var index = 0;
+								var unlocked_indexes = [];
+								while (index < total_count){
+									var targeted_slider = countermeasure_population_selector.items.getAt(index);
+									var rec_lookup = cm_options.findRecord('name', targeted_slider.getFieldLabel());
+									if (rec_lookup.get('lock') == 0 && rec_lookup.get('name') != slider.getFieldLabel()){
+										unlocked_indexes.push(index);
+									}
+									index +=2;
+								}
+								index = 0;
+								while (index < unlocked_indexes.length){
+									var selected_slider = countermeasure_population_selector.items.getAt(unlocked_indexes[index]);
+									selected_slider.suspendEvents();
+									var shifted_value = selected_slider.getValue() - delta;
+									if (shifted_value > 100){
+										delta = 100 - shifted_value;
+										shifted_value = 100;
+									} else if (shifted_value < 0){
+										delta = 0 - shifted_value;
+										shifted_value = 0;
+									} else{
+										delta = 0;
+									}
+									selected_slider.setValue(shifted_value);
+									selected_slider.resumeEvents();
+									index++;
+								}
+								if (delta != 0){
+									//change not used up by unlocked sliders, re-set sliders to match record values
+									index = 0;
+									while (index < unlocked_indexes.length){
+										var selected_slider = countermeasure_population_selector.items.getAt(unlocked_indexes[index]);
+										var selected_record = cm_options.findRecord('name', selected_slider.getFieldLabel());
+										selected_slider.setValue(selected_record.get('proportion'));
+										index++;
+									}
+									return false;
+								} else {
+									//commit change and return true if change value is used up
+									index = 0;
+									while (index < unlocked_indexes.length){
+										var selected_slider = countermeasure_population_selector.items.getAt(unlocked_indexes[index]);
+										var selected_record = cm_options.findRecord('name', selected_slider.getFieldLabel());
+										selected_record.set('proportion', selected_slider.getValue());
+										index++;
+									}
+								}
+							}
+						}
+					}
+				});
+				countermeasure_population_selector.add({
+					xtype:'checkbox', 
+					width:'100%',
+					fieldLabel: 'Lock',
+					name: record.get('name'),
+					listeners: {
+						change: {
+							fn: function(box, newValue, oldValue){
+								var rec = cm_options.findRecord('name', box.getName());
+								var val = newValue ? 1 : 0;
+								rec.set('lock', val);
+							}
+						}
+					}
+				});
 				
+				record.set('lock', 0);
 				//handle multislider function?
 			});
 		}
@@ -291,36 +381,46 @@
 						/*Fix querying to support multiselect*/
 					} else if(countermeasure_population_selector.isVisible()){
 						countermeasure_edit_window.hide();
-						cm_types.clearFilter();
-						var form_values = countermeasure_category_singleselector.getValue();
-						var cm_title = countermeasure_category_singleselector.getFieldLabel();
+						var cm_title = countermeasure_list.getValue();
+						
+						//Get main record value
 						var rec = cm_types.findRecord('name', cm_title);
 						rec.set('active', 1);
-						for (var item in form_values){
-							var modifier_lookup = cm_options.findRecord('name', item);
-							rec.set('effectiveness', modifier_lookup.get('effectiveness'));
-							rec.set('fleet_pen', modifier_lookup.get('fleet_pen'));
-							active_countermeasure_panel.add(Ext.create('Ext.panel.Panel', {
-								title:cm_title,
-								closable: true,
-								bodyPadding: 5,
-								margin: 5,
-								html: "<p>Active Law: "+item,
-								listeners:{
-									close:{
-										fn: function(){
-											//clear filter activity
-											var targ_name = this.title;
-											var rec = cm_types.findRecord('name', targ_name);
-											rec.set('active', 0);
-											data_update();
-										}
+						rec.set('effectiveness', 0);
+						rec.set('fleet_pen', 100);
+						
+						cm_options.each(function(item){
+							var rec = cm_types.findRecord('name', cm_title);
+							var prev = rec.get('effectiveness');
+							prev += (item.get('effectiveness') * item.get('proportion'))/(1000);
+							if(prev >= 100){
+								prev = 100;
+							} 
+							rec.set('effectiveness', prev);
+						});
+						cm_types.clearFilter();
+						
+						active_countermeasure_panel.add(Ext.create('Ext.panel.Panel', {
+							title:cm_title,
+							closable: true,
+							bodyPadding: 5,
+							margin: 5,
+							html: "<p>Active Law: "+cm_title,
+							listeners:{
+								close:{
+									fn: function(){
+										//clear filter activity
+										var targ_name = this.title;
+										var rec = cm_types.findRecord('name', targ_name);
+										rec.set('active', 0);
+										data_update();
 									}
 								}
-							}));
-						}
+							}
+						}));
+						
 						data_update();
-					
+					}
 					cm_options.clearFilter();
 				}
 			}
