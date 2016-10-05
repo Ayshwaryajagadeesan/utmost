@@ -21,6 +21,15 @@
 		]
 	});
 	
+	var chart_subsets = Ext.create('Ext.data.Store', {
+		fields: ['val', 'name'],
+		data : [
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
+			{"val":"age", "name":"Age"}
+		]
+	});
+	
+	
 	var chart_variable_selector = Ext.create('Ext.form.ComboBox', {
 			xtype: 'combobox',
 			store: chart_vars,
@@ -42,6 +51,23 @@
 				}
 			}
 	});
+
+	
+	var chart_subset_selector = Ext.create('Ext.form.ComboBox', {
+			xtype: 'combobox',
+			store: chart_subsets,
+			queryMode: 'local',
+			valueField: 'val',
+			displayField: 'name',
+			fieldLabel: 'Chart Variable',
+			listeners: {
+				select: function( combo, records, eOpts ){
+					data_update();
+					generate_subset_tabs(chart_subset_selector.getSubmitValue());
+				}
+			}
+	});
+	
 	
 	var world_panel = Ext.create('Ext.panel.Panel', {
 		title: 'World Configuration',
@@ -57,10 +83,14 @@
 			valueField: 'val',
 			fieldLabel: 'Outcome Value'	
 			
-		}, chart_variable_selector
+		}, chart_variable_selector, chart_subset_selector
 		]
 	});
 	
 	var get_data_cateogories = function(){
 		return chart_variable_selector.getSubmitValue();
+	}
+	
+	var get_data_subset_var = function(){
+		return chart_subset_selector.getSubmitValue();
 	}

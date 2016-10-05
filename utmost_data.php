@@ -7,6 +7,12 @@
 		$filters = $_GET["filter_string"];
 		//$group_type = "crash_type";
 		$group_type =  $_GET["group_type"];
+		$subset_variable = $_GET["subset_variable"];
+		$subset_category = $_GET["subset_category"];
+		$subset_string = 'WHERE 1';
+		if ($_GET["subset_category"] != "all"){
+			$subset_string = "WHERE (".$subset_variable." = ".$subset_category.")";
+		}
 		$utmost_link= mysql_connect('cmisst-live-db.miserver.it.umich.edu', 'mtcf-sys', 'a1s2d3f4');
 		mysql_select_db('UTMOST', $utmost_link);
 		if ($_GET["filter_string"] != ""){
@@ -24,11 +30,11 @@
 			
 			if (count($filter_array) > 0){
 				$filter_query_string = implode(" + ", $builder_array);
-				$query = "SELECT distinct ".$group_type." as crash_type, sum(Frequency) as person_count, sum(Frequency *(1-(0 + ".$filter_query_string."))) as person_count_adj FROM `utmost_data` GROUP BY ".$group_type;
+				$query = "SELECT distinct ".$group_type." as crash_type, sum(Frequency) as person_count, sum(Frequency *(1-(0 + ".$filter_query_string."))) as person_count_adj FROM `utmost_data` ".$subset_string." GROUP BY ".$group_type;
 				error_log($query);
 			}
 		} else {
-			$query = "SELECT distinct ".$group_type." as crash_type, sum(Frequency) as person_count, sum(Frequency) as person_count_adj FROM `utmost_data` GROUP BY ".$group_type;
+			$query = "SELECT distinct ".$group_type." as crash_type, sum(Frequency) as person_count, sum(Frequency) as person_count_adj FROM `utmost_data` ".$subset_string." GROUP BY ".$group_type;
 		}
 		error_log($query);
         $rs=mysql_query($query ,$utmost_link);

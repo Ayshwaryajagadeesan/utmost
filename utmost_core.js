@@ -55,9 +55,15 @@ function utmost_core(returning_user){
 					xtype: 'panel',
 					title: 'Chart',
 					region: 'center',
-					layout: 'fit',
-					bodyPadding: 20,
-					items: [utmost_chart]
+					layout: 'anchor',
+					items: [ subset_control, 
+					{
+						xtype: 'panel',
+						bodyPadding: 50,
+						anchor: '100% 100%',
+						layout: 'fit',
+						items: utmost_chart
+					}]
 				}]
 			}, {
 				title: 'Reference',

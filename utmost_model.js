@@ -57,11 +57,15 @@
 		var cm_string = get_countermeasure_string();
 		var cm_cf_string = get_coeffs_string();
 		var data_categories = get_data_cateogories();
+		var data_subset_variable = get_data_subset_var();
+		var data_subset_category = get_data_subset_cat();
 		utmost_chart_values.load({
 			params: {
 				filter_string: cm_string,
 				coeffs_string: cm_cf_string,
-				group_type: data_categories
+				group_type: data_categories,
+				subset_variable : data_subset_variable,
+				subset_category : data_subset_category
 			},
 			callback: function(records, operation, success){
 				var max = 0;
