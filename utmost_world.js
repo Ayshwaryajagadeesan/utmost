@@ -24,6 +24,7 @@
 	var chart_subsets = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],
 		data : [
+			{"val":"none", "name":"None"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
 			{"val":"age", "name":"Age"}
 		]
@@ -56,10 +57,11 @@
 	var chart_subset_selector = Ext.create('Ext.form.ComboBox', {
 			xtype: 'combobox',
 			store: chart_subsets,
+			value: 'none',
 			queryMode: 'local',
 			valueField: 'val',
 			displayField: 'name',
-			fieldLabel: 'Chart Variable',
+			fieldLabel: 'Chart Subset',
 			listeners: {
 				select: function( combo, records, eOpts ){
 					data_update();

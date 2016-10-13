@@ -29,7 +29,8 @@
 			{"val":"Pedestrian_Detection", "name":"Pedestrian Detection","active":0,"effectiveness":5,"fleet_pen":100, "description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle, potentially out of sight of the driver. There are no currently published estimates on the effectiveness of pedestrian detection systems.", 'selector_type': "numeric"},
 			{"val":"Backing_Collision_Warning", "name":"Reverse Collision Warning","active":0,"effectiveness":65,"fleet_pen":100, "description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)", 'selector_type': "numeric"},
 			{"val":"ESC", "name":"Electronic Stability Control","active":0,"effectiveness":40,"fleet_pen":100, "description":"Electronic Stability Control is a system that automatically adjust the braking and/or engine power to multiple wheels in order to maintain vehicle stability in adverse conditions. Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 'selector_type': "numeric"},
-			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":24,"fleet_pen":100, "description":"Road Departure Warning is a system that alerts the driver when the vehicle is detected to be departing the roadway. Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)", 'selector_type': "numeric"},
+			//{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":24,"fleet_pen":100, "description":"Road Departure Warning is a system that alerts the driver when the vehicle is detected to be departing the roadway. Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)", 'selector_type': "numeric"},
+			{"val":"RDW", "name":"Independent Selector","active":0,"effectiveness":24,"fleet_pen":100, "description":"Independent set of sliders", 'selector_type': "independent"},
 			{"val":"FCW", "name":"Helmet Laws","active":0,"effectiveness":100,"fleet_pen":100, "description":"Hopefully by the time this is on display, all of the sliding issues are fixed and this looks awesome.  Else, this demo will likely be pitiful and underwhelming.", 'selector_type': "population"}
 		]
 	});
@@ -53,7 +54,12 @@
 			{"category_val":"FCW", 'name':"Law Grade 2", 'target_val':"FCW", 'effectiveness':25, 'proportion':20, 'lock': 0},
 			{"category_val":"FCW", 'name':"Law Grade 3", 'target_val':"FCW", 'effectiveness':50, 'proportion':15, 'lock': 0},
 			{"category_val":"FCW", 'name':"Law Grade 4", 'target_val':"FCW", 'effectiveness':75, 'proportion':5, 'lock': 0},
-			{"category_val":"FCW", 'name':"Law Grade 5", 'target_val':"FCW", 'effectiveness':100, 'proportion':50, 'lock': 0}
+			{"category_val":"FCW", 'name':"Law Grade 5", 'target_val':"FCW", 'effectiveness':100, 'proportion':50, 'lock': 0},
+			{"category_val":"RDW", 'name':"Option 1", 'target_val':"RDW", 'effectiveness':5, 'proportion':10, 'lock': 0},
+			{"category_val":"RDW", 'name':"Option 2", 'target_val':"RDW", 'effectiveness':25, 'proportion':20, 'lock': 0},
+			{"category_val":"RDW", 'name':"Option 3", 'target_val':"RDW", 'effectiveness':50, 'proportion':15, 'lock': 0},
+			{"category_val":"RDW", 'name':"Option 4", 'target_val':"RDW", 'effectiveness':75, 'proportion':5, 'lock': 0},
+			{"category_val":"RDW", 'name':"Option 5", 'target_val':"RDW", 'effectiveness':100, 'proportion':50, 'lock': 0}
 		]
 	});
 	
@@ -106,11 +112,17 @@
 		name: 'cm_radio',
 		hidden: true
 	});
-	var countermeasure_population_selector = Ext.create('Ext.panel.Panel',{
+	var countermeasure_population_selector = Ext.create('Ext.form.FieldSet',{
 		width: "100%",
 		name: 'cm_population',
 		hidden: true
 	});
+	var countermeasure_independent_selector = Ext.create('Ext.form.FieldSet',{
+		width: "100%",
+		name: 'cm_independent',
+		hidden: true
+	});
+	
 	var countermeasure_edit_form = Ext.create('Ext.form.Panel', {
 		layout: "form",
 		title: "Parameters",
@@ -122,37 +134,48 @@
 			penetration_slider,
 			countermeasure_category_multiselector,
 			countermeasure_category_singleselector,
-			countermeasure_population_selector
+			countermeasure_population_selector,
+			countermeasure_independent_selector
 		]
 	});
+	
+	var clear_cm_form = function(){
+		effectiveness_slider.setVisible(false);
+		penetration_slider.setVisible(false);
+		countermeasure_category_singleselector.setVisible(false);
+		countermeasure_category_multiselector.setVisible(false);
+		countermeasure_population_selector.setVisible(false);
+		countermeasure_independent_selector.setVisible(false);
+			
+		countermeasure_category_singleselector.removeAll();
+		countermeasure_category_multiselector.removeAll();
+		countermeasure_population_selector.removeAll();
+		countermeasure_independent_selector.removeAll();
+		cm_description.update("");
+	}
+	
 	countermeasure_list.on('select', function(combo, record, index){
 		var selected_cm_type = record[0].get('selector_type');
 		if (selected_cm_type == "numeric"){
+			//clear form
+			clear_cm_form();
+			
 			effectiveness_slider.setVisible(true);
 			penetration_slider.setVisible(true);
-			countermeasure_category_singleselector.setVisible(false);
-			countermeasure_category_multiselector.setVisible(false);
-			countermeasure_population_selector.setVisible(false);
 			
+			//Set Description
 			cm_description.update(record[0].get('description'));
+			
 			effectiveness_slider.setValue(record[0].get('effectiveness'));
 			penetration_slider.setValue(record[0].get('fleet_pen'));
 			
-			//clear child selectors
-			countermeasure_category_singleselector.removeAll();
-			countermeasure_category_multiselector.removeAll();
-			countermeasure_population_selector.removeAll();
-		} else if (selected_cm_type == "category_unique"){
-			effectiveness_slider.setVisible(false);
-			penetration_slider.setVisible(false);
-			countermeasure_category_singleselector.setVisible(true);
-			countermeasure_category_multiselector.setVisible(false);
-			countermeasure_population_selector.setVisible(false);
 			
-			//clear child selectors
-			countermeasure_category_singleselector.removeAll();
-			countermeasure_category_multiselector.removeAll();
-			countermeasure_population_selector.removeAll();
+		} else if (selected_cm_type == "category_unique"){
+			//clear form
+			clear_cm_form();
+			
+			countermeasure_category_singleselector.setVisible(true);
+			
 			
 			//Set label
 			countermeasure_category_singleselector.setFieldLabel(record[0].get('name'));
@@ -169,16 +192,10 @@
 			});
 			
 		} else if (selected_cm_type == "category_multiple"){
-			effectiveness_slider.setVisible(false);
-			penetration_slider.setVisible(false);
-			countermeasure_category_singleselector.setVisible(false);
-			countermeasure_category_multiselector.setVisible(true);
-			countermeasure_population_selector.setVisible(false);
+			//clear form
+			clear_cm_form();
 			
-			//clear child selectors
-			countermeasure_category_singleselector.removeAll();
-			countermeasure_category_multiselector.removeAll();
-			countermeasure_population_selector.removeAll();
+			countermeasure_category_multiselector.setVisible(true);
 			
 			//Set label
 			countermeasure_category_multiselector.setFieldLabel(record[0].get('name'));
@@ -194,16 +211,11 @@
 				countermeasure_category_multiselector.add({boxLabel:record.get('name'), name:record.get('name'), inputValue:record.get('target_val')});
 			});
 		} else if (selected_cm_type == "population"){
-			effectiveness_slider.setVisible(false);
-			penetration_slider.setVisible(false);
-			countermeasure_category_singleselector.setVisible(false);
-			countermeasure_category_multiselector.setVisible(false);
+			//clear form
+			clear_cm_form();
+			
 			countermeasure_population_selector.setVisible(true);
 			
-			//clear child selectors
-			countermeasure_category_singleselector.removeAll();
-			countermeasure_category_multiselector.removeAll();
-			countermeasure_population_selector.removeAll();
 			
 			//group description
 			cm_description.update(record[0].get('description'));
@@ -298,7 +310,41 @@
 				});
 				
 				record.set('lock', 0);
-				//handle multislider function?
+				
+			});
+		} else if (selected_cm_type == "independent"){
+			//clear form
+			clear_cm_form();
+			countermeasure_independent_selector.setVisible(true);
+			
+			//group description
+			cm_description.update(record[0].get('description'));
+			
+			//add correct child selectors
+			cm_options.clearFilter();
+			cm_options.filter('category_val', record[0].get('val'));
+			cm_options.each(function(record){
+				//create set of sliders at default value
+				countermeasure_independent_selector.add({
+					xtype:'sliderfield', 
+					width:'100%',
+					fieldLabel: record.get('name'), 
+					name: record.get('name'), 
+					value: record.get('proportion'),
+					increment: 1,
+					minValue: 0,
+					maxValue: 100,
+					listeners: {
+						beforechange: {
+							fn: function(slider, newValue, oldValue){
+								// add error check of any type?
+								var rec = cm_options.findRecord('name', slider.getFieldLabel());
+								rec.set('proportion', newValue);
+							}
+						}
+					}
+				});
+
 			});
 		}
 	});
@@ -378,8 +424,8 @@
 						}
 						data_update();
 					} else if(countermeasure_category_multiselector.isVisible()){
-						/*Fix querying to support multiselect*/
-					} else if(countermeasure_population_selector.isVisible()){
+						/*Fix querying to support multiselect*/	
+					} else if(countermeasure_population_selector.isVisible() || countermeasure_independent_selector.isVisible()){
 						countermeasure_edit_window.hide();
 						var cm_title = countermeasure_list.getValue();
 						
@@ -392,7 +438,7 @@
 						cm_options.each(function(item){
 							var rec = cm_types.findRecord('name', cm_title);
 							var prev = rec.get('effectiveness');
-							prev += (item.get('effectiveness') * item.get('proportion'))/(1000);
+							prev += (item.get('effectiveness') * item.get('proportion'))/(100);
 							if(prev >= 100){
 								prev = 100;
 							} 
@@ -422,7 +468,9 @@
 						data_update();
 					}
 					cm_options.clearFilter();
+					clear_cm_form();
 				}
+				
 			}
 		],
 		hidden: true
