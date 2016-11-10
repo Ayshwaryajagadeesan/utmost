@@ -62,6 +62,67 @@
 			}]
 	});
 	
+	var utmost_injury_chart = Ext.create('Ext.chart.Chart', {
+		store: utmost_injury_chart_values,
+		animate: true,
+		hidden: true,
+		theme: 'Yellow',
+		legend: {
+			position: 'top'
+		},
+		axes: [
+			{
+				title: 'Injury Count',
+				type: 'Numeric',
+				position: 'left',
+				grid: true,
+				fields: ['injury_count'],
+				minimum: 0,
+				maximum: 50000000
+			}, {
+				title: 'Type',
+				type: 'Category',
+				position: 'bottom',
+				fields: ['crash_type'],
+				to: 20,
+				label: {
+					rotate: {
+						degrees: 270
+					}
+				}
+			}
+		],
+		series: [
+			{
+				type: 'column',
+				axis: 'left',
+				highlight: true,
+				tips: {
+				  trackMouse: true,
+				  width: 140,
+				  height: 45,
+				  renderer: function(storeItem, item) {
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count')+ '  <br/>Adjusted: ' +storeItem.get('person_count_adj'));
+				  }
+				},
+				style: {
+                    align: "left"
+                },
+				label: {
+				  display: 'insideEnd',
+				  'text-anchor': 'middle',
+					field: 'data',
+					renderer: Ext.util.Format.numberRenderer('0'),
+					orientation: 'vertical',
+					color: '#333'
+				},
+				xField: 'crash_type',
+				groupGutter: 0,
+				yField: ['injury_count', 'injury_count_adj'],
+				title: ['Baseline Injury Count', 'Adjusted Injury Count']
+			}]
+	});
+	
 	
 		//totals chart code
 	var utmost_totals_chart_values = Ext.create('Ext.data.Store', {
