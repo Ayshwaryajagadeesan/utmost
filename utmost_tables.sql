@@ -6,24 +6,25 @@ DROP TABLE IF EXISTS crash_frequency;
 CREATE TABLE crash_frequency (
   `crash_type` VARCHAR(20),
   `crash_direction` VARCHAR(20),
-  `age` VARCHAR(10),
-  `sex` VARCHAR(10),
-  `alcohol_involvement` VARCHAR(25),
   `vehicle_type` VARCHAR(10),
-  `light_condition` INT,
-  `ped_alc` INT,
+  `age` VARCHAR(10),
+  `driver_age` VARCHAR(10),
+  `sex` VARCHAR(10),
+  `driver_sex` VARCHAR(10),
+  `alcohol_involvement` VARCHAR(25),
+  `light_condition` VARCHAR(16),
+  `ped_alc` VARCHAR(30),
   `frequency` DOUBLE,
-  `injury_frequency` DOUBLE,
-  `injury_coeff` DOUBLE,
-  `injury_intercept` DOUBLE,
+  `dv_key` BIGINT,
+  `restraint_key` BIGINT,
+  `injury_key` BIGINT,
+  `headlighting_key` INT
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
 DROP TABLE IF EXISTS dv;
 CREATE TABLE dv (
-  `crash_type` VARCHAR(20),
-  `crash_direction` VARCHAR(20),
-  `alcohol_involvement` VARCHAR(25),
+  `dv_key`	BIGINT,
   `mean_dv` DOUBLE,
   `sd_dv` DOUBLE
 ) ENGINE=infinidb;
@@ -31,19 +32,34 @@ SHOW WARNINGS;
 
 DROP TABLE IF EXISTS restraint;
 CREATE TABLE restraint (
-  `age` VARCHAR(10),
-  `alcohol_involvement` VARCHAR(25),
-  `vehicle_type` VARCHAR(10),
+  `restraint_key` BIGINT,
   `unrestrained` DOUBLE,
   `belted` DOUBLE,
-  `child_seat_optimal` DOUBLE,
-  `child_seat_suboptimal` DOUBLE,
-  `helmet_worn` DOUBLE,
+  `child_optimal` DOUBLE,
+  `child_suboptimal` DOUBLE,
+  `helmet` DOUBLE,
+) ENGINE=infinidb;
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS injury;
+CREATE TABLE injury (
+  `injury_key` BIGINT,
+  `coefficient` DOUBLE,
+  `unrestrained` DOUBLE,
+  `belted` DOUBLE,
+  `child_optimal` DOUBLE,
+  `child_suboptimal` DOUBLE,
+  `helmet` DOUBLE,
+  `risk_unrestrained` DOUBLE,
+  `risk_belted` DOUBLE,
+  `risk_child_optimal` DOUBLE,
+  `risk_child_suboptimal` DOUBLE,
+  `risk_helmet` DOUBLE,
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
 DROP TABLE IF EXISTS intervention_master;
-CREATE TABLE restraint (
+CREATE TABLE intervention_master (
   `intervention` VARCHAR(25),
   `target_column` VARCHAR(25)
 ) ENGINE=infinidb;
@@ -93,8 +109,7 @@ SHOW WARNINGS;
 
 DROP TABLE IF EXISTS adaptive_headlighting;
 CREATE TABLE adaptive_headlighting (
-  `crash_type` VARCHAR(20),
-  `light_condition` INT,
+  `headlighting_key` INT,
   `relevance` double
 ) ENGINE=infinidb;
 SHOW WARNINGS;

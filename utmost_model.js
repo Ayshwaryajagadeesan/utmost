@@ -24,15 +24,26 @@
 	Ext.define('Injury_Raw_Count', {
 		extend: 'Ext.data.Model',
 		fields: [ 
-				{name: 'crash_type', type: 'string'}, 
+				{name: 'crash_type', type: 'string'},
 				{name: 'frequency', type: 'float'}, 
 				{name: 'injury_count', type: 'float'}, 
 				{name: 'injury_count_adj', type: 'float'},
 				{name: 'mitigation_factor', type: 'float'}, 
 				{name: 'mean_dv', type: 'float'}, 
 				{name: 'sd_dv', type: 'float'}, 
-				{name: 'injury_coeff', type: 'float'}, 
-				{name: 'injury_intercept', type: 'float'}
+				{name: 'dv_shift_relevance', type: 'float'},
+				{name: 'dv_shift_value', type: 'float'}
+				{name: 'risk_coefficient', type: 'float'}, 
+				{name: 'i_unrestrained', type: 'float'},
+				{name: 'i_belted', type: 'float'},
+				{name: 'i_child_optimal', type: 'float'},
+				{name: 'i_child_suboptimal', type: 'float'},
+				{name: 'i_helmet', type: 'float'},
+				{name: 'r_unrestrained', type: 'float'}, //precalc risk values
+				{name: 'r_belted', type: 'float'},
+				{name: 'r_child_optimal', type: 'float'},
+				{name: 'r_child_suboptimal', type: 'float'},
+				{name: 'r_helmet', type: 'float'},
 				]
 	});
 	
@@ -95,6 +106,9 @@
 	
 	var utmost_logistic_injury = function(coeff, intercept, dv){
 		return 1/1+Math.exp(-1*(intercept + coeff * dv));
+	}
+	
+	var utmost_lognormal_dv_shift = function(record){
 	}
 	
 	function data_update(){
@@ -164,15 +178,29 @@
 					
 					//do injury calcs for each row
 					utmost_injury_raw_values.each(function(record){
-						//TODO: FCW/ETC shift calculation
 						
-						//trapezoidal sum for integration
-						var injury_row_total = utmost_injury_trapezoidal_sum(record);
+						var dv_shift_relevance = record.get('dv_shift_relevance');
 						
-						//Avoidance mitigation
-						injury_row_total *= record.get('mitigation_factor');
-						
-						record.set('injury_count_adj', injury_row_total);
+						if (dv_shift_relevance != 0){
+							//dv is only shifted for countermeasures that effect delta-v in crashes.  
+							
+							//calculate shift
+							utmost_lognormal_dv_shift(record);
+							
+							
+							//trapezoidal sum for integration
+							var injury_row_total = utmost_injury_trapezoidal_sum(record);
+							
+							//Avoidance mitigation
+							injury_row_total *= record.get('mitigation_factor');
+							
+							record.set('injury_count_adj', injury_row_total);
+						} else {
+							/*No DV or restraint impact on crashes*/
+							var injury_row_total = record.get('injury_count');
+							injury_row_total *= record.get('mitigation_factor');
+							record.set('injury_count_adj', injury_row_total);
+						}
 					});
 					
 					//total rows by category
