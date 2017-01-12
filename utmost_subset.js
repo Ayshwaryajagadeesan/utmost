@@ -5,21 +5,32 @@
 		fields: [ 
 				{name: 'group_var', type: 'string'}, 
 				{name: 'title', type: 'string'}, 
-				{name: 'category_value', type: 'string'}]
+				{name: 'category_value', type: 'string'},
+				{name: 'chart_max', type: 'int'}
+				]
 	});
 	
 	var data_subsets = Ext.create('Ext.data.Store', {
 		model: 'Subset_Group',
 		data : [
-			{group_var: 'all', title: 'All', category_value:''},
-			{group_var: 'alcohol_involvement', title: 'No Alcohol Involved', category_value:'0'},
-			{group_var: 'alcohol_involvement', title: 'Alcohol Involved', category_value:'1'},
-			{group_var: 'age', title: 'Age 0-14', category_value:'"0-14"'},
-			{group_var: 'age', title: 'Age 15-29', category_value:'"15-29"'},
-			{group_var: 'age', title: 'Age 30-44', category_value:'"30-44"'},
-			{group_var: 'age', title: 'Age 45-59', category_value:'"45-59"'},
-			{group_var: 'age', title: 'Age 60-74', category_value:'"60-74"'},
-			{group_var: 'age', title: 'Age 75+', category_value:'"75+"'}			
+			{group_var: 'all', title: 'All', category_value:'', chart_max: 5500000},
+			{group_var: 'age', title: 'Age 0-1', category_value:'"0-1"', chart_max: 165000},
+			{group_var: 'age', title: 'Age 2-4', category_value:'"2-4"', chart_max: 260000},
+			{group_var: 'age', title: 'Age 5-7', category_value:'"5-7"', chart_max: 240000},
+			{group_var: 'age', title: 'Age 8-10', category_value:'"8-10"', chart_max: 225000},
+			{group_var: 'age', title: 'Age 11-13', category_value:'"11-13"', chart_max: 225000},
+			{group_var: 'age', title: 'Age 14-15', category_value:'"14-15"', chart_max: 200000},
+			{group_var: 'age', title: 'Age 16-17', category_value:'"16-17"', chart_max: 640000},
+			{group_var: 'age', title: 'Age 18-20', category_value:'"18-20"', chart_max: 1250000},
+			{group_var: 'age', title: 'Age 21-65', category_value:'"21-65"', chart_max: 10100000},
+			{group_var: 'age', title: 'Age 66+', category_value:'"66+"', chart_max: 1150000},
+			{group_var: 'alcohol_involvement', title: 'No Alcohol Involved', category_value:'"No Alcohol Involved"', chart_max: 14000000},
+			{group_var: 'alcohol_involvement', title: 'Alcohol Involved', category_value:'"Alcohol Involved"', chart_max: 550000},
+			{group_var: 'driver_age', title: 'Driver Age 0-15', category_value:'"<16"', chart_max: 110000},
+			{group_var: 'driver_age', title: 'Driver Age 16-17', category_value:'"16-17"', chart_max: 600000},
+			{group_var: 'driver_age', title: 'Driver Age 18-20', category_value:'"18-20"', chart_max: 1250000},
+			{group_var: 'driver_age', title: 'Driver Age 21-65', category_value:'"21-65"', chart_max: 12000000},
+			{group_var: 'driver_age', title: 'Driver Age 66+', category_value:'">65"', chart_max: 1200000}			
 		]
 	});
 	
@@ -32,6 +43,10 @@
 		anchor: '100%',
 		listeners: {
 			tabChange: function( tabpanel, newtab, oldtab, eOpts ){
+				data_subsets.clearFilter();
+				var target_record = data_subsets.findRecord('title', newtab.title);
+				utmost_chart.axes.getAt(0).maximum = target_record.get('chart_max');
+				data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
 				data_update();
 			}
 		}
@@ -56,7 +71,10 @@
 		if (active.title == "All"){
 			return 'all';
 		} else {
+			data_subsets.clearFilter();
 			var target_record = data_subsets.findRecord('title', active.title);
-			return target_record.get('category_value');
+			var res = target_record.get('category_value');
+			data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
+			return res;
 		}
 	}

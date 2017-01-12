@@ -21,6 +21,8 @@
 		//fields: ['val', 'name', 'active', 'effectiveness', 'fleet_pen', 'description'],
 		model: 'Countermeasure_Type_Count',
 		data : [
+			//Old Countermeasures
+			/* 
 			{"val":"LDW", "name":"Lane Departure Warning","active":0,"effectiveness":25,"fleet_pen":100, "description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)", 'selector_type': ["numeric"], 'selector_desc': []},
 			{"val":"ACC", "name":"Adaptive Cruise Control","active":0,"effectiveness":29,"fleet_pen":100, "description":"Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decellerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998)", 'selector_type': ["numeric"], 'selector_desc': []},
 			{"val":"Alcohol_Interlock", "name":"Alcohol Interlock","active":0,"effectiveness":18,"fleet_pen":100, "description":"Alcohol Interlock is a system that checks the blood alcohol of the driver before allowing the vehicle to be turned on. Alcohol interlocks are estimated to reduce 18% of crashes where alcohol was a factor (eSafety Forum 2005)", 'selector_type': ["numeric"], 'selector_desc': []},
@@ -31,11 +33,82 @@
 			{"val":"Backing_Collision_Warning", "name":"Reverse Collision Warning","active":0,"effectiveness":65,"fleet_pen":100, "description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)", 'selector_type': ["numeric"], 'selector_desc': []},
 			{"val":"ESC", "name":"Electronic Stability Control","active":0,"effectiveness":40,"fleet_pen":100, "description":"Electronic Stability Control is a system that automatically adjust the braking and/or engine power to multiple wheels in order to maintain vehicle stability in adverse conditions. Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 'selector_type': ["numeric"], 'selector_desc': []},
 			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":24,"fleet_pen":100, "description":"Road Departure Warning is a system that alerts the driver when the vehicle is detected to be departing the roadway. Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)", 'selector_type': ["numeric"], 'selector_desc': []},
-			//{"val":"RDW", "name":"Independent Selector","active":0,"effectiveness":24,"fleet_pen":100, "description":"Independent set of sliders", 'selector_type': ["independent", "category_unique"], 'selector_desc': ["Sliders", "Two Choices"]},
+			{"val":"RDW", "name":"Independent Selector","active":0,"effectiveness":24,"fleet_pen":100, "description":"Independent set of sliders", 'selector_type': ["independent", "category_unique"], 'selector_desc': ["Sliders", "Two Choices"]},
 			{"val":"CHILDSEATLAW", "name":"Child Seat Laws","active":0,"effectiveness":100,"fleet_pen":100, "description":"Laws for child seats tend to impact the proportion of children who are properly restraines vs sub-optimally restrained.", 'selector_type': ["independent"], 'selector_desc': ["Restraint Categories"]},
 			{"val":"SEATBELTLAW", "name":"Seatbelt Enforcement","active":0,"effectiveness":100,"fleet_pen":100, "description":"Seatbelt enforcement practice encourages drivers to wear their seatbelts and have a demonstrable effect on the rate of belted occupants in crashes", 'selector_type': ["independent"], 'selector_desc': ["Enforcement Categories"]},
 			{"val":"HELMETLAW", "name":"Motorcycle Helmet Law","active":0,"effectiveness":100,"fleet_pen":100, "description":"Motorcycle Helmet Laws require motorcyclists to wear helmets.  Laws that do not require this may as well not exist", 'selector_type': ["independent"], 'selector_desc': ["Law Type"]},
 			{"val":"GDL", "name":"Graduated Drivers Licensing","active":0,"effectiveness":100,"fleet_pen":100, "description":"I need to change how I handle grouping to make multiple age minimum categories work properly", 'selector_type': ["population", "independent"], 'selector_desc': ["Minimum Age", "Restrictions"]}
+			*/
+			// New Countermeasures
+			{
+				"val":"ldw", 
+				"name":"Lane Departure Warning",
+				"active":0,
+				"effectiveness":25,
+				"fleet_pen":100, 
+				"description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"acc", 
+				"name":"Adaptive Cruise Control",
+				"active":0,
+				"effectiveness":29,
+				"fleet_pen":100, 
+				"description":"Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decellerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998)",
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"alcohol_interlock", 
+				"name":"Alcohol Interlock",
+				"active":0,
+				"effectiveness":18,
+				"fleet_pen":100, 
+				"description":"Alcohol Interlock is a system that checks the blood alcohol of the driver before allowing the vehicle to be turned on. Alcohol interlocks are estimated to reduce 18% of crashes where alcohol was a factor (eSafety Forum 2005)", 
+				'selector_type': ["numeric"], 'selector_desc': []
+			},
+			{
+				"val":"fcw", 
+				"name":"Forward Collision Warning",
+				"active":0,
+				"effectiveness":50,
+				"fleet_pen":100, 
+				"description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"pedestrian_detection", 
+				"name":"Pedestrian Detection",
+				"active":0,
+				"effectiveness":5,
+				"fleet_pen":100, 
+				"description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle, potentially out of sight of the driver. There are no currently published estimates on the effectiveness of pedestrian detection systems.",
+				'selector_type': ["numeric"],
+				'selector_desc': []
+			},
+			{
+				"val":"backing", 
+				"name":"Reverse Collision Warning",
+				"active":0,"effectiveness":65,
+				"fleet_pen":100, 
+				"description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"adaptive_headlighting",
+				"name":"Adaptive Headlighting",
+				"active":0,
+				"effectiveness":65,
+				"fleet_pen":100, 
+				"description":"Description Here and defaults for Adaptive Headlighting", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			
 		]
 	});
 	

@@ -12,13 +12,13 @@
 		fields: ['val', 'name'],
 		data : [
 			{"val":"crash_type", "name":"Crash Type" },
-/*			{"val":"Vehicle_Type", "name":"Vehicle Type"},*/
-			
 			{"val":"crash_direction", "name":"Crash Direction"},
-			{"val":"age", "name":"Age"}
-			/*,
+			{"val":"vehicle_type", "name":"Vehicle Type"},
+			{"val":"age", "name":"Person Age"},
+			{"val":"driver_age", "name":"Driver Age"},
 			{"val":"sex", "name":"Sex"},
-			{"val":"alcohol_involvement", "name":"Alcohol Involvement"}*/
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
+			{"val":"light_condition", "name":"Light Condition"}
 		]
 	});
 	
@@ -27,7 +27,8 @@
 		data : [
 			{"val":"none", "name":"None"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
-			{"val":"age", "name":"Age"}
+			{"val":"age", "name":"Person Age"},
+			{"val":"driver_age", "name":"Driver Age"}
 		]
 	});
 	
@@ -43,12 +44,28 @@
 			listeners: {
 				select: function( combo, records, eOpts ){
 					if (chart_variable_selector.getSubmitValue() == "crash_type"){
-						utmost_chart.axes.getAt(0).maximum = 50000000;
+						utmost_chart.axes.getAt(0).maximum = 5500000;
 					} else if (chart_variable_selector.getSubmitValue() == "crash_direction"){
-						utmost_chart.axes.getAt(0).maximum = 60000000;
+						utmost_chart.axes.getAt(0).maximum = 7000000;
+					} else if (chart_variable_selector.getSubmitValue() == "vehicle_type"){
+						utmost_chart.axes.getAt(0).maximum = 7600000; // probably not valuable
 					} else if (chart_variable_selector.getSubmitValue() == "age"){
-						utmost_chart.axes.getAt(0).maximum = 50000000;
+						utmost_chart.axes.getAt(0).maximum = 11000000;
+					} else if (chart_variable_selector.getSubmitValue() == "driver_age"){
+						utmost_chart.axes.getAt(0).maximum = 12000000; //probably not valuable
+					} else if (chart_variable_selector.getSubmitValue() == "sex"){
+						utmost_chart.axes.getAt(0).maximum = 7800000;
+					} else if (chart_variable_selector.getSubmitValue() == "alcohol_involvement"){
+						utmost_chart.axes.getAt(0).maximum = 14000000; //probably not valuable
+					} else if (chart_variable_selector.getSubmitValue() == "light_condition"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
 					}
+					
+					data_subsets.clearFilter();
+					var target_record = data_subsets.findRecord('title', 'All');
+					target_record.set('chart_max', utmost_chart.axes.getAt(0).maximum);
+					data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
+					
 					data_update();
 				}
 			}
@@ -81,13 +98,6 @@
 			fieldLabel: 'Outcome Value',
 			listeners: {
 				select: function( combo, records, eOpts ){
-					/*if (chart_variable_selector.getSubmitValue() == "crash_type"){
-						utmost_chart.axes.getAt(0).maximum = 50000000;
-					} else if (chart_variable_selector.getSubmitValue() == "crash_direction"){
-						utmost_chart.axes.getAt(0).maximum = 60000000;
-					} else if (chart_variable_selector.getSubmitValue() == "age"){
-						utmost_chart.axes.getAt(0).maximum = 50000000;
-					}*/
 					data_update();
 				}
 			}

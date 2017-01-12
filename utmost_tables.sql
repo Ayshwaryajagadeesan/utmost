@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS crash_frequency;
 CREATE TABLE crash_frequency (
   `crash_type` VARCHAR(20),
   `crash_direction` VARCHAR(20),
-  `vehicle_type` VARCHAR(10),
+  `vehicle_type` VARCHAR(16),
   `age` VARCHAR(10),
   `driver_age` VARCHAR(10),
   `sex` VARCHAR(10),
@@ -37,7 +37,7 @@ CREATE TABLE restraint (
   `belted` DOUBLE,
   `child_optimal` DOUBLE,
   `child_suboptimal` DOUBLE,
-  `helmet` DOUBLE,
+  `helmet` DOUBLE
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
@@ -54,7 +54,7 @@ CREATE TABLE injury (
   `risk_belted` DOUBLE,
   `risk_child_optimal` DOUBLE,
   `risk_child_suboptimal` DOUBLE,
-  `risk_helmet` DOUBLE,
+  `risk_helmet` DOUBLE
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 

@@ -17,7 +17,7 @@
 				grid: true,
 				fields: ['person_count'],
 				minimum: 0,
-				maximum: 50000000
+				maximum: 5500000
 			}, {
 				title: 'Type',
 				type: 'Category',
@@ -78,7 +78,7 @@
 				grid: true,
 				fields: ['injury_count'],
 				minimum: 0,
-				maximum: 50000000
+				maximum: 5500000
 			}, {
 				title: 'Type',
 				type: 'Category',
@@ -102,7 +102,7 @@
 				  width: 140,
 				  height: 45,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count')+ '  <br/>Adjusted: ' +storeItem.get('person_count_adj'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('injury_count')+ '  <br/>Adjusted: ' +storeItem.get('injury_count_adj'));
 				  }
 				},
 				style: {
@@ -128,7 +128,7 @@
 	var utmost_totals_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Crash_Type_Count',
 		data : [
-			{person_count: 122729152, crash_type: "Total", person_count_adj: 122729152}
+			{person_count: 12000000, crash_type: "Total", person_count_adj: 12000000}
 		]
 	});
 	
@@ -146,7 +146,7 @@
 				grid: true,
 				fields: ['person_count'],
 				minimum: 0,
-				maximum: 125000000
+				maximum: 15000000
 			}, {
 				type: 'Category',
 				position: 'left',
