@@ -150,21 +150,30 @@
 					var adj_total = 0;
 					var count = utmost_chart_values.count();
 					
+					
+					
 					//sum values for totals charts
 					for (i = 0; i < count; i++){
+						if (!utmost_chart_values.getAt(i).get('crash_type')){
+							utmost_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
+						}
 						total += parseInt(utmost_chart_values.getAt(i).get('person_count'));
 						adj_total += parseInt(utmost_chart_values.getAt(i).get('person_count_adj'));
+						if(utmost_chart_values.getAt(i).get('person_count') > max){
+							max = utmost_chart_values.getAt(i).get('person_count');
+						}
 					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
 					
 					
-					//utmost_chart.axes.getAt(0).maximum = max * 1.25;
 					
 					//Adjust axis labels for chosen variables
 					utmost_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
 					
-					
+					//adjust chart max
+					var chart_max = (parseInt(max / 10000) + 1) * 10000;
+					utmost_chart.axes.getAt(0).maximum = chart_max;
 					
 					
 					//Redraw count chart
@@ -196,20 +205,26 @@
 					//do injury calcs for each row
 					utmost_injury_raw_values.each(function(record){
 						
-						//var dv_shift_relevance = record.get('dv_shift_relevance');
-						var dv_shift_relevance = 1;
-						
-						if (record.get('mean_dv') == 0 && record.get('sd_dv') == 0 ){
-							var dv_shift_relevance = 0;
+						if (!record.get('crash_type')){
+							record.set('crash_type', 'Unknown or N/A');
 						}
 						
 						
-						if (dv_shift_relevance != 0){
+						var dv_calc_relevance = 1;
+						
+						if (record.get('mean_dv') == 0 && record.get('sd_dv') == 0 ){
+							var dv_calc_relevance = 0;
+						}
+						
+						
+						if (dv_calc_relevance != 0){
 							//dv is only shifted for countermeasures that effect delta-v in crashes.  
 							
-							//calculate shift
-							utmost_lognormal_dv_shift(record);
 							
+							//calculate shift
+							if (record.get('dv_shift_relevance') > 0){
+								utmost_lognormal_dv_shift(record);
+							}
 							var injury_row_total = {base: 0, adjusted:0};
 							
 							//trapezoidal sum for integration
@@ -241,7 +256,6 @@
 							
 							
 							//Avoidance mitigation
-							injury_row_total['base'] *= record.get('mitigation_factor');
 							injury_row_total['adjusted'] *= record.get('mitigation_factor');
 							
 							//Multiply frequency to get count
@@ -258,7 +272,7 @@
 						} else {
 							/*No DV impact on crashes*/
 							var injury_row_total = record.get('frequency');
-							injury_row_total *= record.get('mitigation_factor');
+							
 							
 							var r_unrestrained = record.get('r_unrestrained') ? record.get('r_unrestrained') : 0;
 							var r_belted = record.get('r_belted') ? record.get('r_belted') : 0;							
@@ -278,8 +292,10 @@
 								injury_row_total = 0;
 							}
 							
+							var adj_injury_total = injury_row_total * record.get('mitigation_factor');
+							
 							record.set('injury_count', injury_row_total);
-							record.set('injury_count_adj', injury_row_total);
+							record.set('injury_count_adj', adj_injury_total);
 							
 						}
 					});
@@ -310,23 +326,33 @@
 					
 					//sum values for totals charts
 					var count = utmost_injury_chart_values.count();
+					var max = 0;
 					for (i = 0; i < count; i++){
 						total += parseInt(utmost_injury_chart_values.getAt(i).get('injury_count'));
 						adj_total += parseInt(utmost_injury_chart_values.getAt(i).get('injury_count_adj'));
+						if(utmost_injury_chart_values.getAt(i).get('injury_count') > max){
+							max = utmost_injury_chart_values.getAt(i).get('injury_count');
+						}
 					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
 					
 					
 					
-					
 					//Adjust axis labels for chosen variables
-					utmost_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
+					utmost_injury_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
+					
+					//Adjust chart max values
+					var chart_max = (parseInt(max / 10000) + 1) * 10000;
+					utmost_injury_chart.axes.getAt(0).maximum = chart_max;
+					
+					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_injury_chart_values.fireEvent('refresh');
 					
 					//Set injury chart for use and redraw
 					utmost_chart.setVisible(false);
 					utmost_injury_chart.setVisible(true);
-					//utmost_injury_chart.redraw(true);
+					utmost_injury_chart.redraw(true);
 				
 				}
 			

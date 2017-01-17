@@ -45,7 +45,9 @@
 			tabChange: function( tabpanel, newtab, oldtab, eOpts ){
 				data_subsets.clearFilter();
 				var target_record = data_subsets.findRecord('title', newtab.title);
+				//Preset max above data values
 				utmost_chart.axes.getAt(0).maximum = target_record.get('chart_max');
+				utmost_injury_chart.axes.getAt(0).maximum = target_record.get('chart_max');
 				data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
 				data_update();
 			}

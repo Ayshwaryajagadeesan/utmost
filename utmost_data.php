@@ -40,6 +40,7 @@
 		}
 		
 		$dv_relevance = '0';
+		$dv_interventions = array();
 		$utmost_link= mysql_connect('cmisst-dev.miserver.it.umich.edu', 'cmisst', 'a1s2d3f4');
 		mysql_select_db('utmost_dev', $utmost_link);
 		if ($_GET["filter_string"] != ""){
@@ -80,19 +81,24 @@
 			$builder_array = array();
 			while ($counter < count($filter_array)){
 				$builder_array[] = "(IFNULL(". $filter_array[$counter].".relevance, 0) * ".$coeff_array[$counter].")";
-				if ($filter_array[$counter] == 'FCW' && $outcome_variable == 'injury_count'){
+				if ($filter_array[$counter] == 'fcw' && $outcome_variable == 'injury_count'){
 					//FCW shifts DV - TODO expand to include future DV shifting countermeasures
-					$dv_relevance = $filter_array[$counter].".relevance";
+					$dv_interventions[] = $filter_array[$counter].".relevance * ".$coeff_array[$counter];
 				}
 				$counter++;
 			}
+			
+			if (count($dv_interventions)> 0){
+				$dv_relevance = '('.implode(' + ', $dv_interventions).')';
+			}
+			
 			
 			if (count($filter_array) > 0){
 				$filter_query_string = implode(" + ", $builder_array);
 				if ($outcome_variable == 'person_count'){
 					$query = "SELECT distinct crash_frequency.".$group_type." as crash_type, sum(frequency) as person_count, sum(frequency *(1-(0 + ".$filter_query_string."))) as person_count_adj,  ".$sort[$group_type]." FROM `crash_frequency` ".$joins.$subset_string." GROUP BY ".$group_type." ORDER BY sort";
 				} else if ($outcome_variable == 'injury_count'){
-					$query = "SELECT crash_frequency.".$group_type." as crash_type, sum(frequency) as frequency, sum(frequency) as injury_count, sum(frequency) as injury_count_adj, (1-(0 + ".$filter_query_string.")) as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]." FROM `crash_frequency` ".$joins." LEFT JOIN dv ON crash_frequency.dv_key = dv.dv_key LEFT JOIN injury on crash_frequency.injury_key = injury.injury_key LEFT JOIN restraint on restraint.restraint_key = crash_frequency.restraint_key ".$subset_string." GROUP BY ".$group_type.$injury_calc_groups." ORDER BY sort";
+					$query = "SELECT crash_frequency.".$group_type." as crash_type, sum(frequency) as frequency, sum(frequency) as injury_count, sum(frequency) as injury_count_adj, (1-(0 + ".$filter_query_string.")) as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]." FROM `crash_frequency` ".$joins." LEFT JOIN dv ON crash_frequency.dv_key = dv.dv_key LEFT JOIN injury on crash_frequency.injury_key = injury.injury_key LEFT JOIN restraint on restraint.restraint_key = crash_frequency.restraint_key ".$subset_string." GROUP BY ".$group_type.$injury_calc_groups.", mitigation_factor, dv_shift_relevance ORDER BY sort";
 				}
 				error_log($query);
 			}

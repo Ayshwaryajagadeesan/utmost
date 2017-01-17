@@ -45,20 +45,28 @@
 				select: function( combo, records, eOpts ){
 					if (chart_variable_selector.getSubmitValue() == "crash_type"){
 						utmost_chart.axes.getAt(0).maximum = 5500000;
+						utmost_injury_chart.axes.getAt(0).maximum = 5500000;
 					} else if (chart_variable_selector.getSubmitValue() == "crash_direction"){
 						utmost_chart.axes.getAt(0).maximum = 7000000;
+						utmost_injury_chart.axes.getAt(0).maximum = 7000000;
 					} else if (chart_variable_selector.getSubmitValue() == "vehicle_type"){
 						utmost_chart.axes.getAt(0).maximum = 7600000; // probably not valuable
+						utmost_injury_chart.axes.getAt(0).maximum = 7600000;
 					} else if (chart_variable_selector.getSubmitValue() == "age"){
 						utmost_chart.axes.getAt(0).maximum = 11000000;
+						utmost_injury_chart.axes.getAt(0).maximum = 11000000;
 					} else if (chart_variable_selector.getSubmitValue() == "driver_age"){
 						utmost_chart.axes.getAt(0).maximum = 12000000; //probably not valuable
+						utmost_injury_chart.axes.getAt(0).maximum = 12000000;
 					} else if (chart_variable_selector.getSubmitValue() == "sex"){
 						utmost_chart.axes.getAt(0).maximum = 7800000;
+						utmost_injury_chart.axes.getAt(0).maximum = 7800000;
 					} else if (chart_variable_selector.getSubmitValue() == "alcohol_involvement"){
 						utmost_chart.axes.getAt(0).maximum = 14000000; //probably not valuable
+						utmost_injury_chart.axes.getAt(0).maximum = 14000000;
 					} else if (chart_variable_selector.getSubmitValue() == "light_condition"){
 						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
 					}
 					
 					data_subsets.clearFilter();

@@ -30,6 +30,16 @@ CREATE TABLE dv (
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
+DROP TABLE IF EXISTS logninv;
+CREATE TABLE logninv (
+  `prob`	DOUBLE,
+  `mean_logninv` DOUBLE,
+  `sd_logninv` DOUBLE,
+  `res` DOUBLE,
+  `logninv_key` VARCHAR(16)
+) ENGINE=infinidb;
+SHOW WARNINGS;
+
 DROP TABLE IF EXISTS restraint;
 CREATE TABLE restraint (
   `restraint_key` BIGINT,
