@@ -107,7 +107,37 @@
 				"description":"Description Here and defaults for Adaptive Headlighting", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
+			},/*
+			{
+				"val":"teen_driver",
+				"name":"Teen Driver Laws",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Description Here and defaults for Teen Driver Laws", 
+				'selector_type': ["population"], 
+				'selector_desc': []
+			},*/
+			{
+				"val":"child_seat",
+				"name":"Child Seat Laws",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Description Here and defaults for Child Seat Laws", 
+				'selector_type': ["independent"], 
+				'selector_desc': []
 			},
+			{
+				"val":"seatbelt",
+				"name":"Seatbelt Use Laws",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Description Here and defaults for Seatbelt Use Laws", 
+				'selector_type': ["population"], 
+				'selector_desc': []
+			}
 			
 		]
 	});
@@ -118,7 +148,8 @@
 				{name: 'category_val', type: 'string'}, 
 				{name: 'name', type: 'string'}, 
 				{name: 'target_val', type: 'string'},
-				{name: 'effectiveness', type: 'int'}, 
+				{name: 'base_rate', type: 'int'}, 
+				{name: 'law_rate', type: 'int'}, 
 				{name: 'proportion', type: 'int'},
 				{name: 'detail_type', type: 'string'},
 				{name: 'lock', type: 'int'}
@@ -128,21 +159,26 @@
 	var cm_options = Ext.create('Ext.data.Store', {
 		model: 'Countermeasure_Detail',
 		data : [
-			{"category_val":"HELMETLAW", 'name':"Full Helmet Law", 'target_val':"HELMETLAW", 'effectiveness':100, 'proportion':35, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"SEATBELTLAW", 'name':"Primary Enforcement", 'target_val':"SEATBELTLAW", 'effectiveness':5, 'proportion':76, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"SEATBELTLAW", 'name':"Points or Secondary Fines", 'target_val':"SEATBELTLAW", 'effectiveness':25, 'proportion':17, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"CHILDSEATLAW", 'name':"0-1 Year Old Rear-Facing Seat", 'target_val':"CHILDSEATLAW", 'effectiveness':100, 'proportion':11, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"CHILDSEATLAW", 'name':"2-4 Year Old Harnessed Child Seat", 'target_val':"CHILDSEATLAW", 'effectiveness':100, 'proportion':13, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"CHILDSEATLAW", 'name':"5-7 Year Old Booster Seat", 'target_val':"CHILDSEATLAW", 'effectiveness':100, 'proportion':85, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"CHILDSEATLAW", 'name':"8-10 Year Old Booster Seat", 'target_val':"CHILDSEATLAW", 'effectiveness':100, 'proportion':1, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"GDL", 'name':"Age 14", 'target_val':"GDL", 'effectiveness':5, 'proportion':20, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"GDL", 'name':"Age 15", 'target_val':"GDL", 'effectiveness':5, 'proportion':50, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"GDL", 'name':"Age 16", 'target_val':"GDL", 'effectiveness':5, 'proportion':30, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"GDL", 'name':"Supervised Driving Hours", 'target_val':"GDL", 'effectiveness':5, 'proportion':25, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"GDL", 'name':"Passenger Restritcions", 'target_val':"GDL", 'effectiveness':5, 'proportion':25, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"GDL", 'name':"Nighttime Restrictions", 'target_val':"GDL", 'effectiveness':100, 'proportion':50, 'detail_type': 'independent', 'lock': 0}
+			//{"category_val":"HELMETLAW", 'name':"Full Helmet Law", 'target_val':"HELMETLAW", 'effectiveness':100, 'proportion':39, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Secondary Enforcement", 							'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':82, 'proportion':23, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Secondary Enforcement with Points or Secondary Fines", 'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':84, 'proportion':1, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Primary Enforcement", 								'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':91, 'proportion':59, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Primary Enforcement with Points or Secondary Fines", 'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':94, 'proportion':17, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"child_seat", 'name':"0-1 Year Old Rear-Facing Seat", 'target_val':"0-1", 'base_rate':54, 'law_rate':65, 'proportion':11, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"child_seat", 'name':"2-4 Year Old Harnessed Child Seat", 'target_val':"2-4", 'base_rate':64, 'law_rate':80, 'proportion':13, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"child_seat", 'name':"5-7 Year Old Booster Seat", 'target_val':"5-7", 'base_rate':40, 'law_rate':62, 'proportion':85, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"child_seat", 'name':"8-10 Year Old Booster Seat", 'target_val':"8-10", 'base_rate':19, 'law_rate':37, 'proportion':1, 'detail_type': 'independent', 'lock': 0},
+			/*
+			{"category_val":"teen_laws", 'name':"3 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':5, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"4 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':2, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"5 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"6 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':12, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"7 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':30, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'effectiveness':100, 'proportion':17, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'effectiveness':100, 'proportion':30, 'detail_type': 'independent', 'lock': 0}*/
 		]
 	});
+
 	
 	var countermeasure_list = Ext.create('Ext.form.field.ComboBox', {
 		xtype: 'combobox',
@@ -580,8 +616,9 @@
 		var res = [];
 		while (index < cm_types.count()){
 			var test = cm_types.getAt(index);
-			if (test.get('active') == 1){
-				res.push(test.get('val'));
+			var val = test.get('val');
+			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt'){
+				res.push(val);
 			}
 			index++;
 		}
@@ -593,10 +630,48 @@
 		var res = [];
 		while (index < cm_types.count()){
 			var test = cm_types.getAt(index);
-			if (test.get('active') == 1){
+			var val = test.get('val');
+			if (test.get('active') == 1 && val != 'child_seat'&& val != 'teen_driver' && val != 'seatbelt'){
 				res.push((test.get('effectiveness')/100) * (test.get('fleet_pen')/100));
 			}
 			index++;
 		}
 		return res.join('~');
+	}
+
+	function check_countermeasure(cm_in){
+		var cm_target_index = cm_types.find('val', cm_in);
+		var cm_target = cm_types.getAt(cm_target_index);
+		if(cm_target.get('active') == 1){
+			return true;
+		}
+		return false;
+	}
+
+	function cm_seatbelt_get_value(){
+		var res = 0;
+		var index = 0;
+		cm_options.filter('category_val', 'seatbelt');
+		while (index < cm_options.count()){
+			var test = cm_options.getAt(index);
+			res += ((test.get('proportion')/100)*(test.get('law_rate')/100));
+			index++;
+		}
+		cm_options.clearFilter();
+		return res;
+	}
+
+	function cm_childseat_get_value(category){
+		var res = 0;
+		var index = 0;
+		cm_options.filter('category_val', 'child_seat');
+		while (index < cm_options.count()){
+			var test = cm_options.getAt(index);
+			if (test.get('target_val') == category){
+				res = (test.get('law_rate')/100) * (test.get('proportion')/100) + (1-(test.get('proportion')/100)) * (test.get('base_rate')/100);
+			}
+			index++;
+		}
+		cm_options.clearFilter();
+		return res;
 	}
