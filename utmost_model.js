@@ -218,6 +218,7 @@
 						var new_unrestrained = record.get('p_unrestrained');
 						var new_child_optimal = record.get('p_child_optimal');
 						var new_child_suboptimal = record.get('p_child_suboptimal');
+						var new_helmet = record.get('p_helmet');
 						var age = record.get('age');
 						//TODO: Get hardcoded values out
 						var optimal_baselines = {
@@ -245,6 +246,25 @@
 							var row_restrained = record.get('p_child_optimal') + record.get('p_child_suboptimal');
 							new_child_optimal = (record.get('p_child_optimal') * (optimal_adjusted/optimal_baselines[age]));
 							new_child_suboptimal = row_restrained - new_child_optimal;
+						}
+						
+						if (check_countermeasure('helmet')){
+							new_helmet = (record.get('p_helmet') * cm_helmet_get_value());
+							new_unrestrained = 1-new_helmet;
+						}
+						
+						if (check_countermeasure('restraint_override')){
+							if (record.get('p_belted') > 0){
+								new_belted = cm_restraint_override_get_value();
+								new_unrestrained = 1-new_belted;
+							} else if (record.get('p_child_optimal') > 0){
+								new_child_suboptimal = 0;
+								new_child_optimal = cm_restraint_override_get_value();
+								new_unrestrained = 1-new_child_optimal;
+							} else if (record.get('p_helmet') > 0){
+								new_helmet = cm_restraint_override_get_value();
+								new_unrestrained = 1-new_helmet;
+							};
 						}
 
 						if (dv_calc_relevance != 0){
@@ -279,7 +299,7 @@
 							if (record.get('p_helmet') > 0 ){
 								var result = utmost_injury_trapezoidal_sum(record, record.get('i_helmet'));
 								injury_row_total['base'] += record.get('p_helmet') * result['base'];
-								injury_row_total['adjusted'] += record.get('p_helmet') * result['adjusted'];
+								injury_row_total['adjusted'] += new_helmet * result['adjusted'];
 							}
 							
 							
@@ -375,6 +395,9 @@
 						adj_total += parseInt(utmost_injury_chart_values.getAt(i).get('injury_count_adj'));
 						if(utmost_injury_chart_values.getAt(i).get('injury_count') > max){
 							max = utmost_injury_chart_values.getAt(i).get('injury_count');
+						}
+						if(utmost_injury_chart_values.getAt(i).get('injury_count_adj') > max){
+							max = utmost_injury_chart_values.getAt(i).get('injury_count_adj');
 						}
 					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);

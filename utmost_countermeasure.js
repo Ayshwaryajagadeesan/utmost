@@ -137,6 +137,26 @@
 				"description":"Description Here and defaults for Seatbelt Use Laws", 
 				'selector_type': ["population"], 
 				'selector_desc': []
+			},
+			{
+				"val":"helmet",
+				"name":"Motorcycle Helmet Law",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Description Here and defaults for Motorcylce Helmet Laws", 
+				'selector_type': ["independent"], 
+				'selector_desc': []
+			},
+			{
+				"val":"restraint_override",
+				"name":"Restraint Override",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Use this to override the restraint settings for all crashes.  This will set the population optimal restraint usage to strictly mirror this value.", 
+				'selector_type': ["independent"], 
+				'selector_desc': []
 			}
 			
 		]
@@ -159,7 +179,8 @@
 	var cm_options = Ext.create('Ext.data.Store', {
 		model: 'Countermeasure_Detail',
 		data : [
-			//{"category_val":"HELMETLAW", 'name':"Full Helmet Law", 'target_val':"HELMETLAW", 'effectiveness':100, 'proportion':39, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"helmet", 'name':"Full Motorcyle Helmet Law", 							'target_val':"HELMETLAW", 'base_rate':49, 'law_rate':89, 'proportion':39, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"restraint_override", 'name':"Override Restraint Values", 							'target_val':"OVERRIDE", 'base_rate':0, 'law_rate':0, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"seatbelt", 'name':"Secondary Enforcement", 							'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':82, 'proportion':23, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"seatbelt", 'name':"Secondary Enforcement with Points or Secondary Fines", 'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':84, 'proportion':1, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"seatbelt", 'name':"Primary Enforcement", 								'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':91, 'proportion':59, 'detail_type': 'population', 'lock': 0},
@@ -168,14 +189,13 @@
 			{"category_val":"child_seat", 'name':"2-4 Year Old Harnessed Child Seat", 'target_val':"2-4", 'base_rate':64, 'law_rate':80, 'proportion':13, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"5-7 Year Old Booster Seat", 'target_val':"5-7", 'base_rate':40, 'law_rate':62, 'proportion':85, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"8-10 Year Old Booster Seat", 'target_val':"8-10", 'base_rate':19, 'law_rate':37, 'proportion':1, 'detail_type': 'independent', 'lock': 0},
-			/*
-			{"category_val":"teen_laws", 'name':"3 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':5, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"4 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':2, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"5 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"6 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':12, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"7 Laws", 'target_val':"GDL", 'effectiveness':5, 'proportion':30, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'effectiveness':100, 'proportion':17, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'effectiveness':100, 'proportion':30, 'detail_type': 'independent', 'lock': 0}*/
+			{"category_val":"teen_laws", 'name':"3 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"4 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':4, 'proportion':2, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"5 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"6 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':6, 'proportion':12, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"7 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':7, 'proportion':30, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':8, 'proportion':17, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'independent', 'lock': 0}
 		]
 	});
 
@@ -617,7 +637,7 @@
 		while (index < cm_types.count()){
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
-			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt'){
+			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'){ 
 				res.push(val);
 			}
 			index++;
@@ -631,7 +651,7 @@
 		while (index < cm_types.count()){
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
-			if (test.get('active') == 1 && val != 'child_seat'&& val != 'teen_driver' && val != 'seatbelt'){
+			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'){
 				res.push((test.get('effectiveness')/100) * (test.get('fleet_pen')/100));
 			}
 			index++;
@@ -639,6 +659,14 @@
 		return res.join('~');
 	}
 
+	//get countermeasure-related variables
+	function get_vars_string() {
+		var res = [];
+		if (check_countermeasure('child_seat')){res.push('age');}
+		if (check_countermeasure('teen_driver')){res.push('driver_age');}
+		return res.join('~');
+	}
+	
 	function check_countermeasure(cm_in){
 		var cm_target_index = cm_types.find('val', cm_in);
 		var cm_target = cm_types.getAt(cm_target_index);
@@ -674,4 +702,39 @@
 		}
 		cm_options.clearFilter();
 		return res;
+	}
+	
+	function cm_helmet_get_value(){
+		var res = 0;
+		var index = 0;
+		var baseline = (.89*.39 + (1-.39)*.49);
+		cm_options.filter('category_val', 'helmet');
+		while (index < cm_options.count()){
+			var test = cm_options.getAt(index);
+			res += (test.get('law_rate')/100) * (test.get('proportion')/100) + (1-(test.get('proportion')/100)) * (test.get('base_rate')/100);
+			index++;
+		}
+		cm_options.clearFilter();
+		return (res/baseline);
+	}
+	
+	function cm_restraint_override_get_value() {
+		cm_options.filter('category_val', 'restraint_override');
+		var test = cm_options.getAt(0);
+		var res = (test.get('proportion')/100);
+		cm_options.clearFilter();
+		return res;
+	}
+	
+	function cm_teen_driver_get_value(driver_age) {
+		var baseline_2014 = {'14-15': 0.602629208, '16-17': 0.467030855, '18-20':0.875076822};
+		var coeff = {'14-15': -0.0701, '16-17':-0.1061, '18-20':-0.0183};
+		cm_options.filter('category_val', 'teen_driver');
+		while (index < cm_options.count()){
+			var test = cm_options.getAt(index);
+			res += test.get('proportion') * Math.exp(test.get('law_rate') * coeff[driver_age]);
+			index++;
+		}
+		cm_options.clearFilter();
+		return (res/baseline[driver_age]);
 	}
