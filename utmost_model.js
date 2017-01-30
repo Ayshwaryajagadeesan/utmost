@@ -24,11 +24,23 @@
 				]
 	});
 	
+	Ext.define('Person_Raw_Count',{
+		extend: 'Ext.data.Model',
+		fields: [ 
+				{name: 'crash_type', type: 'string'}, 
+				{name: 'person_count', type: 'float'}, 
+				{name: 'person_count_adj', type: 'float'},
+				{name: 'driver_age', type: 'string'},
+				{name: 'sort', type: 'int'}
+				]
+	});
+	
 	Ext.define('Injury_Raw_Count', {
 		extend: 'Ext.data.Model',
 		fields: [ 
 				{name: 'crash_type', type: 'string'},
 				{name: 'age', type: 'string'},
+				{name: 'driver_age', type: 'string'},
 				{name: 'frequency', type: 'float'}, 
 				{name: 'injury_count', type: 'float'}, 
 				{name: 'injury_count_adj', type: 'float'},
@@ -57,18 +69,21 @@
 				]
 	});
 	
-		
-	
-	var utmost_chart_values = Ext.create('Ext.data.Store', {
-		model: 'Crash_Type_Count',
+	var utmost_raw_values = Ext.create('Ext.data.Store', {
+		model: 'Person_Raw_Count',
 		proxy: {
 			type: 'ajax',
 			url : 'utmost_data.php',
 			reader: {
 				type: 'json',
-				model: 'Crash_Type_Count'
+				model: 'Person_Raw_Count'
 			}
 		}
+	});
+	
+	
+	var utmost_chart_values = Ext.create('Ext.data.Store', {
+		model: 'Crash_Type_Count'
 	});
 	
 	var utmost_injury_raw_values = Ext.create('Ext.data.Store', {
@@ -135,8 +150,9 @@
 		var data_subset_variable = get_data_subset_var();
 		var data_subset_category = get_data_subset_cat();
 		var data_outcome_variable = get_outcome_var();
+		var extra_countermeasure = get_bonus_countermeasure_string();
 		if (data_outcome_variable == 'person_count'){
-			utmost_chart_values.load({
+			utmost_raw_values.load({
 				params: {
 					filter_string: cm_string,
 					coeffs_string: cm_cf_string,
@@ -146,6 +162,38 @@
 					outcome_variable : data_outcome_variable
 				},
 				callback: function(records, operation, success){
+				
+				
+					//total rows by category
+					utmost_chart_values.removeAll();
+					utmost_raw_values.each(function(record){
+						var category = record.get('crash_type');
+						var index = utmost_chart_values.find('crash_type', category);
+						var adjusted_count_temp = record.get('person_count_adj');
+						if (check_countermeasure('teen_driver') ){
+							adjusted_count_temp *= cm_teen_driver_get_value(record.get('driver_age');
+						}
+						
+						if (index == -1){
+							//No record, create
+							utmost_chart_values.add(
+								{
+									'crash_type': category,
+									'person_count': record.get('person_count'),
+									'person_count_adj': adjusted_count_temp,
+									'sort': record.get('sort')
+								}
+							);
+						} else {
+							var target_record = utmost_chart_values.getAt(index);
+							target_record.set('person_count', record.get('person_count')+target_record.get('person_count'));
+							target_record.set('person_count_adj', adjusted_count_temp+target_record.get('person_count_adj'));
+						}
+						
+						
+					});
+					utmost_chart_values.sort('sort', 'ASC');
+					
 				
 					var max = 0;
 					var top_count = 0
@@ -178,6 +226,10 @@
 					var chart_max = (parseInt(max / 10000) + 1) * 10000;
 					utmost_chart.axes.getAt(0).maximum = chart_max;
 					
+					
+					
+					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_chart_values.fireEvent('refresh');
 					
 					//Redraw count chart
 					utmost_chart.setVisible(true);
@@ -228,6 +280,10 @@
 							'8-10': .37*.01+.19*.99
 						};
 						
+						if(check_countermeasure('teen_driver')){
+							var teen_adjustment = cm_teen_driver_get_value(record.get('driver_age');
+							record.set('mitigation_factor', record.get('mitigation_factor') * teen_adjustment);
+						}
 
 						if (record.get('mean_dv') == 0 && record.get('sd_dv') == 0 ){
 							var dv_calc_relevance = 0;

@@ -659,14 +659,7 @@
 		return res.join('~');
 	}
 
-	//get countermeasure-related variables
-	function get_vars_string() {
-		var res = [];
-		if (check_countermeasure('child_seat')){res.push('age');}
-		if (check_countermeasure('teen_driver')){res.push('driver_age');}
-		return res.join('~');
-	}
-	
+		
 	function check_countermeasure(cm_in){
 		var cm_target_index = cm_types.find('val', cm_in);
 		var cm_target = cm_types.getAt(cm_target_index);
@@ -727,6 +720,9 @@
 	}
 	
 	function cm_teen_driver_get_value(driver_age) {
+		if (driver_age != '14-15' && driver_age != '16-17' && driver_age != '8-20'){
+			return 1;
+		}
 		var baseline_2014 = {'14-15': 0.602629208, '16-17': 0.467030855, '18-20':0.875076822};
 		var coeff = {'14-15': -0.0701, '16-17':-0.1061, '18-20':-0.0183};
 		cm_options.filter('category_val', 'teen_driver');
