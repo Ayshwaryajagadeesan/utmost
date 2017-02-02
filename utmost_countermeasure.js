@@ -107,7 +107,7 @@
 				"description":"Description Here and defaults for Adaptive Headlighting", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
-			},/*
+			},
 			{
 				"val":"teen_driver",
 				"name":"Teen Driver Laws",
@@ -116,8 +116,8 @@
 				"fleet_pen":0, 
 				"description":"Description Here and defaults for Teen Driver Laws", 
 				'selector_type': ["population"], 
-				'selector_desc': []
-			},*/
+				'selector_desc': ['Population Proportion']
+			},
 			{
 				"val":"child_seat",
 				"name":"Child Seat Laws",
@@ -189,13 +189,13 @@
 			{"category_val":"child_seat", 'name':"2-4 Year Old Harnessed Child Seat", 'target_val':"2-4", 'base_rate':64, 'law_rate':80, 'proportion':13, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"5-7 Year Old Booster Seat", 'target_val':"5-7", 'base_rate':40, 'law_rate':62, 'proportion':85, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"8-10 Year Old Booster Seat", 'target_val':"8-10", 'base_rate':19, 'law_rate':37, 'proportion':1, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"3 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"4 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':4, 'proportion':2, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"5 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"6 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':6, 'proportion':12, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"7 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':7, 'proportion':30, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':8, 'proportion':17, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"teen_laws", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'independent', 'lock': 0}
+			{"category_val":"teen_driver", 'name':"3 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"4 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':4, 'proportion':2, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"5 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"6 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':6, 'proportion':12, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"7 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':7, 'proportion':30, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':8, 'proportion':17, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0}
 		]
 	});
 
@@ -561,7 +561,7 @@
 							var modifier_lookup = cm_options.findRecord('name', item);
 							rec.set('effectiveness', modifier_lookup.get('effectiveness'));
 							rec.set('fleet_pen', modifier_lookup.get('fleet_pen'));
-							cm_detail = "<p>Active Law: "+item;
+							cm_detail = "<p>Active Item: "+rec.get('name');
 						}
 						data_update();
 					}  
@@ -590,7 +590,7 @@
 						});
 						cm_types.clearFilter();
 						
-						cm_detail = "<p>Active Law: "+item;
+						cm_detail = "<p>Active Item: "+cm_title;
 						
 						data_update();
 					}
@@ -720,17 +720,19 @@
 	}
 	
 	function cm_teen_driver_get_value(driver_age) {
-		if (driver_age != '14-15' && driver_age != '16-17' && driver_age != '8-20'){
+		if (driver_age != '14-15' && driver_age != '16-17' && driver_age != '18-20'){
 			return 1;
 		}
 		var baseline_2014 = {'14-15': 0.602629208, '16-17': 0.467030855, '18-20':0.875076822};
 		var coeff = {'14-15': -0.0701, '16-17':-0.1061, '18-20':-0.0183};
 		cm_options.filter('category_val', 'teen_driver');
+		var index = 0;
+		var res = 0;
 		while (index < cm_options.count()){
 			var test = cm_options.getAt(index);
-			res += test.get('proportion') * Math.exp(test.get('law_rate') * coeff[driver_age]);
+			res += (test.get('proportion')/100) * Math.exp(test.get('law_rate') * coeff[driver_age]);
 			index++;
 		}
 		cm_options.clearFilter();
-		return (res/baseline[driver_age]);
+		return (res/baseline_2014[driver_age]);
 	}

@@ -144,13 +144,13 @@
 	
 		
 	function data_update(){
+		utmost_loadmask.show();
 		var cm_string = get_countermeasure_string();
 		var cm_cf_string = get_coeffs_string();
 		var data_categories = get_data_cateogories();
 		var data_subset_variable = get_data_subset_var();
 		var data_subset_category = get_data_subset_cat();
 		var data_outcome_variable = get_outcome_var();
-		var extra_countermeasure = get_bonus_countermeasure_string();
 		if (data_outcome_variable == 'person_count'){
 			utmost_raw_values.load({
 				params: {
@@ -171,7 +171,7 @@
 						var index = utmost_chart_values.find('crash_type', category);
 						var adjusted_count_temp = record.get('person_count_adj');
 						if (check_countermeasure('teen_driver') ){
-							adjusted_count_temp *= cm_teen_driver_get_value(record.get('driver_age');
+							adjusted_count_temp *= cm_teen_driver_get_value(record.get('driver_age'));
 						}
 						
 						if (index == -1){
@@ -227,6 +227,7 @@
 					utmost_chart.axes.getAt(0).maximum = chart_max;
 					
 					
+					utmost_loadmask.hide();
 					
 					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
 					utmost_chart_values.fireEvent('refresh');
@@ -258,6 +259,7 @@
 					
 					
 					//do injury calcs for each row
+					utmost_injury_raw_values.suspendEvents();
 					utmost_injury_raw_values.each(function(record){
 						
 						if (!record.get('crash_type')){
@@ -281,7 +283,7 @@
 						};
 						
 						if(check_countermeasure('teen_driver')){
-							var teen_adjustment = cm_teen_driver_get_value(record.get('driver_age');
+							var teen_adjustment = cm_teen_driver_get_value(record.get('driver_age'));
 							record.set('mitigation_factor', record.get('mitigation_factor') * teen_adjustment);
 						}
 
@@ -304,7 +306,7 @@
 							new_child_suboptimal = row_restrained - new_child_optimal;
 						}
 						
-						if (check_countermeasure('helmet')){
+						if (check_countermeasure('helmet')&& record.get('p_helmet') > 0){
 							new_helmet = (record.get('p_helmet') * cm_helmet_get_value());
 							new_unrestrained = 1-new_helmet;
 						}
@@ -419,8 +421,12 @@
 						}
 					});
 					
+					
+					
 					//total rows by category
 					utmost_injury_chart_values.removeAll();
+					utmost_injury_chart_values.suspendEvents();
+					
 					utmost_injury_raw_values.each(function(record){
 						var category = record.get('crash_type');
 						var index = utmost_injury_chart_values.find('crash_type', category);
@@ -469,7 +475,11 @@
 					utmost_injury_chart.axes.getAt(0).maximum = chart_max;
 					
 					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_injury_raw_values.resumeEvents();
+					utmost_injury_chart_values.resumeEvents();
 					utmost_injury_chart_values.fireEvent('refresh');
+					
+					utmost_loadmask.hide();
 					
 					//Set injury chart for use and redraw
 					utmost_chart.setVisible(false);
