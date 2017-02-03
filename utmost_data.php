@@ -1,8 +1,9 @@
 <?php
 
-//	SELECT distinct crash_type, sum(Frequency) as crash_count, sum(Frequency *(1-(0))) as crash_count_adj FROM `crash_frequency` WHERE 1  GROUP BY crash_type
+		//DB connect
+		$utmost_link = new mysqli('cmisst-dev.miserver.it.umich.edu', 'cmisst', 'a1s2d3f4', 'utmost_dev');
 
-// Variable Set Constants
+		// Variable Set Constants
 		//Restraint Vars
 		$restraint_select_vars = "restraint.unrestrained as p_unrestrained, restraint.belted as p_belted, restraint.child_optimal as p_child_optimal, restraint.child_suboptimal as p_child_suboptimal, restraint.helmet as p_helmet";
 		
@@ -40,22 +41,21 @@
 		
 // (0 value replaced by set of cms enabled)
 		$data = array();
-		$outcome_variable = $_GET["outcome_variable"];
-		$filters = $_GET["filter_string"];
-		$group_type =  $_GET["group_type"];
-		$subset_variable = $_GET["subset_variable"];
-		$subset_category = $_GET["subset_category"];
+		$outcome_variable = mysqli_real_escape_string($utmost_link, $_GET["outcome_variable"]);
+		$filters = mysqli_real_escape_string($utmost_link, $_GET["filter_string"]);
+		$group_type =  mysqli_real_escape_string($utmost_link, $_GET["group_type"]);
+		$subset_variable = mysqli_real_escape_string($utmost_link, $_GET["subset_variable"]);
+		$subset_category = mysqli_real_escape_string($utmost_link, $_GET["subset_category"]);
 		$subset_string = 'WHERE 1';
-		if ($_GET["subset_category"] != "all"){
+		if ($subset_category != "all"){
 			$subset_string = "WHERE (".$subset_variable." = ".$subset_category.")";
 		}
 		
 		$dv_relevance = '0';
 		$dv_interventions = array();
-		$utmost_link= mysql_connect('cmisst-dev.miserver.it.umich.edu', 'cmisst', 'a1s2d3f4');
-		mysql_select_db('utmost_dev', $utmost_link);
-		if ($_GET["filter_string"] != ""){
-			$coeffs = $_GET["coeffs_string"];
+		//mysql_select_db('utmost_dev', $utmost_link);
+		if ($filters != ""){
+			$coeffs = mysqli_real_escape_string($utmost_link, $_GET["coeffs_string"]);
 			$filter_array = explode('~', $filters);
 			$coeff_array = explode('~', $coeffs);
 			
@@ -66,9 +66,9 @@
 			
 			//Retrieve intervention joins
 			$intervention_query = "select intervention, target_column from intervention_master where intervention in (".implode(',', $filter_array_quote).");";
-			$intervention_result = mysql_query($intervention_query ,$utmost_link);
+			$intervention_result = $utmost_link->query($intervention_query);
 			$interventions = array();
-			while ($intervention_row = mysql_fetch_assoc($intervention_result)){
+			while ($intervention_row = mysqli_fetch_assoc($intervention_result)){
                  if (array_key_exists ($intervention_row['intervention'], $interventions)){
 					  $interventions[$intervention_row['intervention']][] = $intervention_row['target_column'];
 				 } else {
@@ -121,12 +121,12 @@
 			if ($outcome_variable == 'person_count'){
 				$query =  "SELECT distinct ".$group_type." as crash_type, crash_injury.driver_age as driver_age, sum(frequency) as person_count, sum(frequency) as person_count_adj, ".$sort[$group_type]." FROM `crash_injury` ".$subset_string." GROUP BY ".$group_type.", driver_age ORDER BY sort";
 			} else if ($outcome_variable == 'injury_count'){
-				$query =  $query = "SELECT ".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency)  as injury_count, sum(frequency) as injury_count_adj, 1 as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", 0 as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]."  FROM `crash_injury` "." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key  LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY ".$group_type.$injury_calc_groups." ORDER BY sort";
+				$query =  "SELECT ".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency)  as injury_count, sum(frequency) as injury_count_adj, 1 as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", 0 as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]."  FROM `crash_injury` "." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key  LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY ".$group_type.$injury_calc_groups." ORDER BY sort";
 			}
 		}
 		error_log($query);
-        $rs=mysql_query($query ,$utmost_link);
-        while ($row = mysql_fetch_assoc($rs)){
+        $res=$utmost_link->query($query);
+        while ($row = mysqli_fetch_assoc($res)){
                 $data[] = $row;
         }
 		
