@@ -168,7 +168,7 @@
 					utmost_chart_values.removeAll();
 					utmost_raw_values.each(function(record){
 						var category = record.get('crash_type');
-						var index = utmost_chart_values.find('crash_type', category);
+						var index = utmost_chart_values.findExact('crash_type', category);
 						var adjusted_count_temp = record.get('person_count_adj');
 						if (check_countermeasure('teen_driver') ){
 							adjusted_count_temp *= cm_teen_driver_get_value(record.get('driver_age'));
@@ -429,7 +429,7 @@
 					
 					utmost_injury_raw_values.each(function(record){
 						var category = record.get('crash_type');
-						var index = utmost_injury_chart_values.find('crash_type', category);
+						var index = utmost_injury_chart_values.findExact('crash_type', category);
 						if (index == -1){
 							//No record, create
 							utmost_injury_chart_values.add(

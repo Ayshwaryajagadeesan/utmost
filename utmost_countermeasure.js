@@ -104,29 +104,29 @@
 				"active":0,
 				"effectiveness":65,
 				"fleet_pen":100, 
-				"description":"Description Here and defaults for Adaptive Headlighting", 
+				"description":"Adaptive headlights swivel to light up curves as the driver steers, allowing drivers to spot obstacles more quickly and react as needed (Reagan, Brumbelow, &amp; Frischmann, 2015). Adaptive headlighting is estimated to prevent 65% of crashes that occur in the dark.", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
 			{
 				"val":"teen_driver",
-				"name":"Teen Driver Laws",
+				"name":"Graduated Driver Licensing",
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Description Here and defaults for Teen Driver Laws", 
+				"description":"Graduated driver licensing (GDL) laws allow new drivers to acquire driving skills over time in stages. Ten elements of GDL laws were assessed (learner age, learner duration, supervised hours, more challenging hours, driver’s education requirements, intermediate age, nighttime restrictions, passenger restrictions, length of nighttime and passenger restrictions). Each element was coded as being stronger or weaker among the range of laws. States that had a higher number of strong GDL law elements had lower teen crash rates than states with fewer strong GDL law elements. Changing the number of GDL laws will affect both person and injury count.", 
 				'selector_type': ["population"], 
 				'selector_desc': ['Population Proportion']
 			},
 			{
 				"val":"child_seat",
-				"name":"Child Seat Laws",
+				"name":"Child Passenger Safety Laws",
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Description Here and defaults for Child Seat Laws", 
+				"description":"The wording used in child passenger safety laws is correlated to the proportion of child occupants using recommended restraint systems (Benedetti et al. 2017, Klinich et al. 2016). States that include language associated with best practice recommendations in child restraint (rear-facing to age 2, harnessed child restraint for 2 to 4YO, and booster seats for 5 to 10YO) have higher rates of optimal restraint use. Changing the population proportion for each age group with a “best practice” law changes the distribution of optimal and suboptimal restraint, which changes injury count but not person count.", 
 				'selector_type': ["independent"], 
-				'selector_desc': []
+				'selector_desc': ["Law Population Proportion"]
 			},
 			{
 				"val":"seatbelt",
@@ -134,9 +134,9 @@
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Description Here and defaults for Seatbelt Use Laws", 
+				"description":"All states except New Hampshire require seatbelt use by front seat occupants. In 2017, 19 states have secondary enforcement of seatbelt laws while the rest have primary enforcement. Analysis of restraint patterns and strength of laws indicated that having a primary law increases belt use by 6%. States with increased fines for a second violation also have higher belt rates (3%). Changing the population proportion covered by different types of seatbelt laws changes the proportion of belted occupants, which changes injury count but not person count.", 
 				'selector_type': ["population"], 
-				'selector_desc': []
+				'selector_desc': ["Law Population Proportion"]
 			},
 			{
 				"val":"helmet",
@@ -144,9 +144,9 @@
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Description Here and defaults for Motorcylce Helmet Laws", 
+				"description":"Motorcycle helmet use is higher in states that require universal helmet use compared to states that do not (89% vs. 49%, Pickrell and Choi [2015]). In 2017, 39% of motorcycle registrations are in states with universal helmet laws, while 61% are not. In UTMOST, changing the percentage of the motor-cycle riding population (based on registrations) that are covered by universal helmet laws will affect the injury count but not the person count.", 
 				'selector_type': ["independent"], 
-				'selector_desc': []
+				'selector_desc': ["Law Population Proportion"]
 			},
 			{
 				"val":"restraint_override",
@@ -154,9 +154,9 @@
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Use this to override the restraint settings for all crashes.  This will set the population optimal restraint usage to strictly mirror this value.", 
+				"description":"This allows the user to control the percentage of occupants who are optimally restrained, overriding changes that would occur resulting from law changes. Optimal restraint is defined as seatbelt use for ages 11 and up, booster use for 5-10YO, harnessed child restraints for 2-4YO, and rear-facing restraints for 0-1YO. Changing restraint distribution will change injury count but not person count.", 
 				'selector_type': ["independent"], 
-				'selector_desc': []
+				'selector_desc': ["Restraint Proportion"]
 			}
 			
 		]
@@ -519,7 +519,7 @@
 		layout: "form",
 		title: "Adjust Countermeasure",
         width: "50%",
-		closeable: false,
+		closeAction: 'hide',
 		resizable: false,
 		items: [
 			{

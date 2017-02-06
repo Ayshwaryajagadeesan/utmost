@@ -77,6 +77,6 @@
 			var target_record = data_subsets.findRecord('title', active.title);
 			var res = target_record.get('category_value');
 			data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
-			return res;
+			return res.replace(/\"/g, '');
 		}
 	}

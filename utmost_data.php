@@ -48,7 +48,7 @@
 		$subset_category = mysqli_real_escape_string($utmost_link, $_GET["subset_category"]);
 		$subset_string = 'WHERE 1';
 		if ($subset_category != "all"){
-			$subset_string = "WHERE (".$subset_variable." = ".$subset_category.")";
+			$subset_string = "WHERE (".$subset_variable." = '".$subset_category."')";
 		}
 		
 		$dv_relevance = '0';
@@ -105,23 +105,23 @@
 			if (count($filter_array) > 0){
 				$filter_query_string = implode(" * ", $builder_array);
 				if ($outcome_variable == 'person_count'){
-					$query = "SELECT distinct crash_injury.".$group_type." as crash_type, crash_injury.driver_age as driver_age, sum(frequency) as person_count, sum(frequency *(0 + ".$filter_query_string.")) as person_count_adj,  ".$sort[$group_type]." FROM `crash_injury` ".$joins.$subset_string." GROUP BY ".$group_type.", driver_age ORDER BY sort";
+					$query = "SELECT distinct crash_injury.".$group_type." as crash_type, crash_injury.driver_age as driver_age, sum(frequency) as person_count, sum(frequency *(0 + ".$filter_query_string.")) as person_count_adj,  ".$sort[$group_type]." FROM `crash_injury` ".$joins.$subset_string." GROUP BY crash_injury.".$group_type.", driver_age ORDER BY sort";
 				} else if ($outcome_variable == 'injury_count'){
 					if (count($dv_interventions)> 0){
 						$dv_relevance = '('.implode(' * ', $dv_interventions).')';
 						$dv_shift_key = "concat(CAST((".$dv_relevance."*100) AS SIGNED), '-', CAST(dv.mean_dv*100 AS SIGNED), '-',CAST(dv.sd_dv*100 AS SIGNED)) as temp_key";
-						$query = "SELECT logninv.res AS dv_shift_value, ".$full_injury_selects.", ".$sort_dv[$group_type]." FROM (SELECT crash_injury.".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as injury_count, sum(frequency) as injury_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$dv_shift_key." FROM `crash_injury` ".$joins." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY ".$group_type.$injury_calc_groups.", mitigation_factor, dv_shift_relevance, temp_key) AS A LEFT JOIN logninv ON temp_key = logninv.logninv_key ORDER BY sort";
+						$query = "SELECT logninv.res AS dv_shift_value, ".$full_injury_selects.", ".$sort_dv[$group_type]." FROM (SELECT crash_injury.".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as injury_count, sum(frequency) as injury_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$dv_shift_key." FROM `crash_injury` ".$joins." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY crash_injury.".$group_type.$injury_calc_groups.", mitigation_factor, dv_shift_relevance, temp_key) AS A LEFT JOIN logninv ON temp_key = logninv.logninv_key ORDER BY sort";
 					} else {
-						$query = "SELECT crash_injury.".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as injury_count, sum(frequency) as injury_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]." FROM `crash_injury` ".$joins." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY ".$group_type.$injury_calc_groups.", mitigation_factor, dv_shift_relevance ORDER BY sort";
+						$query = "SELECT crash_injury.".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as injury_count, sum(frequency) as injury_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]." FROM `crash_injury` ".$joins." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY crash_injury.".$group_type.$injury_calc_groups.", mitigation_factor ORDER BY sort";
 					}
 				}
 				error_log($query);
 			}
 		} else {
 			if ($outcome_variable == 'person_count'){
-				$query =  "SELECT distinct ".$group_type." as crash_type, crash_injury.driver_age as driver_age, sum(frequency) as person_count, sum(frequency) as person_count_adj, ".$sort[$group_type]." FROM `crash_injury` ".$subset_string." GROUP BY ".$group_type.", driver_age ORDER BY sort";
+				$query =  "SELECT distinct ".$group_type." as crash_type, crash_injury.driver_age as driver_age, sum(frequency) as person_count, sum(frequency) as person_count_adj, ".$sort[$group_type]." FROM `crash_injury` ".$subset_string." GROUP BY crash_injury.".$group_type.", driver_age ORDER BY sort";
 			} else if ($outcome_variable == 'injury_count'){
-				$query =  "SELECT ".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency)  as injury_count, sum(frequency) as injury_count_adj, 1 as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", 0 as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]."  FROM `crash_injury` "." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key  LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY ".$group_type.$injury_calc_groups." ORDER BY sort";
+				$query =  "SELECT ".$group_type." as crash_type, crash_injury.age as age, crash_injury.driver_age as driver_age, sum(frequency) as frequency, sum(frequency)  as injury_count, sum(frequency) as injury_count_adj, 1 as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", 0 as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]."  FROM `crash_injury` "." LEFT JOIN dv ON crash_injury.dv_key = dv.dv_key  LEFT JOIN restraint on restraint.restraint_key = crash_injury.restraint_key ".$subset_string." GROUP BY crash_injury.".$group_type.$injury_calc_groups." ORDER BY sort";
 			}
 		}
 		error_log($query);
@@ -129,6 +129,7 @@
         while ($row = mysqli_fetch_assoc($res)){
                 $data[] = $row;
         }
+		$res = null;
 		
 		echo json_encode($data);
 
