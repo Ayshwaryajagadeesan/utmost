@@ -51,6 +51,36 @@
 				'selector_desc': []
 			},
 			{
+				"val":"ldp", 
+				"name":"Lane Departure Prevention",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"[NEED DESC + DEFUALTS]", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"bsw", 
+				"name":"Blind-Spot Warning",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"Lane change warning systems are estimated to reduce 37-40% of drifting and lane change crashes (FHWA 1998, Kaniantrha and Murtig 1997, McKeever 1998)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"csw", 
+				"name":"Curve Speed Warning",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"[NEED DESC + DEFUALTS]", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
 				"val":"acc", 
 				"name":"Adaptive Cruise Control",
 				"active":0,
@@ -70,12 +100,32 @@
 				'selector_type': ["numeric"], 'selector_desc': []
 			},
 			{
+				"val":"esc", 
+				"name":"Electronic Stability Control",
+				"active":0,
+				"effectiveness":40,
+				"fleet_pen":100, 
+				"description":"Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
 				"val":"fcw", 
 				"name":"Forward Collision Warning",
 				"active":0,
 				"effectiveness":50,
 				"fleet_pen":100, 
 				"description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"lka", 
+				"name":"Lane Keeping Assistance",
+				"active":0,
+				"effectiveness":25,
+				"fleet_pen":100, 
+				"description":"Lane keeping assistance systems are estimated to reduce 17-25% of off-path crashes (eSafety Forum 2005, FHWA 1998, eImpact Project 2005), 24% of head-on collisions (eImpact Project 2005), and 60% of sideswipe collisions (eImpact Project 2005)", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
@@ -99,12 +149,32 @@
 				'selector_desc': []
 			},
 			{
-				"val":"adaptive_headlighting",
-				"name":"Adaptive Headlighting",
+				"val":"arb", 
+				"name":"Automatic Rear Breaking",
 				"active":0,
-				"effectiveness":65,
+				"effectiveness":24,
 				"fleet_pen":100, 
-				"description":"Adaptive headlights swivel to light up curves as the driver steers, allowing drivers to spot obstacles more quickly and react as needed (Reagan, Brumbelow, &amp; Frischmann, 2015). Adaptive headlighting is estimated to prevent 65% of crashes that occur in the dark.", 
+				"description":"[NEED DESC + DEFUALTS]", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"rdw", 
+				"name":"Road Departure Warning",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"adaptive_headlighting",
+				"name":"Intelligent Headlighting",
+				"active":0,
+				"effectiveness":18,
+				"fleet_pen":100, 
+				"description":"Intelligent lighting systems are estimated to reduce 18% of pedestrian/cyclist low-visiblity crashes (eSafetyForum 2005).", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
@@ -501,13 +571,17 @@
 			margin: 5,
 			html: detail,
 			listeners:{
-				close:{
+				beforeclose:{
 					fn: function(){
+						if(countermeasure_edit_window.isVisible()){
+							return false;
+						}
 						//clear filter activity
 						var targ_name = this.title;
 						var rec = cm_types.findRecord('name', targ_name);
 						rec.set('active', 0);
 						data_update();
+						return true;
 					}
 				}
 			}
@@ -602,7 +676,12 @@
 				
 			}
 		],
-		hidden: true
+		hidden: true,
+		listeners:{
+			close: function(){
+				cm_types.clearFilter();
+			}
+		}
 	});
 	
 	var active_countermeasure_panel = Ext.create('Ext.panel.Panel', {

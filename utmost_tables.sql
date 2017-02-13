@@ -38,6 +38,8 @@ CREATE TABLE crash_injury (
   `dv_key` BIGINT,
   `restraint_key` BIGINT,
   `headlighting_key` INT,
+  `cta_key` INT,
+  `ctcd_key` INT,
   `coefficient` DOUBLE,
   `unrestrained` DOUBLE,
   `belted` DOUBLE,
@@ -107,28 +109,64 @@ SHOW WARNINGS;
 
 DROP TABLE IF EXISTS ldw;
 CREATE TABLE ldw (
-  `crash_type` VARCHAR(20),
+  `dv_key` BIGINT,
   `relevance` double
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
+DROP TABLE IF EXISTS ldp;
+CREATE TABLE ldp (
+  `ctcd_key` int,
+  `relevance` double
+) ENGINE=infinidb;
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS lka;
+CREATE TABLE lka (
+  `ctcd_key` int,
+  `relevance` double
+) ENGINE=infinidb;
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS bsw;
+CREATE TABLE bsw (
+  `cta_key` int,
+  `relevance` double
+) ENGINE=infinidb;
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS rdw;
+CREATE TABLE rdw (
+  `dv_key` BIGINT,
+  `relevance` double
+) ENGINE=infinidb;
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS csw;
+CREATE TABLE csw (
+  `dv_key` BIGINT,
+  `relevance` double
+) ENGINE=infinidb;
+SHOW WARNINGS;
+
+
 DROP TABLE IF EXISTS acc;
 CREATE TABLE acc (
-  `crash_type` VARCHAR(20),
+  `cta_key` int,
   `relevance` double
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
 DROP TABLE IF EXISTS alcohol_interlock;
 CREATE TABLE alcohol_interlock (
-  `crash_type` VARCHAR(20),
+  `alcohol_involvement` VARCHAR(20),
   `relevance` double
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
 DROP TABLE IF EXISTS fcw;
 CREATE TABLE fcw (
-  `crash_type` VARCHAR(20),
+  `cta_key` int,
   `relevance` double
 ) ENGINE=infinidb;
 SHOW WARNINGS;
@@ -142,7 +180,7 @@ SHOW WARNINGS;
 
 DROP TABLE IF EXISTS backing;
 CREATE TABLE backing (
-  `crash_type` VARCHAR(20),
+  `cta_key` int,
   `relevance` double
 ) ENGINE=infinidb;
 SHOW WARNINGS;
@@ -154,5 +192,16 @@ CREATE TABLE adaptive_headlighting (
 ) ENGINE=infinidb;
 SHOW WARNINGS;
 
+DROP TABLE IF EXISTS arb;
+CREATE TABLE arb (
+  `crash_type` VARCHAR(20),
+  `relevance` double
+) ENGINE=infinidb;
+SHOW WARNINGS;
 
-
+DROP TABLE IF EXISTS esc;
+CREATE TABLE esc (
+  `ctcd_key` int,
+  `relevance` double
+) ENGINE=infinidb;
+SHOW WARNINGS;

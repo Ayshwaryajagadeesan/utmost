@@ -104,9 +104,9 @@
 	
 	
 	//Trapezoidal sum function for injury integration
-	var utmost_injury_min_dv = 0.1;
-	var utmost_injury_max_dv = 150.0;
-	var utmost_injury_step_size = 0.1;
+	var utmost_injury_min_dv = 1;
+	var utmost_injury_max_dv = 150;
+	var utmost_injury_step_size = 1;
 	
 	var utmost_injury_trapezoidal_sum = function(record, intercept){
 		var mean = record.get('mean_dv');
@@ -139,7 +139,7 @@
 	}
 	
 	var utmost_logistic_injury = function(coeff, intercept, dv){
-		return 1/(1+Math.exp(-1*(intercept + coeff * dv)));
+		return 1/(1+Math.exp(-1*(intercept + coeff * Math.log(dv))));
 	}
 	
 		
@@ -216,7 +216,7 @@
 					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
-					
+					utmost_totals_chart.axes.getAt(0).maximum = 15000000;
 					
 					
 					//Adjust axis labels for chosen variables
@@ -464,7 +464,7 @@
 					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
-					
+					utmost_totals_chart.axes.getAt(0).maximum = 115000;
 					
 					
 					//Adjust axis labels for chosen variables

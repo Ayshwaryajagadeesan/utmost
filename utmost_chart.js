@@ -17,7 +17,8 @@
 				grid: true,
 				fields: ['person_count'],
 				minimum: 0,
-				maximum: 5500000
+				maximum: 5500000,
+				label: {renderer: function(v){ return v.toLocaleString();}}
 			}, {
 				title: 'Type',
 				type: 'Category',
@@ -41,7 +42,7 @@
 				  width: 140,
 				  height: 45,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count')+ '  <br/>Adjusted: ' +storeItem.get('person_count_adj'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count').toLocaleString()  + '  <br/>Adjusted: ' +storeItem.get('person_count_adj').toLocaleString() );
 				  }
 				},
 				style: {
@@ -51,7 +52,7 @@
 				  display: 'insideEnd',
 				  'text-anchor': 'middle',
 					field: 'data',
-					renderer: Ext.util.Format.numberRenderer('0'),
+					renderer: Ext.util.Format.numberRenderer('0,000'),
 					orientation: 'vertical',
 					color: '#333'
 				},
@@ -78,7 +79,8 @@
 				grid: true,
 				fields: ['injury_count'],
 				minimum: 0,
-				maximum: 5500000
+				maximum: 5500000,
+				label: {renderer: function(v){ return v.toLocaleString();}}
 			}, {
 				title: 'Type',
 				type: 'Category',
@@ -102,7 +104,7 @@
 				  width: 140,
 				  height: 45,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('injury_count')+ '  <br/>Adjusted: ' +storeItem.get('injury_count_adj'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('injury_count').toLocaleString() + '  <br/>Adjusted: ' +storeItem.get('injury_count_adj').toLocaleString() );
 				  }
 				},
 				style: {
@@ -112,7 +114,7 @@
 				  display: 'insideEnd',
 				  'text-anchor': 'middle',
 					field: 'data',
-					renderer: Ext.util.Format.numberRenderer('0'),
+					renderer: Ext.util.Format.numberRenderer('0,000'),
 					orientation: 'vertical',
 					color: '#333'
 				},
@@ -146,7 +148,8 @@
 				grid: true,
 				fields: ['person_count'],
 				minimum: 0,
-				maximum: 15000000
+				maximum: 15000000,
+				label: {renderer: function(v){ return v.toLocaleString();}}
 			}, {
 				type: 'Category',
 				position: 'left',
@@ -163,7 +166,7 @@
 				  width: 140,
 				  height: 45,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count')+ '  <br/>Adjusted: ' +storeItem.get('person_count_adj'));
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count').toLocaleString() + '  <br/>Adjusted: ' +storeItem.get('person_count_adj').toLocaleString() );
 				  }
 				},
 				style: {
@@ -173,7 +176,7 @@
 				  display: 'insideEnd',
 				  'text-anchor': 'middle',
 					field: 'data',
-					renderer: Ext.util.Format.numberRenderer('0'),
+					renderer: Ext.util.Format.numberRenderer('0,000'),
 					orientation: 'vertical',
 					color: '#333'
 				},
