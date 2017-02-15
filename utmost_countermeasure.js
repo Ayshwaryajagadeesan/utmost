@@ -150,7 +150,7 @@
 			},
 			{
 				"val":"arb", 
-				"name":"Automatic Rear Breaking",
+				"name":"Automatic Rear Braking",
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 

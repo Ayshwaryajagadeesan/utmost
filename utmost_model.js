@@ -471,7 +471,7 @@
 					utmost_injury_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
 					
 					//Adjust chart max values
-					var chart_max = (parseInt(max / 1000) + 1) * 1000;
+					var chart_max = (parseInt(max / 100) + 1) * 100;
 					utmost_injury_chart.axes.getAt(0).maximum = chart_max;
 					
 					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
