@@ -18,28 +18,203 @@
 	
 	
 	var cm_types = Ext.create('Ext.data.Store', {
-		//fields: ['val', 'name', 'active', 'effectiveness', 'fleet_pen', 'description'],
 		model: 'Countermeasure_Type_Count',
 		data : [
-			//Old Countermeasures
-			/* 
-			{"val":"LDW", "name":"Lane Departure Warning","active":0,"effectiveness":25,"fleet_pen":100, "description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"ACC", "name":"Adaptive Cruise Control","active":0,"effectiveness":29,"fleet_pen":100, "description":"Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decellerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"Alcohol_Interlock", "name":"Alcohol Interlock","active":0,"effectiveness":18,"fleet_pen":100, "description":"Alcohol Interlock is a system that checks the blood alcohol of the driver before allowing the vehicle to be turned on. Alcohol interlocks are estimated to reduce 18% of crashes where alcohol was a factor (eSafety Forum 2005)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"FCW", "name":"Forward Collision Warning","active":0,"effectiveness":50,"fleet_pen":100, "description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"LCW", "name":"Lane Change Warning","active":0,"effectiveness":38,"fleet_pen":100, "description":"Lane Change Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in a nearby lane. Lane change warning systems are estimated to reduce 37-40% of drifting and lane change crashes (FHWA 1998, Kaniantrha and Murtig 1997, McKeever 1998)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"Lane_Keeping_Assist", "name":"Lane-Keeping Assist","active":0,"effectiveness":25,"fleet_pen":100, "description":"Lane-Keeping Assist is a system that scans the road and automatically keeps a vehicle within its own lane. Lane keeping assistance systems are estimated to reduce 17-25% of off-path crashes (eSafety Forum 2005, FHWA 1998, eImpact Project 2005), 24% of head-on collisions (eImpact Project 2005), and 60% of sideswipe collisions (eImpact Project 2005)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"Pedestrian_Detection", "name":"Pedestrian Detection","active":0,"effectiveness":5,"fleet_pen":100, "description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle, potentially out of sight of the driver. There are no currently published estimates on the effectiveness of pedestrian detection systems.", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"Backing_Collision_Warning", "name":"Reverse Collision Warning","active":0,"effectiveness":65,"fleet_pen":100, "description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"ESC", "name":"Electronic Stability Control","active":0,"effectiveness":40,"fleet_pen":100, "description":"Electronic Stability Control is a system that automatically adjust the braking and/or engine power to multiple wheels in order to maintain vehicle stability in adverse conditions. Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"RDW", "name":"Road Departure Warning","active":0,"effectiveness":24,"fleet_pen":100, "description":"Road Departure Warning is a system that alerts the driver when the vehicle is detected to be departing the roadway. Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)", 'selector_type': ["numeric"], 'selector_desc': []},
-			{"val":"RDW", "name":"Independent Selector","active":0,"effectiveness":24,"fleet_pen":100, "description":"Independent set of sliders", 'selector_type': ["independent", "category_unique"], 'selector_desc': ["Sliders", "Two Choices"]},
-			{"val":"CHILDSEATLAW", "name":"Child Seat Laws","active":0,"effectiveness":100,"fleet_pen":100, "description":"Laws for child seats tend to impact the proportion of children who are properly restraines vs sub-optimally restrained.", 'selector_type': ["independent"], 'selector_desc': ["Restraint Categories"]},
-			{"val":"SEATBELTLAW", "name":"Seatbelt Enforcement","active":0,"effectiveness":100,"fleet_pen":100, "description":"Seatbelt enforcement practice encourages drivers to wear their seatbelts and have a demonstrable effect on the rate of belted occupants in crashes", 'selector_type': ["independent"], 'selector_desc': ["Enforcement Categories"]},
-			{"val":"HELMETLAW", "name":"Motorcycle Helmet Law","active":0,"effectiveness":100,"fleet_pen":100, "description":"Motorcycle Helmet Laws require motorcyclists to wear helmets.  Laws that do not require this may as well not exist", 'selector_type': ["independent"], 'selector_desc': ["Law Type"]},
-			{"val":"GDL", "name":"Graduated Drivers Licensing","active":0,"effectiveness":100,"fleet_pen":100, "description":"I need to change how I handle grouping to make multiple age minimum categories work properly", 'selector_type': ["population", "independent"], 'selector_desc': ["Minimum Age", "Restrictions"]}
-			*/
-			// New Countermeasures
+			{
+				"val":"ldw", 
+				"name":"Lane Departure Warning",
+				"active":0,
+				"effectiveness":25,
+				"fleet_pen":100, 
+				"description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"ldp", 
+				"name":"Lane Departure Prevention",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"[NEED DESC + DEFUALTS]", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"bsw", 
+				"name":"Blind-Spot Warning",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"Lane change warning systems are estimated to reduce 37-40% of drifting and lane change crashes (FHWA 1998, Kaniantrha and Murtig 1997, McKeever 1998)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"csw", 
+				"name":"Curve Speed Warning",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"[NEED DESC + DEFUALTS]", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"acc", 
+				"name":"Adaptive Cruise Control",
+				"active":0,
+				"effectiveness":29,
+				"fleet_pen":100, 
+				"description":"Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decellerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998)",
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"alcohol_interlock", 
+				"name":"Alcohol Interlock",
+				"active":0,
+				"effectiveness":18,
+				"fleet_pen":100, 
+				"description":"Alcohol Interlock is a system that checks the blood alcohol of the driver before allowing the vehicle to be turned on. Alcohol interlocks are estimated to reduce 18% of crashes where alcohol was a factor (eSafety Forum 2005)", 
+				'selector_type': ["numeric"], 'selector_desc': []
+			},
+			{
+				"val":"esc", 
+				"name":"Electronic Stability Control",
+				"active":0,
+				"effectiveness":40,
+				"fleet_pen":100, 
+				"description":"Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"fcw", 
+				"name":"Forward Collision Warning",
+				"active":0,
+				"effectiveness":50,
+				"fleet_pen":100, 
+				"description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"lka", 
+				"name":"Lane Keeping Assistance",
+				"active":0,
+				"effectiveness":25,
+				"fleet_pen":100, 
+				"description":"Lane keeping assistance systems are estimated to reduce 17-25% of off-path crashes (eSafety Forum 2005, FHWA 1998, eImpact Project 2005), 24% of head-on collisions (eImpact Project 2005), and 60% of sideswipe collisions (eImpact Project 2005)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"pedestrian_detection", 
+				"name":"Pedestrian Detection",
+				"active":0,
+				"effectiveness":5,
+				"fleet_pen":100, 
+				"description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle, potentially out of sight of the driver. There are no currently published estimates on the effectiveness of pedestrian detection systems.",
+				'selector_type': ["numeric"],
+				'selector_desc': []
+			},
+			{
+				"val":"backing", 
+				"name":"Reverse Collision Warning",
+				"active":0,"effectiveness":65,
+				"fleet_pen":100, 
+				"description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"arb", 
+				"name":"Automatic Rear Braking",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"[NEED DESC + DEFUALTS]", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"rdw", 
+				"name":"Road Departure Warning",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"Road departure warning systems are estimated to reduce 24% of off-path crashes crashes (Kaniantrha and Murtig 1997)", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"adaptive_headlighting",
+				"name":"Intelligent Headlighting",
+				"active":0,
+				"effectiveness":18,
+				"fleet_pen":100, 
+				"description":"Intelligent lighting systems are estimated to reduce 18% of pedestrian/cyclist low-visiblity crashes (eSafetyForum 2005).", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
+				"val":"teen_driver",
+				"name":"Graduated Driver Licensing",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Graduated driver licensing (GDL) laws allow new drivers to acquire driving skills over time in stages. Ten elements of GDL laws were assessed (learner age, learner duration, supervised hours, more challenging hours, driver’s education requirements, intermediate age, nighttime restrictions, passenger restrictions, length of nighttime and passenger restrictions). Each element was coded as being stronger or weaker among the range of laws. States that had a higher number of strong GDL law elements had lower teen crash rates than states with fewer strong GDL law elements. Changing the number of GDL laws will affect both person and injury count.", 
+				'selector_type': ["population"], 
+				'selector_desc': ['Population Proportion']
+			},
+			{
+				"val":"child_seat",
+				"name":"Child Passenger Safety Laws",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"The wording used in child passenger safety laws is correlated to the proportion of child occupants using recommended restraint systems (Benedetti et al. 2017, Klinich et al. 2016). States that include language associated with best practice recommendations in child restraint (rear-facing to age 2, harnessed child restraint for 2 to 4YO, and booster seats for 5 to 10YO) have higher rates of optimal restraint use. Changing the population proportion for each age group with a “best practice” law changes the distribution of optimal and suboptimal restraint, which changes injury count but not person count.", 
+				'selector_type': ["independent"], 
+				'selector_desc': ["Law Population Proportion"]
+			},
+			{
+				"val":"seatbelt",
+				"name":"Seatbelt Use Laws",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"All states except New Hampshire require seatbelt use by front seat occupants. In 2017, 19 states have secondary enforcement of seatbelt laws while the rest have primary enforcement. Analysis of restraint patterns and strength of laws indicated that having a primary law increases belt use by 6%. States with increased fines for a second violation also have higher belt rates (3%). Changing the population proportion covered by different types of seatbelt laws changes the proportion of belted occupants, which changes injury count but not person count.", 
+				'selector_type': ["population"], 
+				'selector_desc': ["Law Population Proportion"]
+			},
+			{
+				"val":"helmet",
+				"name":"Motorcycle Helmet Law",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Motorcycle helmet use is higher in states that require universal helmet use compared to states that do not (89% vs. 49%, Pickrell and Choi [2015]). In 2017, 39% of motorcycle registrations are in states with universal helmet laws, while 61% are not. In UTMOST, changing the percentage of the motor-cycle riding population (based on registrations) that are covered by universal helmet laws will affect the injury count but not the person count.", 
+				'selector_type': ["independent"], 
+				'selector_desc': ["Law Population Proportion"]
+			},
+			{
+				"val":"restraint_override",
+				"name":"Restraint Override",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"This allows the user to control the percentage of occupants who are optimally restrained, overriding changes that would occur resulting from law changes. Optimal restraint is defined as seatbelt use for ages 11 and up, booster use for 5-10YO, harnessed child restraints for 2-4YO, and rear-facing restraints for 0-1YO. Changing restraint distribution will change injury count but not person count.", 
+				'selector_type': ["independent"], 
+				'selector_desc': ["Restraint Proportion"]
+			}
+			
+		]
+	});
+	
+	var cm_type_defaults = Ext.create('Ext.data.Store', {
+		model: 'Countermeasure_Type_Count',
+		data : [
 			{
 				"val":"ldw", 
 				"name":"Lane Departure Warning",
@@ -268,7 +443,29 @@
 			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0}
 		]
 	});
-
+	
+	var cm_option_defaults = Ext.create('Ext.data.Store', {
+		model: 'Countermeasure_Detail',
+		data : [
+			{"category_val":"helmet", 'name':"Full Motorcyle Helmet Law", 							'target_val':"HELMETLAW", 'base_rate':49, 'law_rate':89, 'proportion':39, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"restraint_override", 'name':"Override Restraint Values", 							'target_val':"OVERRIDE", 'base_rate':0, 'law_rate':0, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Secondary Enforcement", 							'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':82, 'proportion':23, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Secondary Enforcement with Points or Secondary Fines", 'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':84, 'proportion':1, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Primary Enforcement", 								'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':91, 'proportion':59, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seatbelt", 'name':"Primary Enforcement with Points or Secondary Fines", 'target_val':"SEATBELTLAW", 'base_rate':70, 'law_rate':94, 'proportion':17, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"child_seat", 'name':"0-1 Year Old Rear-Facing Seat", 'target_val':"0-1", 'base_rate':54, 'law_rate':65, 'proportion':11, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"child_seat", 'name':"2-4 Year Old Harnessed Child Seat", 'target_val':"2-4", 'base_rate':64, 'law_rate':80, 'proportion':13, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"child_seat", 'name':"5-7 Year Old Booster Seat", 'target_val':"5-7", 'base_rate':40, 'law_rate':62, 'proportion':85, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"child_seat", 'name':"8-10 Year Old Booster Seat", 'target_val':"8-10", 'base_rate':19, 'law_rate':37, 'proportion':1, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"3 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"4 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':4, 'proportion':2, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"5 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"6 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':6, 'proportion':12, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"7 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':7, 'proportion':30, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':8, 'proportion':17, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0}
+		]
+	});
 	
 	var countermeasure_list = Ext.create('Ext.form.field.ComboBox', {
 		xtype: 'combobox',
@@ -602,8 +799,33 @@
 				items: [countermeasure_edit_form, cm_description]
 			},
 			{
+				xtype: 'button',
+				text: 'Restore Default Values',
+				width: '100%',
+				handler: function(){
+					var selected = countermeasure_list.getValue();
+					cm_types.each(function(record){
+							var default_record = cm_type_defaults.findRecord('val', record.get('val'), 0, false, false, true);
+							record.set('effectiveness', default_record.get('effectiveness'));
+							record.set('fleet_pen', default_record.get('fleet_pen'));
+							cm_option_defaults.filter('category_val', record.get('val'));
+							cm_option_defaults.each(function(record){
+								var clear_target = cm_options.findRecord('name', record.get('name'), 0, false, false, true);
+								if(clear_target){
+									clear_target.set('proportion', record.get('proportion'));
+									clear_target.set('lock', 0);
+								}
+							});
+							cm_option_defaults.clearFilter();
+					});
+					
+					
+					countermeasure_list.fireEvent('select', countermeasure_list, [countermeasure_list.findRecord('name', selected)], cm_types.findExact('name', selected));
+				}
+			},
+			{
 				xtype: "button",
-				text: "Save",
+				text: "Save and Apply Countermeasure",
                 width: "100%",
 				handler: function(){
 					var cm_detail = "";
@@ -696,16 +918,23 @@
 		items: [active_countermeasure_panel, {
 			xtype: 'panel',
             region: 'south',
-            layout: 'fit',
-            items: {
+            layout: 'vbox',
+            items: [{
                 xtype: 'button',
                 text: "Add New Countermeasure",
+				width: '100%',
 				handler: function(){
 					cm_types.filter('active',0);
 					countermeasure_list.clearValue();
 					countermeasure_edit_window.show();
 				}
-            }
+            },
+			{
+				xtype: 'button',
+				text: "Export to CSV",
+				width: '100%',
+				handler: utmost_csv_export
+			}]
 			
 		}]
 	});

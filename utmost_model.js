@@ -464,7 +464,7 @@
 					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
-					utmost_totals_chart.axes.getAt(0).maximum = 115000;
+					utmost_totals_chart.axes.getAt(0).maximum = 170000;
 					
 					
 					//Adjust axis labels for chosen variables
@@ -492,5 +492,43 @@
 		}
 		
 	}
+	
+	
+	var utmost_csv_export = function(){
+		var out = "";
+		if (utmost_chart.isVisible()){
+			out += "category,person_count,adjusted_person_count\n";
+			var count = utmost_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+			}
+		} else {
+			//injury
+			out += "category,injury_count,adjusted_injury_count\n";
+			var count = utmost_injury_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+			}
+		}
+		// thanks stackoverflow
+		var outFileBlob = new Blob([out], {type:'text/plain'});
+		var outFileName = "utmost_chart_output.csv";
+		var dl_link = document.createElement("a");
+		dl_link.download = outFileName;
+		dl_link.innerHTML = "Download File";
+		 if (window.webkitURL != null){
+			// Chrome allows the link to be clicked
+			// without actually adding it to the DOM.
+			dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+		} else {
+			// Firefox requires the link to be added to the DOM
+			// before it can be clicked.
+			dl_link.href = window.URL.createObjectURL(outFileBlob);
+			dl_link.onclick = document.body.removeChild(event.target);
+			dl_link.style.display = "none";
+			document.body.appendChild(dl_link);
+		}
+		dl_link.click();
+	};
 
 
