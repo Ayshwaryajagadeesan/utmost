@@ -207,6 +207,16 @@
 				"description":"This allows the user to control the percentage of occupants who are optimally restrained, overriding changes that would occur resulting from law changes. Optimal restraint is defined as seatbelt use for ages 11 and up, booster use for 5-10YO, harnessed child restraints for 2-4YO, and rear-facing restraints for 0-1YO. Changing restraint distribution will change injury count but not person count.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Restraint Proportion"]
+			},
+			{
+				"val":"TOYOTA",
+				"name":"Toyota Benefits Test Countermeasure",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Test Countermeasure for Toyota Benefits", 
+				'selector_type': ["independent"], 
+				'selector_desc': ["Countermeasure Settings"]
 			}
 			
 		]
@@ -440,7 +450,10 @@
 			{"category_val":"teen_driver", 'name':"6 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':6, 'proportion':12, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"7 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':7, 'proportion':30, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':8, 'proportion':17, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0}
+			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"TOYOTA", 'name':"Baseline Effectiveness", 'target_val':"acc", 'base_rate':0, 'law_rate':9, 'proportion':60, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"TOYOTA", 'name':"Alternative Effectiveness", 'target_val':"lka", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"TOYOTA", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':60, 'detail_type': 'independent', 'lock': 0}
 		]
 	});
 	
@@ -946,7 +959,21 @@
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'){ 
-				res.push(val);
+				if (val == 'TOYOTA'){
+					cm_options.clearFilter();
+					var toyota_index = 0;
+					cm_options.filter('category_val', 'TOYOTA');
+					while (toyota_index < cm_options.count()){
+						var test = cm_options.getAt(toyota_index);
+						if (test.get('target_val') != 'PENETRATION'){
+							res.push(test.get('target_val'));
+						}
+						toyota_index++;
+					}
+					cm_options.clearFilter();
+				}else{
+					res.push(val);
+				}
 			}
 			index++;
 		}
@@ -960,7 +987,24 @@
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'){
-				res.push((test.get('effectiveness')/100) * (test.get('fleet_pen')/100));
+				if (val == 'TOYOTA'){
+					var toyota_index = 0;
+					cm_options.clearFilter();
+					cm_options.filter('category_val', 'TOYOTA');
+					var penetration_record = cm_options.findRecord('target_val', 'PENETRATION');
+					var fleet_penetration = penetration_record.get('proportion')/100;
+					while (toyota_index < cm_options.count()){
+						var test = cm_options.getAt(toyota_index);
+						if (test.get('target_val') != 'PENETRATION'){
+							res.push((test.get('proportion')/100)*fleet_penetration);
+						}
+						toyota_index++;
+					}
+					cm_options.clearFilter();
+				}else{
+					res.push((test.get('effectiveness')/100) * (test.get('fleet_pen')/100));
+				}
+				
 			}
 			index++;
 		}
@@ -1043,4 +1087,53 @@
 		}
 		cm_options.clearFilter();
 		return (res/baseline_2014[driver_age]);
+	}
+	
+	function cm_status_export(){
+		var res = "Countermeasure Status:\n";
+		
+		//Countermeasures - Simple
+		
+		//Countermeasures - Complex
+		var index = 0;
+		while (index < cm_types.count()){
+			var test = cm_types.getAt(index);
+			var val = test.get('val');
+			if (test.get('active') == 1){
+				if (val == 'TOYOTA'){
+					//advanced countermeasure, toyota benefits
+					var toyota_index = 0;
+					cm_options.clearFilter();
+					cm_options.filter('category_val', 'TOYOTA');
+					var penetration_record = cm_options.findRecord('target_val', 'PENETRATION');
+					var fleet_penetration = penetration_record.get('proportion')/100;
+					while (toyota_index < cm_options.count()){
+						var toyota_test = cm_options.getAt(toyota_index);
+						if (toyota_test.get('target_val') != 'PENETRATION'){
+							res +=  test.get('name') + ',' + toyota_test.get('name') + ',' + ((toyota_test.get('proportion')/100)*fleet_penetration) + '\n';
+						}
+						toyota_index++;
+					}
+					cm_options.clearFilter();
+				} else if (val == 'child_seat' || val == 'teen_driver' || val == 'helmet' || val == 'restraint_override'|| val == 'seatbelt'){
+					//law countermeasure
+					var details_index = 0;
+					cm_options.clearFilter();
+					cm_options.filter('category_val', val);
+					while (details_index < cm_options.count()){
+						var details_test = cm_options.getAt(details_index);
+						res +=  test.get('name') + ',' + details_test.get('name') + ',' + (details_test.get('proportion')/100) + '\n';
+						details_index++;
+					}
+					cm_options.clearFilter();
+				}else{
+					//Standard Countermeasure
+					res += test.get('name') + ',' + ((test.get('effectiveness')/100) * (test.get('fleet_pen')/100)) + '\n';
+				}
+				
+			}
+			index++;
+		}
+		
+		return res;
 	}

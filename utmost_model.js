@@ -496,6 +496,7 @@
 	
 	var utmost_csv_export = function(){
 		var out = "";
+		out += cm_status_export();
 		if (utmost_chart.isVisible()){
 			out += "category,person_count,adjusted_person_count\n";
 			var count = utmost_chart_values.count();
