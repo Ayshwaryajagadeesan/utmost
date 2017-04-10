@@ -26,19 +26,20 @@
 				"active":0,
 				"effectiveness":25,
 				"fleet_pen":100, 
-				"description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)", 
-				'selector_type': ["numeric"], 
-				'selector_desc': []
+				//"description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)", 
+				"description" : "Lane-departure warning alerts the driver when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LeBlanc et al. (2017) found that all drifting crashes and 61% of road-departure crashes not involving alcohol could be affected by LDW. They also found that LDW was estimated to be 69.9% effective at reducing rollovers associated with drifting and run-off- road crashes, but only 3.8% effective at reducing crashes into objects and vehicles out of the driver’s lane.",
+				'selector_type': ["independent"], 
+				'selector_desc': ["Countermeasure Settings"]
 			},
 			{
 				"val":"ldp", 
-				"name":"Lane Departure Prevention",
+				"name":"Lane Centering",
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
-				"description":"[NEED DESC + DEFUALTS]", 
-				'selector_type': ["numeric"], 
-				'selector_desc': []
+				"description":"Lane-centering systems maintain a set position within the lane boundaries until the driver actively changes lanes. In simulations by LeBlanc et al. (2017) this system eliminated 100% of simulated out-of- lane crashes. However, as this is unrealistically high, the default values for UTMOST match the values for Lane-Keeping Assist, which was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off- road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver’s lane.", 
+				'selector_type': ["independent"], 
+				'selector_desc': ["Countermeasure Settings"]
 			},
 			{
 				"val":"bsw", 
@@ -95,9 +96,10 @@
 				"active":0,
 				"effectiveness":50,
 				"fleet_pen":100, 
-				"description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)", 
-				'selector_type': ["numeric"], 
-				'selector_desc': []
+				//"description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)", 
+				"description":"Forward Collision Warning (FCW) alerts the driver when the vehicle is approaching a lead vehicle too fast. LeBlanc et al. (2017) found that four types of rear-end crashes can be addressed by FCW: lead-vehicle braking, lead-vehicle stopped, lead-vehicle slower and other rear-end crashes, all where alcohol is not involved. They also found that FCW was estimated to be 74.6% effective at reducing lead-vehicle braking crashes, 77.5% effective in lead-vehicle stopped crashes, 73.1% effective in lead-vehicle slower crashes, and 67.5% effective in other rear-end crashes. These estimates are higher than previous work and may represent an ideal effectiveness in which drivers respond reliably to the warning and do not turn the system off.",
+				'selector_type': ["independent"], 
+				'selector_desc': ["Countermeasure Settings"]
 			},
 			{
 				"val":"lka", 
@@ -105,9 +107,10 @@
 				"active":0,
 				"effectiveness":25,
 				"fleet_pen":100, 
-				"description":"Lane keeping assistance systems are estimated to reduce 17-25% of off-path crashes (eSafety Forum 2005, FHWA 1998, eImpact Project 2005), 24% of head-on collisions (eImpact Project 2005), and 60% of sideswipe collisions (eImpact Project 2005)", 
-				'selector_type': ["numeric"], 
-				'selector_desc': []
+				//"description":"Lane keeping assistance systems are estimated to reduce 17-25% of off-path crashes (eSafety Forum 2005, FHWA 1998, eImpact Project 2005), 24% of head-on collisions (eImpact Project 2005), and 60% of sideswipe collisions (eImpact Project 2005)", 
+				"description": "Lane-keep assist steers the vehicle back towards the lane when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LKA is generally combined with LDW. LeBlanc et al. (2017) found that all drifting crashes and 61% of road departure crashes could be affected by LKA+LDW. They also found that LKA+LDW was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off-road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver’s lane.",
+				'selector_type': ["independent"], 
+				'selector_desc': ["Countermeasure Settings"]
 			},
 			{
 				"val":"pedestrian_detection", 
@@ -137,6 +140,15 @@
 				"description":"[NEED DESC + DEFUALTS]", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
+			},			{
+				"val":"aeb", 
+				"name":"Automatic Emergency Braking",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"Automatic Emergency Braking (AEB) applies the brakes to stop the vehicle when it is approaching a lead vehicle too fast. It is generally always equipped with FCW. LeBlanc et al. (2017) found that four types of rear-end crashes can be addressed by AEB+FCW: lead-vehicle braking, lead-vehicle stopped, lead-vehicle slower and other rear-end crashes. They also found that AEB+FCW was estimated to be 87% effective at reducing lead-vehicle braking crashes, 94.6% effective in lead-vehicle stopped crashes, 86% effective in lead-vehicle slower crashes, and 82.6% effective in other rear-end crashes. These estimates are higher than previous work and may represent an ideal effectiveness in which drivers respond reliably to the warning and do not turn the system off.", 
+				'selector_type': ["independent"], 
+				'selector_desc': ["Countermeasure Settings"]
 			},
 			{
 				"val":"rdw", 
@@ -207,16 +219,6 @@
 				"description":"This allows the user to control the percentage of occupants who are optimally restrained, overriding changes that would occur resulting from law changes. Optimal restraint is defined as seatbelt use for ages 11 and up, booster use for 5-10YO, harnessed child restraints for 2-4YO, and rear-facing restraints for 0-1YO. Changing restraint distribution will change injury count but not person count.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Restraint Proportion"]
-			},
-			{
-				"val":"TOYOTA",
-				"name":"Toyota Benefits Test Countermeasure",
-				"active":0,
-				"effectiveness":0,
-				"fleet_pen":0, 
-				"description":"Test Countermeasure for Toyota Benefits", 
-				'selector_type': ["independent"], 
-				'selector_desc': ["Countermeasure Settings"]
 			}
 			
 		]
@@ -451,9 +453,25 @@
 			{"category_val":"teen_driver", 'name':"7 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':7, 'proportion':30, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':8, 'proportion':17, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"TOYOTA", 'name':"Baseline Effectiveness", 'target_val':"acc", 'base_rate':0, 'law_rate':9, 'proportion':60, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"TOYOTA", 'name':"Alternative Effectiveness", 'target_val':"lka", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"TOYOTA", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':60, 'detail_type': 'independent', 'lock': 0}
+			{"category_val":"lka", 'name':"Rollover Effectiveness", 'target_val':"lka_rollover", 'base_rate':0, 'law_rate':9, 'proportion':91, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"lka", 'name':"Other Crash Effectiveness", 'target_val':"lka", 'base_rate':0, 'law_rate':9, 'proportion':35, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"lka", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldw", 'name':"Rollover Effectiveness", 'target_val':"ldw_rollover", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldw", 'name':"Other Crash Effectiveness", 'target_val':"ldw", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldw", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"Rollover Effectiveness", 'target_val':"ldp", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"Other Crash Effectiveness", 'target_val':"ldp_rollover", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"fcw_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':75, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"fcw_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':78, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"fcw_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':73, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Other Rear End Effectiveness", 'target_val':"fcw", 'base_rate':0, 'law_rate':9, 'proportion':68, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0}
 		]
 	});
 	
@@ -476,7 +494,26 @@
 			{"category_val":"teen_driver", 'name':"6 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':6, 'proportion':12, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"7 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':7, 'proportion':30, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"8 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':8, 'proportion':17, 'detail_type': 'population', 'lock': 0},
-			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0}
+			{"category_val":"teen_driver", 'name':"9 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':9, 'proportion':30, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"lka", 'name':"Rollover Effectiveness", 'target_val':"lka_rollover", 'base_rate':0, 'law_rate':9, 'proportion':91, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"lka", 'name':"Other Crash Effectiveness", 'target_val':"lka", 'base_rate':0, 'law_rate':9, 'proportion':35, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"lka", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldw", 'name':"Rollover Effectiveness", 'target_val':"ldw_rollover", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldw", 'name':"Other Crash Effectiveness", 'target_val':"ldw", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldw", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"Rollover Effectiveness", 'target_val':"ldp", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"Other Crash Effectiveness", 'target_val':"ldp_rollover", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"fcw_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':75, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"fcw_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':78, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"fcw_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':73, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Other Rear End Effectiveness", 'target_val':"fcw", 'base_rate':0, 'law_rate':9, 'proportion':68, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"fcw", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0}
 		]
 	});
 	
@@ -959,10 +996,10 @@
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'){ 
-				if (val == 'TOYOTA'){
+				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')){
 					cm_options.clearFilter();
 					var toyota_index = 0;
-					cm_options.filter('category_val', 'TOYOTA');
+					cm_options.filter('category_val', val);
 					while (toyota_index < cm_options.count()){
 						var test = cm_options.getAt(toyota_index);
 						if (test.get('target_val') != 'PENETRATION'){
@@ -987,10 +1024,10 @@
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'){
-				if (val == 'TOYOTA'){
+				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')){
 					var toyota_index = 0;
 					cm_options.clearFilter();
-					cm_options.filter('category_val', 'TOYOTA');
+					cm_options.filter('category_val', val);
 					var penetration_record = cm_options.findRecord('target_val', 'PENETRATION');
 					var fleet_penetration = penetration_record.get('proportion')/100;
 					while (toyota_index < cm_options.count()){
@@ -1100,11 +1137,11 @@
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1){
-				if (val == 'TOYOTA'){
+				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')){
 					//advanced countermeasure, toyota benefits
 					var toyota_index = 0;
 					cm_options.clearFilter();
-					cm_options.filter('category_val', 'TOYOTA');
+					cm_options.filter('category_val', val);
 					var penetration_record = cm_options.findRecord('target_val', 'PENETRATION');
 					var fleet_penetration = penetration_record.get('proportion')/100;
 					while (toyota_index < cm_options.count()){

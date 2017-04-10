@@ -1,7 +1,7 @@
 <?php
 
 		//DB connect
-		$utmost_link = new mysqli('cmisst-dev.miserver.it.umich.edu', 'cmisst', 'a1s2d3f4', 'utmost_dev');
+		$utmost_link = new mysqli('cmisst-db.miserver.it.umich.edu', 'cmisst', 'cmisst-a1s2d3f4', 'utmost_dev');
 
 		// Variable Set Constants
 		//Restraint Vars
@@ -48,7 +48,7 @@
 		$subset_category = mysqli_real_escape_string($utmost_link, $_GET["subset_category"]);
 		$subset_string = 'WHERE 1';
 		if ($subset_category != "all"){
-			$subset_string = "WHERE (".$subset_variable." = '".$subset_category."')";
+			$subset_string = "WHERE (crash_injury.".$subset_variable." = '".$subset_category."')";
 		}
 		
 		$dv_relevance = '0';
