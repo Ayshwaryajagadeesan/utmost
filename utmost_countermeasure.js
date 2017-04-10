@@ -27,7 +27,7 @@
 				"effectiveness":25,
 				"fleet_pen":100, 
 				//"description":"Lane Departure Warning is a system that provides an alert to the driver when they are drifting out of their current lane. Lane Departure Warning is estimated to reduce 25% of head-on collisions and 25% of off-path crashes (Abele et al. 2005, Regan et al. 2001)", 
-				"description" : "Lane-departure warning alerts the driver when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LeBlanc et al. (2017) found that all drifting crashes and 61% of road-departure crashes not involving alcohol could be affected by LDW. They also found that LDW was estimated to be 69.9% effective at reducing rollovers associated with drifting and run-off- road crashes, but only 3.8% effective at reducing crashes into objects and vehicles out of the driver’s lane.",
+				"description" : "Lane-departure warning alerts the driver when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LeBlanc et al. (2017) found that all drifting crashes and 61% of road-departure crashes not involving alcohol could be affected by LDW. They also found that LDW was estimated to be 69.9% effective at reducing rollovers associated with drifting and run-off- road crashes, but only 3.8% effective at reducing crashes into objects and vehicles out of the driver's lane.",
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
 			},
@@ -37,7 +37,7 @@
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
-				"description":"Lane-centering systems maintain a set position within the lane boundaries until the driver actively changes lanes. In simulations by LeBlanc et al. (2017) this system eliminated 100% of simulated out-of- lane crashes. However, as this is unrealistically high, the default values for UTMOST match the values for Lane-Keeping Assist, which was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off- road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver’s lane.", 
+				"description":"Lane-centering systems maintain a set position within the lane boundaries until the driver actively changes lanes. In simulations by LeBlanc et al. (2017) this system eliminated 100% of simulated out-of- lane crashes. However, as this is unrealistically high, the default values for UTMOST match the values for Lane-Keeping Assist, which was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off- road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver's lane.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
 			},
@@ -108,7 +108,7 @@
 				"effectiveness":25,
 				"fleet_pen":100, 
 				//"description":"Lane keeping assistance systems are estimated to reduce 17-25% of off-path crashes (eSafety Forum 2005, FHWA 1998, eImpact Project 2005), 24% of head-on collisions (eImpact Project 2005), and 60% of sideswipe collisions (eImpact Project 2005)", 
-				"description": "Lane-keep assist steers the vehicle back towards the lane when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LKA is generally combined with LDW. LeBlanc et al. (2017) found that all drifting crashes and 61% of road departure crashes could be affected by LKA+LDW. They also found that LKA+LDW was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off-road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver’s lane.",
+				"description": "Lane-keep assist steers the vehicle back towards the lane when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LKA is generally combined with LDW. LeBlanc et al. (2017) found that all drifting crashes and 61% of road departure crashes could be affected by LKA+LDW. They also found that LKA+LDW was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off-road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver's lane.",
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
 			},
@@ -176,7 +176,7 @@
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Graduated driver licensing (GDL) laws allow new drivers to acquire driving skills over time in stages. Ten elements of GDL laws were assessed (learner age, learner duration, supervised hours, more challenging hours, driver’s education requirements, intermediate age, nighttime restrictions, passenger restrictions, length of nighttime and passenger restrictions). Each element was coded as being stronger or weaker among the range of laws. States that had a higher number of strong GDL law elements had lower teen crash rates than states with fewer strong GDL law elements. Changing the number of GDL laws will affect both person and injury count.", 
+				"description":"Graduated driver licensing (GDL) laws allow new drivers to acquire driving skills over time in stages. Ten elements of GDL laws were assessed (learner age, learner duration, supervised hours, more challenging hours, driver's education requirements, intermediate age, nighttime restrictions, passenger restrictions, length of nighttime and passenger restrictions). Each element was coded as being stronger or weaker among the range of laws. States that had a higher number of strong GDL law elements had lower teen crash rates than states with fewer strong GDL law elements. Changing the number of GDL laws will affect both person and injury count.", 
 				'selector_type': ["population"], 
 				'selector_desc': ['Population Proportion']
 			},
@@ -339,9 +339,9 @@
 				"val":"arb", 
 				"name":"Automatic Rear Braking",
 				"active":0,
-				"effectiveness":24,
+				"effectiveness":65,
 				"fleet_pen":100, 
-				"description":"[NEED DESC + DEFUALTS]", 
+				"description":"Automatic Rear Braking breaks the vehicle automatically upon detecting an object behind it while backing. ", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
@@ -371,7 +371,7 @@
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Graduated driver licensing (GDL) laws allow new drivers to acquire driving skills over time in stages. Ten elements of GDL laws were assessed (learner age, learner duration, supervised hours, more challenging hours, driver’s education requirements, intermediate age, nighttime restrictions, passenger restrictions, length of nighttime and passenger restrictions). Each element was coded as being stronger or weaker among the range of laws. States that had a higher number of strong GDL law elements had lower teen crash rates than states with fewer strong GDL law elements. Changing the number of GDL laws will affect both person and injury count.", 
+				"description":"Graduated driver licensing (GDL) laws allow new drivers to acquire driving skills over time in stages. Ten elements of GDL laws were assessed (learner age, learner duration, supervised hours, more challenging hours, driver's education requirements, intermediate age, nighttime restrictions, passenger restrictions, length of nighttime and passenger restrictions). Each element was coded as being stronger or weaker among the range of laws. States that had a higher number of strong GDL law elements had lower teen crash rates than states with fewer strong GDL law elements. Changing the number of GDL laws will affect both person and injury count.", 
 				'selector_type': ["population"], 
 				'selector_desc': ['Population Proportion']
 			},
