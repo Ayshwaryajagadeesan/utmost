@@ -28,6 +28,7 @@
 			{"val":"none", "name":"None"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
 			{"val":"age", "name":"Person Age"},
+			{"val":"urban_rural", "name":"Urbanization"},
 			{"val":"driver_age", "name":"Driver Age"}
 		]
 	});

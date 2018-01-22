@@ -124,6 +124,67 @@
 				title: ['Baseline Injury Count', 'Adjusted Injury Count']
 			}]
 	});
+	var utmost_fatality_chart = Ext.create('Ext.chart.Chart', {
+		store: utmost_fatality_chart_values,
+		animate: true,
+		hidden: true,
+		theme: 'Red',
+		legend: {
+			position: 'top'
+		},
+		axes: [
+			{
+				title: 'Injury Count',
+				type: 'Numeric',
+				position: 'left',
+				grid: true,
+				fields: ['fatality_count'],
+				minimum: 0,
+				maximum: 5500000,
+				label: {renderer: function(v){ return v.toLocaleString();}}
+			}, {
+				title: 'Type',
+				type: 'Category',
+				position: 'bottom',
+				fields: ['crash_type'],
+				to: 20,
+				label: {
+					rotate: {
+						degrees: 270
+					}
+				}
+			}
+		],
+		series: [
+			{
+				type: 'column',
+				axis: 'left',
+				highlight: true,
+				tips: {
+				  trackMouse: true,
+				  width: 140,
+				  height: 45,
+				  renderer: function(storeItem, item) {
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('fatality_count').toLocaleString() + '  <br/>Adjusted: ' +storeItem.get('fatality_count_adj').toLocaleString() );
+				  }
+				},
+				style: {
+                    align: "left"
+                },
+				label: {
+				  display: 'insideEnd',
+				  'text-anchor': 'middle',
+					field: 'data',
+					renderer: Ext.util.Format.numberRenderer('0,000'),
+					orientation: 'vertical',
+					color: '#333'
+				},
+				xField: 'crash_type',
+				groupGutter: 0,
+				yField: ['fatality_count', 'fatality_count_adj'],
+				title: ['Baseline Fatality Count', 'Adjusted Fatality Count']
+			}]
+	});
 	
 	
 		//totals chart code

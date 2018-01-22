@@ -219,6 +219,16 @@
 				"description":"This allows the user to control the percentage of occupants who are optimally restrained, overriding changes that would occur resulting from law changes. Optimal restraint is defined as seatbelt use for ages 11 and up, booster use for 5-10YO, harnessed child restraints for 2-4YO, and rear-facing restraints for 0-1YO. Changing restraint distribution will change injury count but not person count.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Restraint Proportion"]
+			},
+			{
+				"val":"seat_position",
+				"name":"Seat Position Population",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Autonomous Vehicles are anticipated to potentially change the proportion of where passengers are seated in crashing vehicles.", 
+				'selector_type': ["category_unique", "category_unique_secondary", "population"], 
+				'selector_desc': ["Front Seat Face", "Rear Seats Face", "Seat Location Proportions"]
 			}
 			
 		]
@@ -414,6 +424,16 @@
 				"description":"This allows the user to control the percentage of occupants who are optimally restrained, overriding changes that would occur resulting from law changes. Optimal restraint is defined as seatbelt use for ages 11 and up, booster use for 5-10YO, harnessed child restraints for 2-4YO, and rear-facing restraints for 0-1YO. Changing restraint distribution will change injury count but not person count.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Restraint Proportion"]
+			},
+			{
+				"val":"seat_position",
+				"name":"Seat Position Population",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Autonomous Vehicles are anticipated to potentially change the proportion of where passengers are seated in crashing vehicles.", 
+				'selector_type': ["category_unique", "category_unique_secondary", "population"], 
+				'selector_desc': ["Front Seats Face", "Rear Seats Face", "Seat Location Proportions"]
 			}
 			
 		]
@@ -471,7 +491,17 @@
 			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"aeb", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0}
+			{"category_val":"aeb", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Forward", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Forward", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique_secondary', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique_secondary', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique_secondary', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Front Driver Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':75, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Front Passenger Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':15, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear Driver Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':5, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear Passenger Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':5, 'detail_type': 'population', 'lock': 0}
 		]
 	});
 	
@@ -513,7 +543,17 @@
 			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"aeb", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0}
+			{"category_val":"aeb", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Forward", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Forward", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique_secondary', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique_secondary', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique_secondary', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Front Driver Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':75, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Front Passenger Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':15, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear Driver Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':5, 'detail_type': 'population', 'lock': 0},
+			{"category_val":"seat_position", 'name':"Rear Passenger Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':5, 'detail_type': 'population', 'lock': 0}
 		]
 	});
 	
@@ -566,6 +606,12 @@
 		name: 'cm_radio',
 		hidden: true
 	});
+	var countermeasure_category_singleselector_secondary = Ext.create('Ext.form.RadioGroup',{
+		columns: 2,
+		width: "100%",
+		name: 'cm_radio_2',
+		hidden: true
+	});
 	var countermeasure_population_selector = Ext.create('Ext.form.FieldSet',{
 		width: "100%",
 		name: 'cm_population',
@@ -588,6 +634,7 @@
 			penetration_slider,
 			countermeasure_category_multiselector,
 			countermeasure_category_singleselector,
+			countermeasure_category_singleselector_secondary,
 			countermeasure_population_selector,
 			countermeasure_independent_selector
 		]
@@ -597,11 +644,13 @@
 		effectiveness_slider.setVisible(false);
 		penetration_slider.setVisible(false);
 		countermeasure_category_singleselector.setVisible(false);
+		countermeasure_category_singleselector_secondary.setVisible(false);
 		countermeasure_category_multiselector.setVisible(false);
 		countermeasure_population_selector.setVisible(false);
 		countermeasure_independent_selector.setVisible(false);
 			
 		countermeasure_category_singleselector.removeAll();
+		countermeasure_category_singleselector_secondary.removeAll();
 		countermeasure_category_multiselector.removeAll();
 		countermeasure_population_selector.removeAll();
 		countermeasure_independent_selector.removeAll();
@@ -645,6 +694,26 @@
 				cm_options.each(function(record){
 					if (record.get('detail_type') == "category_unique"){
 						countermeasure_category_singleselector.add({boxLabel:record.get('name'), name:record.get('name'), inputValue:record.get('target_val')});
+					}
+				});
+				
+			} else if (selected_cm_type == "category_unique_secondary"){
+							
+				countermeasure_category_singleselector_secondary.setVisible(true);
+				
+				
+				//Set label
+				countermeasure_category_singleselector_secondary.setFieldLabel(selected_cm_desc_array[index]);
+				
+				//Set Description
+				cm_description.update(record[0].get('description'));
+				
+				//add correct child selectors
+				cm_options.clearFilter();
+				cm_options.filter('category_val', record[0].get('val'));
+				cm_options.each(function(record){
+					if (record.get('detail_type') == "category_unique"){
+						countermeasure_category_singleselector_secondary.add({boxLabel:record.get('name'), name:record.get('name'), inputValue:record.get('target_val')});
 					}
 				});
 				

@@ -24,6 +24,17 @@
 				]
 	});
 	
+	Ext.define('Fatality_Type_Count', {
+		extend: 'Ext.data.Model',
+		fields: [ 
+				{name: 'crash_type', type: 'string'},
+				{name: 'fatality_count', type: 'float'}, 
+				{name: 'fatality_count_adj', type: 'float'},
+				{name: 'sort', type: 'int'}
+				
+				]
+	});
+	
 	Ext.define('Person_Raw_Count',{
 		extend: 'Ext.data.Model',
 		fields: [ 
@@ -44,6 +55,40 @@
 				{name: 'frequency', type: 'float'}, 
 				{name: 'injury_count', type: 'float'}, 
 				{name: 'injury_count_adj', type: 'float'},
+				{name: 'mitigation_factor', type: 'float'}, 
+				{name: 'mean_dv', type: 'float'}, 
+				{name: 'sd_dv', type: 'float'}, 
+				{name: 'dv_shift_relevance', type: 'float'},
+				{name: 'dv_shift_value', type: 'float'},
+				{name: 'risk_coefficient', type: 'float'},
+				{name: 'p_unrestrained', type: 'float'},
+				{name: 'p_belted', type: 'float'},
+				{name: 'p_child_optimal', type: 'float'},
+				{name: 'p_child_suboptimal', type: 'float'},
+				{name: 'p_helmet', type: 'float'},
+				{name: 'i_unrestrained', type: 'float'},
+				{name: 'i_belted', type: 'float'},
+				{name: 'i_child_optimal', type: 'float'},
+				{name: 'i_child_suboptimal', type: 'float'},
+				{name: 'i_helmet', type: 'float'},
+				{name: 'r_unrestrained', type: 'float'}, //precalc risk values
+				{name: 'r_belted', type: 'float'},
+				{name: 'r_child_optimal', type: 'float'},
+				{name: 'r_child_suboptimal', type: 'float'},
+				{name: 'r_helmet', type: 'float'},
+				{name: 'sort', type: 'int'}
+				]
+	});
+	
+	Ext.define('Fatality_Raw_Count', {
+		extend: 'Ext.data.Model',
+		fields: [ 
+				{name: 'crash_type', type: 'string'},
+				{name: 'age', type: 'string'},
+				{name: 'driver_age', type: 'string'},
+				{name: 'frequency', type: 'float'}, 
+				{name: 'fatality_count', type: 'float'}, 
+				{name: 'fatality_adj', type: 'float'},
 				{name: 'mitigation_factor', type: 'float'}, 
 				{name: 'mean_dv', type: 'float'}, 
 				{name: 'sd_dv', type: 'float'}, 
@@ -100,6 +145,22 @@
 	
 	var utmost_injury_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Injury_Type_Count'
+	});
+	
+	var utmost_fatality_raw_values = Ext.create('Ext.data.Store', {
+		model: 'Fatality_Raw_Count',
+		proxy: {
+			type: 'ajax',
+			url : 'utmost_data.php',
+			reader: {
+				type: 'json',
+				model: 'Fatality_Raw_Count'
+			}
+		}
+	});
+	
+	var utmost_fatality_chart_values = Ext.create('Ext.data.Store', {
+		model: 'Fatality_Type_Count'
 	});
 	
 	
