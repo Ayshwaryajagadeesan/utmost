@@ -34,6 +34,40 @@ CREATE TABLE crash_injury (
 ) ENGINE=columnstore;
 SHOW WARNINGS;
 
+DROP TABLE IF EXISTS crash_injury_dev;
+CREATE TABLE crash_injury_dev (
+  `crash_type` VARCHAR(20),
+  `crash_direction` VARCHAR(20),
+  `vehicle_type` VARCHAR(16),
+  `age` VARCHAR(10),
+  `driver_age` VARCHAR(10),
+  `sex` VARCHAR(10),
+  `driver_sex` VARCHAR(10),
+  `alcohol_involvement` VARCHAR(25),
+  `light_condition` VARCHAR(16),
+  `ped_alc` VARCHAR(30),
+  `impactloc` VARCHAR(10),
+  `urbanization` VARCHAR(10),
+  `frequency` DOUBLE,
+  `dv_key` BIGINT,
+  `restraint_key` BIGINT,
+  `headlighting_key` INT,
+  `cta_key` INT,
+  `ctcd_key` INT,
+  `coefficient` DOUBLE,
+  `unrestrained` DOUBLE,
+  `belted` DOUBLE,
+  `child_optimal` DOUBLE,
+  `child_suboptimal` DOUBLE,
+  `helmet` DOUBLE,
+  `risk_unrestrained` DOUBLE,
+  `risk_belted` DOUBLE,
+  `risk_child_optimal` DOUBLE,
+  `risk_child_suboptimal` DOUBLE,
+  `risk_helmet` DOUBLE
+) ENGINE=columnstore;
+SHOW WARNINGS;
+
 DROP TABLE IF EXISTS dv;
 CREATE TABLE dv (
   `dv_key`	BIGINT,

@@ -1,0 +1,298 @@
+{
+	'keys' : {
+		'crash_type' : {
+			'Animal' : 1,
+			'Avoidance' : 2,
+			'Backing' : 3,
+			'Change lanes' : 4,
+			'Control Loss' : 5,
+			'Drifting' : 6,
+			'Object' : 7,
+			'Opp direction' : 8,
+			'Other' : 9,
+			'Parking' : 10,
+			'Pedestrian' : 11,
+			'Cyclist' : 12,
+			'Road Departure' : 14,
+			'Rollover' : 15,
+			'Run light/stop' : 16,
+			'Turning/same dir' : 17,
+			'Veh Failure' : 18,
+			'XPaths@Non-Signal' : 19,
+			'XPaths@Signal' : 20,
+			'Rear End/LV Decel' : 21,
+			'Rear End/LV Slower' : 22,
+			'Rear End/LV Stopped' : 23,
+			'Rear End/Other' : 24,
+			'No Driver' : 31,
+			'Non-collision' : 32
+		},
+		'crash_direction' : {
+			'Far Side': 1,
+			'Frontal': 2,
+			'Motorcycle': 3,
+			'Near Side': 4,
+			'Other': 5,
+			'Rear': 6,
+			'Rollover': 7,
+			'Pedestrian': 8,
+			'Cyclist': 9
+		},
+		'vehicle_type' : {
+			'Car' : 1,
+			'Pickup' : 1,
+			'SUV' : 1,
+			'Van' : 1,
+			'Other' : 2,
+			'Motorcycle' : 6,
+			'Pedestrian' : 7,
+			'Cyclist' : 7
+		},
+		'age':{
+			'0-1': 1,
+			'2-4': 2,
+			'5-7': 3,
+			'8-10': 4,
+			'11-13': 5,
+			'14-15': 6,
+			'16-17': 7,
+			'18-20': 8,
+			'21-65': 9,
+			'66+': 0
+		},
+		'light_condition'{
+			'Dark': 1,
+			'Light': 2,
+			'Dark--Lighted': 3
+		},
+		'alcohol_involvement'{
+			'1': 'Alcohol Involved'
+			'2': 'No Alcohol Involved'
+		},
+		'urbanization':{
+		}
+		
+	},
+	'translations':{
+		'urbanization':{
+			'1': 'Urban',
+			'2': 'Suburban',
+			'3': 'Rural'
+		}
+		'sex':{
+			'1': 'Male',
+			'2': 'Female'
+		}
+		'alcohol_involvement': {
+			'1': 'Alcohol Involved',
+			'2': 'No Alcohol Involved',
+		},
+		'age': {
+			"0-1": "0-1",
+			"'2-4": "2-4,
+			"'5-7": "5-7",
+			"'8-10": "8-10",
+			"'11-13": "11-13",
+			"14-15": "14-15",
+			"16-17": "16-17",
+			"18-20": "18-20",
+			"21-65": "21-65",
+			"66+": "66+"
+		}
+	}
+	'colmap':{
+		'ctype25': 'crash_type',
+		'crashdir': 'crash_direction',
+		'impactloc': 'impactloc',
+		'Distr3': 'urbanization'
+		'veh_type': 'vehicle_type', 
+		'AGE_IM': 'age',
+		'driver_age' : 'driver_age',
+		'SEX_IM' : 'sex',
+		'driver_sex' : 'driver_sex',
+		'ALCHL_IM':	'alcohol_involvement',
+		'lighting': 'light_condition',
+		'ped_alc' :	'ped_alc',
+		'annfrequency' : 'frequency'
+
+	},
+	'field_order': [
+		'crash_type',
+		'crash_direction',
+		'vehicle_type',
+		'age',
+		'driver_age',
+		'sex',
+		'driver_sex',
+		'alcohol_involvement',
+		'light_condition',
+		'ped_alc',
+		'impactloc',
+		'urbanization',
+		'frequency',
+		'dv_key',
+		'restraint_key',
+		'headlighting_key',
+		'cta_key',
+		'ctcd_key',
+		'coefficient',
+		'unrestrained',
+		'belted',
+		'child_optimal',
+		'child_suboptimal',
+		'helmet',
+		'risk_unrestrained',
+		'risk_belted',
+		'risk_child_optimal',
+		'risk_child_suboptimal',
+		'risk_helmet'
+	],
+	'average_driver_age':{
+		'<16': 9.4938326,
+		'>65': 74.0229084,
+		'16-17': 16.5882896,
+		'18-20': 19.0133308,
+		'21-65': 39.4919973
+	},
+	'average_age':{
+		'0-1': 0.5557922
+		'11-13': 12.0243847
+		'14-15': 14.5795634
+		'16-17': 16.5586375
+		'18-20': 18.9991067
+		'2-4': 2.9963563
+		'21-65': 39.2304062
+		'5-7': 5.9917233
+		'66+': 74.2289516
+		'8-10': 8.9869283
+	}
+	'estimate'{
+		'intercept' : -3.1466,
+		'dr_age' : -0.0101,
+		'dr_alch' : -1.2102,
+		'impact2' : {
+			'Far Side' : -0.1457,
+			'Frontal' : 0,
+			'Near Side' : 1.2612,
+			'Rear' : -0.5949,
+			'Rollover' : 2.2147,
+			'Other': 0,
+			'Pedestrian': 0,
+			'Motorcycle': 0,
+			'Cyclist': 0
+		},
+		'driver2co' : -6.307,
+		'vehicle_age' : 0.1301,
+		'driver_rest' : -0.5701,
+		'seat_front' : 1.4898,
+		'age_im' : 0.2621,
+		'opt_suboptimal' : 0.9317,
+		'opt_unrestrained' : 5.4699,
+		'age_im_seat_front' : -0.1438,
+		'age_im_opt_suboptimal': -0.06045,
+		'age_im_opt_unrestrained' : -0.3694
+	}
+	'mais3': {
+		'ldvmph': {
+			'Far Side': 3.1708,
+			'Frontal': 3.1907,
+			'Motorcycle': 0,
+			'Near Side': 3.9403,
+			'Other': 2.0335,
+			'Rear': 3.6563,
+			'Rollover': 0,
+			'Pedestrian': 0,
+			'Cyclist': 0
+		},
+		'intercept': {
+			'Far Side': -12.4174,
+			'Frontal': -13.3479,
+			'Motorcycle': -1.369,
+			'Near Side': -14.8151,
+			'Other': -8.1894,
+			'Rear': -15.899,
+			'Rollover': -3.5176,
+			'Pedestrian': -2.1196,
+			'Cyclist': -2.1196
+		},
+		'age': { 
+			'Far Side': 0.0438,
+			'Frontal': 0.0368,
+			'Motorcycle': 0.00711,
+			'Near Side': 0.0324,
+			'Other': 0.0322,
+			'Rear': -0.0366,
+			'Rollover': 0.029,
+			'Pedestrian': 0.0115,
+			'Cyclist': 0.0115
+		},
+		'Female': { 						
+			'Far Side': -0.0291,
+			'Frontal': -0.3483,
+			'Motorcycle': 0,
+			'Near Side': 0.4131,
+			'Other': -0.405,
+			'Rear': 0.071,
+			'Rollover': 0.2214,
+			'Pedestrian': 0,
+			'Cyclist': 0
+		},
+		'Dark':  {
+			'Far Side': 0,
+			'Frontal': 0,
+			'Motorcycle': 0.3605,
+			'Near Side': 0,
+			'Other': 0,
+			'Rear': 0,
+			'Rollover': 0,
+			'Pedestrian': 1.1098,
+			'Cyclist': 1.1098
+		},
+		'Dark--Lighted':  {
+			'Far Side': 0,
+			'Frontal': 0,
+			'Motorcycle': 0.0607,
+			'Near Side': 0,
+			'Other': 0,
+			'Rear': 0,
+			'Rollover': 0,
+			'Pedestrian': 0.6702,
+			'Cyclist': 0.6702
+		},
+		'ped_alc':  {
+			'Far Side': 0,
+			'Frontal': 0,
+			'Motorcycle': 0,
+			'Near Side': 0,
+			'Other': 0,
+			'Rear': 0,
+			'Rollover': 0,
+			'Pedestrian': 0.7663,
+			'Cyclist': 0.7663
+		},
+		'alcohol_involvement':  {
+			'Far Side':  1.7781,
+			'Frontal': 0.977,
+			'Motorcycle': 0.5023,
+			'Near Side': 0.1053,
+			'Other': 0.331,
+			'Rear': 0.0256,
+			'Rollover': -1.4201,
+			'Pedestrian': 0,
+			'Cyclist': 0
+		},
+		'beltuse':  {
+			'Far Side': -2.5032,
+			'Frontal': -1.7729,
+			'Motorcycle': 0,
+			'Near Side': -0.9058,
+			'Other': -1.7181,
+			'Rear': -1.8565,
+			'Rollover': -1.4651,
+			'Pedestrian': 0,
+			'Cyclist': 0
+		}
+		
+	}
+		
+}
