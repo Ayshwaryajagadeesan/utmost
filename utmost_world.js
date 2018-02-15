@@ -18,6 +18,7 @@
 			{"val":"driver_age", "name":"Driver Age"},
 			{"val":"sex", "name":"Sex"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
+			{"val":"urbanization", "name":"Urbanization"},
 			{"val":"light_condition", "name":"Light Condition"}
 		]
 	});
@@ -28,7 +29,7 @@
 			{"val":"none", "name":"None"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
 			{"val":"age", "name":"Person Age"},
-			{"val":"urban_rural", "name":"Urbanization"},
+			{"val":"urbanization", "name":"Urbanization"},
 			{"val":"driver_age", "name":"Driver Age"}
 		]
 	});
@@ -66,6 +67,9 @@
 						utmost_chart.axes.getAt(0).maximum = 14000000; //probably not valuable
 						utmost_injury_chart.axes.getAt(0).maximum = 14000000;
 					} else if (chart_variable_selector.getSubmitValue() == "light_condition"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "urbanization"){
 						utmost_chart.axes.getAt(0).maximum = 10850000;
 						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
 					}

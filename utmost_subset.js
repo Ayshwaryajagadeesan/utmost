@@ -31,9 +31,9 @@
 			{group_var: 'driver_age', title: 'Driver Age 18-20', category_value:'"18-20"', chart_max: 1250000},
 			{group_var: 'driver_age', title: 'Driver Age 21-65', category_value:'"21-65"', chart_max: 12000000},
 			{group_var: 'driver_age', title: 'Driver Age 66+', category_value:'">65"', chart_max: 1200000},
-			{group_var: 'urban_rural', title: 'Urban', category_value:'"Urban"', chart_max: 5500000},
-			{group_var: 'urban_rural', title: 'Rural', category_value:'"Rural"', chart_max: 5500000},
-			{group_var: 'urban_rural', title: 'Suburban', category_value:'"Suburban"', chart_max: 5500000}				
+			{group_var: 'urbanization', title: 'Urban', category_value:'"Urban"', chart_max: 5500000},
+			{group_var: 'urbanization', title: 'Rural', category_value:'"Rural"', chart_max: 5500000},
+			{group_var: 'urbanization', title: 'Suburban', category_value:'"Suburban"', chart_max: 5500000}				
 		]
 	});
 	
@@ -73,7 +73,7 @@
 	
 	var get_data_subset_cat = function(){
 		var active = subset_control.getActiveTab();
-		if (active.title == "All" || active.title == 'Urban' || active.title == 'Rural' || active.title == 'Suburban'){
+		if (active.title == "All"){
 			return 'all';
 		} else {
 			data_subsets.clearFilter();
