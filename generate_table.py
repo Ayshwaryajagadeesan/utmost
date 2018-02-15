@@ -1,4 +1,6 @@
 import csv
+import json
+import math
 
 def generate_coefficient(data_library, age, crash_direction) :
 	if (data_library['average_age'][age] < 14) :
@@ -123,102 +125,90 @@ def generate_helmet(data_library, crash_direction, sex, alcohol_involvement, lig
 		return 0
 
 def generate_risk_unrestrained(coeff, intercept):
-	if (coeff == 0):
-		return 1/(1+math.exp(-1 * intercept));
+	if (float(coeff) != 0):
+		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
 def generate_risk_belted(coeff, ave_age, intercept):
-	if (coeff == 0 and ave_age > 14):
-		return 1/(1+math.exp(-1 * intercept));
+	if (float(coeff) != 0 and ave_age > 14):
+		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
 def generate_risk_child_optimal(coeff, ave_age, intercept):
-	if (coeff == 0 and ave_age <= 14):
-		return 1/(1+math.exp(-1 * intercept));
+	if (float(coeff) != 0 and ave_age <= 14):
+		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
 def generate_risk_child_suboptimal(coeff, ave_age, intercept):
-	if (coeff == 0 and ave_age <= 14):
-		return 1/(1+math.exp(-1 * intercept));
+	if (float(coeff) != 0 and ave_age <= 14):
+		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
 def generate_risk_helmet(vehicle_type, intercept):
 	if (vehicle_type == 'Motorcycle'):
-		return 1/(1+math.exp(-1 * intercept));
+		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
-with open('data_library.json' as f) :
+with open('data_library.json', "r" ) as f:
 	#Load JSON into data_library
+	data_library = json.load(f)
 
-#get datafile from arg
+#TODO: get datafile from arg
 out_rows = []
 datafile = 'data.csv'
 with open(datafile, "r") as df :
 	#Load CSV
 	raw_data = csv.reader(df)
 	for data_row in raw_data:
+		print(data_row)
 		new_row = []
-		new_row.push(data_row[0]) #'crash_type',
-		new_row.push(data_row[1]) #'crash_direction',
-		new_row.push(data_row[4]) #'vehicle_type',
-		new_row.push(data_library['translations']['age'][data_row[5]]) #'age',
-		new_row.push(data_row[6]) #'driver_age',
-		new_row.push(data_library['translations']['sex'][data_row[7]]) #'sex',
-		new_row.push(data_library['translations']['sex'][data_row[8]]) #'driver_sex',
-		new_row.push(data_library['translations']['alcohol_involvement'][data_row[9]]) #'alcohol_involvement',
-		new_row.push(data_row[10]) #'light_condition',
-		new_row.push(data_row[11]) #'ped_alc',
-		new_row.push(data_row[2]) #'impactloc',
-		new_row.push(data_library['translations']['urbanization'][data_row[3]]) #'urbanization',
-		new_row.push(data_row[12])#'frequency',
+		new_row.append(data_row[0]) #'crash_type',
+		new_row.append(data_row[1]) #'crash_direction',
+		new_row.append(data_row[4]) #'vehicle_type',
+		new_row.append(data_library['translations']['age'][data_row[5]]) #'age',
+		new_row.append(data_row[6]) #'driver_age',
+		new_row.append(data_library['translations']['sex'][data_row[7]]) #'sex',
+		new_row.append(data_library['translations']['sex'][data_row[8]]) #'driver_sex',
+		new_row.append(data_library['translations']['alcohol_involvement'][data_row[9]]) #'alcohol_involvement',
+		new_row.append(data_row[10]) #'light_condition',
+		new_row.append(data_row[11]) #'ped_alc',
+		new_row.append(data_row[2]) #'impactloc',
+		new_row.append(data_library['translations']['urbanization'][data_row[3]]) #'urbanization',
+		new_row.append(data_row[12])#'frequency',
 		#Keys
-		new_row.push(data_library['keys']['crash_type'][data_row[0]] + data_library['keys']['crash_direction'][data_row[1]] + data_row[9]) #'dv_key = crash_type + crash_direction + alcohol_involvement',
-		new_row.push(data_library['keys']['age'][data_library['translations']['age'][data_row[5]]] + data_library['keys']['vehicle_type'][data_row[4]] + data_row[9]) #'restraint_key = age + vehicle_type + alcohol_involvement',
-		new_row.push(data_library['keys']['crash_type'][data_row[0]] + data_row[10]) #'headlighting_key = crash_type + light_condition',
-		new_row.push(data_library['keys']['crash_type'][data_row[0]] + data_row[9]) #'cta_key = crash_type + alcohol_involvement',
-		new_row.push(data_library['keys']['crash_type'][data_row[0]] + data_library['keys']['crash_direction'][data_row[1]]) #'ctcd_key = crash_type + crash_direction',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_library['keys']['crash_direction'][data_row[1]]) + str(data_row[9])) #'dv_key = crash_type + crash_direction + alcohol_involvement',
+		new_row.append(str(data_library['keys']['age'][data_library['translations']['age'][data_row[5]]]) + str(data_library['keys']['vehicle_type'][data_row[4]]) + str(data_row[9])) #'restraint_key = age + vehicle_type + alcohol_involvement',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_library['keys']['light_condition'][data_row[10]])) #'headlighting_key = crash_type + light_condition',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_row[9])) #'cta_key = crash_type + alcohol_involvement',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_library['keys']['crash_direction'][data_row[1]])) #'ctcd_key = crash_type + crash_direction',
 		#Injury Risk Functions
 		#coeff
-		new_row.push(generate_coefficient(data_library, data_library['translations']['age'][data_row[5]], data_row[1])  #'coefficient', 18
+		new_row.append(str(generate_coefficient(data_library, data_library['translations']['age'][data_row[5]], data_row[1])))  #'coefficient', 18
 		#intercepts
-		new_row.push(generate_unrestrained(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])) #'unrestrained',
-		new_row.push(generate_belted(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])) #'belted',
-		new_row.push(generate_child_optimal(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))#'child_optimal',
-		new_row.push(generate_child_suboptimal(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))#'child_suboptimal',
-		new_row.push(generate_helmet(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6], data_row[4]))#'helmet',
+		new_row.append(str(generate_unrestrained(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'unrestrained',
+		new_row.append(str(generate_belted(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'belted',
+		new_row.append(str(generate_child_optimal(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_optimal',
+		new_row.append(str(generate_child_suboptimal(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_suboptimal',
+		new_row.append(str(generate_helmet(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6], data_row[4])))#'helmet',
 		#risks
-		new_row.push(generate_risk_unrestrained(new_row[18], new_row[19]))#'risk_unrestrained',
-		new_row.push(generate_risk_belted(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[20]))#'risk_belted',
-		new_row.push(generate_risk_child_optimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[21]))#'risk_child_optimal',
-		new_row.push(generate_risk_child_suboptimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[22]))#'risk_child_suboptimal',
-		new_row.push(generate_risk_helmet(data_row[4], new_row[23]))#'risk_helmet'
+		new_row.append(str(generate_risk_unrestrained(new_row[18], new_row[19])))#'risk_unrestrained',
+		new_row.append(str(generate_risk_belted(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[20])))#'risk_belted',
+		new_row.append(str(generate_risk_child_optimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[21])))#'risk_child_optimal',
+		new_row.append(str(generate_risk_child_suboptimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[22])))#'risk_child_suboptimal',
+		new_row.append(str(generate_risk_helmet(data_row[4], new_row[23])))#'risk_helmet'
 		
 		
 		out_rows.append(new_row)
 		
 
-
-#colmap
-
-#trim age, remove ' from field
-#"'2-4" -> "2-4"
-#"'5-7" -> "5-7"
-#"'8-10" -> "8-10"
-#"'11-13" -> "11-13"
-
-#Calculate Intercept Fields
-
-#Generate Keys
-#'dv_key', as Ct + Cd + A(reverse)
-#'restraint_key',
-#'headlighting_key',
-#'cta_key',
-#'ctcd_key',
-
-
 #Write outfile as pipe-delimited table
+delim = '|'
+with open('pdl.out', "w") as wo :
+	for row in out_rows :
+		wo.write(delim.join(row))
+		wo.write('\n')
