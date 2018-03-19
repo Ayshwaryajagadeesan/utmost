@@ -64,7 +64,7 @@ function utmost_core(returning_user){
 						bodyPadding: 50,
 						anchor: '100% 100%',
 						layout: 'fit',
-						items: [utmost_chart, utmost_injury_chart]
+						items: [utmost_chart, utmost_injury_chart, utmost_fatality_chart]
 					}]
 				}]
 			}, {

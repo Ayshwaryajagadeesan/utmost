@@ -68,6 +68,23 @@ CREATE TABLE crash_injury_dev (
 ) ENGINE=columnstore;
 SHOW WARNINGS;
 
+
+DROP TABLE IF EXISTS crash_fatality;
+CREATE TABLE crash_fatality (
+  `crash_direction` VARCHAR(20),
+  `age` VARCHAR(10),
+  `sex` VARCHAR(10),
+  `alcohol_involvement` VARCHAR(25),
+  `veh_my` VARCHAR(10),
+  `restraint` VARCHAR(16),
+  `dv_mph_meanlog` DOUBLE,
+  `dv_mph_stdlog` DOUBLE,
+  `cds_n` BIGINT,
+  `fars_n` INT,
+  `coeff` DOUBLE
+) ENGINE=columnstore;
+SHOW WARNINGS;
+
 DROP TABLE IF EXISTS dv;
 CREATE TABLE dv (
   `dv_key`	BIGINT,

@@ -5,23 +5,30 @@
 		fields: ['val', 'name'],
 		data : [
 			{"val":"person_count", "name":"Person Count"},
-			{"val":"injury_count", "name":"Injury Count"}
+			{"val":"injury_count", "name":"Injury Count"},
+			{"val":"fatality_count", "name":"Fatality Count"}
 		]
 	});
 	var chart_vars = Ext.create('Ext.data.Store', {
-		fields: ['val', 'name'],
+		fields: ['val', 'name', 'set'],
 		data : [
-			{"val":"crash_type", "name":"Crash Type" },
-			{"val":"crash_direction", "name":"Crash Direction"},
-			{"val":"vehicle_type", "name":"Vehicle Type"},
-			{"val":"age", "name":"Person Age"},
-			{"val":"driver_age", "name":"Driver Age"},
-			{"val":"sex", "name":"Sex"},
-			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
-			{"val":"urbanization", "name":"Urbanization"},
-			{"val":"light_condition", "name":"Light Condition"}
+			{"val":"crash_direction", "name":"Crash Direction", "set":"CI"},
+			{"val":"crash_type", "name":"Crash Type", "set":"CI"},
+			{"val":"vehicle_type", "name":"Vehicle Type", "set":"CI"},
+			{"val":"age", "name":"Person Age", "set":"CI"},
+			{"val":"driver_age", "name":"Driver Age", "set":"CI"},
+			{"val":"sex", "name":"Sex", "set":"CI"},
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set":"CI"},
+			{"val":"urbanization", "name":"Urbanization", "set":"CI"},
+			{"val":"light_condition", "name":"Light Condition", "set":"CI"},
+			{"val":"crash_direction", "name":"Crash Direction", "set":"F"},
+			{"val":"age", "name":"Person Age", "set":"F"},
+			{"val":"sex", "name":"Sex", "set":"F"},
+			{"val":"veh_my", "name":"Vehicle Age", "set":"F"},
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set":"F"}
 		]
 	});
+	chart_vars.filter('set', 'CI');
 	
 	var chart_subsets = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name'],
@@ -111,6 +118,18 @@
 			fieldLabel: 'Outcome Value',
 			listeners: {
 				select: function( combo, records, eOpts ){
+					chart_variable_selector.suspendEvents(false);
+					
+					if (chart_outcome_selector.getSubmitValue() == 'fatality_count'){
+						chart_vars.clearFilter();
+						chart_vars.filter('set', 'F');
+					}else{
+						chart_vars.clearFilter();
+						chart_vars.filter('set', 'CI');
+					}
+					chart_variable_selector.select('crash_direction');
+					chart_variable_selector.resumeEvents();
+					
 					data_update();
 				}
 			}

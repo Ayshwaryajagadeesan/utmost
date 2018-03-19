@@ -84,32 +84,8 @@
 		extend: 'Ext.data.Model',
 		fields: [ 
 				{name: 'crash_type', type: 'string'},
-				{name: 'age', type: 'string'},
-				{name: 'driver_age', type: 'string'},
-				{name: 'frequency', type: 'float'}, 
 				{name: 'fatality_count', type: 'float'}, 
-				{name: 'fatality_adj', type: 'float'},
-				{name: 'mitigation_factor', type: 'float'}, 
-				{name: 'mean_dv', type: 'float'}, 
-				{name: 'sd_dv', type: 'float'}, 
-				{name: 'dv_shift_relevance', type: 'float'},
-				{name: 'dv_shift_value', type: 'float'},
-				{name: 'risk_coefficient', type: 'float'},
-				{name: 'p_unrestrained', type: 'float'},
-				{name: 'p_belted', type: 'float'},
-				{name: 'p_child_optimal', type: 'float'},
-				{name: 'p_child_suboptimal', type: 'float'},
-				{name: 'p_helmet', type: 'float'},
-				{name: 'i_unrestrained', type: 'float'},
-				{name: 'i_belted', type: 'float'},
-				{name: 'i_child_optimal', type: 'float'},
-				{name: 'i_child_suboptimal', type: 'float'},
-				{name: 'i_helmet', type: 'float'},
-				{name: 'r_unrestrained', type: 'float'}, //precalc risk values
-				{name: 'r_belted', type: 'float'},
-				{name: 'r_child_optimal', type: 'float'},
-				{name: 'r_child_suboptimal', type: 'float'},
-				{name: 'r_helmet', type: 'float'},
+				{name: 'fatality_count_adj', type: 'float'},
 				{name: 'sort', type: 'int'}
 				]
 	});
@@ -549,6 +525,92 @@
 				
 				}
 			
+			});
+		} else if (data_outcome_variable == 'fatality_count'){
+			utmost_fatality_raw_values.load({
+				params: {
+					filter_string: cm_string,
+					coeffs_string: cm_cf_string,
+					group_type: data_categories,
+					subset_variable : data_subset_variable,
+					subset_category : data_subset_category,
+					outcome_variable : data_outcome_variable
+				},
+				callback: function(records, operation, success){
+				
+					//total rows by category
+					utmost_fatality_chart_values.removeAll();
+					utmost_fatality_raw_values.each(function(record){
+						var category = record.get('crash_type');
+						var index = utmost_fatality_chart_values.findExact('crash_type', category);
+						var adjusted_count_temp = record.get('fatality_count_adj');
+						
+						
+						if (index == -1){
+							//No record, create
+							utmost_fatality_chart_values.add(
+								{
+									'crash_type': category,
+									'fatality_count': record.get('fatality_count'),
+									'fatality_count_adj': adjusted_count_temp,
+									'sort': record.get('sort')
+								}
+							);
+						} else {
+							var target_record = utmost_fatality_chart_values.getAt(index);
+							target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
+							target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
+						}
+						
+						
+					});
+					utmost_fatality_chart_values.sort('sort', 'ASC');
+					
+				
+					var max = 0;
+					var top_count = 0
+					var total = 0;
+					var adj_total = 0;
+					var count = utmost_fatality_chart_values.count();
+					
+					
+					
+					//sum values for totals charts
+					for (i = 0; i < count; i++){
+						if (!utmost_fatality_chart_values.getAt(i).get('crash_type')){
+							utmost_fatality_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
+						}
+						total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count'));
+						adj_total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count_adj'));
+						if(utmost_fatality_chart_values.getAt(i).get('fatality_count') > max){
+							max = utmost_fatality_chart_values.getAt(i).get('fatality_count');
+						}
+					}
+					utmost_totals_chart_values.getAt(0).set('fatality_count', total);
+					utmost_totals_chart_values.getAt(0).set('fatality_count_adj', adj_total);
+					utmost_totals_chart.axes.getAt(0).maximum = 25000;
+					
+					
+					//Adjust axis labels for chosen variables
+					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
+					
+					//adjust chart max
+					var chart_max = (parseInt(max / 10000) + 1) * 10000;
+					utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
+					
+					
+					utmost_loadmask.hide();
+					
+					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_fatality_chart_values.fireEvent('refresh');
+					
+					//Redraw count chart
+					utmost_fatality_chart.setVisible(true);
+					utmost_chart.setVisible(false);
+					utmost_injury_chart.setVisible(false);
+					utmost_chart.redraw(true);
+				
+				}
 			});
 		}
 		
