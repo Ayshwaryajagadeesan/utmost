@@ -71,17 +71,24 @@ SHOW WARNINGS;
 
 DROP TABLE IF EXISTS crash_fatality;
 CREATE TABLE crash_fatality (
+  `crash_type` VARCHAR(20),
   `crash_direction` VARCHAR(20),
+  `veh_type` VARCHAR(16),
   `age` VARCHAR(10),
+  `driver_age` VARCHAR(10),
   `sex` VARCHAR(10),
+  `driver_sex` VARCHAR(10),
   `alcohol_involvement` VARCHAR(25),
-  `veh_my` VARCHAR(10),
+  `light_condition` VARCHAR(16),
+  `ped_alc` VARCHAR(30),
+  `impactloc` VARCHAR(10),
   `restraint` VARCHAR(16),
-  `dv_mph_meanlog` DOUBLE,
-  `dv_mph_stdlog` DOUBLE,
-  `cds_n` BIGINT,
-  `fars_n` INT,
-  `coeff` DOUBLE
+  `frequency` DOUBLE,
+  `dv_key` BIGINT,
+  `restraint_key` BIGINT,
+  `headlighting_key` INT,
+  `cta_key` INT,
+  `ctcd_key` INT
 ) ENGINE=columnstore;
 SHOW WARNINGS;
 

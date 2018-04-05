@@ -46,7 +46,11 @@
 			"Other" : 2,
 			"Motorcycle" : 6,
 			"Pedestrian" : 7,
-			"Cyclist" : 7
+			"Cyclist" : 7,
+			"Heavy Truck" : 2,
+			"Large Bus" : 2,
+			"Snowmobile/ATV": 6,
+			"Golf cart/LSV": 6
 		},
 		"age":{
 			"0-1": 1,
@@ -67,8 +71,9 @@
 			"Other": 4
 		},
 		"alcohol_involvement" : {
-			"1": "Alcohol Involved",
-			"2": "No Alcohol Involved"
+			"Alcohol Involved" : 1,
+			"No Alcohol Involved" : 2,
+			"" : 2
 		},
 		"urbanization":{
 			"1": "Urban",
@@ -86,7 +91,9 @@
 		"sex":{
 			"1": "Male",
 			"2": "Female",
-			"" : "Unknown"
+			"" : "Unknown",
+			"9" : "Unknown",
+			"8" : "Unknown"
 		},
 		"alcohol_involvement": {
 			"1": "Alcohol Involved",
