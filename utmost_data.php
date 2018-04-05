@@ -43,10 +43,14 @@
 		
 		//fatality
 		$sort_fatality = array();
+		$sort_fatality['crash_type'] = 'FIELD(crash_fatality.crash_type, "Animal", "Avoidance", "Backing", "Change lanes", "Control Loss", "Cyclist", "Drifting", "No Driver", "Non-collision", "Object", "Opp direction", "Parking", "Pedestrian", "Rear End/LV Decel", "Rear End/LV Slower", "Rear End/LV Stopped", "Rear End/Other", "Road Departure", "Rollover", "Run light/stop", "Turning/same dir",  "Veh Failure", "XPaths@Non-Signal", "XPaths@Signal", "Other") as sort';
 		$sort_fatality['crash_direction'] = 'FIELD(crash_fatality.crash_direction, "Rear", "Front", "Farside", "Nearside") as sort'; //alias to crash type
+		$sort_fatality['vehicle_type'] = 'FIELD(crash_fatality.vehicle_type, "Car", "Motorcycle", "Pedicyclist", "Pickup", "SUV", "Van", "Other") as sort';
 		$sort_fatality['age'] = 'FIELD(crash_fatality.age, "14-30", "30-60", "31-60", "61+") as sort';
+		$sort_fatality['driver_age'] = 'FIELD(crash_fatality.driver_age, "<16", "16-17 ", "18-20", "21-65", ">65") as sort';
 		$sort_fatality['sex'] = 'FIELD(crash_fatality.sex, "M", "F") as sort';
-		$sort_fatality['alcohol_involvement'] = 'FIELD(crash_fatality.alcohol_involvement, "No", "Yes") as sort';
+		$sort_fatality['alcohol_involvement'] = 'FIELD(crash_fatality.alcohol_involvement, "Alcohol Involved", "No Alcohol Involved") as sort';
+		$sort_fatality['light_condition'] = 'FIELD(crash_fatality.light_condition, "Light", "Dark--Lighted", "Dark", "Other") as sort';
 		$sort_fatality['veh_my'] = 'FIELD(crash_fatality.veh_my, "<2000", "2000+") as sort';
 		$sort_fatality['restraint'] = 'FIELD(crash_fatality.restraint, "Unrestrained", "Suboptimal", "Optimal") as sort';
 		
@@ -69,9 +73,64 @@
 			if ($subset_category != "all"){
 				$subset_string = "WHERE (crash_fatality.".$subset_variable." = '".$subset_category."')";
 			}
-			$query =  "SELECT distinct ".$group_type." as crash_type, sum(fars_n) as fatality_count, sum(fars_n) as fatality_count_adj, ".$sort_fatality[$group_type]." FROM `crash_fatality` ".$subset_string." GROUP BY crash_fatality.".$group_type." ORDER BY sort";
+			if ($filters != ""){
+				$coeffs = mysqli_real_escape_string($utmost_link, $_GET["coeffs_string"]);
+				$filter_array = explode('~', $filters);
+				$coeff_array = explode('~', $coeffs);
+				
+				$filter_array_quote = array();
+				foreach($filter_array as $filter_text){
+					$filter_array_quote[] = "'".$filter_text."'";
+				}
+				
+				//Retrieve intervention joins
+				$intervention_query = "select intervention, target_column from intervention_master where intervention in (".implode(',', $filter_array_quote).");";
+				$intervention_result = $utmost_link->query($intervention_query);
+				$interventions = array();
+				while ($intervention_row = mysqli_fetch_assoc($intervention_result)){
+					 if (array_key_exists ($intervention_row['intervention'], $interventions)){
+						  $interventions[$intervention_row['intervention']][] = $intervention_row['target_column'];
+					 } else {
+						 $interventions[$intervention_row['intervention']] = array();
+						 $interventions[$intervention_row['intervention']][] = $intervention_row['target_column'];
+					 }
+				}
+				
+				//Build intervention joins on target_column = target_column
+				$joins = "";
+				foreach ($interventions as $intervention_type => $colset){
+					$joinbloc = array();
+					foreach ($colset as $col){
+						$joinbloc[] = "(crash_fatality.".$col." = ".$intervention_type.".".$col.")";
+					}
+					$joins.= " LEFT JOIN $intervention_type ON (".implode(" AND ", $joinbloc).") ";
+				}
+				
+				//pick relevance column for each countermeasure, apply coefficient
+				$counter = 0;
+				$builder_array = array();
+				while ($counter < count($filter_array)){
+					$builder_array[] = "(1 - IFNULL(". $filter_array[$counter].".relevance, 0) * ".$coeff_array[$counter].")";
+					if ($filter_array[$counter] == 'fcw' && $outcome_variable == 'injury_count'){
+						//FCW shifts DV - TODO expand to include future DV shifting countermeasures
+						$dv_interventions[] = $filter_array[$counter].".relevance * ".$coeff_array[$counter];
+					}
+					$counter++;
+				}
+				
+				
+				
+				
+				if (count($filter_array) > 0){
+					$filter_query_string = implode(" * ", $builder_array);
+					$query = "SELECT distinct crash_fatality.".$group_type." as crash_type, crash_fatality.driver_age as driver_age, sum(frequency) as fatality_count, sum(frequency *(0 + ".$filter_query_string.")) as fatality_count_adj,  ".$sort_fatality[$group_type]." FROM `crash_fatality` ".$joins.$subset_string." GROUP BY crash_fatality.".$group_type.", driver_age ORDER BY sort";
+										
+				}
+			} else {
+				$query =  "SELECT distinct crash_fatality.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, ".$sort_fatality[$group_type]." FROM `crash_fatality` ".$subset_string." GROUP BY crash_fatality.".$group_type." ORDER BY sort";
+			}
+		} else {
 			
-		}else{
 			if ($subset_category != "all"){
 				$subset_string = "WHERE (crash_injury_dev.".$subset_variable." = '".$subset_category."')";
 			}

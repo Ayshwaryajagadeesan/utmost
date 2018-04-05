@@ -22,9 +22,13 @@
 			{"val":"urbanization", "name":"Urbanization", "set":"CI"},
 			{"val":"light_condition", "name":"Light Condition", "set":"CI"},
 			{"val":"crash_direction", "name":"Crash Direction", "set":"F"},
+			{"val":"crash_type", "name":"Crash Type", "set":"F"},
+			{"val":"vehicle_type", "name":"Vehicle Type", "set":"F"},
 			{"val":"age", "name":"Person Age", "set":"F"},
+			{"val":"driver_age", "name":"Driver Age", "set":"F"},
 			{"val":"sex", "name":"Sex", "set":"F"},
 			{"val":"veh_my", "name":"Vehicle Age", "set":"F"},
+			{"val":"light_condition", "name":"Light Condition", "set":"F"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set":"F"}
 		]
 	});

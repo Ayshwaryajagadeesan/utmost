@@ -586,9 +586,10 @@
 							max = utmost_fatality_chart_values.getAt(i).get('fatality_count');
 						}
 					}
-					utmost_totals_chart_values.getAt(0).set('fatality_count', total);
-					utmost_totals_chart_values.getAt(0).set('fatality_count_adj', adj_total);
-					utmost_totals_chart.axes.getAt(0).maximum = 25000;
+					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
+					utmost_totals_chart_values.getAt(0).set('person_count', total);
+					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
+					utmost_totals_chart_values.commitChanges();
 					
 					
 					//Adjust axis labels for chosen variables
@@ -603,6 +604,7 @@
 					
 					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
 					utmost_fatality_chart_values.fireEvent('refresh');
+					utmost_totals_chart.fireEvent('refresh');
 					
 					//Redraw count chart
 					utmost_fatality_chart.setVisible(true);
