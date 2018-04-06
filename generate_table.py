@@ -125,25 +125,25 @@ def generate_helmet(data_library, crash_direction, sex, alcohol_involvement, lig
 		return 0
 
 def generate_risk_unrestrained(coeff, intercept):
-	if (float(coeff) != 0):
+	if (float(coeff) == 0):
 		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
 def generate_risk_belted(coeff, ave_age, intercept):
-	if (float(coeff) != 0 and ave_age > 14):
+	if (float(coeff) == 0 and ave_age > 14):
 		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
 def generate_risk_child_optimal(coeff, ave_age, intercept):
-	if (float(coeff) != 0 and ave_age <= 14):
+	if (float(coeff) == 0 and ave_age <= 14):
 		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 
 def generate_risk_child_suboptimal(coeff, ave_age, intercept):
-	if (float(coeff) != 0 and ave_age <= 14):
+	if (float(coeff) == 0 and ave_age <= 14):
 		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
