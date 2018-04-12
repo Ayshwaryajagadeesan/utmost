@@ -88,13 +88,28 @@ CREATE TABLE crash_fatality (
   `restraint_key` BIGINT,
   `headlighting_key` INT,
   `cta_key` INT,
-  `ctcd_key` INT
+  `ctcd_key` INT,
+  `fatality_dv_key` BIGINT,
+  `coefficient` DOUBLE,
+  `unrestrained` DOUBLE,
+  `belted` DOUBLE,
+  `child_optimal` DOUBLE,
+  `child_suboptimal` DOUBLE,
+  `helmet` DOUBLE
 ) ENGINE=columnstore;
 SHOW WARNINGS;
 
 DROP TABLE IF EXISTS dv;
 CREATE TABLE dv (
   `dv_key`	BIGINT,
+  `mean_dv` DOUBLE,
+  `sd_dv` DOUBLE
+) ENGINE=columnstore;
+SHOW WARNINGS;
+
+DROP TABLE IF EXISTS fatality_dv;
+CREATE TABLE fatality_dv (
+  `fatality_dv_key`	BIGINT,
   `mean_dv` DOUBLE,
   `sd_dv` DOUBLE
 ) ENGINE=columnstore;

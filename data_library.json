@@ -64,6 +64,28 @@
 			"21-65": 9,
 			"66+": 0
 		},
+		"age_fatality_dv":{
+			"0-1": 1,
+			"2-4": 1,
+			"5-7": 1,
+			"8-10": 1,
+			"11-13": 1,
+			"14-15": 1,
+			"16-17": 1,
+			"18-20": 1,
+			"21-65": 2,
+			"66+": 3
+		},
+		"restraint_fatality_dv":{
+			"Unknown" : 1,
+			"None" : 1,
+			"Suboptimal": 2,
+			"Optimal" : 3
+		},
+		"sex": {
+			"Female" : 2,
+			"Male":	1
+		},
 		"light_condition" :{
 			"Dark": 1,
 			"Light": 2,
