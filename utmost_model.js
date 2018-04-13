@@ -590,24 +590,17 @@
 						};
 						
 						var age = record.get('age');
-						/*TODO: Teen Driver
+						
 						if(check_countermeasure('teen_driver')){
 							var teen_adjustment = cm_teen_driver_get_value(record.get('driver_age'));
 							record.set('mitigation_factor', record.get('mitigation_factor') * teen_adjustment);
-						}*/
+						}
 
 						if ((record.get('mean_dv') == 0 && record.get('sd_dv') == 0 ) || record.get('dv_shift_relevance') == 0){
 							var dv_calc_relevance = 0;
 						}
 						
-						/* TODO: Seatbelt Law Factors [NEED NUMBERS FOR BELTED FATALITY REDUCTION]
-						if (check_countermeasure('seatbelt') && record.get('p_belted') > 0){
-							//TODO: Get hardcoded values out
-							var belted_baseline = .23*.82 + .01*.84 + .59*.91 + .17*.94;
-							var belted_adjusted = cm_seatbelt_get_value();
-							new_belted = record.get('p_belted') * (belted_adjusted / belted_baseline);
-							new_unrestrained = 1-new_belted;
-						}*/ 
+						
 						
 						/* TODO: Child Restraint laws
 						if (check_countermeasure('child_seat') && (age in optimal_baselines) ){
@@ -622,21 +615,28 @@
 							new_helmet = (record.get('p_helmet') * cm_helmet_get_value());
 							new_unrestrained = 1-new_helmet;
 						}*/
-						/*TODO: Restraint Override
+						
+						// Restraint Override
+						var RESTRAINT_FATALITY_PREVENTION_RATE = 1/1.4;//TODO: END hardcoding
 						if (check_countermeasure('restraint_override')){
-							if (record.get('p_belted') > 0){
-								new_belted = cm_restraint_override_get_value();
-								new_unrestrained = 1-new_belted;
-							} else if (record.get('p_child_optimal') > 0){
-								new_child_suboptimal = 0;
-								new_child_optimal = cm_restraint_override_get_value();
-								new_unrestrained = 1-new_child_optimal;
-							} else if (record.get('p_helmet') > 0){
-								new_helmet = cm_restraint_override_get_value();
-								new_unrestrained = 1-new_helmet;
-							};
-						}*/
-
+							var unbelted_baseline = 1-(.23*.82 + .01*.84 + .59*.91 + .17*.94);
+							var new_unbelted = 1-cm_restraint_override_get_value();
+							var unbelt_ratio = new_unbelted / unbelted_baseline;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted = (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						} else if (check_countermeasure('seatbelt')){ //Seatbelt laws
+							var unbelted_baseline = 1-(.23*.82 + .01*.84 + .59*.91 + .17*.94);
+							var new_unbelted = 1-cm_seatbelt_get_value();
+							var unbelt_ratio = new_unbelted / unbelted_baseline;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted = (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						}
+					
+						
 						if (dv_calc_relevance != 0){
 							//dv is only shifted for countermeasures that effect delta-v in crashes.  
 							
@@ -653,7 +653,7 @@
 								fatality_adjusted_rate['unrestrained'] = 1;
 							}
 							if (record.get('n_optimal') > 0 ){
-								var result = utmost_injury_trapezoidal_sum(record, record.get('i_child_optimal'));
+								var result = utmost_injury_trapezoidal_sum(record, record.get('i_belted'));
 								fatality_adjusted_rate['optimal'] = result['adjusted']/result['base'];
 							} else {
 								fatality_adjusted_rate['optimal'] = 1;
@@ -677,10 +677,8 @@
 							}
 							
 							//Multiply frequency to get count
-							var base_fatals = record.get('n_optimal') + record.get('n_suboptimal') + record.get('n_unrestrained') + record.get('n_unknown');
 							var adj_fatals = avoidance * (record.get('n_optimal') * fatality_adjusted_rate['optimal'] + record.get('n_suboptimal') * fatality_adjusted_rate['suboptimal']  + record.get('n_unrestrained') * fatality_adjusted_rate['unrestrained']  + record.get('n_unknown'));
 							
-							record.set('fatality_count', base_fatals);
 							record.set('fatality_count_adj', adj_fatals);
 						} else {
 							var avoidance = record.get('mitigation_factor');

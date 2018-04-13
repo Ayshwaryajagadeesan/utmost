@@ -150,7 +150,7 @@
 				}					
 			}
 		} else {
-			$query =  "SELECT distinct crash_fatality.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, 1 as mitigation_factor, ".$fatality_restraint_groups.$sort_fatality[$group_type]." FROM `crash_fatality` ".$subset_string." GROUP BY crash_fatality.".$group_type." ORDER BY sort";
+			$query =  "SELECT distinct crash_fatality.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$sort_fatality[$group_type]." FROM `crash_fatality` ".$subset_string." GROUP BY crash_fatality.".$group_type." , driver_age ORDER BY sort";
 		}
 	} else {
 		
