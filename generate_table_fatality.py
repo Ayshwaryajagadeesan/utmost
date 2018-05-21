@@ -178,8 +178,9 @@ with open(datafile, "r") as df :
 		new_row.append(data_row[8]) #'light_condition',
 		new_row.append(data_row[9]) #'ped_alc',
 		new_row.append(data_row[10]) #'impactloc',
-		#new_row.append(data_library['translations']['urbanization'][data_row[3]]) #'urbanization',
 		new_row.append(data_row[11]) #'restraint_opt'
+		new_row.append(data_row[13]) #'model_year',
+		#new_row.append(data_library['translations']['urbanization'][data_row[14]]) #'urbanization',
 		new_row.append(data_row[12])#'frequency',
 		#Keys
 		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_library['keys']['crash_direction'][data_row[1]]) + str(data_library['keys']['alcohol_involvement'][data_row[7]])) #'dv_key = crash_type + crash_direction + alcohol_involvement',
@@ -190,7 +191,7 @@ with open(datafile, "r") as df :
 		new_row.append(str(data_library['keys']['crash_direction'][data_row[1]]) + str(data_library['keys']['age_fatality_dv'][data_library['translations']['age'][data_row[3]]]) + str(data_row[5]) + str(data_library['keys']['alcohol_involvement'][data_row[7]]) + str(data_library['keys']['restraint_fatality_dv'][data_row[11]])) #'fatality_dv_key = crash_direction + age + sex + alcohol + restraint',
 		#Injury Risk Functions
 		#coeff
-		new_row.append(str(generate_coefficient(data_library, data_library['translations']['age'][data_row[3]], data_row[1])))  #'coefficient', 18
+		new_row.append(str(generate_coefficient(data_library, data_library['translations']['age'][data_row[3]], data_row[1])))  #'coefficient', 20
 		#intercepts
 		new_row.append(str(generate_unrestrained(data_library, data_row[1], data_library['translations']['sex'][data_row[5]], data_row[7], data_row[8], data_row[9], data_library['translations']['age'][data_row[3]], data_row[4]))) #'unrestrained',
 		new_row.append(str(generate_belted(data_library, data_row[1], data_library['translations']['sex'][data_row[5]], data_row[7], data_row[8], data_row[9], data_library['translations']['age'][data_row[3]], data_row[4]))) #'belted',
@@ -198,11 +199,11 @@ with open(datafile, "r") as df :
 		new_row.append(str(generate_child_suboptimal(data_library, data_row[1], data_library['translations']['sex'][data_row[5]], data_row[7], data_row[8], data_row[9], data_library['translations']['age'][data_row[3]], data_row[4])))#'child_suboptimal',
 		new_row.append(str(generate_helmet(data_library, data_row[1], data_library['translations']['sex'][data_row[5]], data_row[7], data_row[8], data_row[9], data_library['translations']['age'][data_row[3]], data_row[4], data_row[2])))#'helmet',
 		#risks
-		#new_row.append(str(generate_risk_unrestrained(new_row[18], new_row[19])))#'risk_unrestrained',
-		#new_row.append(str(generate_risk_belted(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[20])))#'risk_belted',
-		#new_row.append(str(generate_risk_child_optimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[21])))#'risk_child_optimal',
-		#new_row.append(str(generate_risk_child_suboptimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[22])))#'risk_child_suboptimal',
-		#new_row.append(str(generate_risk_helmet(data_row[4], new_row[23])))#'risk_helmet'
+		new_row.append(str(generate_risk_unrestrained(new_row[20], new_row[21])))#'risk_unrestrained',
+		new_row.append(str(generate_risk_belted(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[22])))#'risk_belted',
+		new_row.append(str(generate_risk_child_optimal(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[23])))#'risk_child_optimal',
+		new_row.append(str(generate_risk_child_suboptimal(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[24])))#'risk_child_suboptimal',
+		new_row.append(str(generate_risk_helmet(data_row[2], new_row[25])))#'risk_helmet'
 		
 		
 		out_rows.append(new_row)

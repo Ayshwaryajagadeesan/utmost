@@ -83,6 +83,7 @@ CREATE TABLE crash_fatality (
   `ped_alc` VARCHAR(30),
   `impactloc` VARCHAR(10),
   `restraint` VARCHAR(16),
+  `model_year` INT,
   `frequency` DOUBLE,
   `dv_key` BIGINT,
   `restraint_key` BIGINT,
