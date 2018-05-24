@@ -23,11 +23,11 @@
 			{"val":"light_condition", "name":"Light Condition", "set":"CI"},
 			{"val":"crash_direction", "name":"Crash Direction", "set":"F"},
 			{"val":"crash_type", "name":"Crash Type", "set":"F"},
-			{"val":"vehicle_type", "name":"Vehicle Type", "set":"F"},
+			{"val":"veh_type", "name":"Vehicle Type", "set":"F"},
 			{"val":"age", "name":"Person Age", "set":"F"},
 			{"val":"driver_age", "name":"Driver Age", "set":"F"},
 			{"val":"sex", "name":"Sex", "set":"F"},
-			{"val":"veh_my", "name":"Vehicle Age", "set":"F"},
+			{"val":"model_year", "name":"Vehicle Age", "set":"F"},
 			{"val":"light_condition", "name":"Light Condition", "set":"F"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set":"F"}
 		]
@@ -35,13 +35,13 @@
 	chart_vars.filter('set', 'CI');
 	
 	var chart_subsets = Ext.create('Ext.data.Store', {
-		fields: ['val', 'name'],
+		fields: ['val', 'name', 'set'],
 		data : [
-			{"val":"none", "name":"None"},
-			{"val":"alcohol_involvement", "name":"Alcohol Involvement"},
-			{"val":"age", "name":"Person Age"},
-			{"val":"urbanization", "name":"Urbanization"},
-			{"val":"driver_age", "name":"Driver Age"}
+			{"val":"none", "name":"None", "set" : "F"},
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set" : "F"},
+			{"val":"age", "name":"Person Age", "set" : "F"},
+			{"val":"urbanization", "name":"Urbanization", "set" : "N"},
+			{"val":"driver_age", "name":"Driver Age", "set" : "F"}
 		]
 	});
 	
@@ -127,9 +127,12 @@
 					if (chart_outcome_selector.getSubmitValue() == 'fatality_count'){
 						chart_vars.clearFilter();
 						chart_vars.filter('set', 'F');
+						chart_subsets.clearFilter();
+						chart_subsets.filter('set', 'F')
 					}else{
 						chart_vars.clearFilter();
 						chart_vars.filter('set', 'CI');
+						chart_subsets.clearFilter();
 					}
 					chart_variable_selector.select('crash_direction');
 					chart_variable_selector.resumeEvents();

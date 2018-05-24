@@ -270,9 +270,10 @@
 							max = utmost_chart_values.getAt(i).get('person_count');
 						}
 					}
+					utmost_totals_chart.axes.getAt(0).maximum = (total > adj_total) ? Math.floor((total * 1.1) / 1000) * 1000 : Math.floor((adj_total * 1.1) / 1000) * 1000;
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
-					utmost_totals_chart.axes.getAt(0).maximum = 15000000;
+					//utmost_totals_chart.axes.getAt(0).maximum = 15000000;
 					
 					
 					//Adjust axis labels for chosen variables
@@ -518,9 +519,10 @@
 							max = utmost_injury_chart_values.getAt(i).get('injury_count_adj');
 						}
 					}
+					utmost_totals_chart.axes.getAt(0).maximum = (total >=  adj_total) ? Math.floor((total * 1.1) / 1000) * 1000 : Math.floor((adj_total * 1.1) / 1000) * 1000;
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
-					utmost_totals_chart.axes.getAt(0).maximum = 170000;
+					//utmost_totals_chart.axes.getAt(0).maximum = 170000;
 					
 					
 					//Adjust axis labels for chosen variables
@@ -736,8 +738,9 @@
 						}
 					}
 					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
+					utmost_totals_chart.axes.getAt(0).maximum = (total > adj_total) ? Math.floor((total * 1.1) / 100) * 100 : Math.floor((adj_total * 1.1) / 100) * 100;
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
-					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
+					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
 					utmost_totals_chart_values.commitChanges();
 					
 					
