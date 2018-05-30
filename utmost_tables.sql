@@ -83,8 +83,8 @@ CREATE TABLE crash_fatality (
   `ped_alc` VARCHAR(30),
   `impactloc` VARCHAR(10),
   `restraint` VARCHAR(16),
-  `model_year` INT,
   `frequency` DOUBLE,
+  `model_year` INT,
   `dv_key` BIGINT,
   `restraint_key` BIGINT,
   `headlighting_key` INT,
@@ -96,7 +96,12 @@ CREATE TABLE crash_fatality (
   `belted` DOUBLE,
   `child_optimal` DOUBLE,
   `child_suboptimal` DOUBLE,
-  `helmet` DOUBLE
+  `helmet` DOUBLE,
+  `risk_unrestrained` DOUBLE,
+  `risk_belted` DOUBLE,
+  `risk_child_optimal` DOUBLE,
+  `risk_child_suboptimal` DOUBLE,
+  `risk_helmet` DOUBLE
 ) ENGINE=columnstore;
 SHOW WARNINGS;
 

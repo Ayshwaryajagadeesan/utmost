@@ -104,6 +104,11 @@
 				{name: 'n_optimal', type: 'float'},
 				{name: 'n_suboptimal', type: 'float'},
 				{name: 'n_unknown', type: 'float'},
+				{name: 'r_unrestrained', type: 'float'}, //precalc risk values
+				{name: 'r_belted', type: 'float'},
+				{name: 'r_child_optimal', type: 'float'},
+				{name: 'r_child_suboptimal', type: 'float'},
+				{name: 'r_helmet', type: 'float'},
 				{name: 'sort', type: 'int'}
 				]
 	});
@@ -563,11 +568,6 @@
 					utmost_fatality_chart_values.removeAll();
 					utmost_fatality_raw_values.each(function(record){
 						
-						
-						
-						
-						
-						
 						if (!record.get('crash_type')){
 							record.set('crash_type', 'Unknown or N/A');
 						}
@@ -604,36 +604,58 @@
 						
 						
 						
-						/* TODO: Child Restraint laws
+						
+						
+						
+						
+						
+						var RESTRAINT_FATALITY_PREVENTION_RATE = 1;
+						if (record.get('r_unrestrained') > 0){
+							if (record.get('r_helmet') > 0){
+								RESTRAINT_FATALITY_PREVENTION_RATE = record.get('r_helmet')/record.get('r_unrestrained');
+							} else if (age in optimal_baselines) {
+								RESTRAINT_FATALITY_PREVENTION_RATE = record.get('r_child_optimal')/record.get('r_unrestrained');
+							} else {
+								RESTRAINT_FATALITY_PREVENTION_RATE = record.get('r_belted')/record.get('r_unrestrained');
+							}
+						} 
+						
+						// Child Restraint laws
 						if (check_countermeasure('child_seat') && (age in optimal_baselines) ){
+							var unbelted_baseline = optimal_baselines[age];
 							var optimal_adjusted = cm_childseat_get_value(age);
-							var row_restrained = record.get('p_child_optimal') + record.get('p_child_suboptimal');
-							new_child_optimal = (record.get('p_child_optimal') * (optimal_adjusted/optimal_baselines[age]));
-							new_child_suboptimal = row_restrained - new_child_optimal;
-						}*/ 
+							var new_unbelted = 1 - optimal_adjusted;
+							var unbelt_ratio = new_unbelted / unbelted_baseline;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted = record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						}
+						// Motorcycle Helmet law Fatalities
+						if (check_countermeasure('helmet')&& record.get('r_helmet') > 0){
+							var no_helmet_baseline_rate = (.89*.39 + (1-.39)*.49);
+							new_unrestrained = (1 - cm_helmet_get_value());
+							var unbelt_ratio = new_unrestrained / no_helmet_baseline_rate;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted = record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						}
 						
-						/* TODO: Helmet Fatalities
-						if (check_countermeasure('helmet')&& record.get('p_helmet') > 0){
-							new_helmet = (record.get('p_helmet') * cm_helmet_get_value());
-							new_unrestrained = 1-new_helmet;
-						}*/
-						
-						// Restraint Override
-						var RESTRAINT_FATALITY_PREVENTION_RATE = 1/1.4;//TODO: END hardcoding
-						if (check_countermeasure('restraint_override')){
+						if (check_countermeasure('restraint_override')){ // Restraint Override, replaces child restraint laws
 							var unbelted_baseline = 1-(.23*.82 + .01*.84 + .59*.91 + .17*.94);
 							var new_unbelted = 1-cm_restraint_override_get_value();
 							var unbelt_ratio = new_unbelted / unbelted_baseline;
 							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
-							var new_row_belted = (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							var new_row_belted = record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
 							record.set('n_unrestrained', new_row_unbelted);
 							record.set('n_optimal', new_row_belted);
-						} else if (check_countermeasure('seatbelt')){ //Seatbelt laws
+						} else if (check_countermeasure('seatbelt') && !(age in optimal_baselines)){ //Seatbelt laws
 							var unbelted_baseline = 1-(.23*.82 + .01*.84 + .59*.91 + .17*.94);
 							var new_unbelted = 1-cm_seatbelt_get_value();
 							var unbelt_ratio = new_unbelted / unbelted_baseline;
 							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
-							var new_row_belted = (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							var new_row_belted =  record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
 							record.set('n_unrestrained', new_row_unbelted);
 							record.set('n_optimal', new_row_belted);
 						}

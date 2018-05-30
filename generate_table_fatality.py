@@ -124,35 +124,79 @@ def generate_helmet(data_library, crash_direction, sex, alcohol_involvement, lig
 	else :
 		return 0
 
-def generate_risk_unrestrained(coeff, intercept):
-	if (float(coeff) != 0):
-		return 1/(1+math.exp(-1 * float(intercept)));
+def generate_risk_unrestrained(coeff, intercept, vehicle_type):
+	#if (float(coeff) != 0):
+	#	return 1/(1+math.exp(-1 * float(intercept)));
+	#else:
+	#	return "";
+	
+	if ((vehicle_type == 'Pedestrian') or (vehicle_type == 'Golf cart/LSV') or (vehicle_type == 'Snowmobile/ATV') or (vehicle_type == 'Cyclist')):
+		return 1;
 	else:
-		return "";
+		return 1/(1+math.exp(-1 * float(intercept)));
 
-def generate_risk_belted(coeff, ave_age, intercept):
-	if (float(coeff) != 0 and ave_age > 14):
-		return 1/(1+math.exp(-1 * float(intercept)));
+def generate_risk_belted(coeff, ave_age, intercept, vehicle_type):
+	if ((vehicle_type == 'Pedestrian') or (vehicle_type == 'Golf cart/LSV') or (vehicle_type == 'Snowmobile/ATV') or (vehicle_type == 'Cyclist')):
+		return 1;
+	#elif (float(coeff) != 0 and ave_age > 14):
+	#	return 1/(1+math.exp(-1 * float(intercept)));
 	else:
-		return "";
+	#	return "";
+		return 1/(1+math.exp(-1 * float(intercept)));
 
-def generate_risk_child_optimal(coeff, ave_age, intercept):
-	if (float(coeff) != 0 and ave_age <= 14):
-		return 1/(1+math.exp(-1 * float(intercept)));
+def generate_risk_child_optimal(coeff, ave_age, intercept, vehicle_type):
+	if ((vehicle_type == 'Pedestrian') or (vehicle_type == 'Golf cart/LSV') or (vehicle_type == 'Snowmobile/ATV') or (vehicle_type == 'Cyclist')):
+		return 1;
+	#elif (float(coeff) != 0 and ave_age <= 14):
+	#	return 1/(1+math.exp(-1 * float(intercept)));
 	else:
-		return "";
+	#	return "";
+		return 1/(1+math.exp(-1 * float(intercept)));
 
-def generate_risk_child_suboptimal(coeff, ave_age, intercept):
-	if (float(coeff) != 0 and ave_age <= 14):
-		return 1/(1+math.exp(-1 * float(intercept)));
+def generate_risk_child_suboptimal(coeff, ave_age, intercept, vehicle_type):
+	if ((vehicle_type == 'Pedestrian') or (vehicle_type == 'Golf cart/LSV') or (vehicle_type == 'Snowmobile/ATV') or (vehicle_type == 'Cyclist')):
+		return 1;
+	#elif (float(coeff) != 0 and ave_age <= 14):
+	#	return 1/(1+math.exp(-1 * float(intercept)));
 	else:
-		return "";
+	#	return "";
+		return 1/(1+math.exp(-1 * float(intercept)));
 
 def generate_risk_helmet(vehicle_type, intercept):
-	if (vehicle_type == 'Motorcycle'):
-		return 1/(1+math.exp(-1 * float(intercept)));
+	if ((vehicle_type == 'Pedestrian') or (vehicle_type == 'Golf cart/LSV') or (vehicle_type == 'Snowmobile/ATV') or (vehicle_type == 'Cyclist')):
+		return 1;
+	#elif (vehicle_type == 'Motorcycle'):
+	#	return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
+		
+	
+def utmost_lognormal_pdf(mean, stdev, dv):
+	pdf_root2PI = 2.5066282746;
+	return (1/(dv * stdev * pdf_root2PI)) * math.exp(-1*(((math.log(dv)-mean)*(math.log(dv)-mean))/(2 * stdev * stdev)));
+
+	
+def utmost_logistic_injury(coeff, intercept, dv):
+	return 1/(1+math.exp(-1*(intercept + coeff * math.log(dv))))
+
+
+def fatality_trap_sum(coeff, intercept, mean_dv, sd_dv):
+	utmost_injury_min_dv = 1;
+	utmost_injury_max_dv = 150;
+	utmost_injury_step_size = 1;
+	step_count = 0;
+	sum = 0;
+	dv_shift = 0;
+	
+	for i in range(utmost_injury_min_dv, utmost_injury_max_dv):
+		sum += (utmost_lognormal_pdf(mean, stdev, i) * utmost_logistic_injury(coeff, intercept, i) + utmost_lognormal_pdf(mean, stdev, (i+ utmost_injury_step_size)) * utmost_logistic_injury(coeff, intercept, i+utmost_injury_step_size));
+
+	
+	result = ((utmost_injury_max_dv-utmost_injury_min_dv)/(2 * (utmost_injury_max_dv-1))) * sum
+	return result
+
+
+
 
 with open('data_library.json', "r" ) as f:
 	#Load JSON into data_library
@@ -199,10 +243,10 @@ with open(datafile, "r") as df :
 		new_row.append(str(generate_child_suboptimal(data_library, data_row[1], data_library['translations']['sex'][data_row[5]], data_row[7], data_row[8], data_row[9], data_library['translations']['age'][data_row[3]], data_row[4])))#'child_suboptimal',
 		new_row.append(str(generate_helmet(data_library, data_row[1], data_library['translations']['sex'][data_row[5]], data_row[7], data_row[8], data_row[9], data_library['translations']['age'][data_row[3]], data_row[4], data_row[2])))#'helmet',
 		#risks
-		new_row.append(str(generate_risk_unrestrained(new_row[20], new_row[21])))#'risk_unrestrained',
-		new_row.append(str(generate_risk_belted(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[22])))#'risk_belted',
-		new_row.append(str(generate_risk_child_optimal(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[23])))#'risk_child_optimal',
-		new_row.append(str(generate_risk_child_suboptimal(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[24])))#'risk_child_suboptimal',
+		new_row.append(str(generate_risk_unrestrained(new_row[20], new_row[21], data_row[2])))#'risk_unrestrained',
+		new_row.append(str(generate_risk_belted(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[22], data_row[2])))#'risk_belted',
+		new_row.append(str(generate_risk_child_optimal(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[23], data_row[2])))#'risk_child_optimal',
+		new_row.append(str(generate_risk_child_suboptimal(new_row[20], data_library['average_age'][data_library['translations']['age'][data_row[3]]], new_row[24], data_row[2])))#'risk_child_suboptimal',
 		new_row.append(str(generate_risk_helmet(data_row[2], new_row[25])))#'risk_helmet'
 		
 		
