@@ -134,7 +134,7 @@
 		},
 		axes: [
 			{
-				title: 'Injury Count',
+				title: 'Fatality Count',
 				type: 'Numeric',
 				position: 'left',
 				grid: true,

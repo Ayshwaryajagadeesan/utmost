@@ -165,8 +165,8 @@ def generate_risk_child_suboptimal(coeff, ave_age, intercept, vehicle_type):
 def generate_risk_helmet(vehicle_type, intercept):
 	if ((vehicle_type == 'Pedestrian') or (vehicle_type == 'Golf cart/LSV') or (vehicle_type == 'Snowmobile/ATV') or (vehicle_type == 'Cyclist')):
 		return 1;
-	#elif (vehicle_type == 'Motorcycle'):
-	#	return 1/(1+math.exp(-1 * float(intercept)));
+	elif (vehicle_type == 'Motorcycle'):
+		return 1/(1+math.exp(-1 * float(intercept)));
 	else:
 		return "";
 		
