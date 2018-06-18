@@ -770,7 +770,7 @@
 					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
 					
 					//adjust chart max
-					var chart_max = (parseInt(max / 10000) + 1) * 10000;
+					var chart_max = (parseInt(max / 100) + 1) * 100;
 					utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
 					
 					

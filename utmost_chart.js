@@ -39,10 +39,10 @@
 				highlight: true,
 				tips: {
 				  trackMouse: true,
-				  width: 140,
-				  height: 45,
+				  width: 175,
+				  height: 60,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count').toLocaleString()  + '  <br/>Adjusted: ' +storeItem.get('person_count_adj').toLocaleString() );
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + Math.floor(storeItem.get('person_count')).toLocaleString()  + '  <br/>Adjusted: ' + Math.floor(storeItem.get('person_count_adj')).toLocaleString() + '  <br/>Difference: ' + Math.floor(storeItem.get('person_count') - storeItem.get('person_count_adj')).toLocaleString() );
 				  }
 				},
 				style: {
@@ -101,10 +101,10 @@
 				highlight: true,
 				tips: {
 				  trackMouse: true,
-				  width: 140,
-				  height: 45,
+				  width: 175,
+				  height: 60,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('injury_count').toLocaleString() + '  <br/>Adjusted: ' +storeItem.get('injury_count_adj').toLocaleString() );
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  Math.floor(storeItem.get('injury_count')).toLocaleString() + '  <br/>Adjusted: ' +  Math.floor(storeItem.get('injury_count_adj')).toLocaleString( )+ '  <br/>Difference: ' +  Math.floor(storeItem.get('injury_count') - storeItem.get('injury_count_adj')).toLocaleString() );
 				  }
 				},
 				style: {
@@ -162,10 +162,10 @@
 				highlight: true,
 				tips: {
 				  trackMouse: true,
-				  width: 140,
-				  height: 45,
+				  width: 175,
+				  height: 60,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('fatality_count').toLocaleString() + '  <br/>Adjusted: ' +storeItem.get('fatality_count_adj').toLocaleString() );
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  (Math.round(storeItem.get('fatality_count') / 10) * 10).toLocaleString() + '  <br/>Adjusted: ' +  (Math.round(storeItem.get('fatality_count_adj') / 10) * 10).toLocaleString() + '  <br/>Difference: ' +  ((Math.round(storeItem.get('fatality_count') / 10) *10) - (Math.round(storeItem.get('fatality_count_adj') / 10) * 10)).toLocaleString());
 				  }
 				},
 				style: {
@@ -225,9 +225,9 @@
 				tips: {
 				  trackMouse: true,
 				  width: 140,
-				  height: 45,
+				  height: 60,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' + storeItem.get('person_count').toLocaleString() + '  <br/>Adjusted: ' +storeItem.get('person_count_adj').toLocaleString() );
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  Math.floor(storeItem.get('person_count')).toLocaleString() + '  <br/>Adjusted: ' +  Math.floor(storeItem.get('person_count_adj')).toLocaleString() + '  <br/>Difference: ' +  Math.floor(storeItem.get('person_count') - storeItem.get('person_count_adj')).toLocaleString() );
 				  }
 				},
 				style: {

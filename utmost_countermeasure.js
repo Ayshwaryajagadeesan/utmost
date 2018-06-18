@@ -976,7 +976,7 @@
 							var modifier_lookup = cm_options.findRecord('name', item);
 							rec.set('effectiveness', modifier_lookup.get('effectiveness'));
 							rec.set('fleet_pen', modifier_lookup.get('fleet_pen'));
-							cm_detail = "<p>Active Item: "+rec.get('name');
+							cm_detail = "<p>Active Item: "+rec.get('name') + "<br/>(Effectiveness Varies)";
 						}
 						data_update();
 					}  
@@ -1005,7 +1005,7 @@
 						});
 						cm_types.clearFilter();
 						
-						cm_detail = "<p>Active Item: "+cm_title;
+						cm_detail = "<p>Active Item: "+cm_title + "<br/><br/>(Effectiveness Varies)";
 						
 						data_update();
 					}
