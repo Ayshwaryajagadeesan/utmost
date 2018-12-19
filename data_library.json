@@ -329,6 +329,30 @@
 			"Cyclist": 0
 		}
 		
+	},
+	"risk_swap" : {
+		"side" : {
+			"Far Side": "Frontal",
+			"Frontal": "Far Side",
+			"Motorcycle": "Motorcycle",
+			"Near Side": "Rear",
+			"Other": "Other",
+			"Rear": "Far Side",
+			"Rollover": "Rollover",
+			"Pedestrian": "Pedestrian",
+			"Cyclist": "Cyclist"
+		},
+		"rear" : {
+			"Far Side": "Far Side",
+			"Frontal": "Rear",
+			"Motorcycle": "Motorcycle",
+			"Near Side": "Near Side",
+			"Other": "Other",
+			"Rear": "Frontal",
+			"Rollover": "Rollover",
+			"Pedestrian": "Pedestrian",
+			"Cyclist": "Cyclist"
+		}
 	}
 		
 }
