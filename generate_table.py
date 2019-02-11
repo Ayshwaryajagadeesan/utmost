@@ -81,7 +81,7 @@ def generate_belted(data_library, crash_direction, sex, alcohol_involvement, lig
 		return res
 
 def generate_child_optimal(data_library, crash_direction, sex, alcohol_involvement, light_condition, ped_alc, age, driver_age) : 
-	if () : #pedestrian or cyclist
+	if (crash_direction == 'Cyclist' or crash_direction == 'Pedestrian') : #pedestrian or cyclist
 		return 0
 	else:
 		res = data_library['estimate']['intercept']
@@ -100,7 +100,7 @@ def generate_child_optimal(data_library, crash_direction, sex, alcohol_involveme
 		return res
 
 def generate_child_suboptimal(data_library, crash_direction, sex, alcohol_involvement, light_condition, ped_alc, age, driver_age) : 
-	if () : #pedestrian or cyclist
+	if (crash_direction == 'Cyclist' or crash_direction == 'Pedestrian') : #pedestrian or cyclist
 		return 0
 	else:
 		res = data_library['estimate']['intercept']

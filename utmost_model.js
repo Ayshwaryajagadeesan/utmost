@@ -77,28 +77,6 @@
 				{name: 'r_child_optimal', type: 'float'},
 				{name: 'r_child_suboptimal', type: 'float'},
 				{name: 'r_helmet', type: 'float'},
-				{name: 'swap_side_risk_coefficient', type: 'float'}, //Swap Side
-				{name: 'swap_side_i_unrestrained', type: 'float'},
-				{name: 'swap_side_i_belted', type: 'float'},
-				{name: 'swap_side_i_child_optimal', type: 'float'},
-				{name: 'swap_side_i_child_suboptimal', type: 'float'},
-				{name: 'swap_side_i_helmet', type: 'float'},
-				{name: 'swap_side_r_unrestrained', type: 'float'}, //precalc risk values
-				{name: 'swap_side_r_belted', type: 'float'},
-				{name: 'swap_side_r_child_optimal', type: 'float'},
-				{name: 'swap_side_r_child_suboptimal', type: 'float'},
-				{name: 'swap_side_r_helmet', type: 'float'},
-				{name: 'swap_rear_risk_coefficient', type: 'float'}, //Swap Rear
-				{name: 'swap_rear_i_unrestrained', type: 'float'},
-				{name: 'swap_rear_i_belted', type: 'float'},
-				{name: 'swap_rear_i_child_optimal', type: 'float'},
-				{name: 'swap_rear_i_child_suboptimal', type: 'float'},
-				{name: 'swap_rear_i_helmet', type: 'float'},
-				{name: 'swap_rear_r_unrestrained', type: 'float'}, //precalc risk values
-				{name: 'swap_rear_r_belted', type: 'float'},
-				{name: 'swap_rear_r_child_optimal', type: 'float'},
-				{name: 'swap_rear_r_child_suboptimal', type: 'float'},
-				{name: 'swap_rear_r_helmet', type: 'float'},
 				{name: 'sort', type: 'int'}
 				]
 	});
@@ -186,10 +164,7 @@
 	});
 	
 	
-	//Trapezoidal sum function for injury integration
-	var utmost_injury_min_dv = 1;
-	var utmost_injury_max_dv = 150;
-	var utmost_injury_step_size = 1;
+	
 	
 	var utmost_injury_trapezoidal_sum_shift = function(record, intercept, shift){
 		var mean = record.get('mean_dv');
@@ -235,18 +210,6 @@
 		 result['adjusted'] = ((utmost_injury_max_dv-utmost_injury_min_dv)/(2 * step_count)) * sum_adjusted;
 		 return result;
 		
-	}
-	
-		
-	
-	var pdf_root2PI = 2.5066282746;
-	
-	var utmost_lognormal_pdf = function(mean, stdev, dv){
-		return (1/(dv * stdev * pdf_root2PI)) * Math.exp(-1*(((Math.log(dv)-mean)*(Math.log(dv)-mean))/(2 * stdev * stdev)));
-	}
-	
-	var utmost_logistic_injury = function(coeff, intercept, dv){
-		return 1/(1+Math.exp(-1*(intercept + coeff * Math.log(dv))));
 	}
 	
 		
@@ -347,7 +310,8 @@
 				
 				}
 			});
-		} else if (data_outcome_variable == 'injury_count'){
+		} 
+		else if (data_outcome_variable == 'injury_count'){
 			//Load injury values
 			utmost_injury_raw_values.load({
 				params: {
@@ -367,12 +331,9 @@
 					
 					
 					//do injury calcs for each row
-					utmost_injury_raw_values.suspendEvents();
+					//utmost_injury_raw_values.suspendEvents();
 					
-					var cw_effect = 0;
-					if (check_countermeasure('vehicle_crashworthiness')){
-						cw_effect = cm_crashworthiness_get_values();
-					}
+								
 					
 					utmost_injury_raw_values.each(function(record){
 						
@@ -439,151 +400,184 @@
 							};
 						}
 						
+						//Build population tree
+						/*
+						Operations:
 						
-
-						if (dv_calc_relevance != 0){
-							//dv is only shifted for countermeasures that effect delta-v in crashes.  
+						- Create row for Baseline (mitigation factor = 1, unchanged r_restraint/zero undefined, baseline p_restraint)
+						
+						
+						- Create row for each separate adjusted sub-population
+						
+						- apply new p_restriant to each new row for restraint effects on DV crashes
+						
+						- apply new coefficients for crashworthiness shift
+						
+						- apply zero to all undefined r_ values 
+						*/
+						var subrows = []; //DEBUG: dump subrows to a separate array
+						//Baseline Row at subrows(0)
+						var base_row = {
+							'frequency' : 			record.get('frequency'),
+							'mean_dv' : 			record.get('mean_dv'),
+							'sd_dv' : 				record.get('sd_dv'),
+							'dv_shift' :			0, //Zero for Base Row,
+							'dv_shift_relevance' :	0,
+							'mitigation_factor':	1, //1 for Base Row
+							'r_unrestrained' : 		(record.get('r_unrestrained') ? record.get('r_unrestrained') : 0), //precalculated base risk for test
+							'r_belted' : 			(record.get('r_belted') ? record.get('r_belted') : 0),
+							'r_child_optimal' : 	(record.get('r_child_optimal') ? record.get('r_child_optimal') : 0),
+							'r_child_suboptimal' : 	(record.get('r_child_suboptimal') ? record.get('r_child_suboptimal') : 0),
+							'r_helmet' : 			(record.get('r_helmet') ? record.get('r_helmet') : 0),
+							'p_unrestrained' :		record.get('p_unrestrained'), //base proportions
+							'p_belted' : 			record.get('p_belted'),
+							'p_child_optimal' : 	record.get('p_child_optimal'),
+							'p_child_suboptimal' : 	record.get('p_child_suboptimal'),
+							'p_helmet' : 			record.get('p_helmet'),
+							'coeff':				record.get('risk_coefficient'), //base coefficient
+							'i_unrestrained' :		record.get('i_unrestrained'), //base intercepts
+							'i_belted' : 			record.get('i_belted'),
+							'i_child_optimal' : 	record.get('i_child_optimal'),
+							'i_child_suboptimal' : 	record.get('i_child_suboptimal'),
+							'i_helmet' : 			record.get('i_helmet')
+						}
+						
+						subrows.push(base_row);
+						/*
+						//Build population proportions for adjusted rows
+						if (check_countermeasure('vehicle_crashworthiness')){
+							cw_effect = cm_crashworthiness_get_values();
+						}
+						
+						if (check_countermeasure('seat_position')){
+							//Adjust positions
+							
+							//Adjust risk
+							
+						}
+						
+						//Build Rows
+						*/
+						
+						
+						
+						
+						if (check_countermeasure('vehicle_crashworthiness')){
+							var cw_effect = cm_crashworthiness_get_values();
+							//calc sub-populations TODO: restraint
 							
 							
+							//calc scale factors
+							var cw_scale_factor = 1;
+							cw_scale_factor *= cw_effect[record.get('crash_direction')];
 							
-							
-							var injury_row_total = {base: 0, adjusted:0};
-							
-							//trapezoidal sum for integration
-							if (record.get('p_unrestrained') > 0 ){
-								if (cw_effect == 0){
-									var result = utmost_injury_trapezoidal_sum(record, record.get('i_unrestrained'));
-									injury_row_total['base'] += record.get('p_unrestrained') * result['base'];
-									injury_row_total['adjusted'] += new_unrestrained * result['adjusted'];
-								} else {
-									var result_base = utmost_injury_trapezoidal_sum(record, record.get('i_unrestrained'));
-									var result_cw = utmost_injury_trapezoidal_sum_shift(record, record.get('i_unrestrained'), cw_effect[record.get('crash_direction')]);
-									injury_row_total['base'] += record.get('p_unrestrained') * result_base['base'];
-									injury_row_total['adjusted'] += (1 - cw_effect['fleet_penetration']) * (new_unrestrained * result_base['adjusted']) + cw_effect['fleet_penetration'] * (new_unrestrained * result_cw['adjusted']);
-								}
+							var new_coeff = record.get('risk_coefficient') + Math.log(1-(cw_effect.effectiveness * cw_scale_factor))/Math.log(cw_effect.target_dv);
+							var row_unshifted = {
+								'frequency' : 			(record.get('frequency') * (1- cw_effect.fleet_penetration)),
+								'mean_dv' : 			record.get('mean_dv'),
+								'sd_dv' : 				record.get('sd_dv'),
+								'dv_shift' :			record.get('dv_shift_value'),
+								'dv_shift_relevance' :	record.get('dv_shift_relevance'),
+								'mitigation_factor':	record.get('mitigation_factor'), 
+								'r_unrestrained' : 		(record.get('r_unrestrained') ? record.get('r_unrestrained') : 0), //precalculated base risk for test
+								'r_belted' : 			(record.get('r_belted') ? record.get('r_belted') : 0),
+								'r_child_optimal' : 	(record.get('r_child_optimal') ? record.get('r_child_optimal') : 0),
+								'r_child_suboptimal' : 	(record.get('r_child_suboptimal') ? record.get('r_child_suboptimal') : 0),
+								'r_helmet' : 			(record.get('r_helmet') ? record.get('r_helmet') : 0),
+								'p_unrestrained' :		new_unrestrained, //New restraint proportions
+								'p_belted' : 			new_belted,
+								'p_child_optimal' : 	new_child_optimal,
+								'p_child_suboptimal' : 	new_child_suboptimal,
+								'p_helmet' : 			new_helmet,
+								'coeff':				record.get('risk_coefficient'), //base coefficient
+								'i_unrestrained' :		record.get('i_unrestrained'), //base intercepts
+								'i_belted' : 			record.get('i_belted'),
+								'i_child_optimal' : 	record.get('i_child_optimal'),
+								'i_child_suboptimal' : 	record.get('i_child_suboptimal'),
+								'i_helmet' : 			record.get('i_helmet')
 							}
-							if (record.get('p_belted') > 0 ){
-								if (cw_effect == 0){
-									var result = utmost_injury_trapezoidal_sum(record, record.get('i_belted'));
-									injury_row_total['base'] += record.get('p_belted') * result['base'];
-									injury_row_total['adjusted'] += new_belted * result['adjusted'];
-								} else {
-									var result_base = utmost_injury_trapezoidal_sum(record, record.get('i_belted'));
-									var result_cw = utmost_injury_trapezoidal_sum_shift(record, record.get('i_belted'), cw_effect[record.get('crash_direction')]);
-									injury_row_total['base'] += record.get('p_belted') * result_base['base'];
-									injury_row_total['adjusted'] += (1 - cw_effect['fleet_penetration']) * (new_belted * result_base['adjusted']) + cw_effect['fleet_penetration'] * (new_belted * result_cw['adjusted']);
-								}
+							var row_shifted = {
+								'frequency' : 			(record.get('frequency') * (cw_effect.fleet_penetration)),
+								'mean_dv' : 			record.get('mean_dv'),
+								'sd_dv' : 				record.get('sd_dv'),
+								'dv_shift' :			record.get('dv_shift_value'),
+								'dv_shift_relevance' :	record.get('dv_shift_relevance'),
+								'mitigation_factor':	record.get('mitigation_factor'), 
+								'r_unrestrained' : 		(record.get('r_unrestrained') ? record.get('r_unrestrained') : 0), //precalculated base risk for test
+								'r_belted' : 			(record.get('r_belted') ? record.get('r_belted') : 0),
+								'r_child_optimal' : 	(record.get('r_child_optimal') ? record.get('r_child_optimal') : 0),
+								'r_child_suboptimal' : 	(record.get('r_child_suboptimal') ? record.get('r_child_suboptimal') : 0),
+								'r_helmet' : 			(record.get('r_helmet') ? record.get('r_helmet') : 0),
+								'p_unrestrained' :		new_unrestrained, //New restraint proportions
+								'p_belted' : 			new_belted,
+								'p_child_optimal' : 	new_child_optimal,
+								'p_child_suboptimal' : 	new_child_suboptimal,
+								'p_helmet' : 			new_helmet,
+								'coeff':				new_coeff, //new coefficient for this CM
+								'i_unrestrained' :		record.get('i_unrestrained'), //base intercepts
+								'i_belted' : 			record.get('i_belted'),
+								'i_child_optimal' : 	record.get('i_child_optimal'),
+								'i_child_suboptimal' : 	record.get('i_child_suboptimal'),
+								'i_helmet' : 			record.get('i_helmet')
 							}
-							if (record.get('p_child_optimal') > 0 ){
-								if (cw_effect == 0){
-									var result = utmost_injury_trapezoidal_sum(record, record.get('i_child_optimal'));
-									injury_row_total['base'] += record.get('p_child_optimal') * result['base'];
-									injury_row_total['adjusted'] += new_child_optimal * result['adjusted'];
-								} else {
-									var result_base = utmost_injury_trapezoidal_sum(record, record.get('i_child_optimal'));
-									var result_cw = utmost_injury_trapezoidal_sum_shift(record, record.get('i_child_optimal'), cw_effect[record.get('crash_direction')]);
-									injury_row_total['base'] += record.get('p_child_optimal') * result_base['base'];
-									injury_row_total['adjusted'] += (1 - cw_effect['fleet_penetration']) * (new_child_optimal * result_base['adjusted']) + cw_effect['fleet_penetration'] * (new_child_optimal * result_cw['adjusted']);
-								}
-							}
-							if (record.get('p_child_suboptimal') > 0 ){
-								if (cw_effect == 0){	
-									var result = utmost_injury_trapezoidal_sum(record, record.get('i_child_suboptimal'));
-									injury_row_total['base'] += record.get('p_child_suboptimal') * result['base'];
-									injury_row_total['adjusted'] += new_child_suboptimal * result['adjusted'];
-								} else {
-									var result_base = utmost_injury_trapezoidal_sum(record, record.get('i_child_suboptimal'));
-									var result_cw = utmost_injury_trapezoidal_sum_shift(record, record.get('i_child_suboptimal'), cw_effect[record.get('crash_direction')]);
-									injury_row_total['base'] += record.get('p_child_suboptimal') * result_base['base'];
-									injury_row_total['adjusted'] += (1 - cw_effect['fleet_penetration']) * (new_child_suboptimal * result_base['adjusted']) + cw_effect['fleet_penetration'] * (new_child_suboptimal * result_cw['adjusted']);
-								}
-							}
-							if (record.get('p_helmet') > 0 ){
-								if (cw_effect == 0){
-									var result = utmost_injury_trapezoidal_sum(record, record.get('i_helmet'));
-									injury_row_total['base'] += record.get('p_helmet') * result['base'];
-									injury_row_total['adjusted'] += new_helmet * result['adjusted'];
-								} else {
-									var result_base = utmost_injury_trapezoidal_sum(record, record.get('i_helmet'));
-									var result_cw = utmost_injury_trapezoidal_sum_shift(record, record.get('i_helmet'), cw_effect[record.get('crash_direction')]);
-									injury_row_total['base'] += record.get('p_helmet') * result_base['base'];
-									injury_row_total['adjusted'] += (1 - cw_effect['fleet_penetration']) * (new_helmet * result_base['adjusted']) + cw_effect['fleet_penetration'] * (new_helmet * result_cw['adjusted']);
-								}
-							}
-							
-							
-							//Avoidance mitigation
-							if (record.get('dv_shift_relevance') > 0){
-								var nonDV_mitigation_factor = (1 - (((1-record.get('mitigation_factor')) / record.get('dv_shift_relevance'))-1));
-								var dv_correction_factor = (1 - record.get('dv_shift_relevance'));
-								injury_row_total['adjusted'] *= (nonDV_mitigation_factor / dv_correction_factor);
-							} else {
-								injury_row_total['adjusted'] *= record.get('mitigation_factor');
-							}
-							//Multiply frequency to get count
-							injury_row_total['base'] *= record.get('frequency');
-							injury_row_total['adjusted'] *= record.get('frequency');
-							
-							if (isNaN(injury_row_total['base'])){
-								injury_row_total['base'] = 0;
-							}
-							if (isNaN(injury_row_total['adjusted'])){
-								injury_row_total['adjusted'] = 0;
-							}
-							
-							record.set('injury_count', injury_row_total['base']);
-							record.set('injury_count_adj', injury_row_total['adjusted']);
+							subrows.push(row_unshifted);
+							subrows.push(row_shifted);
 						} else {
-							/*No DV impact on crashes*/
-							var injury_row_total = record.get('frequency');
-							var injury_row_adj = record.get('frequency');
-							
-							var r_unrestrained = record.get('r_unrestrained') ? record.get('r_unrestrained') : 0;
-							var r_belted = record.get('r_belted') ? record.get('r_belted') : 0;							
-							var r_child_optimal = record.get('r_child_optimal') ? record.get('r_child_optimal') : 0;							
-							var r_child_suboptimal = record.get('r_child_suboptimal') ? record.get('r_child_suboptimal') : 0;							
-							var r_helmet = record.get('r_helmet') ? record.get('r_helmet') : 0;							
-							
-							injury_row_total *= (
-												record.get('p_unrestrained') * r_unrestrained + 
-												record.get('p_belted') * r_belted +
-												record.get('p_child_optimal') * r_child_optimal +
-												record.get('p_child_suboptimal') * r_child_suboptimal +
-												record.get('p_helmet') * r_helmet
-								);
-							/*if (cw_effect != 0){
-								injury_row_adj *= (
-													new_unrestrained * r_unrestrained * (1-(1-cw_effect[record.get('crash direction')] * cw_effect['unrestrained'])) + 
-													new_belted * r_belted * cw_effect[record.get('crash direction')] +
-													new_child_optimal * r_child_optimal * cw_effect[record.get('crash direction')] +
-													new_child_suboptimal * r_child_suboptimal * cw_effect[record.get('crash direction')] +
-													record.get('p_helmet') * r_helmet * cw_effect[record.get('crash direction')]
-									);
-							} else {*/
-								injury_row_adj *= (
-													new_unrestrained * r_unrestrained + 
-													new_belted * r_belted +
-													new_child_optimal * r_child_optimal +
-													new_child_suboptimal * r_child_suboptimal  +
-													record.get('p_helmet') * r_helmet 
-									);
-									
-											
-							//}
-							
-							if (isNaN(injury_row_total)){
-								injury_row_total = 0;
+							var adjusted_row = {
+								'frequency' : 			record.get('frequency'),
+								'mean_dv' : 			record.get('mean_dv'),
+								'sd_dv' : 				record.get('sd_dv'),
+								'dv_shift' :			record.get('dv_shift_value'),
+								'dv_shift_relevance' :	record.get('dv_shift_relevance'),
+								'mitigation_factor':	record.get('mitigation_factor'), 
+								'r_unrestrained' : 		(record.get('r_unrestrained') ? record.get('r_unrestrained') : 0), //precalculated base risk for test
+								'r_belted' : 			(record.get('r_belted') ? record.get('r_belted') : 0),
+								'r_child_optimal' : 	(record.get('r_child_optimal') ? record.get('r_child_optimal') : 0),
+								'r_child_suboptimal' : 	(record.get('r_child_suboptimal') ? record.get('r_child_suboptimal') : 0),
+								'r_helmet' : 			(record.get('r_helmet') ? record.get('r_helmet') : 0),
+								'p_unrestrained' :		new_unrestrained, //New restraint proportions
+								'p_belted' : 			new_belted,
+								'p_child_optimal' : 	new_child_optimal,
+								'p_child_suboptimal' : 	new_child_suboptimal,
+								'p_helmet' : 			new_helmet,
+								'coeff':				record.get('risk_coefficient'), //base coefficient
+								'i_unrestrained' :		record.get('i_unrestrained'), //base intercepts
+								'i_belted' : 			record.get('i_belted'),
+								'i_child_optimal' : 	record.get('i_child_optimal'),
+								'i_child_suboptimal' : 	record.get('i_child_suboptimal'),
+								'i_helmet' : 			record.get('i_helmet')
 							}
-							if (isNaN(injury_row_adj)){
-								injury_row_adj = 0;
-							}
+							subrows.push(adjusted_row);
+						}
+						
+						
+						
+						if (dv_calc_relevance != 0){
+							//get base risk
+							var base_risk = utmost_injury_risk_dv(subrows[0]);
+							//add base to base total
+							var total_base_injuries = subrows[0].frequency  *  base_risk;
 							
-							var adj_injury_total = injury_row_adj * record.get('mitigation_factor');
+							var adjusted_injuries = 0;
+							//for each adjusted row, get risk and add adjusted risk to total
+							for(i = 1; i< subrows.length; i++){
+								adjusted_injuries += subrows[i].frequency * utmost_injury_risk_dv(subrows[i]);
+							} 
+							record.set('injury_count', total_base_injuries);
+							record.set('injury_count_adj', adjusted_injuries)
+						} else {
+							//get base risk
+							var base_risk = utmost_injury_risk_nondv(subrows[0]);
+							//add base to base total
+							var total_base_injuries = subrows[0].frequency  *  base_risk;
 							
-							
-							record.set('injury_count', injury_row_total);
-							record.set('injury_count_adj', adj_injury_total);
-							
+							var adjusted_injuries = 0;
+							//for each adjusted row, get risk and add adjusted risk to total
+							for(i = 1; i< subrows.length; i++){
+								adjusted_injuries += subrows[i].frequency * utmost_injury_risk_nondv(subrows[i]);
+							} 
+							record.set('injury_count', total_base_injuries);
+							record.set('injury_count_adj', adjusted_injuries);
 						}
 					});
 					
@@ -642,13 +636,14 @@
 					utmost_injury_chart.axes.getAt(0).maximum = chart_max;
 					
 					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
-					utmost_injury_raw_values.resumeEvents();
+					//utmost_injury_raw_values.resumeEvents();
 					utmost_injury_chart_values.resumeEvents();
 					utmost_injury_chart_values.fireEvent('refresh');
 					
 					utmost_loadmask.hide();
 					
 					//Set injury chart for use and redraw
+					utmost_fatality_chart.setVisible(false);
 					utmost_chart.setVisible(false);
 					utmost_injury_chart.setVisible(true);
 					utmost_injury_chart.redraw(true);
@@ -656,7 +651,8 @@
 				}
 			
 			});
-		} else if (data_outcome_variable == 'fatality_count'){
+		} 
+		else if (data_outcome_variable == 'fatality_count'){
 			utmost_fatality_raw_values.load({
 				params: {
 					filter_string: cm_string,

@@ -527,7 +527,7 @@
 			//{"category_val":"vehicle_crashworthiness", 'name':"Target DV", 'target_val':"target_dv", 'base_rate':100, 'law_rate':100, 'proportion':50, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Injury Risk Reduction", 'target_val':"effectiveness", 'base_rate':100, 'law_rate':100, 'proportion':30, 'detail_type': 'independent_text', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Target DV (MPH)", 'target_val':"target_dv", 'base_rate':100, 'law_rate':100, 'proportion':35, 'detail_type': 'independent_text', 'lock': 0},
-			{"category_val":"vehicle_crashworthiness", 'name':"Fleet Penetration", 'target_val':"fleet_penetration", 'base_rate':100, 'law_rate':100, 'proportion':50, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"vehicle_crashworthiness", 'name':"Fleet Penetration", 'target_val':"fleet_penetration", 'base_rate':100, 'law_rate':100, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Fatality Scale Factor", 'target_val':"fatality", 'base_rate':100, 'law_rate':100, 'proportion':100, 'detail_type': 'independent_scalar', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Unrestrained Occupant Scale Factor", 'target_val':"unrestrained", 'base_rate':100, 'law_rate':100, 'proportion':0, 'detail_type': 'independent_scalar', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Frontal Crash Scale Factor", 'target_val':"Frontal", 'base_rate':100, 'law_rate':100, 'proportion':100, 'detail_type': 'independent_scalar', 'lock': 0},
@@ -588,7 +588,7 @@
 			{"category_val":"seat_position", 'name':"Rear Driver Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':5, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"seat_position", 'name':"Rear Passenger Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':5, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Effectiveness", 'target_val':"effectiveness", 'base_rate':100, 'law_rate':100, 'proportion':50, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"vehicle_crashworthiness", 'name':"Fleet Penetration", 'target_val':"fleet_penetration", 'base_rate':100, 'law_rate':100, 'proportion':50, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"vehicle_crashworthiness", 'name':"Fleet Penetration", 'target_val':"fleet_penetration", 'base_rate':100, 'law_rate':100, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Fatality Scale Factor", 'target_val':"fatality", 'base_rate':100, 'law_rate':100, 'proportion':50, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Unrestrained Occupant Scale Factor", 'target_val':"unrestrained", 'base_rate':100, 'law_rate':100, 'proportion':0, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"vehicle_crashworthiness", 'name':"Frontal Crash Scale Factor", 'target_val':"Frontal", 'base_rate':100, 'law_rate':100, 'proportion':50, 'detail_type': 'independent', 'lock': 0},
@@ -1324,25 +1324,17 @@
 	function cm_crashworthiness_get_values(){
 		var res = {};
 		var index = 0;
-		var base_numbers = cm_types.findRecord('val', 'vehicle_crashworthiness');
-		//res['effectiveness'] = base_numbers.get('effectiveness') / 100;
-		//res['fleet_penetration'] = base_numbers.get('fleet_pen') / 100;
 		cm_options.filter('category_val', 'vehicle_crashworthiness');
 		while (index < cm_options.count()){
 			var test = cm_options.getAt(index);
-			if (test.get('target_val') == 'effectiveness' || test.get('target_val') == 'fleet_penetration'){
-				res[test.get('target_val')] = (test.get('proportion')/100);
-			} else if (test.get('target_val') != 'unrestrained') {
-				res[test.get('target_val')] = Math.log((test.get('proportion')/50) * (1 - (res['effectiveness']))) / Math.log(30);
-			} else {
-				res[test.get('target_val')] = Math.log((test.get('proportion')/50) * (1 - (res['effectiveness']))) / Math.log(30);
-			}
+			res[test.get('target_val')] = test.get('proportion')/100;
 			index++;
 		}
-		res['pedestrian'] = 1;
-		res['cyclist'] = 1;
-		res['other'] = 1;
 		cm_options.clearFilter();
+		res['Pedestrian'] = 1;
+		res['Cyclist'] = 1;
+		res['Other'] = 1;
+		
 		return res;
 	}
 	

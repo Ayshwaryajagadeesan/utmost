@@ -3,13 +3,15 @@
 	<head>
 		<script type "text/javascript" src="lib/ext-all-debug.js"></script>
 		<script type="text/javascript" src="utmost_model.js"></script>
+		<script type="text/javascript" src="utmost_risk.js"></script>
 		<script type="text/javascript" src="utmost_chart.js"></script>
 		<script type="text/javascript" src="utmost_countermeasure.js"></script>
 		<script type="text/javascript" src="utmost_world.js"></script>
 		<script type="text/javascript" src="utmost_subset.js"></script>
 		<script type="text/javascript" src="utmost_core.js"></script>
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 		<link rel="stylesheet" type="text/css" href="lib/resources/css/ext-all.css">
-
+		
 	</head>
 	<body>
 		<script type="text/javascript">
