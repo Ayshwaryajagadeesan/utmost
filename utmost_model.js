@@ -623,6 +623,25 @@
 						}
 					}
 					utmost_totals_chart.axes.getAt(0).maximum = (total >=  adj_total) ? Math.floor((total * 1.1) / 1000) * 1000 : Math.floor((adj_total * 1.1) / 1000) * 1000;
+					//utmost_totals_chart.axes.getAt(0).maximum = (total >=  adj_total) ? Math.pow(10, Math.floor(Math.log10(total))-1) : Math.pow(10, Math.floor(Math.log10(adj_total))-1);
+					/*if(utmost_totals_chart.axes.getAt(0).maximum < adj_total)
+					{
+						utmost_totals_chart.axes.getAt(0).maximum= Math.pow(10, Math.floor(Math.log10(adj_total))-1);
+					}
+					if(utmost_totals_chart.axes.getAt(0).maximum < total)
+					{
+						utmost_totals_chart.axes.getAt(0).maximum= Math.pow(10, Math.floor(Math.log10(total))-1);
+					}*/
+					if(utmost_totals_chart.axes.getAt(0).maximum < adj_total || utmost_totals_chart.axes.getAt(0).maximum > adj_total)
+					{
+						 var temp_max=adj_total/100;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*100;
+					}
+					if(utmost_totals_chart.axes.getAt(0).maximum < total || utmost_totals_chart.axes.getAt(0).maximum > total)
+					{
+						var temp_max=total/100;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*100;
+					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);
 					//utmost_totals_chart.axes.getAt(0).maximum = 170000;
@@ -861,6 +880,16 @@
 					}
 					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
 					utmost_totals_chart.axes.getAt(0).maximum = (total > adj_total) ? Math.floor((total * 1.1) / 100) * 100 : Math.floor((adj_total * 1.1) / 100) * 100;
+					if(utmost_totals_chart.axes.getAt(0).maximum < adj_total || utmost_totals_chart.axes.getAt(0).maximum > adj_total)
+					{
+						 var temp_max=adj_total/10;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
+					}
+					if(utmost_totals_chart.axes.getAt(0).maximum < total || utmost_totals_chart.axes.getAt(0).maximum > total)
+					{
+						var temp_max=total/10;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
+					}
 					utmost_totals_chart_values.getAt(0).set('person_count', total);
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
 					utmost_totals_chart_values.commitChanges();
@@ -937,5 +966,3 @@
 		}
 		dl_link.click();
 	};
-
-
