@@ -10,13 +10,13 @@
 	//Injury vars
 	$injury_select_vars = "crash_injury_dev.coefficient as risk_coefficient, crash_injury_dev.unrestrained as i_unrestrained, crash_injury_dev.belted as i_belted, crash_injury_dev.child_optimal as  i_child_optimal, crash_injury_dev.child_suboptimal as i_child_suboptimal, crash_injury_dev.helmet as i_helmet"; 
 	//Fatal injury vars
-	$fatal_injury_select_vars = "crash_fatality.coefficient as risk_coefficient, crash_fatality.unrestrained as i_unrestrained, crash_fatality.belted as i_belted, crash_fatality.child_optimal as  i_child_optimal, crash_fatality.child_suboptimal as i_child_suboptimal, crash_fatality.helmet as i_helmet"; 
+	$fatal_injury_select_vars = "crash_fatality_dev.coefficient as risk_coefficient, crash_fatality_dev.child_suboptimal as i_child_suboptimal, crash_fatality_dev.helmet as i_helmet"; 
 	
 	
 	//risk base vars
 	$risk_select_vars = "crash_injury_dev.risk_unrestrained as r_unrestrained, crash_injury_dev.risk_belted as r_belted, crash_injury_dev.risk_child_optimal as r_child_optimal, crash_injury_dev.risk_child_suboptimal as r_child_suboptimal, crash_injury_dev.risk_helmet as r_helmet";
 	//fatal risk select vars
-	$fatal_risk_select_vars = "crash_fatality.risk_unrestrained as r_unrestrained, crash_fatality.risk_belted as r_belted, crash_fatality.risk_child_optimal as r_child_optimal, crash_fatality.risk_child_suboptimal as r_child_suboptimal, crash_fatality.risk_helmet as r_helmet";
+	$fatal_risk_select_vars = "crash_fatality_dev.risk_unrestrained as r_unrestrained, crash_fatality_dev.risk_belted as r_belted, crash_fatality_dev.risk_child_optimal as r_child_optimal, crash_fatality_dev.risk_child_suboptimal as r_child_suboptimal, crash_fatality_dev.risk_helmet as r_helmet";
 	$fatal_risk_groups  = ", r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet, ";
 	
 	//DV Vars
@@ -56,19 +56,27 @@
 	
 	//fatality
 	$sort_fatality = array();
-	$sort_fatality['crash_type'] = 'FIELD(crash_fatality.crash_type, "Animal", "Avoidance", "Backing", "Change lanes", "Control Loss", "Cyclist", "Drifting", "No Driver", "Non-collision", "Object", "Opp direction", "Parking", "Pedestrian", "Rear End/LV Decel", "Rear End/LV Slower", "Rear End/LV Stopped", "Rear End/Other", "Road Departure", "Rollover", "Run light/stop", "Turning/same dir",  "Veh Failure", "XPaths@Non-Signal", "XPaths@Signal", "Other") as sort';
-	//$sort_fatality['crash_direction'] = 'FIELD(crash_fatality.crash_direction, "Rear", "Front", "Farside", "Nearside") as sort'; //alias to crash type
-	$sort_fatality['crash_direction'] = 'FIELD(crash_fatality.crash_direction, "Far Side", "Frontal", "Motorcycle", "Near Side", "Rear", "Rollover", "Cyclist", "Pedestrian", "Other") as sort';
-	$sort_fatality['veh_type'] = 'FIELD(crash_fatality.veh_type, "Car", "Pickup", "SUV", "Van", "Large Bus", "Heavy Truck", "Motorcycle", "Cyclist", "Pedestrian", "Snowmobile/ATV", "Golf Cart/LSV", "Other") as sort';
-	//$sort_fatality['age'] = 'FIELD(crash_fatality.age, "14-30", "30-60", "31-60", "61+") as sort';
-	$sort_fatality['age'] = 'FIELD(crash_fatality.age, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-65", "66+") as sort';
-	$sort_fatality['driver_age'] = 'FIELD(crash_fatality.driver_age, "<16", "16-17 ", "18-20", "21-65", ">65") as sort';
-	$sort_fatality['sex'] = 'FIELD(crash_fatality.sex, "M", "F") as sort';
-	$sort_fatality['alcohol_involvement'] = 'FIELD(crash_fatality.alcohol_involvement, "Alcohol Involved", "No Alcohol Involved") as sort';
-	$sort_fatality['light_condition'] = 'FIELD(crash_fatality.light_condition, "Light", "Dark--Lighted", "Dark", "Other") as sort';
-	$sort_fatality['model_year'] = 'crash_fatality.model_year as sort';;
-	$sort_fatality['restraint'] = 'FIELD(crash_fatality.restraint, "Unrestrained", "Suboptimal", "Optimal") as sort';
-	
+	$sort_fatality['crash_type'] = 'FIELD(crash_fatality_dev.crash_type, "Animal", "Avoidance", "Backing", "Change lanes", "Control Loss", "Cyclist", "Drifting", "No Driver", "Non-collision", "Object", "Opp direction", "Parking", "Pedestrian", "Rear End/LV Decel", "Rear End/LV Slower", "Rear End/LV Stopped", "Rear End/Other", "Road Departure", "Rollover", "Run light/stop", "Turning/same dir",  "Veh Failure", "XPaths@Non-Signal", "XPaths@Signal", "Other") as sort';
+	//$sort_fatality['crash_direction'] = 'FIELD(crash_fatality_dev.crash_direction, "Rear", "Front", "Farside", "Nearside") as sort'; //alias to crash type
+	$sort_fatality['crash_direction'] = 'FIELD(crash_fatality_dev.crash_direction, "Far Side", "Frontal", "Motorcycle", "Near Side", "Rear", "Rollover", "Cyclist", "Pedestrian", "Other") as sort';
+	$sort_fatality['veh_type'] = 'FIELD(crash_fatality_dev.veh_type, "Car", "Pickup", "SUV", "Van", "Large Bus", "Heavy Truck", "Motorcycle", "Cyclist", "Pedestrian", "Snowmobile/ATV", "Golf Cart/LSV", "Other") as sort';
+	//$sort_fatality['age'] = 'FIELD(crash_fatality_dev.age, "14-30", "30-60", "31-60", "61+") as sort';
+	$sort_fatality['age'] = 'FIELD(crash_fatality_dev.age, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-65", "66+") as sort';
+	$sort_fatality['driver_age'] = 'FIELD(crash_fatality_dev.driver_age, "<16", "16-17 ", "18-20", "21-65", ">65") as sort';
+	$sort_fatality['sex'] = 'FIELD(crash_fatality_dev.sex, "M", "F") as sort';
+	$sort_fatality['alcohol_involvement'] = 'FIELD(crash_fatality_dev.alcohol_involvement, "Alcohol Involved", "No Alcohol Involved") as sort';
+	$sort_fatality['light_condition'] = 'FIELD(crash_fatality_dev.light_condition, "Light", "Dark--Lighted", "Dark", "Other") as sort';
+	$sort_fatality['veh_age'] = 'crash_fatality_dev.veh_age as sort';
+	$sort_fatality['restraint'] = 'FIELD(crash_fatality_dev.restraint, "Unrestrained", "Suboptimal", "Optimal") as sort';
+	$sort_fatality['urbanization_soc'] = 'FIELD(urbanization_soc, "Large Metro", "S/M Metro", "Nonmetro") as sort';
+	$sort_fatality['urbanization_acc'] = 'FIELD(urbanization_acc, "Large Metro", "S/M Metro", "Nonmetro") as sort';
+	$sort_fatality['education'] = 'crash_fatality_dev.education as sort';
+	$sort_fatality['income'] = 'crash_fatality_dev.income as sort';
+	$sort_fatality['white'] = 'crash_fatality_dev.white as sort';
+	$sort_fatality['black'] = 'crash_fatality_dev.black as sort';
+	$sort_fatality['other'] = 'crash_fatality_dev.other as sort';
+	$sort_fatality['hispanic'] = 'crash_fatality_dev.hispanic as sort';
+	$sort_fatality['non_hispanic'] = 'crash_fatality_dev.non_hispanic as sort';
 	$fatality_selects = ""; //no idea
 
 	
@@ -84,11 +92,84 @@
 	$query = "";
 	
 	if ($outcome_variable == 'fatality_count'){
-		
-		//fatality subsets
+				//fatality subsets
 		if ($subset_category != "all"){
-			$subset_string = "WHERE (crash_fatality.".$subset_variable." = '".$subset_category."')";
-		}
+			if($subset_category=='white')
+			{
+				$subset_string = "WHERE (crash_fatality_dev.white)";
+			}
+			else if($subset_category=='black')
+			{
+				$subset_string = "WHERE (crash_fatality_dev.black)";
+			}
+			else if($subset_category=='other')
+			{
+				$subset_string = "WHERE (crash_fatality_dev.black)";
+			}
+			else if($subset_category=='first'&& $subset_variable=='white')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '56')";
+			}
+			else if($subset_category=='second'&& $subset_variable=='white')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '74')";
+			}
+			else if($subset_category=='third'&& $subset_variable=='white')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '84')";
+			}
+			else if($subset_category=='fourth'&& $subset_variable=='white')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '92')";
+			}else if($subset_category=='fifth'&& $subset_variable=='white')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+			}
+			else if($subset_category=='first'&& $subset_variable=='black')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '1')";
+			}
+			else if($subset_category=='second'&& $subset_variable=='black')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '3')";
+			}
+			else if($subset_category=='third'&& $subset_variable=='black')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7')";
+			}
+			else if($subset_category=='fourth'&& $subset_variable=='black')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '19')";
+			}
+			else if($subset_category=='fifth'&& $subset_variable=='black')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+			}
+			else if($subset_category=='first'&& $subset_variable=='other')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '4')";
+			}
+			else if($subset_category=='second'&& $subset_variable=='other')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7')";
+			}
+			else if($subset_category=='third'&& $subset_variable=='other')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '11')";
+			}
+			else if($subset_category=='fourth'&& $subset_variable=='other')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '21')";
+			}
+			else if($subset_category=='fifth'&& $subset_variable=='other')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+			}					
+			else
+			{
+			$subset_string = "WHERE (crash_fatality_dev.".$subset_variable." = '".$subset_category."')";
+	    	}
+	    }
 		$dv_relevance = '0';
 		$dv_interventions = array();
 		
@@ -120,7 +201,7 @@
 			foreach ($interventions as $intervention_type => $colset){
 				$joinbloc = array();
 				foreach ($colset as $col){
-					$joinbloc[] = "(crash_fatality.".$col." = ".$intervention_type.".".$col.")";
+					$joinbloc[] = "(crash_fatality_dev.".$col." = ".$intervention_type.".".$col.")";
 				}
 				$joins.= " LEFT JOIN $intervention_type ON (".implode(" AND ", $joinbloc).") ";
 			}
@@ -152,13 +233,23 @@
 					$dv_relevance = '('.implode(' * ', $dv_interventions).')';
 					//$dv_relevance = "IFNULL(fcw.relevance, IFNULL(fcw_lv_decel.relevance, IFNULL(fcw_lv_slower.relevance, fcw_lv_stopped.relevance)))";
 					$dv_shift_key = "concat(CAST((".$dv_relevance."*10) AS SIGNED)*10, '-', CAST(fatality_dv.mean_dv*10 AS SIGNED)*10, '-',CAST(fatality_dv.sd_dv*10 AS SIGNED)*10) as temp_key";
-					$query = "SELECT logninv.res AS dv_shift_value, ".$full_fatality_selects.", ".$sort_dv[$group_type]." FROM (SELECT crash_fatality.".$group_type." as crash_type,  crash_fatality.crash_direction as crash_direction, crash_fatality.age as age, crash_fatality.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$fatal_injury_select_vars.", ".$fatal_risk_select_vars.", ".$fatal_dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$dv_shift_key." FROM `crash_fatality` ".$joins." LEFT JOIN fatality_dv ON crash_fatality.fatality_dv_key = fatality_dv.fatality_dv_key  ".$subset_string." GROUP BY crash_fatality.".$group_type.$fatal_injury_calc_groups.", mitigation_factor, dv_shift_relevance, temp_key) AS A LEFT JOIN logninv ON temp_key = logninv.logninv_key ORDER BY sort";
+					$query = "SELECT logninv.res AS dv_shift_value, ".$full_fatality_selects.", ".$sort_dv[$group_type]." FROM (SELECT crash_fatality_dev.".$group_type." as crash_type,  crash_fatality_dev.crash_direction as crash_direction, crash_fatality_dev.age as age, crash_fatality_dev.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$fatal_injury_select_vars.", ".$fatal_risk_select_vars.", ".$fatal_dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$dv_shift_key." FROM `crash_fatality_dev` ".$joins." LEFT JOIN fatality_dv ON crash_fatality_dev.fatality_dv_key = fatality_dv.fatality_dv_key  ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_injury_calc_groups.", mitigation_factor, dv_shift_relevance, temp_key) AS A LEFT JOIN logninv ON temp_key = logninv.logninv_key ORDER BY sort";
 				} else {
-					$query = "SELECT distinct crash_fatality.".$group_type." as crash_type, crash_fatality.driver_age as driver_age, sum(frequency) as fatality_count, sum(frequency *(0 + ".$filter_query_string.")) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality` ".$joins.$subset_string." GROUP BY crash_fatality.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
+					$query = "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, crash_fatality_dev.driver_age as driver_age, sum(frequency) as fatality_count, sum(frequency *(0 + ".$filter_query_string.")) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$joins.$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
 				}					
 			}
 		} else {
-			$query =  "SELECT distinct crash_fatality.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality` ".$subset_string." GROUP BY crash_fatality.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
+			
+			if($group_type=="model_year")
+			{
+				$group_type="veh_age";
+			}
+		
+			if($group_type=="race")
+			{
+                $group_type="white";
+			}
+			$query =  "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality_dev.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
 		}
 	} else {
 		
