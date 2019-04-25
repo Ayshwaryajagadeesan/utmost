@@ -29,7 +29,17 @@
 			{"val":"sex", "name":"Sex", "set":"F"},
 			{"val":"model_year", "name":"Vehicle Age", "set":"F"},
 			{"val":"light_condition", "name":"Light Condition", "set":"F"},
-			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set":"F"}
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set":"F"},
+			{"val":"urbanization_soc", "name":"Urbanization Socio Economic", "set":"F"},
+			//{"val":"urbanization_acc", "name":"Urbanization Accident Zone", "set":"F"},
+			{"val":"white", "name":"Race(white)", "set":"F"},
+			{"val":"black", "name":"Race(black)", "set":"F"},
+			{"val":"other", "name":"Race(other)", "set":"F"},
+			{"val":"hispanic", "name":"Ethnicity(Hispanic)", "set":"F"},
+			{"val":"non_hispanic", "name":"Ethnicity(Non Hispanic)", "set":"F"},
+			{"val":"education", "name":"Education", "set":"F"},
+			{"val":"income", "name":"Income", "set":"F"},
+			{"val":"race", "name":"Race", "set":"F"}
 		]
 	});
 	chart_vars.filter('set', 'CI');
@@ -37,14 +47,26 @@
 	var chart_subsets = Ext.create('Ext.data.Store', {
 		fields: ['val', 'name', 'set'],
 		data : [
-			{"val":"none", "name":"None", "set" : "F"},
+			{"val":"none", "name":"None", "set" : "CI"},
+			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set" : "CI"},
+			{"val":"age", "name":"Person Age", "set" : "CI"},
+			{"val":"urbanization", "name":"Urbanization", "set" : "CI"},
+			{"val":"driver_age", "name":"Driver Age", "set" : "CI"},
+		    {"val":"none", "name":"None", "set" : "F"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set" : "F"},
 			{"val":"age", "name":"Person Age", "set" : "F"},
-			{"val":"urbanization", "name":"Urbanization", "set" : "N"},
-			{"val":"driver_age", "name":"Driver Age", "set" : "F"}
+			{"val":"urbanization_soc", "name":"Urbanization Social Economic", "set" : "F"},
+			//{"val":"urbanization_acc", "name":"Urbanization Accident Zone", "set" : "F"},
+			{"val":"driver_age", "name":"Driver Age", "set" : "F"},
+			{"val":"race", "name":"Race", "set" : "F"},
+			{"val":"white", "name":"White Quintiles", "set" : "F"},
+			{"val":"black", "name":"Black Quintiles", "set" : "F"},
+			{"val":"other", "name":"Other Quintiles", "set" : "F"},
+			//{"val":"race", "name":"Race", "set" : "F"},
+			//{"val":"ethnicity", "name":"Ethnicity", "set" : "F"}
 		]
 	});
-	
+	chart_subsets.filter('set', 'CI');
 	
 	var chart_variable_selector = Ext.create('Ext.form.ComboBox', {
 			xtype: 'combobox',
@@ -81,6 +103,37 @@
 						utmost_chart.axes.getAt(0).maximum = 10850000;
 						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
 					}else if (chart_variable_selector.getSubmitValue() == "urbanization"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "urbanization_soc"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "urbanization_acc"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "white"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "black"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "other"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "hispanic"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "non_hispanic"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "education"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}else if (chart_variable_selector.getSubmitValue() == "income"){
+						utmost_chart.axes.getAt(0).maximum = 10850000;
+						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
+					}
+					else if (chart_variable_selector.getSubmitValue() == "race"){
 						utmost_chart.axes.getAt(0).maximum = 10850000;
 						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
 					}
@@ -122,19 +175,47 @@
 			fieldLabel: 'Outcome Value',
 			listeners: {
 				select: function( combo, records, eOpts ){
-					chart_variable_selector.suspendEvents(false);
 					
-					if (chart_outcome_selector.getSubmitValue() == 'fatality_count'){
-						chart_vars.clearFilter();
-						chart_vars.filter('set', 'F');
-						chart_subsets.clearFilter();
-						chart_subsets.filter('set', 'F')
-					}else{
-						chart_vars.clearFilter();
-						chart_vars.filter('set', 'CI');
-						chart_subsets.clearFilter();
-					}
-					chart_variable_selector.select('crash_direction');
+				
+					    chart_variable_selector.suspendEvents(false);
+					
+				      	if (chart_outcome_selector.getSubmitValue() == 'fatality_count'){
+					    	chart_vars.clearFilter();
+							chart_vars.filter('set', 'F');
+							chart_subsets.clearFilter();
+							chart_subsets.filter('set', 'F')
+							if(chart_subset_selector.getSubmitValue()=='urbanization')
+								{
+								chart_subset_selector.suspendEvents(false);
+								chart_subset_selector.select('none');
+					
+								chart_subset_selector.resumeEvents();
+								remove_subset_tabs();
+								}
+							
+						/*if(chart_subset_selector.getSubmitValue()=='race')
+						{
+						chart_subset_selector.suspendEvents(false);
+						chart_subset_selector.select('white');
+					
+						chart_subset_selector.resumeEvents();
+						remove_subset_tabs();
+						}*/
+						}else{
+								chart_vars.clearFilter();
+								chart_vars.filter('set', 'CI');
+								chart_subsets.clearFilter();
+								chart_subsets.filter('set', 'CI');
+								if(chart_subset_selector.getSubmitValue()=='race'||chart_subset_selector.getSubmitValue()=='ethnicity' ||chart_subset_selector.getSubmitValue()=='urbanization_soc'||chart_subset_selector.getSubmitValue()=='urbanization_acc')
+								{
+									chart_subset_selector.suspendEvents(false);
+									chart_subset_selector.select('none');
+									chart_subset_selector.resumeEvents();
+									remove_subset_tabs();
+								}
+						}
+						
+						chart_variable_selector.select('crash_direction');
 					chart_variable_selector.resumeEvents();
 					
 					data_update();
