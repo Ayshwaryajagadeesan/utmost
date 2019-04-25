@@ -38,8 +38,10 @@
 				"effectiveness":24,
 				"fleet_pen":100, 
 				"description":"Lane-centering systems maintain a set position within the lane boundaries until the driver actively changes lanes. In simulations by LeBlanc et al. (2017) this system eliminated 100% of simulated out-of- lane crashes. However, as this is unrealistically high, the default values for UTMOST match the values for Lane-Keeping Assist, which was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off- road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver's lane.", 
-				'selector_type': ["independent"], 
-				'selector_desc': ["Countermeasure Settings"]
+				'selector_type': ["independent", "ordered_population"], 
+				'selector_desc': ["Countermeasure Settings", "Fleet Penetration"]
+				//'selector_type': ["independent"], 
+				//'selector_desc': ["Countermeasure Settings"]
 			},
 			{
 				"val":"bsw", 
@@ -68,8 +70,10 @@
 				"effectiveness":29,
 				"fleet_pen":100, 
 				"description":"Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decellerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998)",
-				'selector_type': ["numeric"], 
-				'selector_desc': []
+				'selector_type': ["independent", "ordered_population"], 
+				'selector_desc': ["Countermeasure Settings", "Fleet Penetration"]
+				//'selector_type': ["numeric"], 
+				//'selector_desc': []
 			},
 			{
 				"val":"alcohol_interlock", 
@@ -137,10 +141,13 @@
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
-				"description":"[NEED DESC + DEFUALTS]", 
-				'selector_type': ["numeric"], 
-				'selector_desc': []
-			},			{
+				"description":"[NEED DESC + DEFUALTS]",
+				'selector_type': ["independent", "ordered_population"], 
+				'selector_desc': ["Countermeasure Settings", "Fleet Penetration"]
+				//'selector_type': ["numeric"], 
+				//'selector_desc': []
+			},			
+			{
 				"val":"aeb", 
 				"name":"Automatic Emergency Braking",
 				"active":0,
@@ -186,7 +193,7 @@
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"The wording used in child passenger safety laws is correlated to the proportion of child occupants using recommended restraint systems (Benedetti et al. 2017, Klinich et al. 2016). States that include language associated with best practice recommendations in child restraint (rear-facing to age 2, harnessed child restraint for 2 to 4YO, and booster seats for 5 to 10YO) have higher rates of optimal restraint use. Changing the population proportion for each age group with a “best practice” law changes the distribution of optimal and suboptimal restraint, which changes injury count but not person count.", 
+				"description":"The wording used in child passenger safety laws is correlated to the proportion of child occupants using recommended restraint systems (Benedetti et al. 2017, Klinich et al. 2016). States that include language associated with best practice recommendations in child restraint (rear-facing to age 2, harnessed child restraint for 2 to 4YO, and booster seats for 5 to 10YO) have higher rates of optimal restraint use. Changing the population proportion for each age group with a ï¿½best practiceï¿½ law changes the distribution of optimal and suboptimal restraint, which changes injury count but not person count.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Law Population Proportion"]
 			},
@@ -239,6 +246,15 @@
 				"description":"Changes in the future may make future vehicles more crashworthy, better protecting occupants from injury in the event of a crash.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Settings"]
+			},
+			{
+				"val":"vehicle_age", 
+				"name":"Vehicle Age",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":100, 
+				"description":"How the age of a vehicle affects the at protecting occupants from injury in the event of a crash. ", 
+				'selector_type': ["numeric"], 'selector_desc': []
 			}
 			
 		]
@@ -454,6 +470,15 @@
 				"description":"Changes in the future may make future vehicles more crashworthy, better protecting occupants from injury in the event of a crash.", 
 				'selector_type': ["numeric", "independent"], 
 				'selector_desc': ["Settings"]
+			},
+			{
+				"val":"vehicle_age", 
+				"name":"Vehicle Age",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":100, 
+				"description":"How the age of a vehicle affects the at protecting occupants from injury in the event of a crash. ", 
+				'selector_type': ["numeric"], 'selector_desc': []
 			}
 			
 		]
@@ -499,9 +524,16 @@
 			{"category_val":"ldw", 'name':"Rollover Effectiveness", 'target_val':"ldw_rollover", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"ldw", 'name':"Other Crash Effectiveness", 'target_val':"ldw", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"ldw", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"ldp", 'name':"Rollover Effectiveness", 'target_val':"ldp", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"ldp", 'name':"Other Crash Effectiveness", 'target_val':"ldp_rollover", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"ldp", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"LDP Rollover Effectiveness", 'target_val':"ldp", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"LDP Other Crash Effectiveness", 'target_val':"ldp_rollover", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"LKA Rollover Effectiveness", 'target_val':"lkp_rollover", 'base_rate':0, 'law_rate':9, 'proportion':91, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"LKA Other Crash Effectiveness", 'target_val':"lkp", 'base_rate':0, 'law_rate':9, 'proportion':35, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"LDW Rollover Effectiveness", 'target_val':"lkp_rollover", 'base_rate':0, 'law_rate':9, 'proportion':91, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"LDW Other Crash Effectiveness", 'target_val':"lkp", 'base_rate':0, 'law_rate':9, 'proportion':35, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"ldp", 'name':"LDP Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
+			{"category_val":"ldp", 'name':"LKA Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
+			{"category_val":"ldp", 'name':"LDW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':2, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 2},
+			//{"category_val":"ldp", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"fcw", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"fcw_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':75, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"fcw", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"fcw_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':78, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"fcw", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"fcw_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':73, 'detail_type': 'independent', 'lock': 0},
@@ -513,6 +545,13 @@
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"AEB Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
 			{"category_val":"aeb", 'name':"FCW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
+			{"category_val":"arb", 'name':"Counter Measure Effectiveness", 'target_val':"arb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"arb", 'name':"ARB Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
+			{"category_val":"arb", 'name':"RCW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
+			{"category_val":"acc", 'name':"Counter Measure Effectiveness", 'target_val':"acc", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"acc", 'name':"ACC Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
+			{"category_val":"acc", 'name':"AEB Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
+			{"category_val":"acc", 'name':"FCW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':2, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 2},
 			{"category_val":"seat_position", 'name':"Forward", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
 			{"category_val":"seat_position", 'name':"Rear", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
 			{"category_val":"seat_position", 'name':"Side", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
