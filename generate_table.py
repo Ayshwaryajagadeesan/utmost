@@ -30,7 +30,7 @@ def generate_unrestrained(data_library, crash_direction, sex, alcohol_involvemen
 	else :
 		#child calcs
 		res = data_library['estimate']['intercept']
-		res += data_library['average_driver_age'][driver_age] * data_library['estimate']['dr_age']
+		res += data_library['average_driver_age'][driver_age]* data_library['estimate']['dr_age']
 		if (alcohol_involvement == 'Alcohol Involved') :
 			res += data_library['estimate']['dr_alch']
 		res += data_library['estimate']['impact2'][crash_direction]
@@ -167,73 +167,41 @@ with open(datafile, "r") as df :
 	for data_row in raw_data:
 		#print(data_row)
 		new_row = []
-		new_row.append(data_row[0]) #'crash_type',
-		new_row.append(data_row[1]) #'crash_direction',
-		new_row.append(data_row[4]) #'vehicle_type',
-		new_row.append(data_library['translations']['age'][data_row[5]]) #'age',
-		new_row.append(data_row[6]) #'driver_age',
-		new_row.append(data_library['translations']['sex'][data_row[7]]) #'sex',
+		new_row.append(data_row[6]) #'crash_type',
+		new_row.append(data_row[11]) #'crash_direction',
+		new_row.append(data_row[13]) #'vehicle_type',
+		new_row.append(data_library['translations']['age'][data_row[21]]) #'age',
+		new_row.append(data_row[22]) #'driver_age',
+		new_row.append(data_library['translations']['sex'][data_row[9]]) #'sex',
 		new_row.append(data_library['translations']['sex'][data_row[8]]) #'driver_sex',
-		new_row.append(data_library['translations']['alcohol_involvement'][data_row[9]]) #'alcohol_involvement',
-		new_row.append(data_row[10]) #'light_condition',
-		new_row.append(data_row[11]) #'ped_alc',
-		new_row.append(data_row[2]) #'impactloc',
-		new_row.append(data_library['translations']['urbanization'][data_row[3]]) #'urbanization',
-		new_row.append(data_row[13])#'frequency',
+		new_row.append(data_library['translations']['alcohol_involvement'][data_row[18]]) #'alcohol_involvement',
+		new_row.append(data_row[15]) #'light_condition',
+		new_row.append(data_row[16]) #'ped_alc',
+		new_row.append(data_row[12]) #'impactloc',
+		new_row.append(data_library['translations']['urbanization'][data_row[20]]) #'urbanization',
+		new_row.append(data_row[1])#'frequency',
 		#Keys
-		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_library['keys']['crash_direction'][data_row[1]]) + str(data_row[9])) #'dv_key = crash_type + crash_direction + alcohol_involvement',
-		new_row.append(str(data_library['keys']['age'][data_library['translations']['age'][data_row[5]]]) + str(data_library['keys']['vehicle_type'][data_row[4]]) + str(data_row[9])) #'restraint_key = age + vehicle_type + alcohol_involvement',
-		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_library['keys']['light_condition'][data_row[10]])) #'headlighting_key = crash_type + light_condition',
-		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_row[9])) #'cta_key = crash_type + alcohol_involvement',
-		new_row.append(str(data_library['keys']['crash_type'][data_row[0]]) + str(data_library['keys']['crash_direction'][data_row[1]])) #'ctcd_key = crash_type + crash_direction',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[6]]) + str(data_library['keys']['crash_direction'][data_row[11]]) + str(data_row[18])) #'dv_key = crash_type + crash_direction + alcohol_involvement',
+		new_row.append(str(data_library['keys']['age'][data_library['translations']['age'][data_row[21]]]) + str(data_library['keys']['vehicle_type'][data_row[13]]) + str(data_row[18])) #'restraint_key = age + vehicle_type + alcohol_involvement',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[6]]) + str(data_library['keys']['light_condition'][data_row[15]])) #'headlighting_key = crash_type + light_condition',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[6]]) + str(data_row[18])) #'cta_key = crash_type + alcohol_involvement',
+		new_row.append(str(data_library['keys']['crash_type'][data_row[6]]) + str(data_library['keys']['crash_direction'][data_row[11]])) #'ctcd_key = crash_type + crash_direction',
 		#Injury Risk Functions
 		#coeff
-		new_row.append(str(generate_coefficient(data_library, data_library['translations']['age'][data_row[5]], data_row[1])))  #'coefficient', 18
+		new_row.append(str(generate_coefficient(data_library, data_library['translations']['age'][data_row[21]], data_row[11])))  #'coefficient', 18
 		#intercepts
-		new_row.append(str(generate_unrestrained(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'unrestrained',
-		new_row.append(str(generate_belted(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'belted',
-		new_row.append(str(generate_child_optimal(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_optimal',
-		new_row.append(str(generate_child_suboptimal(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_suboptimal',
-		new_row.append(str(generate_helmet(data_library, data_row[1], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6], data_row[4])))#'helmet',
+		new_row.append(str(generate_unrestrained(data_library, 		data_row[11], data_library['translations']['sex'][data_row[9]], data_library['translations']['alcohol_involvement'][data_row[18]], data_row[15], data_row[16], data_library['translations']['age'][data_row[21]], data_row[22]))) #'unrestrained',
+		new_row.append(str(generate_belted(data_library, 			data_row[11], data_library['translations']['sex'][data_row[9]], data_library['translations']['alcohol_involvement'][data_row[18]], data_row[15], data_row[16], data_library['translations']['age'][data_row[21]], data_row[22]))) #'belted',
+		new_row.append(str(generate_child_optimal(data_library, 	data_row[11], data_library['translations']['sex'][data_row[9]], data_library['translations']['alcohol_involvement'][data_row[18]], data_row[15], data_row[16], data_library['translations']['age'][data_row[21]], data_row[22])))#'child_optimal',
+		new_row.append(str(generate_child_suboptimal(data_library, 	data_row[11], data_library['translations']['sex'][data_row[9]], data_library['translations']['alcohol_involvement'][data_row[18]], data_row[15], data_row[16], data_library['translations']['age'][data_row[21]], data_row[22])))#'child_suboptimal',
+		new_row.append(str(generate_helmet(data_library, 			data_row[11], data_library['translations']['sex'][data_row[9]], data_library['translations']['alcohol_involvement'][data_row[18]], data_row[15], data_row[16], data_library['translations']['age'][data_row[21]], data_row[22], data_row[13])))#'helmet',
 		#risks
 		new_row.append(str(generate_risk_unrestrained(new_row[18], new_row[19])))#'risk_unrestrained',
-		new_row.append(str(generate_risk_belted(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[20])))#'risk_belted',
-		new_row.append(str(generate_risk_child_optimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[21])))#'risk_child_optimal',
-		new_row.append(str(generate_risk_child_suboptimal(new_row[18], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[22])))#'risk_child_suboptimal',
+		new_row.append(str(generate_risk_belted(new_row[18], 				data_library['average_age'][data_library['translations']['age'][data_row[21]]], new_row[20])))#'risk_belted',
+		new_row.append(str(generate_risk_child_optimal(new_row[18], 		data_library['average_age'][data_library['translations']['age'][data_row[21]]], new_row[21])))#'risk_child_optimal',
+		new_row.append(str(generate_risk_child_suboptimal(new_row[18], 		data_library['average_age'][data_library['translations']['age'][data_row[21]]], new_row[22])))#'risk_child_suboptimal',
 		new_row.append(str(generate_risk_helmet(data_row[4], new_row[23])))#'risk_helmet'
 		
-		#Swap risk - Rear
-		
-		#coeff
-		new_row.append(str(generate_coefficient(data_library, data_library['translations']['age'][data_row[5]], data_row[1])))  #'coefficient', 29
-		#intercepts
-		new_row.append(str(generate_unrestrained(data_library, 		data_library['risk_swap']['rear'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'unrestrained',
-		new_row.append(str(generate_belted(data_library, 			data_library['risk_swap']['rear'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'belted',
-		new_row.append(str(generate_child_optimal(data_library, 	data_library['risk_swap']['rear'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_optimal',
-		new_row.append(str(generate_child_suboptimal(data_library, 	data_library['risk_swap']['rear'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_suboptimal',
-		new_row.append(str(generate_helmet(data_library, 			data_library['risk_swap']['rear'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6], data_row[4])))#'helmet',
-		#risks
-		new_row.append(str(generate_risk_unrestrained(new_row[29], new_row[30])))#'risk_unrestrained',
-		new_row.append(str(generate_risk_belted(new_row[29], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[31])))#'risk_belted',
-		new_row.append(str(generate_risk_child_optimal(new_row[29], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[32])))#'risk_child_optimal',
-		new_row.append(str(generate_risk_child_suboptimal(new_row[29], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[33])))#'risk_child_suboptimal',
-		new_row.append(str(generate_risk_helmet(data_row[4], new_row[34])))#'risk_helmet
-		
-		#Swap Risk - Side
-		#coeff
-		new_row.append(str(generate_coefficient(data_library, data_library['translations']['age'][data_row[5]], data_row[1])))  #'coefficient', 40
-		#intercepts
-		new_row.append(str(generate_unrestrained(data_library, 		data_library['risk_swap']['side'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'unrestrained',
-		new_row.append(str(generate_belted(data_library, 			data_library['risk_swap']['side'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6]))) #'belted',
-		new_row.append(str(generate_child_optimal(data_library, 	data_library['risk_swap']['side'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_optimal',
-		new_row.append(str(generate_child_suboptimal(data_library, 	data_library['risk_swap']['side'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6])))#'child_suboptimal',
-		new_row.append(str(generate_helmet(data_library, 			data_library['risk_swap']['side'][data_row[1]], data_library['translations']['sex'][data_row[7]], data_library['translations']['alcohol_involvement'][data_row[9]], data_row[10], data_row[11], data_library['translations']['age'][data_row[5]], data_row[6], data_row[4])))#'helmet',
-		#risks
-		new_row.append(str(generate_risk_unrestrained(new_row[40], new_row[41])))#'risk_unrestrained',
-		new_row.append(str(generate_risk_belted(new_row[40], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[42])))#'risk_belted',
-		new_row.append(str(generate_risk_child_optimal(new_row[40], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[43])))#'risk_child_optimal',
-		new_row.append(str(generate_risk_child_suboptimal(new_row[40], data_library['average_age'][data_library['translations']['age'][data_row[5]]], new_row[44])))#'risk_child_suboptimal',
-		new_row.append(str(generate_risk_helmet(data_row[4], new_row[45])))#'risk_helmet
 		
 		
 		
