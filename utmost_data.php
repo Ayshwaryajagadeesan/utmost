@@ -90,9 +90,13 @@
 	$subset_string = 'WHERE 1';
 	
 	$query = "";
+
 	
 	if ($outcome_variable == 'fatality_count'){
 				//fatality subsets
+	  /* if($subset_variable=='white'){
+			$outcome_variable='fatality_race_count'
+		}*/
 		if ($subset_category != "all"){
 			if($subset_category=='white')
 			{

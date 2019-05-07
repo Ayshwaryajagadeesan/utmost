@@ -185,6 +185,75 @@
 				title: ['Baseline Fatality Count', 'Adjusted Fatality Count']
 			}]
 	});
+	var utmost_fatality_race_chart = Ext.create('Ext.chart.Chart', {
+		store: utmost_fatality_race_chart_values,
+		animate: true,
+		hidden: true,
+		theme: 'Red',
+		legend: {
+			position: 'top'
+		},
+		axes: [
+			{
+				title: 'Fatality Count',
+				type: 'Numeric',
+				position: 'left',
+				grid: true,
+				fields: ['quintile1'],
+				minimum: 0,
+				maximum: 5500000,
+				label: {renderer: function(v){ return v.toLocaleString();}}
+			}, {
+				title: 'Type',
+				type: 'Category',
+				position: 'bottom',
+				fields: ['crash_type'],
+				to: 20,
+				label: {
+					rotate: {
+						degrees: 270
+					}
+				}
+			}
+		],
+		series: [
+			{
+				type: 'column',
+				axis: 'left',
+				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+                xField: 'crash_type',
+                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+                stacked: true,
+				highlight: true,
+				tips: {
+				  trackMouse: true,
+				  width: 175,
+				  height: 60,
+				 // renderer: function(storeItem, item) {
+					//this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  (Math.round(storeItem.get('fatality_count') / 10) * 10).toLocaleString() + '  <br/>Adjusted: ' +  (Math.round(storeItem.get('fatality_count_adj') / 10) * 10).toLocaleString() + '  <br/>Difference: ' +  ((Math.round(storeItem.get('fatality_count') / 10) *10) - (Math.round(storeItem.get('fatality_count_adj') / 10) * 10)).toLocaleString());
+				  //}
+				  renderer: function(storeItem, item) {
+                        var browser = item.series.title[Ext.Array.indexOf(item.series.yField, item.yField)];
+                        this.setTitle(browser + ' for ' + storeItem.get('crash_type') + ': ' + storeItem.get(item.yField) + '%');
+                    }
+				},
+				style: {
+                    align: "left"
+                },
+				label: {
+				  display: 'insideEnd',
+				  'text-anchor': 'middle',
+					field: 'data',
+					renderer: Ext.util.Format.numberRenderer('0,000'),
+					orientation: 'vertical',
+					color: '#333'
+				},
+				groupGutter: 0,
+				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+                xField: 'crash_type',
+                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+			}]
+	});
 	
 	
 		//totals chart code

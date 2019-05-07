@@ -34,6 +34,20 @@
 				
 				]
 	});
+
+	Ext.define('Fatality_race_Type_Count', {
+		extend: 'Ext.data.Model',
+		fields: [ 
+				{name: 'crash_type', type: 'string'},
+				{name: 'quintile1', type: 'float'}, 
+				{name: 'quintile2', type: 'float'},
+				{name: 'quintile3', type: 'float'},
+				{name: 'quintile4', type: 'float'},
+				{name: 'quintile5', type: 'float'},
+				{name: 'sort', type: 'int'}
+				
+				]
+	});
 	
 	Ext.define('Person_Raw_Count',{
 		extend: 'Ext.data.Model',
@@ -161,6 +175,10 @@
 	
 	var utmost_fatality_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Fatality_Type_Count'
+	});
+
+	var utmost_fatality_race_chart_values = Ext.create('Ext.data.Store', {
+		model: 'Fatality_race_Type_Count'
 	});
 	
 	
@@ -782,10 +800,265 @@
 						
 						if (dv_calc_relevance != 0){
 							//dv is only shifted for countermeasures that effect delta-v in crashes.  
+							var fatality_adjusted_rate = {};
 							
+							//trapezoidal sum for integration
+							if (record.get('n_unrestrained') > 0 ){
+								var result = utmost_injury_trapezoidal_sum(record, record.get('i_unrestrained'));
+								fatality_adjusted_rate['unrestrained'] = result['adjusted']/result['base'];
+							} else {
+								fatality_adjusted_rate['unrestrained'] = 1;
+							}
+							if (record.get('n_optimal') > 0 ){
+								var result = utmost_injury_trapezoidal_sum(record, record.get('i_belted'));
+								fatality_adjusted_rate['optimal'] = result['adjusted']/result['base'];
+							} else {
+								fatality_adjusted_rate['optimal'] = 1;
+							}
+							if (record.get('n_suboptimal') > 0 ){
+								var result = utmost_injury_trapezoidal_sum(record, record.get('i_child_suboptimal'));
+								fatality_adjusted_rate['suboptimal'] = result['adjusted']/result['base'];
+							} else {
+								fatality_adjusted_rate['suboptimal'] = 1;
+							}
 							
+							//Avoidance mitigation
+							var avoidance = 1;
+							if (record.get('dv_shift_relevance') > 0){
+								var nonDV_mitigation_factor = (1 - (((1-record.get('mitigation_factor')) / record.get('dv_shift_relevance'))-1));
+								var dv_correction_factor = (1 - record.get('dv_shift_relevance'));
+								avoidance *= (nonDV_mitigation_factor / dv_correction_factor);
+								avoidance *= record.get('mitigation_factor');
+							} else {
+								avoidance *= record.get('mitigation_factor');
+							}
 							
+							//Multiply frequency to get count
+							var adj_fatals = avoidance * (record.get('n_optimal') * fatality_adjusted_rate['optimal'] + record.get('n_suboptimal') * fatality_adjusted_rate['suboptimal']  + record.get('n_unrestrained') * fatality_adjusted_rate['unrestrained']  + record.get('n_unknown'));
 							
+							record.set('fatality_count_adj', adj_fatals);
+						} else {
+							var avoidance = record.get('mitigation_factor');
+							var base_fatals = record.get('n_optimal') + record.get('n_suboptimal') + record.get('n_unrestrained') + record.get('n_unknown');
+							var adj_fatals = avoidance * base_fatals;
+							record.set('fatality_count_adj', adj_fatals);
+						}
+						
+						
+						
+						
+						var category = record.get('crash_type');
+						var index = utmost_fatality_chart_values.findExact('crash_type', category);
+						var adjusted_count_temp = record.get('fatality_count_adj');
+						if(data_subset_variable=='white')
+						{
+                            if (index == -1){
+							//No record, create
+							utmost_fatality_race_chart_values.add(
+								{
+									'crash_type': category,
+									'quintile1': record.get('fatality_count'),
+									'fatality_count_adj': adjusted_count_temp,
+									'sort': record.get('sort')
+								}
+							);
+						} else {
+							var target_record = utmost_fatality_chart_values.getAt(index);
+							target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
+							target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
+						}
+						}else{
+						if (index == -1){
+							//No record, create
+							utmost_fatality_chart_values.add(
+								{
+									'crash_type': category,
+									'fatality_count': record.get('fatality_count'),
+									'fatality_count_adj': adjusted_count_temp,
+									'sort': record.get('sort')
+								}
+							);
+						} else {
+							var target_record = utmost_fatality_chart_values.getAt(index);
+							target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
+							target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
+						}
+						}
+						
+					});
+					utmost_fatality_chart_values.sort('sort', 'ASC');
+					
+				
+					var max = 0;
+					var top_count = 0
+					var total = 0;
+					var adj_total = 0;
+					var count = utmost_fatality_chart_values.count();
+					
+					
+					
+					//sum values for totals charts
+					for (i = 0; i < count; i++){
+						if (!utmost_fatality_chart_values.getAt(i).get('crash_type')){
+							utmost_fatality_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
+						}
+						total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count'));
+						adj_total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count_adj'));
+						if(utmost_fatality_chart_values.getAt(i).get('fatality_count') > max){
+							max = utmost_fatality_chart_values.getAt(i).get('fatality_count');
+						}
+					}
+					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
+					utmost_totals_chart.axes.getAt(0).maximum = (total > adj_total) ? Math.floor((total * 1.1) / 100) * 100 : Math.floor((adj_total * 1.1) / 100) * 100;
+					if(utmost_totals_chart.axes.getAt(0).maximum < adj_total || utmost_totals_chart.axes.getAt(0).maximum > adj_total)
+					{
+						 var temp_max=adj_total/10;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
+					}
+					if(utmost_totals_chart.axes.getAt(0).maximum < total || utmost_totals_chart.axes.getAt(0).maximum > total)
+					{
+						var temp_max=total/10;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
+					}
+					utmost_totals_chart_values.getAt(0).set('person_count', total);
+					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
+					utmost_totals_chart_values.commitChanges();
+					
+					
+					//Adjust axis labels for chosen variables
+					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
+					
+					//adjust chart max
+					var chart_max = (parseInt(max / 100) + 1) * 100;
+					utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
+					
+					
+					utmost_loadmask.hide();
+					
+					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_fatality_chart_values.fireEvent('refresh');
+					utmost_totals_chart.fireEvent('refresh');
+					
+					//Redraw count chart
+					utmost_fatality_chart.setVisible(true);
+					utmost_chart.setVisible(false);
+					utmost_injury_chart.setVisible(false);
+					utmost_chart.redraw(true);
+				
+				}
+			});
+		}
+		/*else if (data_outcome_variable == 'fatality_race_count'){
+			utmost_fatality_raw_values.load({
+				params: {
+					filter_string: cm_string,
+					coeffs_string: cm_cf_string,
+					group_type: data_categories,
+					subset_variable : data_subset_variable,
+					subset_category : data_subset_category,
+					outcome_variable : data_outcome_variable
+				},
+				callback: function(records, operation, success){
+				
+					//total rows by category
+					utmost_fatality_chart_values.removeAll();
+					utmost_fatality_raw_values.each(function(record){
+						
+						if (!record.get('crash_type')){
+							record.set('crash_type', 'Unknown or N/A');
+						}
+						
+						
+						var dv_calc_relevance = 1;
+						
+						var new_belted = record.get('p_belted');
+						var new_unrestrained = record.get('p_unrestrained');
+						var new_child_optimal = record.get('p_child_optimal');
+						var new_child_suboptimal = record.get('p_child_suboptimal');
+						var new_helmet = record.get('p_helmet');
+						
+						
+						
+						//TODO: Get hardcoded values out
+						var optimal_baselines = {
+							'0-1': .65*.11+.54*.89,
+							'2-4': .80*.13+.64*.87,
+							'5-7': .62*.85+.40*.15,
+							'8-10': .37*.01+.19*.99
+						};
+						
+						var age = record.get('age');
+						
+						if(check_countermeasure('teen_driver')){
+							var teen_adjustment = cm_teen_driver_get_value(record.get('driver_age'));
+							record.set('mitigation_factor', record.get('mitigation_factor') * teen_adjustment);
+						}
+
+						if ((record.get('mean_dv') == 0 && record.get('sd_dv') == 0 ) || record.get('dv_shift_relevance') == 0){
+							var dv_calc_relevance = 0;
+						}
+						
+						
+						
+						
+						
+						
+						
+						
+						var RESTRAINT_FATALITY_PREVENTION_RATE = 1;
+						if (record.get('r_unrestrained') > 0){
+							if (record.get('r_helmet') > 0){
+								RESTRAINT_FATALITY_PREVENTION_RATE = record.get('r_helmet')/record.get('r_unrestrained');
+							} else if (age in optimal_baselines) {
+								RESTRAINT_FATALITY_PREVENTION_RATE = record.get('r_child_optimal')/record.get('r_unrestrained');
+							} else {
+								RESTRAINT_FATALITY_PREVENTION_RATE = record.get('r_belted')/record.get('r_unrestrained');
+							}
+						} 
+						
+						// Child Restraint laws
+						if (check_countermeasure('child_seat') && (age in optimal_baselines) ){
+							var unbelted_baseline = optimal_baselines[age];
+							var optimal_adjusted = cm_childseat_get_value(age);
+							var new_unbelted = 1 - optimal_adjusted;
+							var unbelt_ratio = new_unbelted / unbelted_baseline;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted = record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						}
+						// Motorcycle Helmet law Fatalities
+						if (check_countermeasure('helmet')&& record.get('r_helmet') > 0){
+							var no_helmet_baseline_rate = (.89*.39 + (1-.39)*.49);
+							new_unrestrained = (1 - cm_helmet_get_value());
+							var unbelt_ratio = new_unrestrained / no_helmet_baseline_rate;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted = record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						}
+						
+						if (check_countermeasure('restraint_override')){ // Restraint Override, replaces child restraint laws
+							var unbelted_baseline = 1-(.23*.82 + .01*.84 + .59*.91 + .17*.94);
+							var new_unbelted = 1-cm_restraint_override_get_value();
+							var unbelt_ratio = new_unbelted / unbelted_baseline;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted = record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						} else if (check_countermeasure('seatbelt') && !(age in optimal_baselines)){ //Seatbelt laws
+							var unbelted_baseline = 1-(.23*.82 + .01*.84 + .59*.91 + .17*.94);
+							var new_unbelted = 1-cm_seatbelt_get_value();
+							var unbelt_ratio = new_unbelted / unbelted_baseline;
+							var new_row_unbelted = record.get('n_unrestrained') * unbelt_ratio;
+							var new_row_belted =  record.get('n_optimal') + (record.get('n_unrestrained') - new_row_unbelted) * RESTRAINT_FATALITY_PREVENTION_RATE;
+							record.set('n_unrestrained', new_row_unbelted);
+							record.set('n_optimal', new_row_belted);
+						}
+					
+						
+						if (dv_calc_relevance != 0){
+							//dv is only shifted for countermeasures that effect delta-v in crashes.  
 							var fatality_adjusted_rate = {};
 							
 							//trapezoidal sum for integration
@@ -917,7 +1190,7 @@
 				
 				}
 			});
-		}
+		}*/
 		
 	}
 	
