@@ -33,7 +33,22 @@
 			{group_var: 'driver_age', title: 'Driver Age 66+', category_value:'">65"', chart_max: 1200000},
 			{group_var: 'urbanization', title: 'Urban', category_value:'"Urban"', chart_max: 5500000},
 			{group_var: 'urbanization', title: 'Rural', category_value:'"Rural"', chart_max: 5500000},
-			{group_var: 'urbanization', title: 'Suburban', category_value:'"Suburban"', chart_max: 5500000}				
+			{group_var: 'urbanization', title: 'Suburban', category_value:'"Suburban"', chart_max: 5500000},
+			{group_var: 'white', title: 'First Quintile', category_value:'"first"', chart_max: 5500000},
+			{group_var: 'white', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
+			{group_var: 'white', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
+			{group_var: 'white', title: 'Fourth Quintile', category_value:'"fourth"', chart_max: 5500000},
+			{group_var: 'white', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000},
+			{group_var: 'black', title: 'First Quintile', category_value:'"first"', chart_max: 5500000},
+			{group_var: 'black', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
+			{group_var: 'black', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
+			{group_var: 'black', title: 'Fourth Quintile', category_value:'"fourth"', chart_max: 5500000},
+			{group_var: 'black', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000},
+			{group_var: 'other', title: 'First Quintile', category_value:'"first"', chart_max: 5500000},
+			{group_var: 'other', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
+			{group_var: 'other', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
+			{group_var: 'other', title: 'Fourth Quintile', category_value:'"fourth"', chart_max: 5500000},
+			{group_var: 'other', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000}							
 		]
 	});
 	
