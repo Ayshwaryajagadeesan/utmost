@@ -220,9 +220,9 @@
 			{
 				type: 'column',
 				axis: 'left',
-				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
                 xField: 'crash_type',
-                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
                 stacked: true,
 				highlight: true,
 				tips: {
@@ -249,9 +249,9 @@
 					color: '#333'
 				},
 				groupGutter: 0,
-				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
                 xField: 'crash_type',
-                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4' ],
+                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
 			}]
 	});
 	

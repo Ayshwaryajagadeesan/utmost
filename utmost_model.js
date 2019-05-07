@@ -116,6 +116,11 @@
 				{name: 'i_child_suboptimal', type: 'float'},
 				{name: 'i_helmet', type: 'float'},
 				{name: 'n_unrestrained', type: 'float'},
+				{name:'n_quintile1',type:'float'},
+				{name:'n_quintile2',type:'float'},
+				{name:'n_quintile3',type:'float'},
+				{name:'n_quintile4',type:'float'},
+				{name:'n_quintile5',type:'float'},
 				{name: 'n_optimal', type: 'float'},
 				{name: 'n_suboptimal', type: 'float'},
 				{name: 'n_unknown', type: 'float'},
@@ -681,6 +686,7 @@
 					
 					//Set injury chart for use and redraw
 					utmost_fatality_chart.setVisible(false);
+					utmost_fatality_race_chart.setVisible(false);
 					utmost_chart.setVisible(false);
 					utmost_injury_chart.setVisible(true);
 					utmost_injury_chart.redraw(true);
@@ -703,6 +709,7 @@
 				
 					//total rows by category
 					utmost_fatality_chart_values.removeAll();
+					utmost_fatality_race_chart_values.removeAll();
 					utmost_fatality_raw_values.each(function(record){
 						
 						if (!record.get('crash_type')){
@@ -844,50 +851,69 @@
 							record.set('fatality_count_adj', adj_fatals);
 						}
 						
-						
-						
-						
-						var category = record.get('crash_type');
-						var index = utmost_fatality_chart_values.findExact('crash_type', category);
-						var adjusted_count_temp = record.get('fatality_count_adj');
-						if(data_subset_variable=='white')
+						if(data_subset_variable=='white'){
+							var category = record.get('crash_type');
+						    var index = utmost_fatality_race_chart_values.findExact('crash_type', category);
+						    var adjusted_count_temp = record.get('fatality_count_adj');
+						/*if(data_subset_variable=='white')
 						{
-                            if (index == -1){
-							//No record, create
-							utmost_fatality_race_chart_values.add(
-								{
-									'crash_type': category,
-									'quintile1': record.get('fatality_count'),
-									'fatality_count_adj': adjusted_count_temp,
-									'sort': record.get('sort')
-								}
-							);
-						} else {
-							var target_record = utmost_fatality_chart_values.getAt(index);
-							target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
-							target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
+
 						}
-						}else{
-						if (index == -1){
+						else{*/
+						     if (index == -1){
 							//No record, create
-							utmost_fatality_chart_values.add(
-								{
+							        utmost_fatality_race_chart_values.add(
+							   	    {
+									'crash_type': category,
+									'quintile1': record.get('n_quintile1'),
+									'quintile2': record.get('n_quintile2'),
+									'quintile3':record.get('n_quintile3'),
+									'quintile4':record.get('n_quintile4'),
+									'quintile5':record.get('n_quintile5'),
+									'sort': record.get('sort')
+								    }
+							    );
+						        } else {
+							        var target_record = utmost_fatality_race_chart_values.getAt(index);
+							        target_record.set('quintile1', record.get('n_quintile1')+target_record.get('n_quintile1'));
+									 target_record.set('quintile2', record.get('n_quintile2')+target_record.get('n_quintile2'));
+									  target_record.set('quintile3', record.get('n_quintile3')+target_record.get('n_quintile3'));
+									   target_record.set('quintile4', record.get('n_quintile4')+target_record.get('n_quintile4'));
+									    target_record.set('quintile5', record.get('n_quintile5')+target_record.get('n_quintile5'));
+							        //target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
+						        }
+
+						}
+						
+						else{
+						    var category = record.get('crash_type');
+						    var index = utmost_fatality_chart_values.findExact('crash_type', category);
+						    var adjusted_count_temp = record.get('fatality_count_adj');
+						/*if(data_subset_variable=='white')
+						{
+
+						}
+						else{*/
+						     if (index == -1){
+							//No record, create
+							        utmost_fatality_chart_values.add(
+							   	    {
 									'crash_type': category,
 									'fatality_count': record.get('fatality_count'),
 									'fatality_count_adj': adjusted_count_temp,
 									'sort': record.get('sort')
-								}
-							);
-						} else {
-							var target_record = utmost_fatality_chart_values.getAt(index);
-							target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
-							target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
+								    }
+							    );
+						        } else {
+							        var target_record = utmost_fatality_chart_values.getAt(index);
+							        target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
+							        target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
+						        }
+						//}
 						}
-						}
-						
 					});
 					utmost_fatality_chart_values.sort('sort', 'ASC');
-					
+					utmost_fatality_race_chart_values.sort('sort', 'ASC');
 				
 					var max = 0;
 					var top_count = 0
@@ -924,7 +950,29 @@
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
 					utmost_totals_chart_values.commitChanges();
 					
+					if(data_subset_variable=='white'){
+                    //Adjust axis labels for chosen variables
+					//utmost_fatality_race_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
 					
+					//adjust chart max
+					var chart_max = (parseInt(max / 100) + 1) * 100;
+					//utmost_fatality_race_chart.axes.getAt(0).maximum = chart_max;
+					
+					
+					utmost_loadmask.hide();
+					
+					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_fatality_race_chart_values.fireEvent('refresh');
+					utmost_totals_chart.fireEvent('refresh');
+					
+					//Redraw count chart
+					utmost_fatality_race_chart.setVisible(true);
+					utmost_chart.setVisible(false);
+					utmost_injury_chart.setVisible(false);
+					utmost_chart.redraw(true);
+					}
+					else
+					{
 					//Adjust axis labels for chosen variables
 					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
 					
@@ -944,7 +992,7 @@
 					utmost_chart.setVisible(false);
 					utmost_injury_chart.setVisible(false);
 					utmost_chart.redraw(true);
-				
+					}
 				}
 			});
 		}

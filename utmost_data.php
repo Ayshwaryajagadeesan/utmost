@@ -30,7 +30,7 @@
 	$full_fatality_selects = "crash_type, crash_direction, age, driver_age, frequency, fatality_count, fatality_count_adj, mitigation_factor, mean_dv, sd_dv, dv_shift_relevance, risk_coefficient, n_unrestrained, n_optimal, n_suboptimal, n_unknown, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet";
 		
 	$fatality_restraint_groups = " sum(CASE WHEN restraint = 'None' THEN .2 ELSE 0 END) as n_unrestrained, sum(CASE WHEN restraint = 'Optimal' THEN .2 ELSE 0 END) as n_optimal,  sum(CASE WHEN restraint = 'Suboptimal' THEN .2 ELSE 0 END) as n_suboptimal,  sum(CASE WHEN restraint = 'Unknown' THEN .2 ELSE 0 END) as n_unknown, ";
-	
+	$fatality_white_quintile_groups="sum(CASE WHEN white = '0' THEN .2 ELSE 0 END) as n_quintile1,sum(CASE WHEN white = '56' THEN .2 ELSE 0 END) as n_quintile2,sum(CASE WHEN white = '74' THEN .2 ELSE 0 END) as n_quintile3,sum(CASE WHEN white = '84' THEN .2 ELSE 0 END) as n_quintile4,sum(CASE WHEN white = '92' THEN .2 ELSE 0 END) as n_quintile5,";
 	
 	//Sort Strings
 	$sort = array();
@@ -90,13 +90,9 @@
 	$subset_string = 'WHERE 1';
 	
 	$query = "";
-
 	
 	if ($outcome_variable == 'fatality_count'){
 				//fatality subsets
-	  /* if($subset_variable=='white'){
-			$outcome_variable='fatality_race_count'
-		}*/
 		if ($subset_category != "all"){
 			if($subset_category=='white')
 			{
@@ -253,7 +249,8 @@
 			{
                 $group_type="white";
 			}
-			$query =  "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality_dev.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
+		 
+			$query =  "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality_dev.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$fatality_white_quintile_groups.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
 		}
 	} else {
 		
