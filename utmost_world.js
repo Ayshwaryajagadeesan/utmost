@@ -206,7 +206,7 @@
 								chart_vars.filter('set', 'CI');
 								chart_subsets.clearFilter();
 								chart_subsets.filter('set', 'CI');
-								if(chart_subset_selector.getSubmitValue()=='race'||chart_subset_selector.getSubmitValue()=='ethnicity' ||chart_subset_selector.getSubmitValue()=='urbanization_soc'||chart_subset_selector.getSubmitValue()=='urbanization_acc')
+								if(chart_subset_selector.getSubmitValue()=='white'||chart_subset_selector.getSubmitValue()=='ethnicity' ||chart_subset_selector.getSubmitValue()=='urbanization_soc'||chart_subset_selector.getSubmitValue()=='urbanization_acc')
 								{
 									chart_subset_selector.suspendEvents(false);
 									chart_subset_selector.select('none');
