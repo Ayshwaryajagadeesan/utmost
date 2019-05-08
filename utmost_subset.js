@@ -48,7 +48,12 @@
 			{group_var: 'other', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
 			{group_var: 'other', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
 			{group_var: 'other', title: 'Fourth Quintile', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'other', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000}							
+			{group_var: 'other', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000},
+			{group_var: 'hispanic', title: 'First Quintile', category_value:'"first"', chart_max: 5500000},
+			{group_var: 'hispanic', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
+			{group_var: 'hispanic', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
+			{group_var: 'hispanic', title: 'Fourth Quintile', category_value:'"fourth"', chart_max: 5500000},
+			{group_var: 'hispanic', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000}								
 		]
 	});
 	

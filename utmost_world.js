@@ -59,11 +59,14 @@
 			//{"val":"urbanization_acc", "name":"Urbanization Accident Zone", "set" : "F"},
 			{"val":"driver_age", "name":"Driver Age", "set" : "F"},
 			{"val":"race", "name":"Race", "set" : "F"},
-			{"val":"white", "name":"White Quintiles", "set" : "F"},
-			{"val":"black", "name":"Black Quintiles", "set" : "F"},
-			{"val":"other", "name":"Other Quintiles", "set" : "F"},
+			{"val":"white", "name":"White ", "set" : "F"},
+			{"val":"black", "name":"Black ", "set" : "F"},
+			{"val":"other", "name":"Other ", "set" : "F"},
 			//{"val":"race", "name":"Race", "set" : "F"},
-			//{"val":"ethnicity", "name":"Ethnicity", "set" : "F"}
+			{"val":"hispanic", "name":"Hispanic", "set" : "F"},
+			{"val":"nonhispanic", "name":"Non-Hispanic", "set" : "F"},
+			{"val":"education", "name":"Education", "set" : "F"},
+			{"val":"income", "name":"Income", "set" : "F"}
 		]
 	});
 	chart_subsets.filter('set', 'CI');
@@ -133,10 +136,7 @@
 						utmost_chart.axes.getAt(0).maximum = 10850000;
 						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
 					}
-					else if (chart_variable_selector.getSubmitValue() == "race"){
-						utmost_chart.axes.getAt(0).maximum = 10850000;
-						utmost_injury_chart.axes.getAt(0).maximum = 10850000;
-					}
+					
 					
 					data_subsets.clearFilter();
 					var target_record = data_subsets.findRecord('title', 'All');
@@ -206,7 +206,7 @@
 								chart_vars.filter('set', 'CI');
 								chart_subsets.clearFilter();
 								chart_subsets.filter('set', 'CI');
-								if(chart_subset_selector.getSubmitValue()=='white'||chart_subset_selector.getSubmitValue()=='ethnicity' ||chart_subset_selector.getSubmitValue()=='urbanization_soc'||chart_subset_selector.getSubmitValue()=='urbanization_acc')
+								if(chart_subset_selector.getSubmitValue()=='white'||chart_subset_selector.getSubmitValue()=='hispanic' ||chart_subset_selector.getSubmitValue()=='urbanization_soc'||chart_subset_selector.getSubmitValue()=='urbanization_acc')
 								{
 									chart_subset_selector.suspendEvents(false);
 									chart_subset_selector.select('none');
