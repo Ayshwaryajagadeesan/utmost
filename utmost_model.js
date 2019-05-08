@@ -852,18 +852,13 @@
 							record.set('fatality_count_adj', adj_fatals);
 						}
 						
-						if(data_subset_variable=='white' ){
+						if(data_subset_variable=='white' && data_subset_category == "all")
+						{
 							var category = record.get('crash_type');
 						    var index = utmost_fatality_race_chart_values.findExact('crash_type', category);
-						    var adjusted_count_temp = record.get('fatality_count_adj');
-						/*if(data_subset_variable=='white')
-						{
-
-						}
-						else{*/
+						    
 						     if (index == -1){
-							//No record, create
-							        utmost_fatality_race_chart_values.add(
+							    utmost_fatality_race_chart_values.add(
 							   	    {
 									'crash_type': category,
 									'quintile1':parseFloat(record.get('w_quintile1')),
@@ -877,27 +872,19 @@
 						        } else {
 							        var target_record = utmost_fatality_race_chart_values.getAt(index);
 							        target_record.set('quintile1', parseFloat(record.get('w_quintile1'))+parseFloat(target_record.get('quintile1')));
-									 target_record.set('quintile2', parseFloat(record.get('w_quintile2'))+parseFloat(target_record.get('quintile2')));
-									  target_record.set('quintile3', parseFloat(record.get('w_quintile3'))+parseFloat(target_record.get('quintile3')));
-									   target_record.set('quintile4', parseFloat(record.get('w_quintile4'))+parseFloat(target_record.get('quintile4')));
-									    target_record.set('quintile5', parseFloat(record.get('w_quintile5'))+parseFloat(target_record.get('quintile5')));
-							        //target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
-						        }
-
+									target_record.set('quintile2', parseFloat(record.get('w_quintile2'))+parseFloat(target_record.get('quintile2')));
+									target_record.set('quintile3', parseFloat(record.get('w_quintile3'))+parseFloat(target_record.get('quintile3')));
+									target_record.set('quintile4', parseFloat(record.get('w_quintile4'))+parseFloat(target_record.get('quintile4')));
+									target_record.set('quintile5', parseFloat(record.get('w_quintile5'))+parseFloat(target_record.get('quintile5')));
+							        }
 						}
-						
 						else{
 						    var category = record.get('crash_type');
 						    var index = utmost_fatality_chart_values.findExact('crash_type', category);
 						    var adjusted_count_temp = record.get('fatality_count_adj');
-						/*if(data_subset_variable=='white')
-						{
-
-						}
-						else{*/
-						     if (index == -1){
-							//No record, create
-							        utmost_fatality_chart_values.add(
+						    if (index == -1)
+							{
+							    utmost_fatality_chart_values.add(
 							   	    {
 									'crash_type': category,
 									'fatality_count': record.get('fatality_count'),
@@ -905,73 +892,17 @@
 									'sort': record.get('sort')
 								    }
 							    );
-						        } else {
+						     } else {
 							        var target_record = utmost_fatality_chart_values.getAt(index);
 							        target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
 							        target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
 						        }
-						//}
 						}
 					});
-				   if(data_subset_variable!='white')
-					{
-					utmost_fatality_chart_values.sort('sort', 'ASC');
-					var max = 0;
-					var top_count = 0
-					var total = 0;
-					var adj_total = 0;
-					var count = utmost_fatality_chart_values.count();
+				   
 					
-					
-					
-					//sum values for totals charts
-					for (i = 0; i < count; i++){
-						if (!utmost_fatality_chart_values.getAt(i).get('crash_type')){
-							utmost_fatality_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
-						}
-						total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count'));
-						adj_total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count_adj'));
-						if(utmost_fatality_chart_values.getAt(i).get('fatality_count') > max){
-							max = utmost_fatality_chart_values.getAt(i).get('fatality_count');
-						}
-					}
-					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
-					utmost_totals_chart.axes.getAt(0).maximum = (total > adj_total) ? Math.floor((total * 1.1) / 100) * 100 : Math.floor((adj_total * 1.1) / 100) * 100;
-					if(utmost_totals_chart.axes.getAt(0).maximum < adj_total || utmost_totals_chart.axes.getAt(0).maximum > adj_total)
-					{
-						 var temp_max=adj_total/10;
-						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
-					}
-					if(utmost_totals_chart.axes.getAt(0).maximum < total || utmost_totals_chart.axes.getAt(0).maximum > total)
-					{
-						var temp_max=total/10;
-						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
-					}
-					utmost_totals_chart_values.getAt(0).set('person_count', total);
-					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
-					utmost_totals_chart_values.commitChanges();
-					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
-					
-					//adjust chart max
-					var chart_max = (parseInt(max / 100) + 1) * 100;
-					utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
-					
-					
-					utmost_loadmask.hide();
-					
-					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
-					utmost_fatality_chart_values.fireEvent('refresh');
-					utmost_totals_chart.fireEvent('refresh');
-					
-					//Redraw count chart
-					utmost_fatality_chart.setVisible(true);
-					utmost_chart.setVisible(false);
-					utmost_fatality_race_chart.setVisible(false);
-					utmost_injury_chart.setVisible(false);
-					utmost_chart.redraw(true);
-					}
-					else{
-								
+					if(data_subset_variable =='white' && data_subset_category == "all")
+					{			
                     utmost_fatality_race_chart_values.sort('sort', 'ASC');
 					var max = 0;
 					var top_count = 0
@@ -1121,6 +1052,66 @@
 					utmost_chart.setVisible(false);
 					utmost_injury_chart.setVisible(false);
 					utmost_chart.redraw(true);
+					}else{
+						
+					
+					    utmost_fatality_chart_values.sort('sort', 'ASC');
+					    var max = 0;
+					    var top_count = 0
+					    var total = 0;
+					    var adj_total = 0;
+						var count = utmost_fatality_chart_values.count();
+					
+					
+					
+						//sum values for totals charts
+					for (i = 0; i < count; i++){
+						if (!utmost_fatality_chart_values.getAt(i).get('crash_type')){
+							utmost_fatality_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
+						}
+						total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count'));
+						adj_total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count_adj'));
+						if(utmost_fatality_chart_values.getAt(i).get('fatality_count') > max){
+							max = utmost_fatality_chart_values.getAt(i).get('fatality_count');
+						}
+					}
+					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
+					utmost_totals_chart.axes.getAt(0).maximum = (total > adj_total) ? Math.floor((total * 1.1) / 100) * 100 : Math.floor((adj_total * 1.1) / 100) * 100;
+					if(utmost_totals_chart.axes.getAt(0).maximum < adj_total || utmost_totals_chart.axes.getAt(0).maximum > adj_total)
+					{
+						 var temp_max=adj_total/10;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
+					}
+					if(utmost_totals_chart.axes.getAt(0).maximum < total || utmost_totals_chart.axes.getAt(0).maximum > total)
+					{
+						var temp_max=total/10;
+						 utmost_totals_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;
+					}
+					utmost_totals_chart_values.getAt(0).set('person_count', total);
+					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
+					utmost_totals_chart_values.commitChanges();
+					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
+					
+					//adjust chart max
+					var chart_max = (parseInt(max / 100) + 1) * 100;
+					utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
+					
+					
+					utmost_loadmask.hide();
+					
+					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_fatality_chart_values.fireEvent('refresh');
+					utmost_totals_chart.fireEvent('refresh');
+					
+					//Redraw count chart
+					utmost_fatality_chart.setVisible(true);
+					utmost_totals_race_chart.setVisible(false);
+					utmost_totals_chart.setVisible(true);
+					utmost_chart.setVisible(false);
+					utmost_fatality_race_chart.setVisible(false);
+					utmost_injury_chart.setVisible(false);
+					utmost_chart.redraw(true);
+					
 					}
 					
 				}
