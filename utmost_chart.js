@@ -156,10 +156,12 @@
 			}
 		],
 		series: [
-			{
-				type: 'column',
+			{             
+
+				type: 'bar',
 				axis: 'left',
 				highlight: true,
+				column: true,
 				tips: {
 				  trackMouse: true,
 				  width: 175,
@@ -185,11 +187,11 @@
 				title: ['Baseline Fatality Count', 'Adjusted Fatality Count']
 			}]
 	});
-	var utmost_fatality_race_chart = Ext.create('Ext.chart.Chart', {
+	var utmost_fatality_race_chart =  Ext.create('Ext.chart.Chart', {
 		store: utmost_fatality_race_chart_values,
 		animate: true,
 		hidden: true,
-		theme: 'Red',
+		theme: 'Purple',
 		legend: {
 			position: 'top'
 		},
@@ -217,25 +219,20 @@
 			}
 		],
 		series: [
-			{
-				type: 'column',
+			{             
+
+				type: 'bar',
 				axis: 'left',
-				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
-                xField: 'crash_type',
-                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
-                stacked: true,
 				highlight: true,
+				column: true,
+				stacked: true,
 				tips: {
 				  trackMouse: true,
 				  width: 175,
 				  height: 60,
-				 // renderer: function(storeItem, item) {
-					//this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  (Math.round(storeItem.get('fatality_count') / 10) * 10).toLocaleString() + '  <br/>Adjusted: ' +  (Math.round(storeItem.get('fatality_count_adj') / 10) * 10).toLocaleString() + '  <br/>Difference: ' +  ((Math.round(storeItem.get('fatality_count') / 10) *10) - (Math.round(storeItem.get('fatality_count_adj') / 10) * 10)).toLocaleString());
-				  //}
 				  renderer: function(storeItem, item) {
-                        var browser = item.series.title[Ext.Array.indexOf(item.series.yField, item.yField)];
-                        this.setTitle(browser + ' for ' + storeItem.get('crash_type') + ': ' + storeItem.get(item.yField) + '%');
-                    }
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  (Math.round(storeItem.get('quintile1') / 10) * 10).toLocaleString() + '  <br/>Adjusted: ' +  (Math.round(storeItem.get('quintile2') / 10) * 10).toLocaleString() + '  <br/>Difference: ' +  ((Math.round(storeItem.get('fatality_count') / 10) *10) - (Math.round(storeItem.get('fatality_count_adj') / 10) * 10)).toLocaleString());
+				  }
 				},
 				style: {
                     align: "left"
@@ -248,12 +245,13 @@
 					orientation: 'vertical',
 					color: '#333'
 				},
+				xField: 'crash_type',
 				groupGutter: 0,
-				title: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
-                xField: 'crash_type',
-                yField: [ 'quintile1', 'quintile2', 'quintile3', 'quintile4','quintile5' ],
+				yField: ['quintile1', 'quintile2','quintile3','quintile4','quintile5'],
+				title: ['quintile1', 'quintile2','quintile3','quintile4','quintile5']
 			}]
-	});
+	});	
+
 	
 	
 		//totals chart code
@@ -291,6 +289,7 @@
 				type: 'bar',
 				axis: 'left',
 				highlight: true,
+				//stacked:true,
 				tips: {
 				  trackMouse: true,
 				  width: 140,
@@ -315,12 +314,73 @@
 				title: ['Baseline', 'Adjusted']
 			}]
 	});
+		var utmost_totals_race_chart_values = Ext.create('Ext.data.Store', {
+		model: 'Fatality_race_Type_Count',
+		data : [
+			{crash_type: "Total",quintile1: 12000000, quintile2: 12000000,quintile3: 12000000,quintile4: 12000000,quintile5: 12000000}
+		]
+	});
+	
+	var utmost_totals_race_chart = Ext.create('Ext.chart.Chart', {
+		store: utmost_totals_race_chart_values,
+		animate: true,
+		theme: 'Green',		
+		legend: {
+			position: 'top'
+		},
+		axes: [
+			{
+				type: 'Numeric',
+				position: 'bottom',
+				grid: true,
+				fields: ['quintile1'],
+				minimum: 0,
+				maximum: 15000000,
+				label: {renderer: function(v){ return v.toLocaleString();}}
+			}, {
+				type: 'Category',
+				position: 'left',
+				fields: ['crash_type']
+			}
+		],
+		series: [
+			{
+				type: 'bar',
+				axis: 'left',
+				highlight: true,
+				stacked:true,
+				tips: {
+				  trackMouse: true,
+				  width: 140,
+				  height: 60,
+				  renderer: function(storeItem, item) {
+					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  Math.floor(storeItem.get('quintile1')).toLocaleString() + '  <br/>Adjusted: ' +  Math.floor(storeItem.get('quintile2')).toLocaleString() + '  <br/>Difference: ' +  Math.floor(storeItem.get('person_count') - storeItem.get('person_count_adj')).toLocaleString() );
+				  }
+				},
+				style: {
+                    align: "left"
+                },
+				label: {
+				  display: 'insideEnd',
+				  'text-anchor': 'middle',
+					field: 'data',
+					renderer: Ext.util.Format.numberRenderer('0,000'),
+					orientation: 'vertical',
+					color: '#333'
+				},
+				xField: 'crash_type',
+				yField: ['quintile1', 'quintile2','quintile3','quintile4','quintile5'],
+				title:['q1','q2','q3','q4','q5']
+				
+			}]
+	});
+	
 	var utmost_totals_panel = Ext.create('Ext.panel.Panel', {
 		title: 'Total Change',
-		bodyPadding: 5,
+		bodyPadding: 1,
 		minHeight: 200,
 		region: 'north',
 		layout: 'fit',
-		items:[utmost_totals_chart]
+		items:[utmost_totals_chart,utmost_totals_race_chart]
 	});
 	
