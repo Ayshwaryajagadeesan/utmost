@@ -58,7 +58,7 @@
 			{"val":"urbanization_soc", "name":"Urbanization Social Economic", "set" : "F"},
 			//{"val":"urbanization_acc", "name":"Urbanization Accident Zone", "set" : "F"},
 			{"val":"driver_age", "name":"Driver Age", "set" : "F"},
-			{"val":"race", "name":"Race", "set" : "F"},
+			//{"val":"race", "name":"Race", "set" : "F"},
 			{"val":"white", "name":"White ", "set" : "F"},
 			{"val":"black", "name":"Black ", "set" : "F"},
 			{"val":"other", "name":"Other ", "set" : "F"},

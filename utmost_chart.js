@@ -191,7 +191,7 @@
 		store: utmost_fatality_race_chart_values,
 		animate: true,
 		hidden: true,
-		theme: 'Purple',
+		theme: 'Red',
 		legend: {
 			position: 'top'
 		},

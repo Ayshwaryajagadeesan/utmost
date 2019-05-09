@@ -34,6 +34,8 @@
 	$fatality_black_quintile_groups="sum(CASE WHEN black = '0' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN black = '1' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN black = '3' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN black = '7' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN black = '19' THEN .2 ELSE 0 END) as w_quintile5,";
 	$fatality_other_quintile_groups="sum(CASE WHEN other = '0' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN other = '4' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN other = '7' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN other = '11' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN other = '21' THEN .2 ELSE 0 END) as w_quintile5,";
 	$fatality_hispanic_quintile_groups="sum(CASE WHEN hispanic = '0' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN hispanic = '2' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN hispanic = '6' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN hispanic = '12' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN hispanic = '29' THEN .2 ELSE 0 END) as w_quintile5,";
+	$fatality_nonhispanic_quintile_groups="sum(CASE WHEN non_hispanic = '0' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN non_hispanic = '70' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN non_hispanic = '87' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN non_hispanic = '93' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN non_hispanic = '97' THEN .2 ELSE 0 END) as w_quintile5,";
+	$fatality_education_quintile_groups="sum(CASE WHEN education = '0' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN education = '15' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN education = '22' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN education = '30' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN education = '43' THEN .2 ELSE 0 END) as w_quintile5,";
 	//Sort Strings
 	$sort = array();
 	$sort_dv = array();
@@ -186,7 +188,47 @@
 			else if($subset_category=='fifth'&& $subset_variable=='hispanic')
 			{
 				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '29')";
-			}									
+			}
+			else if($subset_category=='first'&& $subset_variable=='nonhispanic')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '0')";
+			}
+			else if($subset_category=='second'&& $subset_variable=='nonhispanic')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic= '70')";
+			}
+			else if($subset_category=='third'&& $subset_variable=='nonhispanic')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '87')";
+			}
+			else if($subset_category=='fourth'&& $subset_variable=='nonhispanic')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '93')";
+			}
+			else if($subset_category=='fifth'&& $subset_variable=='nonhispanic')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '97')";
+			}
+			else if($subset_category=='first'&& $subset_variable=='education')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+			}
+			else if($subset_category=='second'&& $subset_variable=='education')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '15')";
+			}
+			else if($subset_category=='third'&& $subset_variable=='education')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '22')";
+			}
+			else if($subset_category=='fourth'&& $subset_variable=='education')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '30')";
+			}
+			else if($subset_category=='fifth'&& $subset_variable=='education')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '43')";
+			}													
 			else
 			{
 			$subset_string = "WHERE (crash_fatality_dev.".$subset_variable." = '".$subset_category."')";
@@ -278,6 +320,14 @@
 			if($subset_variable=='hispanic')
 			{
 			$race=$fatality_hispanic_quintile_groups;
+			}
+			if($subset_variable=='nonhispanic')
+			{
+			$race=$fatality_nonhispanic_quintile_groups;
+			}
+			if($subset_variable=='education')
+			{
+			$race=$fatality_education_quintile_groups;
 			}
 			$query =  "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality_dev.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$race.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
 		}
