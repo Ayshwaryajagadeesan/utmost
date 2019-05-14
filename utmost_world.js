@@ -190,7 +190,7 @@
 								chart_subset_selector.select('none');
 					
 								chart_subset_selector.resumeEvents();
-								remove_subset_tabs();
+								generate_subset_tabs('none');
 								}
 							
 						/*if(chart_subset_selector.getSubmitValue()=='race')
@@ -211,7 +211,7 @@
 									chart_subset_selector.suspendEvents(false);
 									chart_subset_selector.select('none');
 									chart_subset_selector.resumeEvents();
-									remove_subset_tabs();
+									generate_subset_tabs('none');
 								}
 						}
 						
