@@ -149,13 +149,13 @@
 			},			
 			{
 				"val":"aeb", 
-				"name":"Frontal Crash",
+				"name":"Frontal crash warning",
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
 				"description":"Automatic Emergency Braking (AEB) applies the brakes to stop the vehicle when it is approaching a lead vehicle too fast. It is generally always equipped with FCW. LeBlanc et al. (2017) found that four types of rear-end crashes can be addressed by AEB+FCW: lead-vehicle braking, lead-vehicle stopped, lead-vehicle slower and other rear-end crashes. They also found that AEB+FCW was estimated to be 87% effective at reducing lead-vehicle braking crashes, 94.6% effective in lead-vehicle stopped crashes, 86% effective in lead-vehicle slower crashes, and 82.6% effective in other rear-end crashes. These estimates are higher than previous work and may represent an ideal effectiveness in which drivers respond reliably to the warning and do not turn the system off.", 
-				'selector_type': ["independent", "ordered_population"], 
-				'selector_desc': ["Countermeasure Settings", "Fleet Penetration"]
+				'selector_type': ["independent","independent1","independent2","independent3","ordered_population"], 
+				'selector_desc': ["AEB Countermeasure Settings","FCW Countermeasure Settings","ACC Countermeasure Settings","FCW and ACC Countermeasure Settings", "Fleet Penetration"]
 			},
 			{
 				"val":"rdw", 
@@ -561,6 +561,30 @@
 			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
 			{"category_val":"aeb", 'name':"AEB Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
 			{"category_val":"aeb", 'name':"FCW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
 			{"category_val":"arb", 'name':"Counter Measure Effectiveness", 'target_val':"arb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
@@ -633,6 +657,10 @@
 			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
 			{"category_val":"aeb", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"seat_position", 'name':"Forward", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
 			{"category_val":"seat_position", 'name':"Rear", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'category_unique', 'lock': 0},
@@ -726,6 +754,21 @@
 		name: 'cm_independent',
 		hidden: true
 	});
+	var countermeasure_independent1_selector = Ext.create('Ext.form.FieldSet',{
+		width: "100%",
+		name: 'cm_independent1',
+		hidden: true
+	});
+	var countermeasure_independent2_selector = Ext.create('Ext.form.FieldSet',{
+		width: "100%",
+		name: 'cm_independent2',
+		hidden: true
+	});
+	var countermeasure_independent3_selector = Ext.create('Ext.form.FieldSet',{
+		width: "100%",
+		name: 'cm_independent3',
+		hidden: true
+	});
 	
 	var countermeasure_edit_form = Ext.create('Ext.form.Panel', {
 		layout: "form",
@@ -741,6 +784,9 @@
 			countermeasure_category_singleselector_secondary,
 			countermeasure_population_selector,
 			countermeasure_independent_selector,
+			countermeasure_independent1_selector,
+			countermeasure_independent2_selector,
+			countermeasure_independent3_selector,
 			countermeasure_ordered_population_selector
 		]
 	});
@@ -754,13 +800,19 @@
 		countermeasure_population_selector.setVisible(false);
 		countermeasure_ordered_population_selector.setVisible(false);
 		countermeasure_independent_selector.setVisible(false);
-			
+		countermeasure_independent1_selector.setVisible(false);
+		countermeasure_independent2_selector.setVisible(false);
+		countermeasure_independent3_selector.setVisible(false);
+		
 		countermeasure_category_singleselector.removeAll();
 		countermeasure_category_singleselector_secondary.removeAll();
 		countermeasure_category_multiselector.removeAll();
 		countermeasure_population_selector.removeAll();
 		countermeasure_ordered_population_selector.removeAll();
 		countermeasure_independent_selector.removeAll();
+		countermeasure_independent1_selector.setVisible(false);
+		countermeasure_independent2_selector.setVisible(false);
+		countermeasure_independent3_selector.setVisible(false);
 		cm_description.update("");
 	}
 	
@@ -1099,6 +1151,120 @@
 
 				});
 			}
+			else if (selected_cm_type == "independent1"){
+				
+				countermeasure_independent1_selector.setVisible(true);
+				countermeasure_independent1_selector.setTitle(selected_cm_desc_array[index]);
+				
+				//group description
+				cm_description.update(record[0].get('description'));
+				
+				//add correct child selectors
+				cm_options.clearFilter();
+				cm_options.filter('category_val', record[0].get('val'));
+				cm_options.each(function(record){
+					if (record.get('detail_type') == "independent1"){
+						//create set of sliders at default value
+						countermeasure_independent1_selector.add({
+							xtype:'sliderfield', 
+							width:'100%',
+							fieldLabel: record.get('name'), 
+							name: record.get('name'), 
+							value: record.get('proportion'),
+							increment: 1,
+							minValue: 0,
+							maxValue: 100,
+							listeners: {
+								beforechange: {
+									fn: function(slider, newValue, oldValue){
+										// add error check of any type?
+										var rec = cm_options.findRecord('name', slider.getFieldLabel());
+										rec.set('proportion', newValue);
+									}
+								}
+							}
+						});
+					} 
+				
+
+				});
+			}
+			else if (selected_cm_type == "independent2"){
+				
+				countermeasure_independent2_selector.setVisible(true);
+				countermeasure_independent2_selector.setTitle(selected_cm_desc_array[index]);
+				
+				//group description
+				cm_description.update(record[0].get('description'));
+				
+				//add correct child selectors
+				cm_options.clearFilter();
+				cm_options.filter('category_val', record[0].get('val'));
+				cm_options.each(function(record){
+					if (record.get('detail_type') == "independent2"){
+						//create set of sliders at default value
+						countermeasure_independent2_selector.add({
+							xtype:'sliderfield', 
+							width:'100%',
+							fieldLabel: record.get('name'), 
+							name: record.get('name'), 
+							value: record.get('proportion'),
+							increment: 1,
+							minValue: 0,
+							maxValue: 100,
+							listeners: {
+								beforechange: {
+									fn: function(slider, newValue, oldValue){
+										// add error check of any type?
+										var rec = cm_options.findRecord('name', slider.getFieldLabel());
+										rec.set('proportion', newValue);
+									}
+								}
+							}
+						});
+					} 
+				
+
+				});
+			}
+			else if (selected_cm_type == "independent3"){
+				
+				countermeasure_independent3_selector.setVisible(true);
+				countermeasure_independent3_selector.setTitle(selected_cm_desc_array[index]);
+				
+				//group description
+				cm_description.update(record[0].get('description'));
+				
+				//add correct child selectors
+				cm_options.clearFilter();
+				cm_options.filter('category_val', record[0].get('val'));
+				cm_options.each(function(record){
+					if (record.get('detail_type') == "independent3"){
+						//create set of sliders at default value
+						countermeasure_independent3_selector.add({
+							xtype:'sliderfield', 
+							width:'100%',
+							fieldLabel: record.get('name'), 
+							name: record.get('name'), 
+							value: record.get('proportion'),
+							increment: 1,
+							minValue: 0,
+							maxValue: 100,
+							listeners: {
+								beforechange: {
+									fn: function(slider, newValue, oldValue){
+										// add error check of any type?
+										var rec = cm_options.findRecord('name', slider.getFieldLabel());
+										rec.set('proportion', newValue);
+									}
+								}
+							}
+						});
+					} 
+				
+
+				});
+			}
 		}
 	});
 	
@@ -1207,7 +1373,7 @@
 						/*Fix querying to support multiselect*/	
 					} 
 					
-					if(countermeasure_population_selector.isVisible() || countermeasure_independent_selector.isVisible() || countermeasure_ordered_population_selector.isVisible()){
+					if(countermeasure_population_selector.isVisible() || countermeasure_independent_selector.isVisible() ||countermeasure_independent1_selector.isVisible()|| countermeasure_ordered_population_selector.isVisible()){
 						countermeasure_edit_window.hide();
 						cm_title = countermeasure_list.getValue();
 						
