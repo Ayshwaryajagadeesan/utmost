@@ -149,7 +149,7 @@
 			},			
 			{
 				"val":"aeb", 
-				"name":"Automatic Emergency Braking",
+				"name":"Frontal Crash",
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
@@ -250,6 +250,15 @@
 			{
 				"val":"vehicle_age", 
 				"name":"Vehicle Age",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":100, 
+				"description":"How the age of a vehicle affects the at protecting occupants from injury in the event of a crash. ", 
+				'selector_type': ["numeric"], 'selector_desc': []
+			},
+			{
+				"val":"lawful_intersection_behaviour", 
+				"name":"Lawful Intersection Behaviour",
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":100, 
@@ -474,6 +483,15 @@
 			{
 				"val":"vehicle_age", 
 				"name":"Vehicle Age",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":100, 
+				"description":"How the age of a vehicle affects the at protecting occupants from injury in the event of a crash. ", 
+				'selector_type': ["numeric"], 'selector_desc': []
+			},
+			{
+				"val":"lawful_intersection_behaviour", 
+				"name":"Lawful Intersection Behaviour",
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":100, 
