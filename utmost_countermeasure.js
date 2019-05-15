@@ -1695,13 +1695,24 @@ Ext.namespace('UTMOST');
 		cm_options.clearFilter();
 		return res;
 	}
-	function cm_vehicle_age_get_value() {
-		cm_options.filter('category_val', 'vehicle_age');
-		var test = cm_options.getAt(0);
-		var res = (test.get('proportion')/100);
-		res=1-(res*.375);
-		cm_options.clearFilter();
-		return res;
+	function cm_vehicle_age_get_value(outcome_variable) {
+		if(outcome_variable=='fatality_count')
+		{
+			cm_options.filter('category_val', 'vehicle_age');
+			var test = cm_options.getAt(0);
+			var res = (test.get('proportion')/100);
+			res=1-(res*.375);
+			cm_options.clearFilter();
+			return res;
+		}else if(outcome_variable=='injury_count')
+		{
+			cm_options.filter('category_val', 'vehicle_age');
+			var test = cm_options.getAt(0);
+			var res = (test.get('proportion')/100);
+			res=(1-res);
+			cm_options.clearFilter();
+			return res;
+		}
 	}
 	
 	function cm_teen_driver_get_value(driver_age) {

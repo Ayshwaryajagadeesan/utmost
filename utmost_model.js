@@ -67,6 +67,7 @@
 				{name: 'crash_type', type: 'string'},
 				{name: 'crash_direction', type: 'string'},
 				{name: 'age', type: 'string'},
+				{name: 'veh_age', type: 'string'},
 				{name: 'driver_age', type: 'string'},
 				{name: 'frequency', type: 'float'}, 
 				{name: 'injury_count', type: 'float'}, 
@@ -592,6 +593,16 @@
 							for(i = 1; i< subrows.length; i++){
 								adjusted_injuries += subrows[i].frequency * utmost_injury_risk_dv(subrows[i]);
 							} 
+							if (record.get('veh_age') == "12+")
+							{
+								total_base_injuries=total_base_injuries*1.4;
+								adjusted_injuries=adjusted_injuries*1.4;
+								
+							}
+							if(check_countermeasure(vehicle_age) && record.get('veh_age') == "12+")
+								{
+									adjusted_injuries= adjusted_injuries*cm_vehicle_age_get_value(data_outcome_variable);
+								}
 							record.set('injury_count', total_base_injuries);
 							record.set('injury_count_adj', adjusted_injuries)
 						} else {
@@ -605,6 +616,16 @@
 							for(i = 1; i< subrows.length; i++){
 								adjusted_injuries += subrows[i].frequency * utmost_injury_risk_nondv(subrows[i]);
 							} 
+							if (record.get('veh_age') == "12+")
+							{
+								total_base_injuries=total_base_injuries*1.4;
+								adjusted_injuries=adjusted_injuries*1.4;
+								
+							}
+							if(check_countermeasure(vehicle_age) && record.get('veh_age') == "12+")
+								{
+									adjusted_injuries= adjusted_injuries*cm_vehicle_age_get_value(data_outcome_variable);
+								}
 							record.set('injury_count', total_base_injuries);
 							record.set('injury_count_adj', adjusted_injuries);
 						}
@@ -852,7 +873,7 @@
 							var adj_fatals = avoidance * (record.get('n_optimal') * fatality_adjusted_rate['optimal'] + record.get('n_suboptimal') * fatality_adjusted_rate['suboptimal']  + record.get('n_unrestrained') * fatality_adjusted_rate['unrestrained']  + record.get('n_unknown'));
 							if (check_countermeasure('vehicle_age') && record.get('veh_age') == "12+")
 							{
-								adj_fatals=adj_fatals*cm_vehicle_age_get_value();
+								adj_fatals=adj_fatals*cm_vehicle_age_get_value(data_outcome_variable);
 							}
 							record.set('fatality_count_adj', adj_fatals);
 						} else {
@@ -861,7 +882,7 @@
 							var adj_fatals = avoidance * base_fatals;
 							if (check_countermeasure('vehicle_age') && record.get('veh_age') == "12+")
 							{
-								adj_fatals=adj_fatals*cm_vehicle_age_get_value();
+								adj_fatals=adj_fatals*cm_vehicle_age_get_value(data_outcome_variable);
 							}
 							record.set('fatality_count_adj', adj_fatals);
 						}

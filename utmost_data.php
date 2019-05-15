@@ -23,7 +23,7 @@
 	$dv_select_vars = "dv.mean_dv as mean_dv, dv.sd_dv as sd_dv";
 	$fatal_dv_select_vars = "fatality_dv.mean_dv as mean_dv, fatality_dv.sd_dv as sd_dv";
 	$dv_shift_key = "";
-	$injury_calc_groups = ", crash_direction, age, driver_age, p_unrestrained, p_belted, p_child_optimal, p_child_suboptimal, p_helmet, risk_coefficient, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet,  mean_dv, sd_dv";
+	$injury_calc_groups = ", crash_direction, age, driver_age, veh_age, p_unrestrained, p_belted, p_child_optimal, p_child_suboptimal, p_helmet, risk_coefficient, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet,  mean_dv, sd_dv";
 	$fatal_injury_calc_groups = ", crash_direction, age, driver_age,risk_coefficient, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet, i_unrestrained, i_belted,i_child_optimal, i_child_suboptimal, i_helmet, mean_dv, sd_dv";
 	
 	$full_injury_selects = "crash_type, crash_direction, age, driver_age, frequency, injury_count, injury_count_adj, mitigation_factor, mean_dv, sd_dv, dv_shift_relevance, risk_coefficient, p_unrestrained, p_belted, p_child_optimal, p_child_suboptimal, p_helmet, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet";
@@ -413,7 +413,7 @@
 			if ($outcome_variable == 'person_count'){
 				$query =  "SELECT distinct ".$group_type." as crash_type, crash_injury_dev.driver_age as driver_age, sum(frequency) as person_count, sum(frequency) as person_count_adj, ".$sort[$group_type]." FROM `crash_injury_dev` ".$subset_string." GROUP BY crash_injury_dev.".$group_type.", driver_age ORDER BY sort";
 			} else if ($outcome_variable == 'injury_count'){
-				$query =  "SELECT ".$group_type." as crash_type, crash_injury_dev.crash_direction as crash_direction, crash_injury_dev.age as age, crash_injury_dev.driver_age as driver_age, sum(frequency) as frequency, sum(frequency)  as injury_count, sum(frequency) as injury_count_adj, 1 as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", 0 as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]."  FROM `crash_injury_dev` "." LEFT JOIN dv ON crash_injury_dev.dv_key = dv.dv_key  LEFT JOIN restraint on restraint.restraint_key = crash_injury_dev.restraint_key ".$subset_string." GROUP BY crash_injury_dev.".$group_type.$injury_calc_groups." ORDER BY sort";
+				$query =  "SELECT ".$group_type." as crash_type, crash_injury_dev.crash_direction as crash_direction, crash_injury_dev.age as age, crash_injury_dev.driver_age as driver_age, crash_injury_dev.veh_age as veh_age , sum(frequency) as frequency, sum(frequency)  as injury_count, sum(frequency) as injury_count_adj, 1 as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", 0 as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]."  FROM `crash_injury_dev` "." LEFT JOIN dv ON crash_injury_dev.dv_key = dv.dv_key  LEFT JOIN restraint on restraint.restraint_key = crash_injury_dev.restraint_key ".$subset_string." GROUP BY crash_injury_dev.".$group_type.$injury_calc_groups." ORDER BY sort";
 			}
 		}
 	}
