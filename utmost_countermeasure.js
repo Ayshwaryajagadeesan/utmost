@@ -254,7 +254,7 @@ Ext.namespace('UTMOST');
 				"effectiveness":0,
 				"fleet_pen":100, 
 				"description":"How the age of a vehicle affects at protecting occupants from injury in the event of a crash. ", 
-				'selector_type': ["numeric"], 'selector_desc': []
+				'selector_type': ["independent5"], 'selector_desc': ["Fleet Penetration"]
 			},
 			{
 				"val":"lawful_intersection_behaviour", 
@@ -529,6 +529,7 @@ Ext.namespace('UTMOST');
 			{"category_val":"child_seat", 'name':"2-4 Year Old Harnessed Child Seat", 'target_val':"2-4", 'base_rate':64, 'law_rate':80, 'proportion':13, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"5-7 Year Old Booster Seat", 'target_val':"5-7", 'base_rate':40, 'law_rate':62, 'proportion':85, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"8-10 Year Old Booster Seat", 'target_val':"8-10", 'base_rate':19, 'law_rate':37, 'proportion':1, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"vehicle_age", 'name':"Fleet Penetration", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'independent5', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"3 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"4 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':4, 'proportion':2, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"5 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
@@ -784,6 +785,11 @@ Ext.namespace('UTMOST');
 		name: 'cm_independent4',
 		hidden: true
 	});
+	var countermeasure_independent5_selector = Ext.create('Ext.form.FieldSet',{
+		width: "100%",
+		name: 'cm_independent5',
+		hidden: true
+	});
 	
 	var countermeasure_edit_form = Ext.create('Ext.form.Panel', {
 		layout: "form",
@@ -804,6 +810,7 @@ Ext.namespace('UTMOST');
 			countermeasure_independent2_selector,
 			countermeasure_independent3_selector,
 			countermeasure_independent4_selector,
+			countermeasure_independent5_selector,
 			countermeasure_ordered_population_selector
 		]
 	});
@@ -821,6 +828,7 @@ Ext.namespace('UTMOST');
 		countermeasure_independent2_selector.setVisible(false);
 		countermeasure_independent3_selector.setVisible(false);
 		countermeasure_independent4_selector.setVisible(false);
+		countermeasure_independent5_selector.setVisible(false);
 		
 		countermeasure_category_singleselector.removeAll();
 		countermeasure_category_singleselector_secondary.removeAll();
@@ -832,6 +840,7 @@ Ext.namespace('UTMOST');
 		countermeasure_independent2_selector.setVisible(false);
 		countermeasure_independent3_selector.setVisible(false);
 		countermeasure_independent4_selector.setVisible(false);
+		countermeasure_independent5_selector.setVisible(false);
 		cm_description.update("");
 	}
 	
@@ -1322,6 +1331,44 @@ Ext.namespace('UTMOST');
 
 				});
 			}
+			else if (selected_cm_type == "independent5"){
+				
+				countermeasure_independent5_selector.setVisible(true);
+				countermeasure_independent5_selector.setTitle(selected_cm_desc_array[index]);
+				
+				//group description
+				cm_description.update(record[0].get('description'));
+				
+				//add correct child selectors
+				cm_options.clearFilter();
+				cm_options.filter('category_val', record[0].get('val'));
+				cm_options.each(function(record){
+					if (record.get('detail_type') == "independent5"){
+						//create set of sliders at default value
+						countermeasure_independent5_selector.add({
+							xtype:'sliderfield', 
+							width:'100%',
+							fieldLabel: record.get('name'), 
+							name: record.get('name'), 
+							value: record.get('proportion'),
+							increment: 1,
+							minValue: 0,
+							maxValue: 100,
+							listeners: {
+								beforechange: {
+									fn: function(slider, newValue, oldValue){
+										// add error check of any type?
+										var rec = cm_options.findRecord('name', slider.getFieldLabel());
+										rec.set('proportion', newValue);
+									}
+								}
+							}
+						});
+					} 
+				
+
+				});
+			}
 		}
 	});
 	
@@ -1511,7 +1558,7 @@ Ext.namespace('UTMOST');
 		while (index < cm_types.count()){
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
-			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override' && val != 'vehicle_crashworthiness'){ 
+			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override' && val != 'vehicle_crashworthiness'&& val != 'vehicle_age'){ 
 				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')){
 					cm_options.clearFilter();
 					var toyota_index = 0;
@@ -1554,7 +1601,10 @@ Ext.namespace('UTMOST');
 						toyota_index++;
 					}
 					cm_options.clearFilter();
-				}else{
+				}else if(val == 'vehicle_age'){
+                    res.push((test.get('fleet_pen')/100));
+				}
+				else{
 					res.push((test.get('effectiveness')/100) * (test.get('fleet_pen')/100));
 				}
 				
