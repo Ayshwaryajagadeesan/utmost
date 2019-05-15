@@ -850,12 +850,19 @@
 							
 							//Multiply frequency to get count
 							var adj_fatals = avoidance * (record.get('n_optimal') * fatality_adjusted_rate['optimal'] + record.get('n_suboptimal') * fatality_adjusted_rate['suboptimal']  + record.get('n_unrestrained') * fatality_adjusted_rate['unrestrained']  + record.get('n_unknown'));
-							
+							if (check_countermeasure('vehicle_age') && record.get('veh_age') == "12+")
+							{
+								adj_fatals=adj_fatals*cm_vehicle_age_get_value();
+							}
 							record.set('fatality_count_adj', adj_fatals);
 						} else {
 							var avoidance = record.get('mitigation_factor');
 							var base_fatals = record.get('n_optimal') + record.get('n_suboptimal') + record.get('n_unrestrained') + record.get('n_unknown');
 							var adj_fatals = avoidance * base_fatals;
+							if (check_countermeasure('vehicle_age') && record.get('veh_age') == "12+")
+							{
+								adj_fatals=adj_fatals*cm_vehicle_age_get_value();
+							}
 							record.set('fatality_count_adj', adj_fatals);
 						}
 						

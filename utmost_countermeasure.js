@@ -529,7 +529,7 @@ Ext.namespace('UTMOST');
 			{"category_val":"child_seat", 'name':"2-4 Year Old Harnessed Child Seat", 'target_val':"2-4", 'base_rate':64, 'law_rate':80, 'proportion':13, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"5-7 Year Old Booster Seat", 'target_val':"5-7", 'base_rate':40, 'law_rate':62, 'proportion':85, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"child_seat", 'name':"8-10 Year Old Booster Seat", 'target_val':"8-10", 'base_rate':19, 'law_rate':37, 'proportion':1, 'detail_type': 'independent', 'lock': 0},
-			{"category_val":"vehicle_age", 'name':"Fleet Penetration", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'independent5', 'lock': 0},
+			{"category_val":"vehicle_age", 'name':"Fleet Penetration", 'target_val':"VEH_AGE", 'base_rate':0, 'law_rate':0, 'proportion':100, 'detail_type': 'independent5', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"3 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':3, 'proportion':5, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"4 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':4, 'proportion':2, 'detail_type': 'population', 'lock': 0},
 			{"category_val":"teen_driver", 'name':"5 Laws", 'target_val':"GDL", 'base_rate':0, 'law_rate':5, 'proportion':4, 'detail_type': 'population', 'lock': 0},
@@ -836,6 +836,11 @@ Ext.namespace('UTMOST');
 		countermeasure_population_selector.removeAll();
 		countermeasure_ordered_population_selector.removeAll();
 		countermeasure_independent_selector.removeAll();
+		countermeasure_independent1_selector.removeAll();
+		countermeasure_independent2_selector.removeAll();
+		countermeasure_independent3_selector.removeAll();
+		countermeasure_independent4_selector.removeAll();
+		countermeasure_independent5_selector.removeAll();
 		countermeasure_independent1_selector.setVisible(false);
 		countermeasure_independent2_selector.setVisible(false);
 		countermeasure_independent3_selector.setVisible(false);
@@ -1478,7 +1483,7 @@ Ext.namespace('UTMOST');
 						/*Fix querying to support multiselect*/	
 					} 
 					
-					if(countermeasure_population_selector.isVisible() || countermeasure_independent_selector.isVisible() ||countermeasure_independent1_selector.isVisible()|| countermeasure_ordered_population_selector.isVisible()){
+					if(countermeasure_population_selector.isVisible() || countermeasure_independent_selector.isVisible() ||countermeasure_independent1_selector.isVisible()|| countermeasure_ordered_population_selector.isVisible()||countermeasure_independent2_selector.isVisible()||countermeasure_independent3_selector.isVisible()||countermeasure_independent4_selector.isVisible()||countermeasure_independent5_selector.isVisible()){
 						countermeasure_edit_window.hide();
 						cm_title = countermeasure_list.getValue();
 						
@@ -1687,6 +1692,14 @@ Ext.namespace('UTMOST');
 		cm_options.filter('category_val', 'restraint_override');
 		var test = cm_options.getAt(0);
 		var res = (test.get('proportion')/100);
+		cm_options.clearFilter();
+		return res;
+	}
+	function cm_vehicle_age_get_value() {
+		cm_options.filter('category_val', 'vehicle_age');
+		var test = cm_options.getAt(0);
+		var res = (test.get('proportion')/100);
+		res=1-(res*.375);
 		cm_options.clearFilter();
 		return res;
 	}
