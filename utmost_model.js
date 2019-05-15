@@ -329,9 +329,9 @@
 					
 					//Redraw count chart
 					utmost_chart.setVisible(true);
-					utmost_totals_race_chart.setVisible(false);
 					utmost_totals_chart.setVisible(true);
 					utmost_injury_chart.setVisible(false);
+					utmost_totals_race_chart.setVisible(false);
 					utmost_chart.redraw(true);
 				
 				}

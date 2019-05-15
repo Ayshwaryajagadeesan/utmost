@@ -698,6 +698,7 @@ Ext.namespace('UTMOST');
 	var cm_description = Ext.create('Ext.panel.Panel',{
 		name: 'cm_desc',
 		title: "Description",
+		resizable:"true",
 		bodyPadding: 5,
 		height: "100%",
 		flex: 1
@@ -788,6 +789,7 @@ Ext.namespace('UTMOST');
 		layout: "form",
 		title: "Parameters",
 		flex: 1,
+		resizable:"true",
 		bodyPadding: 5,
 		items: [
 			countermeasure_list,
@@ -1354,11 +1356,12 @@ Ext.namespace('UTMOST');
 		title: "Adjust Countermeasure",
         width: "50%",
 		closeAction: 'hide',
-		resizable: false,
+		resizable: true,
 		items: [
 			{
 				xtype: 'panel',
 				layout: 'hbox',
+				resizable: true,
 				items: [countermeasure_edit_form, cm_description]
 			},
 			{

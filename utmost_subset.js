@@ -34,6 +34,9 @@
 			{group_var: 'urbanization', title: 'Urban', category_value:'"Urban"', chart_max: 5500000},
 			{group_var: 'urbanization', title: 'Rural', category_value:'"Rural"', chart_max: 5500000},
 			{group_var: 'urbanization', title: 'Suburban', category_value:'"Suburban"', chart_max: 5500000},
+			{group_var: 'urbanization_soc', title: 'Large Metro', category_value:'"Large Metro"', chart_max: 5500000},
+			{group_var: 'urbanization_soc', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
+			{group_var: 'urbanization_soc', title: 'S/M Metro', category_value:'"S/M Metro"', chart_max: 5500000},
 			{group_var: 'white', title: 'First Quintile', category_value:'"first"', chart_max: 5500000},
 			{group_var: 'white', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
 			{group_var: 'white', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
@@ -100,6 +103,7 @@
 		data_subsets.each(add_tab);
 		subset_control.setActiveTab(0);
 	}
+	
 	
 	var get_data_subset_cat = function(){
 		var active = subset_control.getActiveTab();

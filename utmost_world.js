@@ -30,7 +30,7 @@
 			{"val":"model_year", "name":"Vehicle Age", "set":"F"},
 			{"val":"light_condition", "name":"Light Condition", "set":"F"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set":"F"},
-			{"val":"urbanization_soc", "name":"Urbanization Socio Economic", "set":"F"},
+			{"val":"urbanization_soc", "name":"Urbanization", "set":"F"},
 			//{"val":"urbanization_acc", "name":"Urbanization Accident Zone", "set":"F"},
 			{"val":"white", "name":"Race(white)", "set":"F"},
 			{"val":"black", "name":"Race(black)", "set":"F"},
@@ -38,8 +38,7 @@
 			{"val":"hispanic", "name":"Ethnicity(Hispanic)", "set":"F"},
 			{"val":"non_hispanic", "name":"Ethnicity(Non Hispanic)", "set":"F"},
 			{"val":"education", "name":"Education", "set":"F"},
-			{"val":"income", "name":"Income", "set":"F"},
-			{"val":"race", "name":"Race", "set":"F"}
+			{"val":"income", "name":"Income", "set":"F"}			
 		]
 	});
 	chart_vars.filter('set', 'CI');
@@ -55,7 +54,7 @@
 		    {"val":"none", "name":"None", "set" : "F"},
 			{"val":"alcohol_involvement", "name":"Alcohol Involvement", "set" : "F"},
 			{"val":"age", "name":"Person Age", "set" : "F"},
-			{"val":"urbanization_soc", "name":"Urbanization Social Economic", "set" : "F"},
+			{"val":"urbanization_soc", "name":"Urbanization", "set" : "F"},
 			//{"val":"urbanization_acc", "name":"Urbanization Accident Zone", "set" : "F"},
 			{"val":"driver_age", "name":"Driver Age", "set" : "F"},
 			//{"val":"race", "name":"Race", "set" : "F"},
@@ -206,7 +205,7 @@
 								chart_vars.filter('set', 'CI');
 								chart_subsets.clearFilter();
 								chart_subsets.filter('set', 'CI');
-								if(chart_subset_selector.getSubmitValue()=='white'||chart_subset_selector.getSubmitValue()=='hispanic' ||chart_subset_selector.getSubmitValue()=='urbanization_soc'||chart_subset_selector.getSubmitValue()=='urbanization_acc')
+								if(chart_subset_selector.getSubmitValue()=='white'||chart_subset_selector.getSubmitValue()=='hispanic' ||chart_subset_selector.getSubmitValue()=='urbanization_soc'||chart_subset_selector.getSubmitValue()=='black'||chart_subset_selector.getSubmitValue()=='other')
 								{
 									chart_subset_selector.suspendEvents(false);
 									chart_subset_selector.select('none');
