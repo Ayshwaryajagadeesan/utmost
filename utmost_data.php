@@ -329,7 +329,7 @@
 			{
 			$race=$fatality_education_quintile_groups;
 			}
-			$query =  "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality_dev.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$race.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
+			$query =  "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality_dev.veh_age as veh_age, crash_fatality_dev.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$race.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, veh_age, mitigation_factor ORDER BY sort";
 		}
 	} else {
 		

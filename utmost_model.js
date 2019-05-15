@@ -102,6 +102,7 @@
 				{name: 'crash_type', type: 'string'},
 				{name: 'age', type: 'string'},
 				{name: 'driver_age', type: 'string'},
+				{name: 'veh_age', type: 'string'},
 				{name: 'frequency', type: 'float'}, 
 				{name: 'fatality_count', type: 'float'}, 
 				{name: 'fatality_count_adj', type: 'float'},
