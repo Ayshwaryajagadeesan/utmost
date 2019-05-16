@@ -113,122 +113,142 @@
 			}
 			else if($subset_category=='first'&& $subset_variable=='white')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '56.7% and Below')";
 			}
 			else if($subset_category=='second'&& $subset_variable=='white')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '56')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '56.7%-74.2%')";
 			}
 			else if($subset_category=='third'&& $subset_variable=='white')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '74')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '74.2%-84.3%')";
 			}
 			else if($subset_category=='fourth'&& $subset_variable=='white')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '84')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '84.3%-92.1%')";
 			}else if($subset_category=='fifth'&& $subset_variable=='white')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '92')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '92.1% and Above')";
 			}
 			else if($subset_category=='first'&& $subset_variable=='black')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '1.2% and Below')";
 			}
 			else if($subset_category=='second'&& $subset_variable=='black')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '1')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '1.2%-3.4%')";
 			}
 			else if($subset_category=='third'&& $subset_variable=='black')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '3')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '3.4%-7.8%')";
 			}
 			else if($subset_category=='fourth'&& $subset_variable=='black')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7.8%-19.4%')";
 			}
 			else if($subset_category=='fifth'&& $subset_variable=='black')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '19')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '19.4% and Above')";
 			}
 			else if($subset_category=='first'&& $subset_variable=='other')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '4.1% and Below')";
 			}
 			else if($subset_category=='second'&& $subset_variable=='other')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '4')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '4.1%-7.3%')";
 			}
 			else if($subset_category=='third'&& $subset_variable=='other')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7.3%-11.8%')";
 			}
 			else if($subset_category=='fourth'&& $subset_variable=='other')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '11')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '11.8%-21.6%')";
 			}
 			else if($subset_category=='fifth'&& $subset_variable=='other')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '21')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '21.6% and Above')";
 			}
 			else if($subset_category=='first'&& $subset_variable=='hispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '2.8% and Below')";
 			}
 			else if($subset_category=='second'&& $subset_variable=='hispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '2')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '2.8%-6.1%')";
 			}
 			else if($subset_category=='third'&& $subset_variable=='hispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '6')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '6.1%-12.6%')";
 			}
 			else if($subset_category=='fourth'&& $subset_variable=='hispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '12')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '12.6%-29.5%')";
 			}
 			else if($subset_category=='fifth'&& $subset_variable=='hispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '29')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '29.5% and Above')";
 			}
 			else if($subset_category=='first'&& $subset_variable=='nonhispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '0')";
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '70.5% and Below')";
 			}
 			else if($subset_category=='second'&& $subset_variable=='nonhispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic= '70')";
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic= '70.5%-87.4%')";
 			}
 			else if($subset_category=='third'&& $subset_variable=='nonhispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '87')";
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '87.4%-93.9%')";
 			}
 			else if($subset_category=='fourth'&& $subset_variable=='nonhispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '93')";
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '93.9%-97.2%')";
 			}
 			else if($subset_category=='fifth'&& $subset_variable=='nonhispanic')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '97')";
+				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '97.2% and Above')";
 			}
 			else if($subset_category=='first'&& $subset_variable=='education')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '0')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '15.6% and Below')";
 			}
 			else if($subset_category=='second'&& $subset_variable=='education')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '15')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '15.6%-22.0%')";
 			}
 			else if($subset_category=='third'&& $subset_variable=='education')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '22')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '22.0%-30.4%')";
 			}
 			else if($subset_category=='fourth'&& $subset_variable=='education')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '30')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '30.4%-43.8%')";
 			}
 			else if($subset_category=='fifth'&& $subset_variable=='education')
 			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '43')";
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '43.8% and Above')";
+			}
+			else if($subset_category=='first'&& $subset_variable=='income')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = 'Less than $40,179')";
+			}
+			else if($subset_category=='second'&& $subset_variable=='income')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '$40,179 to $49,190')";
+			}
+			else if($subset_category=='third'&& $subset_variable=='income')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '$49,190 to $60,224')";
+			}
+			else if($subset_category=='fourth'&& $subset_variable=='income')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '$60,224 to $77,298')";
+			}
+			else if($subset_category=='fifth'&& $subset_variable=='income')
+			{
+				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = 'Greater than $77,298')";
 			}													
 			else
 			{

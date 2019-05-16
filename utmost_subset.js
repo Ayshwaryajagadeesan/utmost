@@ -66,7 +66,12 @@
 			{group_var: 'education', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
 			{group_var: 'education', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
 			{group_var: 'education', title: 'Fourth Quintile', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'education', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000}								
+			{group_var: 'education', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000},
+			{group_var: 'income', title: 'First Quintile', category_value:'"first"', chart_max: 5500000},
+			{group_var: 'income', title: 'Second Quintile', category_value:'"second"', chart_max: 5500000},
+			{group_var: 'income', title: 'Third Quintile', category_value:'"third"', chart_max: 5500000},
+			{group_var: 'income', title: 'Fourth Quintile', category_value:'"fourth"', chart_max: 5500000},
+			{group_var: 'income', title: 'Fifth Quintile', category_value:'"fifth"', chart_max: 5500000}									
 		]
 	});
 	
