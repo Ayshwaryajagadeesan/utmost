@@ -257,10 +257,10 @@ Ext.namespace('UTMOST');
 				'selector_type': ["independent5"], 'selector_desc': ["Fleet Penetration"]
 			},
 			{
-				"val":"lawful_intersection_behaviour", 
+				"val":"lawful",
 				"name":"Lawful Intersection Behaviour",
 				"active":0,
-				"effectiveness":0,
+				"effectiveness":95,
 				"fleet_pen":100, 
 				"description":"How the age of a vehicle affects the at protecting occupants from injury in the event of a crash. ", 
 				'selector_type': ["numeric"], 'selector_desc': []
@@ -490,7 +490,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["independent5"], 'selector_desc': ["Fleet Penetration"]
 			},
 			{
-				"val":"lawful_intersection_behaviour", 
+				"val":"lawful", 
 				"name":"Lawful Intersection Behaviour",
 				"active":0,
 				"effectiveness":0,
