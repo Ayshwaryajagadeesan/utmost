@@ -123,8 +123,8 @@ Ext.namespace('UTMOST');
 				"effectiveness":5,
 				"fleet_pen":100, 
 				"description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle, potentially out of sight of the driver. There are no currently published estimates on the effectiveness of pedestrian detection systems.",
-				'selector_type': ["numeric"],
-				'selector_desc': []
+				'selector_type': ["independent"],
+				'selector_desc': ["Countermeasure Settings"]
 			},
 			{
 				"val":"backing", 
@@ -540,6 +540,9 @@ Ext.namespace('UTMOST');
 			{"category_val":"lka", 'name':"Rollover Effectiveness", 'target_val':"lka_rollover", 'base_rate':0, 'law_rate':9, 'proportion':91, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"lka", 'name':"Other Crash Effectiveness", 'target_val':"lka", 'base_rate':0, 'law_rate':9, 'proportion':35, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"lka", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"pedestrian_detection", 'name':"Pedestrian Countermeasure Effectiveness", 'target_val':"pedestrian_detection", 'base_rate':0, 'law_rate':9, 'proportion':91, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"pedestrian_detection", 'name':"Animal Countermeasure Effectiveness", 'target_val':"ped_detection_animal", 'base_rate':0, 'law_rate':9, 'proportion':35, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"pedestrian_detection", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"ldw", 'name':"Rollover Effectiveness", 'target_val':"ldw_rollover", 'base_rate':0, 'law_rate':9, 'proportion':70, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"ldw", 'name':"Other Crash Effectiveness", 'target_val':"ldw", 'base_rate':0, 'law_rate':9, 'proportion':9, 'detail_type': 'independent', 'lock': 0},
 			{"category_val":"ldw", 'name':"Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'independent', 'lock': 0},
@@ -1564,7 +1567,7 @@ Ext.namespace('UTMOST');
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override' && val != 'vehicle_crashworthiness'&& val != 'vehicle_age'){ 
-				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')){
+				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')||(val == 'pedestrian_detection')){
 					cm_options.clearFilter();
 					var toyota_index = 0;
 					cm_options.filter('category_val', val);
@@ -1592,7 +1595,7 @@ Ext.namespace('UTMOST');
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'&& val != 'vehicle_crashworthiness'){
-				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')){
+				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')||(val == 'pedestrian_detection')){
 					var toyota_index = 0;
 					cm_options.clearFilter();
 					cm_options.filter('category_val', val);
