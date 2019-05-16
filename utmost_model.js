@@ -886,7 +886,7 @@
 							record.set('fatality_count_adj', adj_fatals);
 						}
 						
-						if((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all"))
+						if((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all")||(data_subset_variable=='income' && data_subset_category == "all"))
 						{
 							var category = record.get('crash_type');
 						    var index = utmost_fatality_race_chart_values.findExact('crash_type', category);
@@ -935,7 +935,7 @@
 					});
 				   
 					
-					if((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all"))
+					if((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all")||(data_subset_variable=='income' && data_subset_category == "all"))
 					{			
                     utmost_fatality_race_chart_values.sort('sort', 'ASC');
 					var max = 0;
