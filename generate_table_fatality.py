@@ -1,9 +1,10 @@
 import csv
 import json
 import math
+import sys
 
 def generate_coefficient(data_library, age, crash_direction) :
-	if (age < 14) :
+	if (float(age) < 14) :
 		#if average age <=14 then 0
 		return 0
 	else:
@@ -12,7 +13,7 @@ def generate_coefficient(data_library, age, crash_direction) :
 
 
 def generate_unrestrained(data_library, crash_direction, sex, alcohol_involvement, light_condition, ped_alc, age, driver_age) : 
-	if (age > 14 or crash_direction == 'Cyclist' or crash_direction == 'Pedestrian') :
+	if (float(age) > 14 or crash_direction == 'Cyclist' or crash_direction == 'Pedestrian') :
 		#adult calcs
 		res = data_library['mais3']['intercept'][crash_direction]
 		if (sex == 'Female') : 
@@ -40,16 +41,16 @@ def generate_unrestrained(data_library, crash_direction, sex, alcohol_involvemen
 		res += data_library['estimate']['vehicle_age'] * 9
 		res += data_library['estimate']['driver_rest'] * .83
 		res += data_library['estimate']['seat_front'] * .1
-		res += data_library['estimate']['age_im'] * age
+		res += data_library['estimate']['age_im'] * float(age)
 		res += data_library['estimate']['opt_unrestrained']
-		res += data_library['estimate']['age_im_seat_front'] * age * .1
-		res += data_library['estimate']['age_im_opt_unrestrained'] * age
+		res += data_library['estimate']['age_im_seat_front'] * float(age) * .1
+		res += data_library['estimate']['age_im_opt_unrestrained'] * float(age)
 		return res
 	
 
 
 def generate_belted(data_library, crash_direction, sex, alcohol_involvement, light_condition, ped_alc, age, driver_age) : 
-	if (age > 14 or crash_direction == 'Cyclist' or crash_direction == 'Pedestrian') :
+	if (float(age) > 14 or crash_direction == 'Cyclist' or crash_direction == 'Pedestrian') :
 		#adult calcs
 		res = data_library['mais3']['intercept'][crash_direction]
 		res += data_library['mais3']['beltuse'][crash_direction]
@@ -78,10 +79,10 @@ def generate_belted(data_library, crash_direction, sex, alcohol_involvement, lig
 		res += data_library['estimate']['vehicle_age'] * 9
 		res += data_library['estimate']['driver_rest'] * .83
 		res += data_library['estimate']['seat_front'] * .1
-		res += data_library['estimate']['age_im'] * data_library['average_age'][age]
+		res += data_library['estimate']['age_im'] * float(age)
 		res += data_library['estimate']['opt_unrestrained']
-		res += data_library['estimate']['age_im_seat_front'] * data_library['average_age'][age] * .1
-		res += data_library['estimate']['age_im_opt_unrestrained'] * data_library['average_age'][age]
+		res += data_library['estimate']['age_im_seat_front'] * float(age) * .1
+		res += data_library['estimate']['age_im_opt_unrestrained'] * float(age)
 		return res
 
 def generate_child_optimal(data_library, crash_direction, sex, alcohol_involvement, light_condition, ped_alc, age, driver_age) : 
@@ -212,7 +213,7 @@ with open('data_library.json', "r" ) as f:
 
 #TODO: get datafile from arg
 out_rows = []
-datafile = 'crash_fatality_new.csv'
+datafile = str(sys.argv[1])
 with open(datafile, "r") as df :
 	#Load CSV
 	raw_data = csv.reader(df)

@@ -579,8 +579,7 @@
 							}
 							subrows.push(adjusted_row);
 						}
-						
-						
+					
 						
 						if (dv_calc_relevance != 0){
 							//get base risk
@@ -599,7 +598,7 @@
 								adjusted_injuries=adjusted_injuries*1.4;
 								
 							}
-							if(check_countermeasure(vehicle_age) && record.get('veh_age') == "12+")
+							if(check_countermeasure('vehicle_age') && record.get('veh_age') == "12+")
 								{
 									adjusted_injuries= adjusted_injuries*cm_vehicle_age_get_value(data_outcome_variable);
 								}
@@ -622,7 +621,7 @@
 								adjusted_injuries=adjusted_injuries*1.4;
 								
 							}
-							if(check_countermeasure(vehicle_age) && record.get('veh_age') == "12+")
+							if(check_countermeasure('vehicle_age') && record.get('veh_age') == "12+")
 								{
 									adjusted_injuries= adjusted_injuries*cm_vehicle_age_get_value(data_outcome_variable);
 								}
