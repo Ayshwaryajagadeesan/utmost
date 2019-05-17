@@ -799,6 +799,7 @@ Ext.namespace('UTMOST');
 		layout: "form",
 		title: "Parameters",
 		flex: 1,
+		bodyStyle: { height: '520px' },
 		
 		//resizable:"true",
 		bodyPadding: 5,
@@ -1411,10 +1412,10 @@ Ext.namespace('UTMOST');
 	
 	
 	var countermeasure_edit_window = Ext.create('Ext.window.Window', {
-		layout: "fit",
+		layout: "form",
 		title: "Adjust Countermeasure",
         width: "50%",
-        //height: '50%',
+		height:"30%",
 		//bodyStyle: { maxHeight: '520px' },
 
 		closeAction: 'hide',
@@ -1433,7 +1434,6 @@ Ext.namespace('UTMOST');
 				xtype: 'button',
 				text: 'Restore Default Values',
 				width: '100%',
-				//height:"10%",
 				//resizable: true,
 				handler: function(){
 					var selected = countermeasure_list.getValue();
@@ -1460,7 +1460,6 @@ Ext.namespace('UTMOST');
 				xtype: "button",
 				text: "Save and Apply Countermeasure",
                 width: "100%",
-				//height:"10%",
 				//resizable: true,
 				handler: function(){
 					var cm_detail = "";
@@ -1803,7 +1802,16 @@ Ext.namespace('UTMOST');
 		
 		return res;
 	}
-
+	countermeasure_edit_window.on('afterrender', function() {
+		var height=countermeasure_edit_window.maxWidth/2;
+    if (countermeasure_edit_window.getHeight() >height) {
+        countermeasure_edit_window.setHeight(countermeasure_edit_window.maxWidth);
+    }
+    countermeasure_edit_window.center();
+}, countermeasure_edit_window);
 	Ext.EventManager.onWindowResize(function(w, h){
     countermeasure_edit_window.doComponentLayout();
-	});
+	//countermeasure_edit_form.doComponentLayout();
+	//cm_description.doComponentLayout();
+
+});
