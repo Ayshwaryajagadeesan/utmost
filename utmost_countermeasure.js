@@ -565,31 +565,31 @@ Ext.namespace('UTMOST');
 			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent1', 'lock': 0},
 			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent1', 'lock': 0},
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
-			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
-			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
-			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
-			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent2', 'lock': 0},
-			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent2', 'lock': 0},
-			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent2', 'lock': 0},
-			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
-			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
-			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
-			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
-			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent3', 'lock': 0},
-			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent3', 'lock': 0},
-			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb_animal", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb_xpath", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb_turning", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"fcw_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"fcw_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"fcw_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"fcw", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"fcw_animal", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"fcw_xpath", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"fcw_turning", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"acc_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"acc_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"acc_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent3', 'lock': 0},
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
-			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
-			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
-			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
-			{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent4', 'lock': 0},
+			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"acc_animal", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"acc_xpath", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
+			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"acc_turning", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent3', 'lock': 0},
+			/*{"category_val":"aeb", 'name':"Rear End/LV Braking Effectiveness", 'target_val':"aeb_lv_decel", 'base_rate':0, 'law_rate':9, 'proportion':87, 'detail_type': 'independent4', 'lock': 0},
 			{"category_val":"aeb", 'name':"Rear End/LV Stopped Effectiveness", 'target_val':"aeb_lv_stopped", 'base_rate':0, 'law_rate':9, 'proportion':95, 'detail_type': 'independent4', 'lock': 0},
 			{"category_val":"aeb", 'name':"Rear End/LV Slower Effectiveness", 'target_val':"aeb_lv_slower", 'base_rate':0, 'law_rate':9, 'proportion':86, 'detail_type': 'independent4', 'lock': 0},
 			{"category_val":"aeb", 'name':"Other Rear End Effectiveness", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent4', 'lock': 0},
 			{"category_val":"aeb", 'name':"Animal Detection", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent4', 'lock': 0},
 			{"category_val":"aeb", 'name':"Cross Traffic Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent4', 'lock': 0},
 			{"category_val":"aeb", 'name':"Turning Same Direction Crashes", 'target_val':"aeb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent4', 'lock': 0},
-			{"category_val":"aeb", 'name':"ACC Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
+			*/{"category_val":"aeb", 'name':"ACC Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
 			{"category_val":"aeb", 'name':"AEB Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
 			{"category_val":"aeb", 'name':"FCW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':2, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 2},
 			{"category_val":"arb", 'name':"Counter Measure Effectiveness", 'target_val':"arb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
@@ -702,7 +702,8 @@ Ext.namespace('UTMOST');
 	var cm_description = Ext.create('Ext.panel.Panel',{
 		name: 'cm_desc',
 		title: "Description",
-		resizable:"true",
+		//overflowX: 'scroll',
+		//resizable:"true",
 		bodyPadding: 5,
 		height: "100%",
 		flex: 1
@@ -798,7 +799,8 @@ Ext.namespace('UTMOST');
 		layout: "form",
 		title: "Parameters",
 		flex: 1,
-		resizable:"true",
+		
+		//resizable:"true",
 		bodyPadding: 5,
 		items: [
 			countermeasure_list,
@@ -814,7 +816,8 @@ Ext.namespace('UTMOST');
 			countermeasure_independent3_selector,
 			countermeasure_independent4_selector,
 			countermeasure_independent5_selector,
-			countermeasure_ordered_population_selector
+			countermeasure_ordered_population_selector,
+			
 		]
 	});
 	
@@ -1406,23 +1409,32 @@ Ext.namespace('UTMOST');
 		
 	}
 	
+	
 	var countermeasure_edit_window = Ext.create('Ext.window.Window', {
-		layout: "form",
+		layout: "fit",
 		title: "Adjust Countermeasure",
         width: "50%",
+        //height: '50%',
+		//bodyStyle: { maxHeight: '520px' },
+
 		closeAction: 'hide',
-		resizable: true,
+		autoHeight: false,
+		resizable: false,
 		items: [
 			{
 				xtype: 'panel',
 				layout: 'hbox',
-				resizable: true,
-				items: [countermeasure_edit_form, cm_description]
+				//height="100%",
+				//resizable: true,
+				items: [countermeasure_edit_form, cm_description],
+				overflowY: 'scroll'
 			},
 			{
 				xtype: 'button',
 				text: 'Restore Default Values',
 				width: '100%',
+				//height:"10%",
+				//resizable: true,
 				handler: function(){
 					var selected = countermeasure_list.getValue();
 					cm_types.each(function(record){
@@ -1448,6 +1460,8 @@ Ext.namespace('UTMOST');
 				xtype: "button",
 				text: "Save and Apply Countermeasure",
                 width: "100%",
+				//height:"10%",
+				//resizable: true,
 				handler: function(){
 					var cm_detail = "";
 					var cm_title = "";
@@ -1520,23 +1534,28 @@ Ext.namespace('UTMOST');
 			}
 		],
 		hidden: true,
+		overflowY: 'scroll',
+		overflowX: 'scroll',
 		listeners:{
 			close: function(){
 				cm_types.clearFilter();
 			}
-		}
+			}
 	});
 	
 	var active_countermeasure_panel = Ext.create('Ext.panel.Panel', {
         title: 'Active Countermeasures',
         bodyPadding: 5,
-        autoScroll: true,
+        overflowY: 'scroll',
         region: 'center'
 	});
 	var countermeasure_panel = Ext.create('Ext.panel.Panel', {
 		region: 'center',
 		layout: 'border',
-		items: [active_countermeasure_panel, {
+		overflowY: 'scroll',
+		items: [active_countermeasure_panel,
+		
+		 {
 			xtype: 'panel',
             region: 'south',
             layout: 'vbox',
@@ -1549,7 +1568,7 @@ Ext.namespace('UTMOST');
 					countermeasure_list.clearValue();
 					countermeasure_edit_window.show();
 				}
-            },
+			},
 			{
 				xtype: 'button',
 				text: "Export to CSV",
@@ -1784,3 +1803,7 @@ Ext.namespace('UTMOST');
 		
 		return res;
 	}
+
+	Ext.EventManager.onWindowResize(function(w, h){
+    countermeasure_edit_window.doComponentLayout();
+	});
