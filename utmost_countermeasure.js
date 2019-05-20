@@ -63,7 +63,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
-			{
+			/*{
 				"val":"acc", 
 				"name":"Adaptive Cruise Control",
 				"active":0,
@@ -74,7 +74,7 @@ Ext.namespace('UTMOST');
 				'selector_desc': ["Countermeasure Settings", "Fleet Penetration"]
 				//'selector_type': ["numeric"], 
 				//'selector_desc': []
-			},
+			},*/
 			{
 				"val":"alcohol_interlock", 
 				"name":"Alcohol Interlock",
@@ -94,7 +94,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
-			{
+			/*{
 				"val":"fcw", 
 				"name":"Forward Collision Warning",
 				"active":0,
@@ -104,7 +104,7 @@ Ext.namespace('UTMOST');
 				"description":"Forward Collision Warning (FCW) alerts the driver when the vehicle is approaching a lead vehicle too fast. LeBlanc et al. (2017) found that four types of rear-end crashes can be addressed by FCW: lead-vehicle braking, lead-vehicle stopped, lead-vehicle slower and other rear-end crashes, all where alcohol is not involved. They also found that FCW was estimated to be 74.6% effective at reducing lead-vehicle braking crashes, 77.5% effective in lead-vehicle stopped crashes, 73.1% effective in lead-vehicle slower crashes, and 67.5% effective in other rear-end crashes. These estimates are higher than previous work and may represent an ideal effectiveness in which drivers respond reliably to the warning and do not turn the system off.",
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
-			},
+			},*/
 			{
 				"val":"lka", 
 				"name":"Lane Keeping Assistance",
@@ -149,7 +149,7 @@ Ext.namespace('UTMOST');
 			},			
 			{
 				"val":"aeb", 
-				"name":"Frontal crash warning",
+				"name":"Frontal Crash warning",
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
@@ -312,7 +312,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
-			{
+			/*{
 				"val":"acc", 
 				"name":"Adaptive Cruise Control",
 				"active":0,
@@ -321,7 +321,7 @@ Ext.namespace('UTMOST');
 				"description":"Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decellerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998)",
 				'selector_type': ["numeric"], 
 				'selector_desc': []
-			},
+			},*/
 			{
 				"val":"alcohol_interlock", 
 				"name":"Alcohol Interlock",
@@ -341,7 +341,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
-			{
+			/*{
 				"val":"fcw", 
 				"name":"Forward Collision Warning",
 				"active":0,
@@ -350,7 +350,7 @@ Ext.namespace('UTMOST');
 				"description":"Forward Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object in front of it at a dangerous rate. FCW is estimated to reduce 7-80% of rear end crashes (FWHA 1998, Kanianthra and Murtig 1997, Kullen 2005, NHTSA 2001, Regan et al. 2002, and 1Sugimoto 2005) and 50-80% of head-on and object crashes (Lee et al. 2002)", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
-			},
+			},*/
 			{
 				"val":"lka", 
 				"name":"Lane Keeping Assistance",
