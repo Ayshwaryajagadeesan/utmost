@@ -702,8 +702,6 @@ Ext.namespace('UTMOST');
 	var cm_description = Ext.create('Ext.panel.Panel',{
 		name: 'cm_desc',
 		title: "Description",
-		//overflowX: 'scroll',
-		//resizable:"true",
 		bodyPadding: 5,
 		height: "100%",
 		flex: 1
@@ -711,7 +709,6 @@ Ext.namespace('UTMOST');
 	var effectiveness_slider = Ext.create('Ext.slider.Single', {
 		fieldLabel: "Countermeasure Effectiveness:",
 		name: 'cm_effect',
-		//xtype: "sliderfield",
 		width: "100%",
 		value: 50,
 		increment: 1,
@@ -720,7 +717,6 @@ Ext.namespace('UTMOST');
 	});
 	var penetration_slider = Ext.create('Ext.slider.Single', {
 		fieldLabel: "Fleet Penetration:",
-		//xtype: "sliderfield",
 		name: 'cm_pen',
 		width: "100%",
 		value: 50,
@@ -799,9 +795,7 @@ Ext.namespace('UTMOST');
 		layout: "form",
 		title: "Parameters",
 		flex: 1,
-		bodyStyle: { height: '520px' },
-		
-		//resizable:"true",
+		bodyStyle: { height: "100%" },
 		bodyPadding: 5,
 		items: [
 			countermeasure_list,
@@ -1415,26 +1409,21 @@ Ext.namespace('UTMOST');
 		layout: "form",
 		title: "Adjust Countermeasure",
         width: "50%",
-		height:"30%",
-		//bodyStyle: { maxHeight: '520px' },
-
+		manageHeight:true,
+		autoScroll: true,
 		closeAction: 'hide',
-		autoHeight: false,
 		resizable: false,
 		items: [
 			{
 				xtype: 'panel',
 				layout: 'hbox',
-				//height="100%",
-				//resizable: true,
 				items: [countermeasure_edit_form, cm_description],
-				overflowY: 'scroll'
+				autoScroll: true,
 			},
 			{
 				xtype: 'button',
 				text: 'Restore Default Values',
 				width: '100%',
-				//resizable: true,
 				handler: function(){
 					var selected = countermeasure_list.getValue();
 					cm_types.each(function(record){
@@ -1459,8 +1448,7 @@ Ext.namespace('UTMOST');
 			{
 				xtype: "button",
 				text: "Save and Apply Countermeasure",
-                width: "100%",
-				//resizable: true,
+				width: "100%",
 				handler: function(){
 					var cm_detail = "";
 					var cm_title = "";
@@ -1533,8 +1521,6 @@ Ext.namespace('UTMOST');
 			}
 		],
 		hidden: true,
-		overflowY: 'scroll',
-		overflowX: 'scroll',
 		listeners:{
 			close: function(){
 				cm_types.clearFilter();
@@ -1565,6 +1551,7 @@ Ext.namespace('UTMOST');
 				handler: function(){
 					cm_types.filter('active',0);
 					countermeasure_list.clearValue();
+					countermeasure_edit_window.maxHeight=450;
 					countermeasure_edit_window.show();
 				}
 			},
@@ -1802,16 +1789,8 @@ Ext.namespace('UTMOST');
 		
 		return res;
 	}
-	countermeasure_edit_window.on('afterrender', function() {
-		var height=countermeasure_edit_window.maxWidth/2;
-    if (countermeasure_edit_window.getHeight() >height) {
-        countermeasure_edit_window.setHeight(countermeasure_edit_window.maxWidth);
-    }
-    countermeasure_edit_window.center();
-}, countermeasure_edit_window);
-	Ext.EventManager.onWindowResize(function(w, h){
-    countermeasure_edit_window.doComponentLayout();
-	//countermeasure_edit_form.doComponentLayout();
-	//cm_description.doComponentLayout();
+	
 
-});
+	Ext.EventManager.onWindowResize(function(w, h){
+		countermeasure_edit_window.doComponentLayout();
+	});
