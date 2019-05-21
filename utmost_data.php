@@ -2,7 +2,8 @@
 
 	//DB connect
 	$utmost_link = new mysqli('cmisst-db.miserver.it.umich.edu', 'cmisst', 'cmisst-a1s2d3f4', 'utmost_dev');
-
+	$path_filename="/var/log/apache2/query.log";
+	//$myfile = fopen($path_filename, "")
 	// Variable Set Constants
 	//Restraint Vars
 	$restraint_select_vars = "restraint.unrestrained as p_unrestrained, restraint.belted as p_belted, restraint.child_optimal as p_child_optimal, restraint.child_suboptimal as p_child_suboptimal, restraint.helmet as p_helmet";
@@ -30,13 +31,13 @@
 	$full_fatality_selects = "crash_type, crash_direction, age, driver_age, frequency, fatality_count, fatality_count_adj, mitigation_factor, mean_dv, sd_dv, dv_shift_relevance, risk_coefficient, n_unrestrained, n_optimal, n_suboptimal, n_unknown, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet";
 		
 	$fatality_restraint_groups = " sum(CASE WHEN restraint = 'None' THEN .2 ELSE 0 END) as n_unrestrained, sum(CASE WHEN restraint = 'Optimal' THEN .2 ELSE 0 END) as n_optimal,  sum(CASE WHEN restraint = 'Suboptimal' THEN .2 ELSE 0 END) as n_suboptimal,  sum(CASE WHEN restraint = 'Unknown' THEN .2 ELSE 0 END) as n_unknown, ";
-	$fatality_white_quintile_groups="sum(CASE WHEN white = '56.7% and Below' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN white = '56.7%-74.2%' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN white = '74.2%-84.3%' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN white = '84.3%-92.1%' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN white = '92.1% and Above' THEN .2 ELSE 0 END) as w_quintile5,";
-	$fatality_black_quintile_groups="sum(CASE WHEN black = '1.2% and Below' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN black = '1.2%-3.4%' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN black = '3.4%-7.8%' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN black = '7.8%-19.4%' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN black = '19.4% and Above' THEN .2 ELSE 0 END) as w_quintile5,";
-	$fatality_other_quintile_groups="sum(CASE WHEN other = '4.1% and Below' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN other = '4.1%-7.3%' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN other = '7.3%-11.8%' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN other = '11.8%-21.6%' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN other = '21.6% and Above' THEN .2 ELSE 0 END) as w_quintile5,";
-	$fatality_hispanic_quintile_groups="sum(CASE WHEN hispanic = '2.8% and Below' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN hispanic = '2.8%-6.1%' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN hispanic = '6.1%-12.6%' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN hispanic = '12.6%-29.5%' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN hispanic = '29.5% and Above' THEN .2 ELSE 0 END) as w_quintile5,";
-	$fatality_nonhispanic_quintile_groups="sum(CASE WHEN non_hispanic = '70.5% and Below' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN non_hispanic = '70.5%-87.4%' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN non_hispanic = '87.4%-93.9%' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN non_hispanic = '93.9%-97.2%' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN non_hispanic = '97.2% and Above' THEN .2 ELSE 0 END) as w_quintile5,";
-	$fatality_education_quintile_groups="sum(CASE WHEN education = '15.6% and Below' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN education = '15.6%-22.0%' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN education = '22.0%-30.4%' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN education = '30.4%-43.8%' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN education = '43.8% and Above' THEN .2 ELSE 0 END) as w_quintile5,";
-	$fatality_income_quintile_groups="sum(CASE WHEN income = 'Less than $40,179' THEN .2 ELSE 0 END) as w_quintile1,sum(CASE WHEN income = '$40,179 to $49,190' THEN .2 ELSE 0 END) as w_quintile2,sum(CASE WHEN income = '$49,190 to $60,224' THEN .2 ELSE 0 END) as w_quintile3,sum(CASE WHEN income = '$60,224 to $77,298' THEN .2 ELSE 0 END) as w_quintile4,sum(CASE WHEN income = 'Greater than $77,298' THEN .2 ELSE 0 END) as w_quintile5,";
+	$fatality_white_quintile_groups="sum(CASE WHEN white = '56.7% and Below' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN white = '56.7%-74.2%' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN white = '74.2%-84.3%' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN white = '84.3%-92.1%' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN white = '92.1% and Above' THEN .2 ELSE 0 END) as wq5,";
+	$fatality_black_quintile_groups="sum(CASE WHEN black = '1.2% and Below' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN black = '1.2%-3.4%' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN black = '3.4%-7.8%' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN black = '7.8%-19.4%' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN black = '19.4% and Above' THEN .2 ELSE 0 END) as wq5,";
+	$fatality_other_quintile_groups="sum(CASE WHEN other = '4.1% and Below' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN other = '4.1%-7.3%' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN other = '7.3%-11.8%' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN other = '11.8%-21.6%' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN other = '21.6% and Above' THEN .2 ELSE 0 END) as wq5,";
+	$fatality_hispanic_quintile_groups="sum(CASE WHEN hispanic = '2.8% and Below' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN hispanic = '2.8%-6.1%' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN hispanic = '6.1%-12.6%' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN hispanic = '12.6%-29.5%' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN hispanic = '29.5% and Above' THEN .2 ELSE 0 END) as wq5,";
+	$fatality_nonhispanic_quintile_groups="sum(CASE WHEN non_hispanic = '70.5% and Below' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN non_hispanic = '70.5%-87.4%' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN non_hispanic = '87.4%-93.9%' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN non_hispanic = '93.9%-97.2%' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN non_hispanic = '97.2% and Above' THEN .2 ELSE 0 END) as wq5,";
+	$fatality_education_quintile_groups="sum(CASE WHEN education = '15.6% and Below' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN education = '15.6%-22.0%' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN education = '22.0%-30.4%' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN education = '30.4%-43.8%' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN education = '43.8% and Above' THEN .2 ELSE 0 END) as wq5,";
+	$fatality_income_quintile_groups="sum(CASE WHEN income = 'Less than $40,179' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN income = '$40,179 to $49,190' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN income = '$49,190 to $60,224' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN income = '$60,224 to $77,298' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN income = 'Greater than $77,298' THEN .2 ELSE 0 END) as wq5,";
 	//Sort Strings
 	$sort = array();
 	$sort_dv = array();
@@ -258,7 +259,7 @@
 		$dv_relevance = '0';
 		$dv_interventions = array();
 		
-		if ($filters != ""){
+		if ($filters != "" && $subset_variable !='black' && $subset_variable !='white' && $subset_variable !='other'&& $subset_variable !='hispanic'&& $subset_variable !='nonhispanic' && $subset_variable !='education'&& $subset_variable !='income'){
 			$coeffs = mysqli_real_escape_string($utmost_link, $_GET["coeffs_string"]);
 			$filter_array = explode('~', $filters);
 			$coeff_array = explode('~', $coeffs);
@@ -433,6 +434,10 @@
 					}
 				}
 				error_log($query);
+				error_log($query,3,$path_filename);
+				//header($query);
+				//file_put_contents($path_filename, $query, FILE_APPEND);
+				
 			}
 		} else {
 			if ($outcome_variable == 'person_count'){
@@ -443,7 +448,11 @@
 		}
 	}
 	error_log($query);
+	error_log($query,3,$path_filename);
+	//header($query);
+	//file_put_contents($path_filename, $query, FILE_APPEND);
 	$res=$utmost_link->query($query);
+	
 	while ($row = mysqli_fetch_assoc($res)){
 			$data[] = $row;
 	}

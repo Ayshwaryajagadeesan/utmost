@@ -239,7 +239,7 @@ Ext.namespace('UTMOST');
 			},
 			{
 				"val":"vehicle_crashworthiness",
-				"name":"Vehicle Crashworthiness",
+				"name":"Occupant protection",
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
@@ -472,7 +472,7 @@ Ext.namespace('UTMOST');
 			},
 			{
 				"val":"vehicle_crashworthiness",
-				"name":"Vehicle Crashworthiness",
+				"name":"Occupant protection",
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 

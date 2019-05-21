@@ -40,11 +40,11 @@
 		extend: 'Ext.data.Model',
 		fields: [ 
 				{name: 'crash_type', type: 'string'},
-				{name: 'quintile1', type: 'float'}, 
-				{name: 'quintile2', type: 'float'},
-				{name: 'quintile3', type: 'float'},
-				{name: 'quintile4', type: 'float'},
-				{name: 'quintile5', type: 'float'},
+				{name: 'q1', type: 'float'}, 
+				{name: 'q2', type: 'float'},
+				{name: 'q3', type: 'float'},
+				{name: 'q4', type: 'float'},
+				{name: 'q5', type: 'float'},
 				{name: 'sort', type: 'int'}
 				
 				]
@@ -119,11 +119,11 @@
 				{name: 'i_child_suboptimal', type: 'float'},
 				{name: 'i_helmet', type: 'float'},
 				{name: 'n_unrestrained', type: 'float'},
-				{name:'w_quintile1',type:'float'},
-				{name:'w_quintile2',type:'float'},
-				{name:'w_quintile3',type:'float'},
-				{name:'w_quintile4',type:'float'},
-				{name:'w_quintile5',type:'float'},
+				{name:'wq1',type:'float'},
+				{name:'wq2',type:'float'},
+				{name:'wq3',type:'float'},
+				{name:'wq4',type:'float'},
+				{name:'wq5',type:'float'},
 				{name: 'n_optimal', type: 'float'},
 				{name: 'n_suboptimal', type: 'float'},
 				{name: 'n_unknown', type: 'float'},
@@ -895,21 +895,21 @@
 							    utmost_fatality_race_chart_values.add(
 							   	    {
 									'crash_type': category,
-									'quintile1':parseFloat(record.get('w_quintile1')),
-									'quintile2': parseFloat(record.get('w_quintile2')),
-									'quintile3':parseFloat(record.get('w_quintile3')),
-									'quintile4':parseFloat(record.get('w_quintile4')),
-									'quintile5':parseFloat(record.get('w_quintile5')),
+									'q1':parseFloat(record.get('wq1')),
+									'q2': parseFloat(record.get('wq2')),
+									'q3':parseFloat(record.get('wq3')),
+									'q4':parseFloat(record.get('wq4')),
+									'q5':parseFloat(record.get('wq5')),
 									'sort': record.get('sort')
 								    }
 							    );
 						        } else {
 							        var target_record = utmost_fatality_race_chart_values.getAt(index);
-							        target_record.set('quintile1', parseFloat(record.get('w_quintile1'))+parseFloat(target_record.get('quintile1')));
-									target_record.set('quintile2', parseFloat(record.get('w_quintile2'))+parseFloat(target_record.get('quintile2')));
-									target_record.set('quintile3', parseFloat(record.get('w_quintile3'))+parseFloat(target_record.get('quintile3')));
-									target_record.set('quintile4', parseFloat(record.get('w_quintile4'))+parseFloat(target_record.get('quintile4')));
-									target_record.set('quintile5', parseFloat(record.get('w_quintile5'))+parseFloat(target_record.get('quintile5')));
+							        target_record.set('q1', parseFloat(record.get('wq1'))+parseFloat(target_record.get('q1')));
+									target_record.set('q2', parseFloat(record.get('wq2'))+parseFloat(target_record.get('q2')));
+									target_record.set('q3', parseFloat(record.get('wq3'))+parseFloat(target_record.get('q3')));
+									target_record.set('q4', parseFloat(record.get('wq4'))+parseFloat(target_record.get('q4')));
+									target_record.set('q5', parseFloat(record.get('wq5'))+parseFloat(target_record.get('q5')));
 							        }
 						}
 						else{
@@ -955,71 +955,71 @@
 						if (!utmost_fatality_race_chart_values.getAt(i).get('crash_type')){
 							utmost_fatality_race_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
 						}
-						total_quintile1 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('quintile1'));
-						total_quintile2 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('quintile2'));
-						total_quintile3 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('quintile3'));
-						total_quintile4 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('quintile4'));
-						total_quintile5 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('quintile5'));
+						total_quintile1 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q1'));
+						total_quintile2 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q2'));
+						total_quintile3 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q3'));
+						total_quintile4 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q4'));
+						total_quintile5 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q5'));
 						//total=total_quintile1+total_quintile2+total_quintile3+total_quintile4+total_quintile5;
 						//adj_total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count_adj'));
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile1') > utmost_fatality_race_chart_values.getAt(i).get('quintile2'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1') > utmost_fatality_race_chart_values.getAt(i).get('q2'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile1')>utmost_fatality_race_chart_values.getAt(i).get('quintile3'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q3'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile1')>utmost_fatality_race_chart_values.getAt(i).get('quintile4')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile1')>utmost_fatality_race_chart_values.getAt(i).get('quintile5'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
 						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('quintile1')>max)
+							if(utmost_fatality_race_chart_values.getAt(i).get('q1')>max)
 							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('quintile1');
+							max = utmost_fatality_race_chart_values.getAt(i).get('q1');
 							}
 						}}}}
-					    if(utmost_fatality_race_chart_values.getAt(i).get('quintile2') > utmost_fatality_race_chart_values.getAt(i).get('quintile1'))
+					    if(utmost_fatality_race_chart_values.getAt(i).get('q2') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile2')>utmost_fatality_race_chart_values.getAt(i).get('quintile3'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q3'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile2')>utmost_fatality_race_chart_values.getAt(i).get('quintile4')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile2')>utmost_fatality_race_chart_values.getAt(i).get('quintile5'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
 						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('quintile2')>max)
+							if(utmost_fatality_race_chart_values.getAt(i).get('q2')>max)
 							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('quintile2');
+							max = utmost_fatality_race_chart_values.getAt(i).get('q2');
 							}
 						}}}}
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile3') > utmost_fatality_race_chart_values.getAt(i).get('quintile1'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile3')>utmost_fatality_race_chart_values.getAt(i).get('quintile2'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile3')>utmost_fatality_race_chart_values.getAt(i).get('quintile4')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile3')>utmost_fatality_race_chart_values.getAt(i).get('quintile5'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
 						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('quintile3')>max)
+							if(utmost_fatality_race_chart_values.getAt(i).get('q3')>max)
 							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('quintile3');
+							max = utmost_fatality_race_chart_values.getAt(i).get('q3');
 							}
 						}}}}
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile4') > utmost_fatality_race_chart_values.getAt(i).get('quintile1'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile4')>utmost_fatality_race_chart_values.getAt(i).get('quintile2'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile4')>utmost_fatality_race_chart_values.getAt(i).get('quintile3')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile4')>utmost_fatality_race_chart_values.getAt(i).get('quintile5'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q3')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
 						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('quintile4')>max)
+							if(utmost_fatality_race_chart_values.getAt(i).get('q4')>max)
 							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('quintile4');
+							max = utmost_fatality_race_chart_values.getAt(i).get('q4');
 							}
 						}}}}
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile5') > utmost_fatality_race_chart_values.getAt(i).get('quintile1'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile5')>utmost_fatality_race_chart_values.getAt(i).get('quintile2'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
 						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile5')>utmost_fatality_race_chart_values.getAt(i).get('quintile3')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('quintile5')>utmost_fatality_race_chart_values.getAt(i).get('quintile4'))
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q3')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q4'))
 						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('quintile5')>max)
+							if(utmost_fatality_race_chart_values.getAt(i).get('q5')>max)
 							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('quintile5');
+							max = utmost_fatality_race_chart_values.getAt(i).get('q5');
 							}
 						}}}}
 					}
@@ -1059,11 +1059,11 @@
 						var temp_max=total_quintile5/10;
 						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
 					}
-					utmost_totals_race_chart_values.getAt(0).set('quintile1', total_quintile1);
-					utmost_totals_race_chart_values.getAt(0).set('quintile2', total_quintile2);
-					utmost_totals_race_chart_values.getAt(0).set('quintile3', total_quintile3);
-					utmost_totals_race_chart_values.getAt(0).set('quintile4', total_quintile4);
-					utmost_totals_race_chart_values.getAt(0).set('quintile5', total_quintile5);								
+					utmost_totals_race_chart_values.getAt(0).set('q1', total_quintile1);
+					utmost_totals_race_chart_values.getAt(0).set('q2', total_quintile2);
+					utmost_totals_race_chart_values.getAt(0).set('q3', total_quintile3);
+					utmost_totals_race_chart_values.getAt(0).set('q4', total_quintile4);
+					utmost_totals_race_chart_values.getAt(0).set('q5', total_quintile5);								
 					utmost_totals_race_chart_values.commitChanges();
 					utmost_fatality_race_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
 					

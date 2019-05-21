@@ -201,10 +201,12 @@
 				type: 'Numeric',
 				position: 'left',
 				grid: true,
-				fields: ['quintile1'],
+				fields: ['q1'],
 				minimum: 0,
 				maximum: 5500000,
-				label: {renderer: function(v){ return v.toLocaleString();}}
+				label: {function(v) {
+                    return String(v);
+                }}
 			}, {
 				title: 'Type',
 				type: 'Category',
@@ -231,14 +233,16 @@
 				  width: 175,
 				  height: 60,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  (Math.round(storeItem.get('quintile1') / 10) * 10).toLocaleString() + '  <br/>Adjusted: ' +  (Math.round(storeItem.get('quintile2') / 10) * 10).toLocaleString() + '  <br/>Difference: ' +  ((Math.round(storeItem.get('fatality_count') / 10) *10) - (Math.round(storeItem.get('fatality_count_adj') / 10) * 10)).toLocaleString());
+					var browser = item.series.title[Ext.Array.indexOf(item.series.yField, item.yField)];
+					this.setTitle(browser + '<br/>for ' + storeItem.get('crash_type') + ': ' + Math.round(storeItem.get(item.yField)));
+					//this.setTitle(String(item.value[1]));
 				  }
 				},
 				style: {
                     align: "left"
                 },
 				label: {
-				  display: 'insideEnd',
+				  display: 'insideEnd',				  
 				  'text-anchor': 'middle',
 					field: 'data',
 					renderer: Ext.util.Format.numberRenderer('0,000'),
@@ -247,7 +251,7 @@
 				},
 				xField: 'crash_type',
 				groupGutter: 0,
-				yField: ['quintile1', 'quintile2','quintile3','quintile4','quintile5'],
+				yField: ['q1', 'q2','q3','q4','q5'],
 				title: ['quintile1', 'quintile2','quintile3','quintile4','quintile5']
 			}]
 	});	
@@ -317,7 +321,7 @@
 		var utmost_totals_race_chart_values = Ext.create('Ext.data.Store', {
 		model: 'Fatality_race_Type_Count',
 		data : [
-			{crash_type: "Total",quintile1: 12000000, quintile2: 12000000,quintile3: 12000000,quintile4: 12000000,quintile5: 12000000}
+			{crash_type: "Total",q1: 12000000, q2: 12000000,q3: 12000000,q4: 12000000,q5: 12000000}
 		]
 	});
 	
@@ -333,7 +337,7 @@
 				type: 'Numeric',
 				position: 'bottom',
 				grid: true,
-				fields: ['quintile1'],
+				fields: ['q1'],
 				minimum: 0,
 				maximum: 15000000,
 				label: {renderer: function(v){ return v.toLocaleString();}}
@@ -354,7 +358,8 @@
 				  width: 140,
 				  height: 60,
 				  renderer: function(storeItem, item) {
-					this.setTitle(storeItem.get('crash_type') + ' <br/>Baseline: ' +  Math.floor(storeItem.get('quintile1')).toLocaleString() + '  <br/>Adjusted: ' +  Math.floor(storeItem.get('quintile2')).toLocaleString() + '  <br/>Difference: ' +  Math.floor(storeItem.get('person_count') - storeItem.get('person_count_adj')).toLocaleString() );
+					var browser = item.series.title[Ext.Array.indexOf(item.series.yField, item.yField)];
+					this.setTitle('Total <br/> for ' +browser + ': ' + Math.round(storeItem.get(item.yField)));
 				  }
 				},
 				style: {
@@ -369,7 +374,7 @@
 					color: '#333'
 				},
 				xField: 'crash_type',
-				yField: ['quintile1', 'quintile2','quintile3','quintile4','quintile5'],
+				yField: ['q1', 'q2','q3','q4','q5'],
 				title:['q1','q2','q3','q4','q5']
 				
 			}]
