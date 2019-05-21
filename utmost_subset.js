@@ -104,7 +104,7 @@
 		//add "All" tab
 		subset_control.add({title: 'All'});
 		data_subsets.clearFilter();
-		data_subsets.filter('group_var', group_var);
+		data_subsets.filter('group_var', new RegExp('^' + Ext.escapeRe(group_var) + '$'));
 		data_subsets.each(add_tab);
 		subset_control.setActiveTab(0);
 	}
