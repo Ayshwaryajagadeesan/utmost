@@ -25,10 +25,10 @@
 	$fatal_dv_select_vars = "fatality_dv.mean_dv as mean_dv, fatality_dv.sd_dv as sd_dv";
 	$dv_shift_key = "";
 	$injury_calc_groups = ", crash_direction, age, driver_age, veh_age, p_unrestrained, p_belted, p_child_optimal, p_child_suboptimal, p_helmet, risk_coefficient, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet,  mean_dv, sd_dv";
-	$fatal_injury_calc_groups = ", crash_direction, age, driver_age,risk_coefficient, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet, i_unrestrained, i_belted,i_child_optimal, i_child_suboptimal, i_helmet, mean_dv, sd_dv";
+	$fatal_injury_calc_groups = ", crash_direction, age, driver_age,risk_coefficient, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet, mean_dv, sd_dv";
 	
 	$full_injury_selects = "crash_type, crash_direction, age, driver_age, frequency, injury_count, injury_count_adj, mitigation_factor, mean_dv, sd_dv, dv_shift_relevance, risk_coefficient, p_unrestrained, p_belted, p_child_optimal, p_child_suboptimal, p_helmet, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet";
-	$full_fatality_selects = "crash_type, crash_direction, age, driver_age, frequency, fatality_count, fatality_count_adj, mitigation_factor, mean_dv, sd_dv, dv_shift_relevance, risk_coefficient, n_unrestrained, n_optimal, n_suboptimal, n_unknown, i_unrestrained, i_belted, i_child_optimal, i_child_suboptimal, i_helmet, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet";
+	$full_fatality_selects = "crash_type, crash_direction, age, driver_age, frequency, fatality_count, fatality_count_adj, mitigation_factor, mean_dv, sd_dv, dv_shift_relevance, risk_coefficient, n_unrestrained, n_optimal, n_suboptimal, n_unknown, r_unrestrained, r_belted, r_child_optimal, r_child_suboptimal, r_helmet";
 		
 	$fatality_restraint_groups = " sum(CASE WHEN restraint = 'None' THEN .2 ELSE 0 END) as n_unrestrained, sum(CASE WHEN restraint = 'Optimal' THEN .2 ELSE 0 END) as n_optimal,  sum(CASE WHEN restraint = 'Suboptimal' THEN .2 ELSE 0 END) as n_suboptimal,  sum(CASE WHEN restraint = 'Unknown' THEN .2 ELSE 0 END) as n_unknown, ";
 	$fatality_white_quintile_groups="sum(CASE WHEN white = '56.7% and Below' THEN .2 ELSE 0 END) as wq1,sum(CASE WHEN white = '56.7%-74.2%' THEN .2 ELSE 0 END) as wq2,sum(CASE WHEN white = '74.2%-84.3%' THEN .2 ELSE 0 END) as wq3,sum(CASE WHEN white = '84.3%-92.1%' THEN .2 ELSE 0 END) as wq4,sum(CASE WHEN white = '92.1% and Above' THEN .2 ELSE 0 END) as wq5,";
@@ -99,6 +99,31 @@
 	
 	if ($outcome_variable == 'fatality_count'){
 				//fatality subsets
+		$race=$fatality_white_quintile_groups;
+		if($subset_variable=='black')
+			{
+			$race=$fatality_black_quintile_groups;
+			}
+			if($subset_variable=='other')
+			{
+			$race=$fatality_other_quintile_groups;
+			}
+			if($subset_variable=='hispanic')
+			{
+			$race=$fatality_hispanic_quintile_groups;
+			}
+			if($subset_variable=='nonhispanic')
+			{
+			$race=$fatality_nonhispanic_quintile_groups;
+			}
+			if($subset_variable=='education')
+			{
+			$race=$fatality_education_quintile_groups;
+			}
+			if($subset_variable=='income')
+			{
+			$race=$fatality_income_quintile_groups;
+			}
 		if ($subset_category != "all"){
 			if($subset_category=='white')
 			{
@@ -259,7 +284,7 @@
 		$dv_relevance = '0';
 		$dv_interventions = array();
 		
-		if ($filters != "" && $subset_variable !='black' && $subset_variable !='white' && $subset_variable !='other'&& $subset_variable !='hispanic'&& $subset_variable !='nonhispanic' && $subset_variable !='education'&& $subset_variable !='income'){
+		if ($filters != ""){
 			$coeffs = mysqli_real_escape_string($utmost_link, $_GET["coeffs_string"]);
 			$filter_array = explode('~', $filters);
 			$coeff_array = explode('~', $coeffs);
@@ -319,9 +344,9 @@
 					$dv_relevance = '('.implode(' * ', $dv_interventions).')';
 					//$dv_relevance = "IFNULL(fcw.relevance, IFNULL(fcw_lv_decel.relevance, IFNULL(fcw_lv_slower.relevance, fcw_lv_stopped.relevance)))";
 					$dv_shift_key = "concat(CAST((".$dv_relevance."*10) AS SIGNED)*10, '-', CAST(fatality_dv.mean_dv*10 AS SIGNED)*10, '-',CAST(fatality_dv.sd_dv*10 AS SIGNED)*10) as temp_key";
-					$query = "SELECT logninv.res AS dv_shift_value, ".$full_fatality_selects.", ".$sort_dv[$group_type]." FROM (SELECT crash_fatality_dev.".$group_type." as crash_type,  crash_fatality_dev.crash_direction as crash_direction, crash_fatality_dev.age as age, crash_fatality_dev.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$fatal_injury_select_vars.", ".$fatal_risk_select_vars.", ".$fatal_dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$dv_shift_key." FROM `crash_fatality_dev` ".$joins." LEFT JOIN fatality_dv ON crash_fatality_dev.fatality_dv_key = fatality_dv.fatality_dv_key  ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_injury_calc_groups.", mitigation_factor, dv_shift_relevance, temp_key) AS A LEFT JOIN logninv ON temp_key = logninv.logninv_key ORDER BY sort";
+					$query = "SELECT logninv.res AS dv_shift_value, ".$full_fatality_selects.", ".$sort_dv[$group_type]." FROM (SELECT crash_fatality_dev.".$group_type." as crash_type,  crash_fatality_dev.crash_direction as crash_direction, crash_fatality_dev.age as age, crash_fatality_dev.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$race.$fatal_injury_select_vars.", ".$fatal_risk_select_vars.", ".$fatal_dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$dv_shift_key." FROM `crash_fatality_dev` ".$joins." LEFT JOIN fatality_dv ON crash_fatality_dev.fatality_dv_key = fatality_dv.fatality_dv_key  ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_injury_calc_groups.", mitigation_factor, dv_shift_relevance, temp_key) AS A LEFT JOIN logninv ON temp_key = logninv.logninv_key ORDER BY sort";
 				} else {
-					$query = "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, crash_fatality_dev.driver_age as driver_age, sum(frequency) as fatality_count, sum(frequency *(0 + ".$filter_query_string.")) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$joins.$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
+					$query = "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, crash_fatality_dev.driver_age as driver_age, sum(frequency) as fatality_count, sum(frequency *(0 + ".$filter_query_string.")) as fatality_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$fatality_restraint_groups.$race.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$joins.$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, mitigation_factor ORDER BY sort";
 				}					
 			}
 		} else {
@@ -330,31 +355,8 @@
 			{
 				$group_type="veh_age";
 			}
-		    $race=$fatality_white_quintile_groups;
-			if($subset_variable=='black')
-			{
-			$race=$fatality_black_quintile_groups;
-			}
-			if($subset_variable=='other')
-			{
-			$race=$fatality_other_quintile_groups;
-			}
-			if($subset_variable=='hispanic')
-			{
-			$race=$fatality_hispanic_quintile_groups;
-			}
-			if($subset_variable=='nonhispanic')
-			{
-			$race=$fatality_nonhispanic_quintile_groups;
-			}
-			if($subset_variable=='education')
-			{
-			$race=$fatality_education_quintile_groups;
-			}
-			if($subset_variable=='income')
-			{
-			$race=$fatality_income_quintile_groups;
-			}
+		    
+			
 			$query =  "SELECT distinct crash_fatality_dev.".$group_type." as crash_type, sum(frequency) as fatality_count, sum(frequency) as fatality_count_adj, crash_fatality_dev.veh_age as veh_age, crash_fatality_dev.driver_age as driver_age, 1 as mitigation_factor, ".$fatality_restraint_groups.$race.$fatal_risk_select_vars.", ".$sort_fatality[$group_type]." FROM `crash_fatality_dev` ".$subset_string." GROUP BY crash_fatality_dev.".$group_type.$fatal_risk_groups." driver_age, veh_age, mitigation_factor ORDER BY sort";
 		}
 	} else {
@@ -433,8 +435,9 @@
 						$query = "SELECT crash_injury_dev.".$group_type." as crash_type,  crash_injury_dev.crash_direction as crash_direction, crash_injury_dev.age as age, crash_injury_dev.driver_age as driver_age, sum(frequency) as frequency, sum(frequency) as injury_count, sum(frequency) as injury_count_adj, (0 + ".$filter_query_string.") as mitigation_factor, ".$restraint_select_vars.", ".$injury_select_vars.", ".$risk_select_vars.", ".$dv_select_vars.", ".$dv_relevance." as dv_shift_relevance, 0 as dv_shift_value, ".$sort[$group_type]." FROM `crash_injury_dev` ".$joins." LEFT JOIN dv ON crash_injury_dev.dv_key = dv.dv_key LEFT JOIN restraint on restraint.restraint_key = crash_injury_dev.restraint_key ".$subset_string." GROUP BY crash_injury_dev.".$group_type.$injury_calc_groups.", mitigation_factor ORDER BY sort";
 					}
 				}
-				error_log($query);
-				error_log($query,3,$path_filename);
+				error_log(print_r($query,true));
+				//print_r($query);
+				//error_log($query,3,$path_filename);
 				//header($query);
 				//file_put_contents($path_filename, $query, FILE_APPEND);
 				
@@ -447,8 +450,9 @@
 			}
 		}
 	}
-	error_log($query);
-	error_log($query,3,$path_filename);
+	error_log(print_r($query,true));
+	//print_r($query);
+	//error_log($query,3,$path_filename);
 	//header($query);
 	//file_put_contents($path_filename, $query, FILE_APPEND);
 	$res=$utmost_link->query($query);
