@@ -73,7 +73,7 @@
 			{group_var: 'income', title: '$40,179 to $49,190', category_value:'"second"', chart_max: 5500000},
 			{group_var: 'income', title: '$49,190 to $60,224', category_value:'"third"', chart_max: 5500000},
 			{group_var: 'income', title: '$60,224 to $77,298', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'income', title: 'Greater than $77,298', category_value:'"fifth"', chart_max: 5500000}									
+			{group_var: 'income', title: 'Greater than $77,298', category_value:'"fifth"', chart_max: 5500000}
 		]
 	});
 	
