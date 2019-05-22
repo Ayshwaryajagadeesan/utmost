@@ -449,7 +449,7 @@
 					}
 				}
 				error_log(print_r($query,true));
-				//print_r($query);
+				print_r($query);
 				//error_log($query,3,$path_filename);
 				//header($query);
 				//file_put_contents($path_filename, $query, FILE_APPEND);
@@ -464,7 +464,7 @@
 		}
 	}
 	error_log(print_r($query,true));
-	//print_r($query);
+	print_r($query);
 	//error_log($query,3,$path_filename);
 	//header($query);
 	//file_put_contents($path_filename, $query, FILE_APPEND);
