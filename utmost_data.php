@@ -59,6 +59,7 @@
 	$sort_dv['alcohol_involvement'] = 'FIELD(crash_type, "Alcohol Involved", "No Alcohol Involved") as sort';
 	$sort_dv['light_condition'] = 'FIELD(crash_type, "Light", "Dark--Lighted", "Dark", "Other") as sort';
 	$sort_dv['urbanization'] = 'FIELD(crash_type, "Urban", "Suburban", "Rural") as sort';
+	$sort_dv['urbanization_soc'] = 'FIELD(crash_type, "Large Metro", "S/M Metro", "Nonmetro") as sort';
 	$sort_dv['veh_age'] = 'FIELD(crash_type, "Unknown or N/A", "0-11", "12+") as sort';
 	$sort_dv['white'] = 'FIELD(crash_type, "56.7% and Below", "56.7%-74.2%", "74.2%-84.3%", "84.3%-92.1%", "92.1% and Above", "unknown") as sort';
 	$sort_dv['black'] = 'FIELD(crash_type, "1.2% and Below", "1.2%-3.4%", "3.4%-7.8%", "7.8%-19.4%", "19.4% and Above", "unknown") as sort';
