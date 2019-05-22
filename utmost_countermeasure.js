@@ -137,13 +137,13 @@ Ext.namespace('UTMOST');
 			},
 			{
 				"val":"arb", 
-				"name":"Automatic Rear Braking",
+				"name":"Rear Crash Warning",
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
 				"description":"[NEED DESC + DEFUALTS]",
-				'selector_type': ["independent", "ordered_population"], 
-				'selector_desc': ["Countermeasure Settings", "Fleet Penetration"]
+				'selector_type': ["independent1", "independent2", "ordered_population"], 
+				'selector_desc': ["Countermeasure Settings for Reverse Collision Warning", "Countermeasure for Automatic Rear Braking", "Fleet Penetration"]
 				//'selector_type': ["numeric"], 
 				//'selector_desc': []
 			},			
@@ -592,7 +592,8 @@ Ext.namespace('UTMOST');
 			*/{"category_val":"aeb", 'name':"ACC Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
 			{"category_val":"aeb", 'name':"AEB Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
 			{"category_val":"aeb", 'name':"FCW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':2, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 2},
-			{"category_val":"arb", 'name':"Counter Measure Effectiveness", 'target_val':"arb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
+			{"category_val":"arb", 'name':"Counter Measure Effectiveness", 'target_val':"backing", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent1', 'lock': 0},
+			{"category_val":"arb", 'name':"Counter Measure Effectiveness", 'target_val':"arb", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent2', 'lock': 0},
 			{"category_val":"arb", 'name':"ARB Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':0, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 0},
 			{"category_val":"arb", 'name':"RCW Fleet Penetration", 'target_val':"PENETRATION", 'base_rate':1, 'law_rate':9, 'proportion':100, 'detail_type': 'ordered_population', 'lock': 1},
 			{"category_val":"acc", 'name':"Counter Measure Effectiveness", 'target_val':"acc", 'base_rate':0, 'law_rate':9, 'proportion':83, 'detail_type': 'independent', 'lock': 0},
