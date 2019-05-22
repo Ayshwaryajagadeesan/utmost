@@ -20,7 +20,7 @@ Ext.namespace('UTMOST');
 	var cm_types = Ext.create('Ext.data.Store', {
 		model: 'Countermeasure_Type_Count',
 		data : [
-			{
+			/*{
 				"val":"ldw", 
 				"name":"Lane Departure Warning",
 				"active":0,
@@ -30,7 +30,7 @@ Ext.namespace('UTMOST');
 				"description" : "Lane-departure warning alerts the driver when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LeBlanc et al. (2017) found that all drifting crashes and 61% of road-departure crashes not involving alcohol could be affected by LDW. They also found that LDW was estimated to be 69.9% effective at reducing rollovers associated with drifting and run-off- road crashes, but only 3.8% effective at reducing crashes into objects and vehicles out of the driver's lane.",
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
-			},
+			},*/
 			{
 				"val":"ldp", 
 				"name":"Lateral Crash Warning",
@@ -105,7 +105,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
 			},*/
-			{
+			/*{
 				"val":"lka", 
 				"name":"Lane Keeping Assistance",
 				"active":0,
@@ -115,7 +115,7 @@ Ext.namespace('UTMOST');
 				"description": "Lane-keep assist steers the vehicle back towards the lane when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LKA is generally combined with LDW. LeBlanc et al. (2017) found that all drifting crashes and 61% of road departure crashes could be affected by LKA+LDW. They also found that LKA+LDW was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off-road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver's lane.",
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
-			},
+			},*/
 			{
 				"val":"pedestrian_detection", 
 				"name":"Pedestrian Detection",
@@ -126,7 +126,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["independent"],
 				'selector_desc': ["Countermeasure Settings"]
 			},
-			{
+			/*{
 				"val":"backing", 
 				"name":"Reverse Collision Warning",
 				"active":0,"effectiveness":65,
@@ -134,7 +134,7 @@ Ext.namespace('UTMOST');
 				"description":"Reverse Collision Warning is a system that provides an alert to the driver in the event the vehicle is approaching an object behind it at a dangerous rate. Reverse collision warning systems are estimated to reduce 50-81% of backing crashes (Lee 2002)", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
-			},
+			},*/
 			{
 				"val":"arb", 
 				"name":"Rear Crash Warning",
@@ -1573,7 +1573,7 @@ Ext.namespace('UTMOST');
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override' && val != 'vehicle_crashworthiness'&& val != 'vehicle_age'){ 
-				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')||(val == 'pedestrian_detection')){
+				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')||(val == 'pedestrian_detection')||(val == 'arb')){
 					cm_options.clearFilter();
 					var toyota_index = 0;
 					cm_options.filter('category_val', val);
@@ -1601,7 +1601,7 @@ Ext.namespace('UTMOST');
 			var test = cm_types.getAt(index);
 			var val = test.get('val');
 			if (test.get('active') == 1 && val != 'child_seat' && val != 'teen_driver' && val != 'seatbelt' && val != 'helmet'&& val != 'restraint_override'&& val != 'vehicle_crashworthiness'){
-				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')||(val == 'pedestrian_detection')){
+				if ((val == 'TOYOTA') || (val == 'fcw') || (val == 'aeb') || (val == 'lka') || (val == 'ldw') || (val == 'ldp')||(val == 'pedestrian_detection')||(val == 'arb')){
 					var toyota_index = 0;
 					cm_options.clearFilter();
 					cm_options.filter('category_val', val);
