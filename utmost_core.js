@@ -84,7 +84,11 @@ function utmost_core(returning_user){
 		target: utmost_ui
 	});
 	
-	data_update();
+	Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
+					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
 	
 	//Ext.resumeLayouts(true);
 }

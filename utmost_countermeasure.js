@@ -1396,7 +1396,11 @@ Ext.namespace('UTMOST');
 						var targ_name = this.title;
 						var rec = cm_types.findRecord('name', targ_name);
 						rec.set('active', 0);
-						data_update();
+						Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
+					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
 						return true;
 					}
 				}
@@ -1465,7 +1469,11 @@ Ext.namespace('UTMOST');
 						rec.set('fleet_pen', form_values['cm_pen']);
 						cm_detail = "<p>Effectiveness: "+form_values['cm_effect']+"%</p>" + "<p>Fleet Penetration: "+form_values['cm_pen']+"%</p>";
 						cm_title = form_values['cm_name'];
-						data_update();
+						Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
+					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
 						
 					}  
 					
@@ -1482,7 +1490,11 @@ Ext.namespace('UTMOST');
 							rec.set('fleet_pen', modifier_lookup.get('fleet_pen'));
 							cm_detail = "<p>Active Item: "+rec.get('name') + "<br/>(Effectiveness Varies)";
 						}
-						data_update();
+						Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
+					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
 					}  
 					if(countermeasure_category_multiselector.isVisible()){
 						/*Fix querying to support multiselect*/	
@@ -1511,7 +1523,11 @@ Ext.namespace('UTMOST');
 						
 						cm_detail = "<p>Active Item: "+cm_title + "<br/><br/>(Effectiveness Varies)";
 						
-						data_update();
+						Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
+					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
 					}
 					
 					generate_countermeasure_output(cm_title, cm_detail);

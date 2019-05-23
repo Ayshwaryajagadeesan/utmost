@@ -141,8 +141,11 @@
 					var target_record = data_subsets.findRecord('title', 'All');
 					target_record.set('chart_max', utmost_chart.axes.getAt(0).maximum);
 					data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
-					
+					Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
 					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
 				}
 			}
 	});
@@ -158,8 +161,13 @@
 			fieldLabel: 'Chart Subset',
 			listeners: {
 				select: function( combo, records, eOpts ){
+					Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
 					data_update();
 					generate_subset_tabs(chart_subset_selector.getSubmitValue());
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
+					
 				}
 			}
 	});
@@ -217,7 +225,11 @@
 						chart_variable_selector.select('crash_direction');
 					chart_variable_selector.resumeEvents();
 					
+					Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
 					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
 				}
 			}
 	});

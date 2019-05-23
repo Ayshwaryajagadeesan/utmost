@@ -723,6 +723,209 @@
 			
 			});
 		} 
+			else if (data_outcome_variable == 'fatality_count'&& ((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all")||(data_subset_variable=='income' && data_subset_category == "all"))){
+			utmost_fatality_raw_values.load({
+				params: {
+					filter_string: cm_string,
+					coeffs_string: cm_cf_string,
+					group_type: data_categories,
+					subset_variable : data_subset_variable,
+					subset_category : data_subset_category,
+					outcome_variable : data_outcome_variable
+				},
+				callback: function(records, operation, success){
+				
+					//total rows by category
+					utmost_fatality_chart_values.removeAll();
+					utmost_fatality_race_chart_values.removeAll();
+					utmost_fatality_raw_values.each(function(record){
+						var category = record.get('crash_type');
+						    var index = utmost_fatality_race_chart_values.findExact('crash_type', category);
+						    
+						     if (index == -1){
+							    utmost_fatality_race_chart_values.add(
+							   	    {
+									'crash_type': category,
+									'q1':parseFloat(record.get('wq1')),
+									'q2': parseFloat(record.get('wq2')),
+									'q3':parseFloat(record.get('wq3')),
+									'q4':parseFloat(record.get('wq4')),
+									'q5':parseFloat(record.get('wq5')),
+									'sort': record.get('sort')
+								    }
+							    );
+						        } else {
+							        var target_record = utmost_fatality_race_chart_values.getAt(index);
+							        target_record.set('q1', parseFloat(record.get('wq1'))+parseFloat(target_record.get('q1')));
+									target_record.set('q2', parseFloat(record.get('wq2'))+parseFloat(target_record.get('q2')));
+									target_record.set('q3', parseFloat(record.get('wq3'))+parseFloat(target_record.get('q3')));
+									target_record.set('q4', parseFloat(record.get('wq4'))+parseFloat(target_record.get('q4')));
+									target_record.set('q5', parseFloat(record.get('wq5'))+parseFloat(target_record.get('q5')));
+							        }
+						});
+				    utmost_fatality_race_chart_values.sort('sort', 'ASC');
+					var max = 0;
+					var top_count = 0
+					var total_quintile1 = 0;
+					var total_quintile2 = 0;
+					var total_quintile3 = 0;
+					var total_quintile4 = 0;
+					var total_quintile5 = 0;
+					//var adj_total = 0;
+					var count = utmost_fatality_race_chart_values.count();
+					
+					
+					
+					//sum values for totals charts
+					for (i = 0; i < count; i++){
+						if (!utmost_fatality_race_chart_values.getAt(i).get('crash_type')){
+							utmost_fatality_race_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
+						}
+						total_quintile1 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q1'));
+						total_quintile2 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q2'));
+						total_quintile3 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q3'));
+						total_quintile4 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q4'));
+						total_quintile5 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q5'));
+						//total=total_quintile1+total_quintile2+total_quintile3+total_quintile4+total_quintile5;
+						//adj_total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count_adj'));
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1') > utmost_fatality_race_chart_values.getAt(i).get('q2'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q3'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
+						{
+							if(utmost_fatality_race_chart_values.getAt(i).get('q1')>max)
+							{
+							max = utmost_fatality_race_chart_values.getAt(i).get('q1');
+							}
+						}}}}
+					    if(utmost_fatality_race_chart_values.getAt(i).get('q2') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q3'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
+						{
+							if(utmost_fatality_race_chart_values.getAt(i).get('q2')>max)
+							{
+							max = utmost_fatality_race_chart_values.getAt(i).get('q2');
+							}
+						}}}}
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
+						{
+							if(utmost_fatality_race_chart_values.getAt(i).get('q3')>max)
+							{
+							max = utmost_fatality_race_chart_values.getAt(i).get('q3');
+							}
+						}}}}
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q3')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
+						{
+							if(utmost_fatality_race_chart_values.getAt(i).get('q4')>max)
+							{
+							max = utmost_fatality_race_chart_values.getAt(i).get('q4');
+							}
+						}}}}
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
+						{
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q3')){
+						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q4'))
+						{
+							if(utmost_fatality_race_chart_values.getAt(i).get('q5')>max)
+							{
+							max = utmost_fatality_race_chart_values.getAt(i).get('q5');
+							}
+						}}}}
+					}
+					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
+					if(total_quintile1>total_quintile2 && total_quintile1>total_quintile3 && total_quintile1>total_quintile4 && total_quintile1>total_quintile5 )
+					{
+						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile1 * 1.1) / 100) * 100
+						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile1 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile1){
+						var temp_max=total_quintile1/10;
+						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
+					}
+					if(total_quintile2>total_quintile1 && total_quintile2>total_quintile3 && total_quintile2>total_quintile4 && total_quintile2>total_quintile5 )
+					{
+						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile2 * 1.1) / 100) * 100
+						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile2 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile2){
+						var temp_max=total_quintile2/10;
+						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
+					}
+					if(total_quintile3>total_quintile1 && total_quintile3>total_quintile2 && total_quintile3>total_quintile4 && total_quintile3>total_quintile5 )
+					{
+						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile3 * 1.1) / 100) * 100
+						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile3 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile3){
+						var temp_max=total_quintile3/10;
+						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
+					}
+					if(total_quintile4>total_quintile1 && total_quintile4>total_quintile2 && total_quintile4>total_quintile3 && total_quintile4>total_quintile5 )
+					{
+						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile4 * 1.1) / 100) * 100
+						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile4 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile4){
+						var temp_max=total_quintile4/10;
+						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
+					}
+					if(total_quintile5>total_quintile1 && total_quintile5>total_quintile2 && total_quintile5>total_quintile3 && total_quintile5>total_quintile4 )
+					{
+						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile5 * 1.1) / 100) * 100
+						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile5 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile5){
+						var temp_max=total_quintile5/10;
+						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
+					}
+					utmost_totals_race_chart_values.getAt(0).set('q1', total_quintile1);
+					utmost_totals_race_chart_values.getAt(0).set('q2', total_quintile2);
+					utmost_totals_race_chart_values.getAt(0).set('q3', total_quintile3);
+					utmost_totals_race_chart_values.getAt(0).set('q4', total_quintile4);
+					utmost_totals_race_chart_values.getAt(0).set('q5', total_quintile5);								
+					utmost_totals_race_chart_values.commitChanges();
+					utmost_fatality_race_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
+					
+					//adjust chart max
+					var chart_max = (parseInt(max / 100) + 1) * 100;
+					utmost_fatality_race_chart.axes.getAt(0).maximum = 10000;
+					
+					
+					utmost_loadmask.hide();
+					
+					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
+					utmost_fatality_race_chart_values.fireEvent('refresh');
+					utmost_totals_race_chart.fireEvent('refresh');
+					
+					//Redraw count chart
+					utmost_fatality_race_chart.setVisible(true);
+					utmost_fatality_chart.setVisible(false);
+					utmost_totals_chart.setVisible(false);
+					utmost_totals_race_chart.setVisible(true);
+					utmost_chart.setVisible(false);
+					utmost_injury_chart.setVisible(false);
+					utmost_chart.redraw(true);
+					
+					
+						
+					
+					  
+					
+					
+					
+					
+					
+					
+				}
+			});
+		}
 		else if (data_outcome_variable == 'fatality_count'){
 			utmost_fatality_raw_values.load({
 				params: {
@@ -885,34 +1088,6 @@
 							}
 							record.set('fatality_count_adj', adj_fatals);
 						}
-						
-						if((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all")||(data_subset_variable=='income' && data_subset_category == "all"))
-						{
-							var category = record.get('crash_type');
-						    var index = utmost_fatality_race_chart_values.findExact('crash_type', category);
-						    
-						     if (index == -1){
-							    utmost_fatality_race_chart_values.add(
-							   	    {
-									'crash_type': category,
-									'q1':parseFloat(record.get('wq1')),
-									'q2': parseFloat(record.get('wq2')),
-									'q3':parseFloat(record.get('wq3')),
-									'q4':parseFloat(record.get('wq4')),
-									'q5':parseFloat(record.get('wq5')),
-									'sort': record.get('sort')
-								    }
-							    );
-						        } else {
-							        var target_record = utmost_fatality_race_chart_values.getAt(index);
-							        target_record.set('q1', parseFloat(record.get('wq1'))+parseFloat(target_record.get('q1')));
-									target_record.set('q2', parseFloat(record.get('wq2'))+parseFloat(target_record.get('q2')));
-									target_record.set('q3', parseFloat(record.get('wq3'))+parseFloat(target_record.get('q3')));
-									target_record.set('q4', parseFloat(record.get('wq4'))+parseFloat(target_record.get('q4')));
-									target_record.set('q5', parseFloat(record.get('wq5'))+parseFloat(target_record.get('q5')));
-							        }
-						}
-						else{
 						    var category = record.get('crash_type');
 						    var index = utmost_fatality_chart_values.findExact('crash_type', category);
 						    var adjusted_count_temp = record.get('fatality_count_adj');
@@ -931,162 +1106,11 @@
 							        target_record.set('fatality_count', record.get('fatality_count')+target_record.get('fatality_count'));
 							        target_record.set('fatality_count_adj', adjusted_count_temp+target_record.get('fatality_count_adj'));
 						        }
-						}
+						//}
 					});
 				   
 					
-					if((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all")||(data_subset_variable=='income' && data_subset_category == "all"))
-					{			
-                    utmost_fatality_race_chart_values.sort('sort', 'ASC');
-					var max = 0;
-					var top_count = 0
-					var total_quintile1 = 0;
-					var total_quintile2 = 0;
-					var total_quintile3 = 0;
-					var total_quintile4 = 0;
-					var total_quintile5 = 0;
-					//var adj_total = 0;
-					var count = utmost_fatality_race_chart_values.count();
 					
-					
-					
-					//sum values for totals charts
-					for (i = 0; i < count; i++){
-						if (!utmost_fatality_race_chart_values.getAt(i).get('crash_type')){
-							utmost_fatality_race_chart_values.getAt(i).set('crash_type', 'Unknown or N/A');
-						}
-						total_quintile1 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q1'));
-						total_quintile2 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q2'));
-						total_quintile3 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q3'));
-						total_quintile4 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q4'));
-						total_quintile5 += parseInt(utmost_fatality_race_chart_values.getAt(i).get('q5'));
-						//total=total_quintile1+total_quintile2+total_quintile3+total_quintile4+total_quintile5;
-						//adj_total += parseInt(utmost_fatality_chart_values.getAt(i).get('fatality_count_adj'));
-						if(utmost_fatality_race_chart_values.getAt(i).get('q1') > utmost_fatality_race_chart_values.getAt(i).get('q2'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q3'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('q1')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
-						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('q1')>max)
-							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('q1');
-							}
-						}}}}
-					    if(utmost_fatality_race_chart_values.getAt(i).get('q2') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q3'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('q2')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
-						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('q2')>max)
-							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('q2');
-							}
-						}}}}
-						if(utmost_fatality_race_chart_values.getAt(i).get('q3') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q4')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('q3')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
-						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('q3')>max)
-							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('q3');
-							}
-						}}}}
-						if(utmost_fatality_race_chart_values.getAt(i).get('q4') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q3')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('q4')>utmost_fatality_race_chart_values.getAt(i).get('q5'))
-						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('q4')>max)
-							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('q4');
-							}
-						}}}}
-						if(utmost_fatality_race_chart_values.getAt(i).get('q5') > utmost_fatality_race_chart_values.getAt(i).get('q1'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q2'))
-						{
-						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q3')){
-						if(utmost_fatality_race_chart_values.getAt(i).get('q5')>utmost_fatality_race_chart_values.getAt(i).get('q4'))
-						{
-							if(utmost_fatality_race_chart_values.getAt(i).get('q5')>max)
-							{
-							max = utmost_fatality_race_chart_values.getAt(i).get('q5');
-							}
-						}}}}
-					}
-					//utmost_totals_chart.axes.getAt(0).maximum = 40000;
-					if(total_quintile1>total_quintile2 && total_quintile1>total_quintile3 && total_quintile1>total_quintile4 && total_quintile1>total_quintile5 )
-					{
-						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile1 * 1.1) / 100) * 100
-						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile1 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile1){
-						var temp_max=total_quintile1/10;
-						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
-					}
-					if(total_quintile2>total_quintile1 && total_quintile2>total_quintile3 && total_quintile2>total_quintile4 && total_quintile2>total_quintile5 )
-					{
-						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile2 * 1.1) / 100) * 100
-						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile2 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile2){
-						var temp_max=total_quintile2/10;
-						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
-					}
-					if(total_quintile3>total_quintile1 && total_quintile3>total_quintile2 && total_quintile3>total_quintile4 && total_quintile3>total_quintile5 )
-					{
-						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile3 * 1.1) / 100) * 100
-						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile3 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile3){
-						var temp_max=total_quintile3/10;
-						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
-					}
-					if(total_quintile4>total_quintile1 && total_quintile4>total_quintile2 && total_quintile4>total_quintile3 && total_quintile4>total_quintile5 )
-					{
-						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile4 * 1.1) / 100) * 100
-						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile4 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile4){
-						var temp_max=total_quintile4/10;
-						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
-					}
-					if(total_quintile5>total_quintile1 && total_quintile5>total_quintile2 && total_quintile5>total_quintile3 && total_quintile5>total_quintile4 )
-					{
-						utmost_totals_race_chart.axes.getAt(0).maximum=Math.floor((total_quintile5 * 1.1) / 100) * 100
-						if(utmost_totals_race_chart.axes.getAt(0).maximum < total_quintile5 || utmost_totals_race_chart.axes.getAt(0).maximum > total_quintile5){
-						var temp_max=total_quintile5/10;
-						 utmost_totals_race_chart.axes.getAt(0).maximum =Math.ceil(temp_max)*10;}
-					}
-					utmost_totals_race_chart_values.getAt(0).set('q1', total_quintile1);
-					utmost_totals_race_chart_values.getAt(0).set('q2', total_quintile2);
-					utmost_totals_race_chart_values.getAt(0).set('q3', total_quintile3);
-					utmost_totals_race_chart_values.getAt(0).set('q4', total_quintile4);
-					utmost_totals_race_chart_values.getAt(0).set('q5', total_quintile5);								
-					utmost_totals_race_chart_values.commitChanges();
-					utmost_fatality_race_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
-					
-					//adjust chart max
-					var chart_max = (parseInt(max / 100) + 1) * 100;
-					utmost_fatality_race_chart.axes.getAt(0).maximum = chart_max;
-					
-					
-					utmost_loadmask.hide();
-					
-					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
-					utmost_fatality_race_chart_values.fireEvent('refresh');
-					utmost_totals_race_chart.fireEvent('refresh');
-					
-					//Redraw count chart
-					utmost_fatality_race_chart.setVisible(true);
-					utmost_fatality_chart.setVisible(false);
-					utmost_totals_chart.setVisible(false);
-					utmost_totals_race_chart.setVisible(true);
-					utmost_chart.setVisible(false);
-					utmost_injury_chart.setVisible(false);
-					utmost_chart.redraw(true);
-					}else{
 						
 					
 					    utmost_fatality_chart_values.sort('sort', 'ASC');
@@ -1146,12 +1170,14 @@
 					utmost_injury_chart.setVisible(false);
 					utmost_chart.redraw(true);
 					
-					}
+					
 					
 				}
 			});
 		}
+		//else if (data_outcome_variable == 'fatality_count' && data_subset_variable=='white' && data_subset_category == "all"){
 	
+			
 		
 	}
 	

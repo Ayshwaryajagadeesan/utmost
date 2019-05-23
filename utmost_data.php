@@ -1,7 +1,10 @@
 <?php
 
 	//DB connect
-	$utmost_link = new mysqli('cmisst-db.miserver.it.umich.edu', 'cmisst', 'cmisst-a1s2d3f4', 'utmost_dev');
+	$utmost_link = new mysqli('127.0.0.1', 'root', '', 'utmost_dev');
+	//$utmost_link = new mysqli('cmisst-sandbox.miserver.it.umich.edu', 'cmisst', 'cmisst-a1s2d3f4', 'utmost_dev');
+	//print_r($utmost_link);
+	//cmisst-sandbox.miserver.it.umich.edu
 	$path_filename="/var/log/apache2/query.log";
 	//$myfile = fopen($path_filename, "")
 	// Variable Set Constants
@@ -53,6 +56,7 @@
 	$sort_dv['crash_type'] = 'FIELD(crash_type, "Animal", "Avoidance", "Backing", "Change lanes", "Control Loss", "Cyclist", "Drifting", "No Driver", "Non-collision", "Object", "Opp direction", "Parking", "Pedestrian", "Rear End/LV Decel", "Rear End/LV Slower", "Rear End/LV Stopped", "Rear End/Other", "Road Departure", "Rollover", "Run light/stop", "Turning/same dir",  "Veh Failure", "XPaths@Non-Signal", "XPaths@Signal", "Other") as sort';
 	$sort_dv['crash_direction'] = 'FIELD(crash_type, "Far Side", "Frontal", "Motorcycle", "Near Side", "Pedicyclist", "Rear", "Rollover", "Other") as sort';
 	$sort_dv['veh_type'] = 'FIELD(crash_type, "Car", "Motorcycle", "Pedicyclist", "Pickup", "SUV", "Van", "Other") as sort';
+	$sort_dv['vehicle_type'] = 'FIELD(crash_type, "Car", "Motorcycle", "Pedicyclist", "Pickup", "SUV", "Van", "Other") as sort';
 	$sort_dv['age'] = 'FIELD(crash_type, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-65", "66+") as sort';
 	$sort_dv['driver_age'] = 'FIELD(crash_type, "<16", "16-17 ", "18-20", "21-65", ">65") as sort';
 	$sort_dv['sex'] = 'FIELD(crash_type, "Male", "Female") as sort';
@@ -140,163 +144,10 @@
 				$race=$fatality_income_quintile_groups;
 				}
 	
-		if ($subset_category != "all"){
-			if($subset_category=='white')
+		if ($subset_category != "all")
 			{
-				$subset_string = "WHERE (crash_fatality_dev.white)";
+				$subset_string = "WHERE (crash_fatality_dev.".$subset_variable." = '".$subset_category."')";
 			}
-			else if($subset_category=='black')
-			{
-				$subset_string = "WHERE (crash_fatality_dev.black)";
-			}
-			else if($subset_category=='other')
-			{
-				$subset_string = "WHERE (crash_fatality_dev.black)";
-			}
-			else if($subset_category=='first'&& $subset_variable=='white')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '56.7% and Below')";
-			}
-			else if($subset_category=='second'&& $subset_variable=='white')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '56.7%-74.2%')";
-			}
-			else if($subset_category=='third'&& $subset_variable=='white')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '74.2%-84.3%')";
-			}
-			else if($subset_category=='fourth'&& $subset_variable=='white')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '84.3%-92.1%')";
-			}else if($subset_category=='fifth'&& $subset_variable=='white')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '92.1% and Above')";
-			}
-			else if($subset_category=='first'&& $subset_variable=='black')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '1.2% and Below')";
-			}
-			else if($subset_category=='second'&& $subset_variable=='black')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '1.2%-3.4%')";
-			}
-			else if($subset_category=='third'&& $subset_variable=='black')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '3.4%-7.8%')";
-			}
-			else if($subset_category=='fourth'&& $subset_variable=='black')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7.8%-19.4%')";
-			}
-			else if($subset_category=='fifth'&& $subset_variable=='black')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '19.4% and Above')";
-			}
-			else if($subset_category=='first'&& $subset_variable=='other')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '4.1% and Below')";
-			}
-			else if($subset_category=='second'&& $subset_variable=='other')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '4.1%-7.3%')";
-			}
-			else if($subset_category=='third'&& $subset_variable=='other')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '7.3%-11.8%')";
-			}
-			else if($subset_category=='fourth'&& $subset_variable=='other')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '11.8%-21.6%')";
-			}
-			else if($subset_category=='fifth'&& $subset_variable=='other')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '21.6% and Above')";
-			}
-			else if($subset_category=='first'&& $subset_variable=='hispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '2.8% and Below')";
-			}
-			else if($subset_category=='second'&& $subset_variable=='hispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '2.8%-6.1%')";
-			}
-			else if($subset_category=='third'&& $subset_variable=='hispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '6.1%-12.6%')";
-			}
-			else if($subset_category=='fourth'&& $subset_variable=='hispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '12.6%-29.5%')";
-			}
-			else if($subset_category=='fifth'&& $subset_variable=='hispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '29.5% and Above')";
-			}
-			else if($subset_category=='first'&& $subset_variable=='nonhispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '70.5% and Below')";
-			}
-			else if($subset_category=='second'&& $subset_variable=='nonhispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic= '70.5%-87.4%')";
-			}
-			else if($subset_category=='third'&& $subset_variable=='nonhispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '87.4%-93.9%')";
-			}
-			else if($subset_category=='fourth'&& $subset_variable=='nonhispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '93.9%-97.2%')";
-			}
-			else if($subset_category=='fifth'&& $subset_variable=='nonhispanic')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.non_hispanic = '97.2% and Above')";
-			}
-			else if($subset_category=='first'&& $subset_variable=='education')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '15.6% and Below')";
-			}
-			else if($subset_category=='second'&& $subset_variable=='education')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '15.6%-22.0%')";
-			}
-			else if($subset_category=='third'&& $subset_variable=='education')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '22.0%-30.4%')";
-			}
-			else if($subset_category=='fourth'&& $subset_variable=='education')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '30.4%-43.8%')";
-			}
-			else if($subset_category=='fifth'&& $subset_variable=='education')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '43.8% and Above')";
-			}
-			else if($subset_category=='first'&& $subset_variable=='income')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = 'Less than $40,179')";
-			}
-			else if($subset_category=='second'&& $subset_variable=='income')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '$40,179 to $49,190')";
-			}
-			else if($subset_category=='third'&& $subset_variable=='income')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '$49,190 to $60,224')";
-			}
-			else if($subset_category=='fourth'&& $subset_variable=='income')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = '$60,224 to $77,298')";
-			}
-			else if($subset_category=='fifth'&& $subset_variable=='income')
-			{
-				$subset_string ="WHERE (crash_fatality_dev.".$subset_variable." = 'Greater than $77,298')";
-			}													
-			else
-			{
-			$subset_string = "WHERE (crash_fatality_dev.".$subset_variable." = '".$subset_category."')";
-	    	}
-	    }
 		$dv_relevance = '0';
 		$dv_interventions = array();
 		

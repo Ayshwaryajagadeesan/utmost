@@ -39,41 +39,41 @@
 			{group_var: 'urbanization_soc', title: 'Large Metro', category_value:'"Large Metro"', chart_max: 5500000},
 			{group_var: 'urbanization_soc', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
 			{group_var: 'urbanization_soc', title: 'S/M Metro', category_value:'"S/M Metro"', chart_max: 5500000},
-			{group_var: 'white', title: '56.7% and Below', category_value:'"first"', chart_max: 5500000},
-			{group_var: 'white', title: '56.7%-74.2%', category_value:'"second"', chart_max: 5500000},
-			{group_var: 'white', title: '74.2%-84.3%', category_value:'"third"', chart_max: 5500000},
-			{group_var: 'white', title: '84.3%-92.1%', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'white', title: '92.1% and Above', category_value:'"fifth"', chart_max: 5500000},
-			{group_var: 'black', title: '1.2% and Below', category_value:'"first"', chart_max: 5500000},
-			{group_var: 'black', title: '1.2%-3.4%', category_value:'"second"', chart_max: 5500000},
-			{group_var: 'black', title: '3.4%-7.8%', category_value:'"third"', chart_max: 5500000},
-			{group_var: 'black', title: '7.8%-19.4%', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'black', title: '19.4% and Above', category_value:'"fifth"', chart_max: 5500000},
-			{group_var: 'other', title: '4.1% and Below', category_value:'"first"', chart_max: 5500000},
-			{group_var: 'other', title: '4.1%-7.3%', category_value:'"second"', chart_max: 5500000},
-			{group_var: 'other', title: '7.3%-11.8%', category_value:'"third"', chart_max: 5500000},
-			{group_var: 'other', title: '11.8%-21.6%', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'other', title: '21.6% and Above', category_value:'"fifth"', chart_max: 5500000},
-			{group_var: 'hispanic', title: '2.8% and Below', category_value:'"first"', chart_max: 5500000},
-			{group_var: 'hispanic', title: '2.8%-6.1%', category_value:'"second"', chart_max: 5500000},
-			{group_var: 'hispanic', title: '6.1%-12.6%', category_value:'"third"', chart_max: 5500000},
-			{group_var: 'hispanic', title: '12.6%-29.5%', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'hispanic', title: '29.5% and Above', category_value:'"fifth"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '70.5% and Below', category_value:'"first"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '70.5%-87.4%', category_value:'"second"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '87.4%-93.9%', category_value:'"third"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '93.9%-97.2%', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '97.2% and Above', category_value:'"fifth"', chart_max: 5500000},
-			{group_var: 'education', title: '15.6% and Below', category_value:'"first"', chart_max: 5500000},
-			{group_var: 'education', title: '15.6%-22.0%', category_value:'"second"', chart_max: 5500000},
-			{group_var: 'education', title: '22.0%-30.4%', category_value:'"third"', chart_max: 5500000},
-			{group_var: 'education', title: '30.4%-43.8%', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'education', title: '43.8% and Above', category_value:'"fifth"', chart_max: 5500000},
-			{group_var: 'income', title: 'Less than $40,179', category_value:'"first"', chart_max: 5500000},
-			{group_var: 'income', title: '$40,179 to $49,190', category_value:'"second"', chart_max: 5500000},
-			{group_var: 'income', title: '$49,190 to $60,224', category_value:'"third"', chart_max: 5500000},
-			{group_var: 'income', title: '$60,224 to $77,298', category_value:'"fourth"', chart_max: 5500000},
-			{group_var: 'income', title: 'Greater than $77,298', category_value:'"fifth"', chart_max: 5500000}
+			{group_var: 'white', title: '56.7% and Below', category_value:'"56.7% and Below"', chart_max: 5500000},
+			{group_var: 'white', title: '56.7%-74.2%', category_value:'"56.7%-74.2%"', chart_max: 5500000},
+			{group_var: 'white', title: '74.2%-84.3%', category_value:'"74.2%-84.3%"', chart_max: 5500000},
+			{group_var: 'white', title: '84.3%-92.1%', category_value:'"84.3%-92.1%"', chart_max: 5500000},
+			{group_var: 'white', title: '92.1% and Above', category_value:'"92.1% and Above"', chart_max: 5500000},
+			{group_var: 'black', title: '1.2% and Below', category_value:'"1.2% and Below"', chart_max: 5500000},
+			{group_var: 'black', title: '1.2%-3.4%', category_value:'"1.2%-3.4%"', chart_max: 5500000},
+			{group_var: 'black', title: '3.4%-7.8%', category_value:'"3.4%-7.8%"', chart_max: 5500000},
+			{group_var: 'black', title: '7.8%-19.4%', category_value:'"7.8%-19.4%"', chart_max: 5500000},
+			{group_var: 'black', title: '19.4% and Above', category_value:'"19.4% and Above"', chart_max: 5500000},
+			{group_var: 'other', title: '4.1% and Below', category_value:'"4.1% and Below"', chart_max: 5500000},
+			{group_var: 'other', title: '4.1%-7.3%', category_value:'"4.1%-7.3%"', chart_max: 5500000},
+			{group_var: 'other', title: '7.3%-11.8%', category_value:'"7.3%-11.8%"', chart_max: 5500000},
+			{group_var: 'other', title: '11.8%-21.6%', category_value:'"11.8%-21.6%"', chart_max: 5500000},
+			{group_var: 'other', title: '21.6% and Above', category_value:'"21.6% and Above"', chart_max: 5500000},
+			{group_var: 'hispanic', title: '2.8% and Below', category_value:'"2.8% and Below"', chart_max: 5500000},
+			{group_var: 'hispanic', title: '2.8%-6.1%', category_value:'"2.8%-6.1%"', chart_max: 5500000},
+			{group_var: 'hispanic', title: '6.1%-12.6%', category_value:'"6.1%-12.6%"', chart_max: 5500000},
+			{group_var: 'hispanic', title: '12.6%-29.5%', category_value:'"12.6%-29.5%"', chart_max: 5500000},
+			{group_var: 'hispanic', title: '29.5% and Above', category_value:'"29.5% and Above"', chart_max: 5500000},
+			{group_var: 'nonhispanic', title: '70.5% and Below', category_value:'"70.5% and Below"', chart_max: 5500000},
+			{group_var: 'nonhispanic', title: '70.5%-87.4%', category_value:'"70.5%-87.4%"', chart_max: 5500000},
+			{group_var: 'nonhispanic', title: '87.4%-93.9%', category_value:'"87.4%-93.9%"', chart_max: 5500000},
+			{group_var: 'nonhispanic', title: '93.9%-97.2%', category_value:'"93.9%-97.2%"', chart_max: 5500000},
+			{group_var: 'nonhispanic', title: '97.2% and Above', category_value:'"97.2% and Above"', chart_max: 5500000},
+			{group_var: 'education', title: '15.6% and Below', category_value:'"15.6% and Below"', chart_max: 5500000},
+			{group_var: 'education', title: '15.6%-22.0%', category_value:'"15.6%-22.0%"', chart_max: 5500000},
+			{group_var: 'education', title: '22.0%-30.4%', category_value:'"22.0%-30.4%"', chart_max: 5500000},
+			{group_var: 'education', title: '30.4%-43.8%', category_value:'"30.4%-43.8%"', chart_max: 5500000},
+			{group_var: 'education', title: '43.8% and Above', category_value:'"43.8% and Above"', chart_max: 5500000},
+			{group_var: 'income', title: 'Less than $40,179', category_value:'"Less than $40,179"', chart_max: 5500000},
+			{group_var: 'income', title: '$40,179 to $49,190', category_value:'"$40,179 to $49,190"', chart_max: 5500000},
+			{group_var: 'income', title: '$49,190 to $60,224', category_value:'"$49,190 to $60,224"', chart_max: 5500000},
+			{group_var: 'income', title: '$60,224 to $77,298', category_value:'"$60,224 to $77,298"', chart_max: 5500000},
+			{group_var: 'income', title: 'Greater than $77,298', category_value:'"Greater than $77,298"', chart_max: 5500000}
 		]
 	});
 	
@@ -85,14 +85,28 @@
 		activeTab: 0,
 		anchor: '100%',
 		listeners: {
+			/* beforetabchange: function (tabpanel, newtab, oldtab, eOpts) {
+            Ext.suspendLayouts();
+            Ext.getBody().mask("please wait..");
+        },*/
 			tabChange: function( tabpanel, newtab, oldtab, eOpts ){
 				data_subsets.clearFilter();
 				var target_record = data_subsets.findRecord('title', newtab.title);
 				//Preset max above data values
+				//utmost_fatality_race_chart.getAt(0).maximum=target_record.get('chart_max');
+				//utmost_fatality_chart.get(0).maximum=target_record.get('chart_max');
 				utmost_chart.axes.getAt(0).maximum = target_record.get('chart_max');
 				utmost_injury_chart.axes.getAt(0).maximum = target_record.get('chart_max');
 				data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
-				data_update();
+				Ext.suspendLayouts();
+               		Ext.getBody().mask("please wait..");
+					data_update();
+					Ext.resumeLayouts(true);
+                	Ext.getBody().unmask();
+			/*	Ext.defer(function () {
+                Ext.resumeLayouts(true);
+                Ext.getBody().unmask();
+            }, 1000)*/
 			}
 		}
 	});
@@ -106,9 +120,13 @@
 		//add "All" tab
 		subset_control.add({title: 'All'});
 		data_subsets.clearFilter();
+		Ext.suspendLayouts();
+        Ext.getBody().mask("please wait..");
 		data_subsets.filter('group_var', new RegExp('^' + Ext.escapeRe(group_var) + '$'));
 		data_subsets.each(add_tab);
 		subset_control.setActiveTab(0);
+		Ext.resumeLayouts(true);
+        Ext.getBody().unmask();
 	}
 	
 	
