@@ -45,26 +45,26 @@
 	$sort = array();
 	$sort_dv = array();
 	$sort['crash_type'] = 'FIELD(crash_injury_dev.crash_type, "Animal", "Avoidance", "Backing", "Change lanes", "Control Loss", "Cyclist", "Drifting", "No Driver", "Non-collision", "Object", "Opp direction", "Parking", "Pedestrian", "Rear End/LV Decel", "Rear End/LV Slower", "Rear End/LV Stopped", "Rear End/Other", "Road Departure", "Rollover", "Run light/stop", "Turning/same dir",  "Veh Failure", "XPaths@Non-Signal", "XPaths@Signal", "Other") as sort';
-	$sort['crash_direction'] = 'FIELD(crash_injury_dev.crash_direction, "Far Side", "Frontal", "Motorcycle", "Near Side", "Pedicyclist", "Rear", "Rollover", "Other") as sort';
-	$sort['vehicle_type'] = 'FIELD(crash_injury_dev.vehicle_type, "Car", "Motorcycle", "Pedicyclist", "Pickup", "SUV", "Van", "Other") as sort';
-	$sort['age'] = 'FIELD(crash_injury_dev.age, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-65", "66+") as sort';
-	$sort['driver_age'] = 'FIELD(crash_injury_dev.driver_age, "<16", "16-17 ", "18-20", "21-65", ">65") as sort';
+	$sort['crash_direction'] = 'FIELD(crash_injury_dev.crash_direction, "Frontal", "Near Side", "Far Side", "Rear", "Rollover", "Motorcycle", "Pedestrian", "Cyclist","Parked Car", "Other") as sort';
+	$sort['vehicle_type'] = 'FIELD(crash_injury_dev.vehicle_type, "Car","Pickup","SUV","Van", "Motorcycle","Heavy Truck", "Large Bus","Snowmobile/ATV", "Golf Cart/LSV","Cyclist", "Pedestrian", "Parked Car", "Other") as sort';
+	$sort['age'] = 'FIELD(crash_injury_dev.age, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-30","31-65", "66+") as sort';
+	$sort['driver_age'] = 'FIELD(crash_injury_dev.driver_age, "<16", "16-17 ", "18-20", "21-30","31-65", ">65") as sort';
 	$sort['sex'] = 'FIELD(crash_injury_dev.sex, "Male", "Female") as sort';
 	$sort['alcohol_involvement'] = 'FIELD(crash_injury_dev.alcohol_involvement, "Alcohol Involved", "No Alcohol Involved") as sort';
 	$sort['light_condition'] = 'FIELD(crash_injury_dev.light_condition, "Light", "Dark--Lighted", "Dark", "Other") as sort';
-	$sort['urbanization'] = 'FIELD(crash_injury_dev.urbanization, "Urban", "Suburban", "Rural") as sort';
+	$sort['urbanization'] = 'FIELD(crash_injury_dev.urbanization, "Large Metro", "S/M Metro", "Nonmetro","Unknown or N/A") as sort';
 	$sort_dv['crash_type'] = 'FIELD(crash_type, "Animal", "Avoidance", "Backing", "Change lanes", "Control Loss", "Cyclist", "Drifting", "No Driver", "Non-collision", "Object", "Opp direction", "Parking", "Pedestrian", "Rear End/LV Decel", "Rear End/LV Slower", "Rear End/LV Stopped", "Rear End/Other", "Road Departure", "Rollover", "Run light/stop", "Turning/same dir",  "Veh Failure", "XPaths@Non-Signal", "XPaths@Signal", "Other") as sort';
-	$sort_dv['crash_direction'] = 'FIELD(crash_type, "Far Side", "Frontal", "Motorcycle", "Near Side", "Pedicyclist", "Rear", "Rollover", "Other") as sort';
-	$sort_dv['veh_type'] = 'FIELD(crash_type, "Car", "Motorcycle", "Pedicyclist", "Pickup", "SUV", "Van", "Other") as sort';
-	$sort_dv['vehicle_type'] = 'FIELD(crash_type, "Car", "Motorcycle", "Pedicyclist", "Pickup", "SUV", "Van", "Other") as sort';
-	$sort_dv['age'] = 'FIELD(crash_type, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-65", "66+") as sort';
-	$sort_dv['driver_age'] = 'FIELD(crash_type, "<16", "16-17 ", "18-20", "21-65", ">65") as sort';
+	$sort_dv['crash_direction'] = 'FIELD(crash_type, "Frontal", "Near Side", "Far Side", "Rear", "Rollover", "Motorcycle", "Pedestrian", "Cyclist","Parked Car", "Other") as sort';
+	$sort_dv['veh_type'] = 'FIELD(crash_type, "Car","Pickup","SUV","Van", "Motorcycle","Heavy Truck", "Large Bus","Snowmobile/ATV", "Golf Cart/LSV","Cyclist", "Pedestrian", "Parked Car", "Other") as sort';
+	$sort_dv['vehicle_type'] = 'FIELD(crash_type,"Car","Pickup","SUV","Van", "Motorcycle","Heavy Truck", "Large Bus","Snowmobile/ATV", "Golf Cart/LSV","Cyclist", "Pedestrian", "Parked Car", "Other") as sort';
+	$sort_dv['age'] = 'FIELD(crash_type, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-30","31-65", "66+","unknown") as sort';
+	$sort_dv['driver_age'] = 'FIELD(crash_type, "<16", "16-17 ", "18-20", "21-30","31-65", ">65" , "unknown") as sort';
 	$sort_dv['sex'] = 'FIELD(crash_type, "Male", "Female") as sort';
 	$sort_dv['alcohol_involvement'] = 'FIELD(crash_type, "Alcohol Involved", "No Alcohol Involved") as sort';
 	$sort_dv['light_condition'] = 'FIELD(crash_type, "Light", "Dark--Lighted", "Dark", "Other") as sort';
-	$sort_dv['urbanization'] = 'FIELD(crash_type, "Urban", "Suburban", "Rural") as sort';
-	$sort_dv['urbanization_soc'] = 'FIELD(crash_type, "Large Metro", "S/M Metro", "Nonmetro") as sort';
-	$sort_dv['veh_age'] = 'FIELD(crash_type, "Unknown or N/A", "0-11", "12+") as sort';
+	$sort_dv['urbanization'] = 'FIELD(crash_type, "Large Metro", "S/M Metro", "Nonmetro","Unknown or N/A") as sort';
+	$sort_dv['urbanization_soc'] = 'FIELD(crash_type, "Large Metro", "S/M Metro", "Nonmetro","Unknown or N/A") as sort';
+	$sort_dv['veh_age'] = 'FIELD(crash_type,  "0-11", "12+","Unknown or N/A") as sort';
 	$sort_dv['white'] = 'FIELD(crash_type, "56.7% and Below", "56.7%-74.2%", "74.2%-84.3%", "84.3%-92.1%", "92.1% and Above", "unknown") as sort';
 	$sort_dv['black'] = 'FIELD(crash_type, "1.2% and Below", "1.2%-3.4%", "3.4%-7.8%", "7.8%-19.4%", "19.4% and Above", "unknown") as sort';
 	$sort_dv['other'] = 'FIELD(crash_type, "4.1% and Below", "4.1%-7.3%", "7.3%-11.8%", "11.8%-21.6%", "21.6% and Above", "unknown") as sort';
@@ -77,18 +77,18 @@
 	$sort_fatality = array();
 	$sort_fatality['crash_type'] = 'FIELD(crash_fatality_dev.crash_type, "Animal", "Avoidance", "Backing", "Change lanes", "Control Loss", "Cyclist", "Drifting", "No Driver", "Non-collision", "Object", "Opp direction", "Parking", "Pedestrian", "Rear End/LV Decel", "Rear End/LV Slower", "Rear End/LV Stopped", "Rear End/Other", "Road Departure", "Rollover", "Run light/stop", "Turning/same dir",  "Veh Failure", "XPaths@Non-Signal", "XPaths@Signal", "Other") as sort';
 	//$sort_fatality['crash_direction'] = 'FIELD(crash_fatality_dev.crash_direction, "Rear", "Front", "Farside", "Nearside") as sort'; //alias to crash type
-	$sort_fatality['crash_direction'] = 'FIELD(crash_fatality_dev.crash_direction, "Far Side", "Frontal", "Motorcycle", "Near Side", "Rear", "Rollover", "Cyclist", "Pedestrian", "Other") as sort';
-	$sort_fatality['veh_type'] = 'FIELD(crash_fatality_dev.veh_type, "Car", "Pickup", "SUV", "Van", "Large Bus", "Heavy Truck", "Motorcycle", "Cyclist", "Pedestrian", "Snowmobile/ATV", "Golf Cart/LSV", "Other") as sort';
+	$sort_fatality['crash_direction'] = 'FIELD(crash_fatality_dev.crash_direction, "Frontal", "Near Side", "Far Side", "Rear", "Rollover", "Motorcycle", "Pedestrian", "Cyclist","Parked Car", "Other") as sort';
+	$sort_fatality['veh_type'] = 'FIELD(crash_fatality_dev.veh_type, "Car","Pickup","SUV","Van", "Motorcycle","Heavy Truck", "Large Bus","Snowmobile/ATV", "Golf Cart/LSV","Cyclist", "Pedestrian", "Parked Car", "Other") as sort';
 	//$sort_fatality['age'] = 'FIELD(crash_fatality_dev.age, "14-30", "30-60", "31-60", "61+") as sort';
-	$sort_fatality['age'] = 'FIELD(crash_fatality_dev.age, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20", "21-65", "66+") as sort';
-	$sort_fatality['driver_age'] = 'FIELD(crash_fatality_dev.driver_age, "<16", "16-17 ", "18-20", "21-65", ">65") as sort';
+	$sort_fatality['age'] = 'FIELD(crash_fatality_dev.age, "0-1", "2-4", "5-7", "8-10", "11-13", "14-15", "16-17", "18-20","21-30","31-65", "66+", "Unknown") as sort';
+	$sort_fatality['driver_age'] = 'FIELD(crash_fatality_dev.driver_age, "<16", "16-17 ", "18-20", "21-30","31-65", ">65" ,"Unk") as sort';
 	$sort_fatality['sex'] = 'FIELD(crash_fatality_dev.sex, "M", "F") as sort';
 	$sort_fatality['alcohol_involvement'] = 'FIELD(crash_fatality_dev.alcohol_involvement, "Alcohol Involved", "No Alcohol Involved") as sort';
 	$sort_fatality['light_condition'] = 'FIELD(crash_fatality_dev.light_condition, "Light", "Dark--Lighted", "Dark", "Other") as sort';
 	$sort_fatality['veh_age'] = 'crash_fatality_dev.veh_age as sort';
 	$sort_fatality['restraint'] = 'FIELD(crash_fatality_dev.restraint, "Unrestrained", "Suboptimal", "Optimal") as sort';
-	$sort_fatality['urbanization_soc'] = 'FIELD(urbanization_soc, "Large Metro", "S/M Metro", "Nonmetro") as sort';
-	$sort_fatality['urbanization_acc'] = 'FIELD(urbanization_acc, "Large Metro", "S/M Metro", "Nonmetro") as sort';
+	$sort_fatality['urbanization_soc'] = 'FIELD(urbanization_soc, "Large Metro", "S/M Metro", "Nonmetro","Unknown or N/A") as sort';
+	$sort_fatality['urbanization_acc'] = 'FIELD(urbanization_acc, "Large Metro", "S/M Metro", "Nonmetro","Unknown or N/A") as sort';
 	$sort_fatality['education'] = 'crash_fatality_dev.education as sort';
 	$sort_fatality['income'] = 'crash_fatality_dev.income as sort';
 	$sort_fatality['white'] = 'crash_fatality_dev.white as sort';
@@ -131,7 +131,7 @@
 				{
 				$race=$fatality_hispanic_quintile_groups;
 				}
-			if($subset_variable=='nonhispanic')
+			if($subset_variable=='non_hispanic')
 				{
 				$race=$fatality_nonhispanic_quintile_groups;
 				}
