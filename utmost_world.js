@@ -63,7 +63,7 @@
 			{"val":"other", "name":"Other ", "set" : "F"},
 			//{"val":"race", "name":"Race", "set" : "F"},
 			{"val":"hispanic", "name":"Hispanic", "set" : "F"},
-			{"val":"nonhispanic", "name":"Non-Hispanic", "set" : "F"},
+			{"val":"non_hispanic", "name":"Non-Hispanic", "set" : "F"},
 			{"val":"education", "name":"Education", "set" : "F"},
 			{"val":"income", "name":"Income", "set" : "F"}
 		]
@@ -164,6 +164,7 @@
 					Ext.suspendLayouts();
                		Ext.getBody().mask("please wait..");
 					data_update();
+					
 					generate_subset_tabs(chart_subset_selector.getSubmitValue());
 					Ext.resumeLayouts(true);
                 	Ext.getBody().unmask();
