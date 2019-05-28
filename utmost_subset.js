@@ -33,9 +33,9 @@
 			{group_var: 'driver_age', title: 'Driver Age 21-30', category_value:'"21-30"', chart_max: 12000000},
 			{group_var: 'driver_age', title: 'Driver Age 31-65', category_value:'"31-65"', chart_max: 12000000},
 			{group_var: 'driver_age', title: 'Driver Age 66+', category_value:'">65"', chart_max: 1200000},
-			{group_var: 'urbanization', title: 'Urban', category_value:'"Urban"', chart_max: 5500000},
-			{group_var: 'urbanization', title: 'Rural', category_value:'"Rural"', chart_max: 5500000},
-			{group_var: 'urbanization', title: 'Suburban', category_value:'"Suburban"', chart_max: 5500000},
+			{group_var: 'urbanization', title: 'Large Metro', category_value:'"Large Metro"', chart_max: 5500000},
+			{group_var: 'urbanization', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
+			{group_var: 'urbanization', title: 'S/M Metro', category_value:'"S/M Metro"', chart_max: 5500000},
 			{group_var: 'urbanization_soc', title: 'Large Metro', category_value:'"Large Metro"', chart_max: 5500000},
 			{group_var: 'urbanization_soc', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
 			{group_var: 'urbanization_soc', title: 'S/M Metro', category_value:'"S/M Metro"', chart_max: 5500000},
@@ -59,11 +59,11 @@
 			{group_var: 'hispanic', title: '6.1%-12.6%', category_value:'"6.1%-12.6%"', chart_max: 5500000},
 			{group_var: 'hispanic', title: '12.6%-29.5%', category_value:'"12.6%-29.5%"', chart_max: 5500000},
 			{group_var: 'hispanic', title: '29.5% and Above', category_value:'"29.5% and Above"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '70.5% and Below', category_value:'"70.5% and Below"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '70.5%-87.4%', category_value:'"70.5%-87.4%"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '87.4%-93.9%', category_value:'"87.4%-93.9%"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '93.9%-97.2%', category_value:'"93.9%-97.2%"', chart_max: 5500000},
-			{group_var: 'nonhispanic', title: '97.2% and Above', category_value:'"97.2% and Above"', chart_max: 5500000},
+			{group_var: 'non_hispanic', title: '70.5% and Below', category_value:'"70.5% and Below"', chart_max: 5500000},
+			{group_var: 'non_hispanic', title: '70.5%-87.4%', category_value:'"70.5%-87.4%"', chart_max: 5500000},
+			{group_var: 'non_hispanic', title: '87.4%-93.9%', category_value:'"87.4%-93.9%"', chart_max: 5500000},
+			{group_var: 'non_hispanic', title: '93.9%-97.2%', category_value:'"93.9%-97.2%"', chart_max: 5500000},
+			{group_var: 'non_hispanic', title: '97.2% and Above', category_value:'"97.2% and Above"', chart_max: 5500000},
 			{group_var: 'education', title: '15.6% and Below', category_value:'"15.6% and Below"', chart_max: 5500000},
 			{group_var: 'education', title: '15.6%-22.0%', category_value:'"15.6%-22.0%"', chart_max: 5500000},
 			{group_var: 'education', title: '22.0%-30.4%', category_value:'"22.0%-30.4%"', chart_max: 5500000},
@@ -128,6 +128,16 @@
 		Ext.resumeLayouts(true);
         Ext.getBody().unmask();
 	}
+	var generate_chart_quintile_values = function()
+	{   var cars = ["qu1", "qu2", "qu3","qu4","qu5"];
+		var ba = utmost_fatality_race_chart.chart.axes.get('left');
+		ba.setTitle(cars);
+		//data_subsets.filter('group_var', new RegExp('^' + Ext.escapeRe(group_var) + '$'));
+		//data_subsets.each(add_tab);
+	}
+    //add_title=function(record){
+	//	subset_control.add({title: record.get('title')});
+	//}
 	
 	
 	var get_data_subset_cat = function(){
