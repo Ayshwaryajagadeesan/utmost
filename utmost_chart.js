@@ -192,12 +192,16 @@
 		animate: true,
 		hidden: true,
 		theme: 'Red',
+		
 		legend: {
-			position: 'top'
+			position: 'top',
+			
+			
 		},
+		
 		axes: [
 			{
-				title: 'Fatality Count',
+				title: 'Baseline Fatality Count (% by zipcode)',
 				type: 'Numeric',
 				position: 'left',
 				grid: true,
