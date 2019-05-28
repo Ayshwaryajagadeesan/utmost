@@ -20,6 +20,38 @@ Ext.namespace('UTMOST');
 	var cm_types = Ext.create('Ext.data.Store', {
 		model: 'Countermeasure_Type_Count',
 		data : [
+				{
+				"val":"aeb", 
+				"name":"Frontal Crash Countermeasures",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"Three types of countermeasures work independently to prevent frontal crashes. Forward Collision Warning (FCW) alerts the driver when the vehicle is approaching a lead vehicle too fast. LeBlanc et al. (2017) estimated effectivness levels for four types of rear-end crashes (without alcohol involvement) to be 74.6% effective at reducing lead-vehicle braking crashes, 77.5% effective in lead-vehicle stopped crashes, 73.1% effective in lead-vehicle slower crashes, and 67.5% effective in other rear-end crashes. These estimates are higher than previous work and may represent an ideal effectiveness in which drivers respond reliably to the warning and do not turn the system off.  Automatic Emergency Braking (AEB) applies the brakes to stop the vehicle when it is approaching a lead vehicle too fast. It is generally always equipped with FCW. LeBlanc et al. (2017) estimated that effectiveness levels of AEB+FCW four four types of crashes are: 87% effective at reducing lead-vehicle braking crashes, 94.6% effective in lead-vehicle stopped crashes, 86% effective in lead-vehicle slower crashes, and 82.6% effective in other rear-end crashes. These estimates are higher than previous work and may represent an ideal effectiveness in which drivers respond reliably to the warning and do not turn the system off. Adaptive Cruise Control is an enhanced Cruise Control system that adjusts speed based on the speed of the vehicle ahead, decelerating automatically should the leading vehicle drop below the set cruise control speed. Adaptive cruise control is estimated to reduce 6-29% of rear-end crashes (Elvik 2006, Najm & Mironer 1998). It is possible to have FCW without AEB or ACC, and ACC without AEB, but vehicles with AEB would also have FCW and ACC. The controls for fleet penetration levels account for these relationships.", 
+				'selector_type': ["independent1","independent2","independent3","independent4","ordered_population"], 
+				'selector_desc': ["AEB Countermeasure Settings","FCW Countermeasure Settings","ACC Countermeasure Settings","FCW and ACC Countermeasure Settings", "Fleet Penetration"]
+				},
+				{
+				"val":"pedestrian_detection", 
+				"name":"Pedestrian Detection",
+				"active":0,
+				"effectiveness":5,
+				"fleet_pen":100, 
+				"description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle. There are no currently published estimates on the effectiveness of pedestrian detection systems. We hypothesize that pedestrian detection systems may be able to detect some animal crashes as well.",
+				'selector_type': ["independent"],
+				'selector_desc': ["Countermeasure Settings"]
+				},
+				{
+				"val":"ldp", 
+				"name":"Lateral Crash Countermeasures",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"Three interdependent countermeasures can prevent lateral crashes.Lane-departure warning alerts the driver when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LeBlanc et al. (2017) found that all drifting crashes and 61% of road-departure crashes not involving alcohol could be affected by LDW. They also found that LDW was estimated to be 69.9% effective at reducing rollovers associated with drifting and run-off- road crashes, but only 3.8% effective at reducing crashes into objects and vehicles out of the driver's lane. Lane-centering systems maintain a set position within the lane boundaries until the driver actively changes lanes. In simulations by LeBlanc et al. (2017), this system eliminated 100% of simulated out-of-lane crashes. Because this may be unrealistically high, the default values in UTMOST match those for Lane-Keeping Assist. Effectiveness estimates are 91% at reducing rollovers associated with drifting and run-off-road crashes, and 35% for crashes into objects and vehicles out of the driver's lane. Lane-keep assist steers the vehicle back into the lane when the vehicle crosses a lane boundary (including the road boundary) and the turn signal is not being used. LKA is generally combined with LDW. LeBlanc et al. (2017) found that all drifting crashes and 61% of road departure crashes could be affected by LKA+LDW. They also found that LKA+LDW was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off-road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver's lane. Vehicles can be equipped with LDW but not LCC and LKA, but most vehicles with LKA will also have LDW and LCC. The fleet penetration controls account for this trend.", 
+				'selector_type': ["independent1","independent2", "independent3", "ordered_population"], 
+				'selector_desc': ["Lane Centering Countermeasure Settings","Lane Keeping Assistance Countermeasure Settings", "Lane Departure Warning Countermeasure Settings", "Fleet Penetration"]
+				//'selector_type': ["independent"], 
+				//'selector_desc': ["Countermeasure Settings"]
+				},
 			/*{
 				"val":"ldw", 
 				"name":"Lane Departure Warning",
@@ -31,25 +63,14 @@ Ext.namespace('UTMOST');
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
 			},*/
-			{
-				"val":"ldp", 
-				"name":"Lateral Crash Warning",
-				"active":0,
-				"effectiveness":24,
-				"fleet_pen":100, 
-				"description":"Lane-centering systems maintain a set position within the lane boundaries until the driver actively changes lanes. In simulations by LeBlanc et al. (2017) this system eliminated 100% of simulated out-of- lane crashes. However, as this is unrealistically high, the default values for UTMOST match the values for Lane-Keeping Assist, which was estimated to be 90.9% effective at reducing rollovers associated with drifting and run-off- road crashes, and 34.7% effective at reducing crashes into objects and vehicles out of the driver's lane.", 
-				'selector_type': ["independent1","independent2", "independent3", "ordered_population"], 
-				'selector_desc': ["Lane Centering Countermeasure Settings","Lane Keeping Assistance Countermeasure Settings", "Lane Departure Warning Countermeasure Settings", "Fleet Penetration"]
-				//'selector_type': ["independent"], 
-				//'selector_desc': ["Countermeasure Settings"]
-			},
+			
 			{
 				"val":"bsw", 
 				"name":"Blind-Spot Warning",
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
-				"description":"Lane change warning systems are estimated to reduce 37-40% of drifting and lane change crashes (FHWA 1998, Kaniantrha and Murtig 1997, McKeever 1998)", 
+				"description":"Lane-change warning systems are estimated to reduce 37-40% of drifting and lane change crashes (FHWA 1998, Kaniantrha and Murtig 1997, McKeever 1998)", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
@@ -59,10 +80,32 @@ Ext.namespace('UTMOST');
 				"active":0,
 				"effectiveness":24,
 				"fleet_pen":100, 
-				"description":"[NEED DESC + DEFUALTS]", 
+				"description":"Curve speed warning systems indicate to drivers whether they are approaching a curved road at higher than recommended speeds. Davis et al. (2019) estimated that warning systems reduced travel speeds by 10% on curved roads.", 
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},
+			{
+				"val":"arb", 
+				"name":"Rear Crash Countermeasures",
+				"active":0,
+				"effectiveness":24,
+				"fleet_pen":100, 
+				"description":"[NEED DESC + DEFUALTS]",
+				'selector_type': ["independent1", "independent2", "ordered_population"], 
+				'selector_desc': ["Countermeasure Settings for Reverse Collision Warning", "Countermeasure for Automatic Rear Braking", "Fleet Penetration"]
+				//'selector_type': ["numeric"], 
+				//'selector_desc': []
+			},
+			{
+				"val":"esc", 
+				"name":"Electronic Stability Control",
+				"active":0,
+				"effectiveness":40,
+				"fleet_pen":100, 
+				"description":"Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},	
 			/*{
 				"val":"acc", 
 				"name":"Adaptive Cruise Control",
@@ -75,25 +118,6 @@ Ext.namespace('UTMOST');
 				//'selector_type': ["numeric"], 
 				//'selector_desc': []
 			},*/
-			{
-				"val":"alcohol_interlock", 
-				"name":"Alcohol Interlock",
-				"active":0,
-				"effectiveness":18,
-				"fleet_pen":100, 
-				"description":"Alcohol Interlock is a system that checks the blood alcohol of the driver before allowing the vehicle to be turned on. Alcohol interlocks are estimated to reduce 18% of crashes where alcohol was a factor (eSafety Forum 2005)", 
-				'selector_type': ["numeric"], 'selector_desc': []
-			},
-			{
-				"val":"esc", 
-				"name":"Electronic Stability Control",
-				"active":0,
-				"effectiveness":40,
-				"fleet_pen":100, 
-				"description":"Electronic stability control is estimated to reduce 40% of all single-vehicle crashes and 75% of rollovers (IIHS).", 
-				'selector_type': ["numeric"], 
-				'selector_desc': []
-			},
 			/*{
 				"val":"fcw", 
 				"name":"Forward Collision Warning",
@@ -116,16 +140,7 @@ Ext.namespace('UTMOST');
 				'selector_type': ["independent"], 
 				'selector_desc': ["Countermeasure Settings"]
 			},*/
-			{
-				"val":"pedestrian_detection", 
-				"name":"Pedestrian Detection",
-				"active":0,
-				"effectiveness":5,
-				"fleet_pen":100, 
-				"description":"Pedestrian Detection provides an alert to the driver when a pedestrian is detected in the path of the vehicle, potentially out of sight of the driver. There are no currently published estimates on the effectiveness of pedestrian detection systems.",
-				'selector_type': ["independent"],
-				'selector_desc': ["Countermeasure Settings"]
-			},
+			
 			/*{
 				"val":"backing", 
 				"name":"Reverse Collision Warning",
@@ -135,28 +150,8 @@ Ext.namespace('UTMOST');
 				'selector_type': ["numeric"], 
 				'selector_desc': []
 			},*/
-			{
-				"val":"arb", 
-				"name":"Rear Crash Warning",
-				"active":0,
-				"effectiveness":24,
-				"fleet_pen":100, 
-				"description":"[NEED DESC + DEFUALTS]",
-				'selector_type': ["independent1", "independent2", "ordered_population"], 
-				'selector_desc': ["Countermeasure Settings for Reverse Collision Warning", "Countermeasure for Automatic Rear Braking", "Fleet Penetration"]
-				//'selector_type': ["numeric"], 
-				//'selector_desc': []
-			},			
-			{
-				"val":"aeb", 
-				"name":"Frontal Crash warning",
-				"active":0,
-				"effectiveness":24,
-				"fleet_pen":100, 
-				"description":"Automatic Emergency Braking (AEB) applies the brakes to stop the vehicle when it is approaching a lead vehicle too fast. It is generally always equipped with FCW. LeBlanc et al. (2017) found that four types of rear-end crashes can be addressed by AEB+FCW: lead-vehicle braking, lead-vehicle stopped, lead-vehicle slower and other rear-end crashes. They also found that AEB+FCW was estimated to be 87% effective at reducing lead-vehicle braking crashes, 94.6% effective in lead-vehicle stopped crashes, 86% effective in lead-vehicle slower crashes, and 82.6% effective in other rear-end crashes. These estimates are higher than previous work and may represent an ideal effectiveness in which drivers respond reliably to the warning and do not turn the system off.", 
-				'selector_type': ["independent1","independent2","independent3","independent4","ordered_population"], 
-				'selector_desc': ["AEB Countermeasure Settings","FCW Countermeasure Settings","ACC Countermeasure Settings","FCW and ACC Countermeasure Settings", "Fleet Penetration"]
-			},
+					
+		
 			{
 				"val":"rdw", 
 				"name":"Road Departure Warning",
@@ -168,14 +163,22 @@ Ext.namespace('UTMOST');
 				'selector_desc': []
 			},
 			{
-				"val":"adaptive_headlighting",
-				"name":"Intelligent Headlighting",
+				"val":"alcohol_interlock", 
+				"name":"Alcohol Interlock",
 				"active":0,
 				"effectiveness":18,
 				"fleet_pen":100, 
-				"description":"Intelligent lighting systems are estimated to reduce 18% of pedestrian/cyclist low-visiblity crashes (eSafetyForum 2005).", 
-				'selector_type': ["numeric"], 
-				'selector_desc': []
+				"description":"Alcohol Interlock is a system that checks the blood alcohol of the driver before allowing the vehicle to be turned on. Alcohol interlocks are estimated to reduce 18% of crashes where alcohol was a factor (eSafety Forum 2005)", 
+				'selector_type': ["numeric"], 'selector_desc': []
+			},
+			{
+				"val":"lawful",
+				"name":"Lawful Intersection Behaviour",
+				"active":0,
+				"effectiveness":95,
+				"fleet_pen":100, 
+				"description":"Some crashes occur because the driver runs through a red light or stop sign. Highly automated vehicles are expected to comply with traffic signals. This countermeasure allows simulation of compliance with traffic signals; we assume that compliance should be above 95% for vehicles without a human driver. ", 
+				'selector_type': ["numeric"], 'selector_desc': []
 			},
 			{
 				"val":"teen_driver",
@@ -188,16 +191,6 @@ Ext.namespace('UTMOST');
 				'selector_desc': ['Population Proportion']
 			},
 			{
-				"val":"child_seat",
-				"name":"Child Passenger Safety Laws",
-				"active":0,
-				"effectiveness":0,
-				"fleet_pen":0, 
-				"description":"The wording used in child passenger safety laws is correlated to the proportion of child occupants using recommended restraint systems (Benedetti et al. 2017, Klinich et al. 2016). States that include language associated with best practice recommendations in child restraint (rear-facing to age 2, harnessed child restraint for 2 to 4YO, and booster seats for 5 to 10YO) have higher rates of optimal restraint use. Changing the population proportion for each age group with a �best practice� law changes the distribution of optimal and suboptimal restraint, which changes injury count but not person count.", 
-				'selector_type': ["independent"], 
-				'selector_desc': ["Law Population Proportion"]
-			},
-			{
 				"val":"seatbelt",
 				"name":"Seatbelt Use Laws",
 				"active":0,
@@ -205,6 +198,16 @@ Ext.namespace('UTMOST');
 				"fleet_pen":0, 
 				"description":"All states except New Hampshire require seatbelt use by front seat occupants. In 2017, 19 states have secondary enforcement of seatbelt laws while the rest have primary enforcement. Analysis of restraint patterns and strength of laws indicated that having a primary law increases belt use by 6%. States with increased fines for a second violation also have higher belt rates (3%). Changing the population proportion covered by different types of seatbelt laws changes the proportion of belted occupants, which changes injury count but not person count.", 
 				'selector_type': ["population"], 
+				'selector_desc': ["Law Population Proportion"]
+			},
+			{
+				"val":"child_seat",
+				"name":"Child Passenger Safety Laws",
+				"active":0,
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"The wording used in child passenger safety laws is correlated to the proportion of child occupants using recommended restraint systems (Benedetti et al. 2017, Klinich et al. 2016). States that include language associated with best practice recommendations in child restraint (rear-facing to age 2, harnessed child restraint for 2 to 4YO, and booster seats for 5 to 10YO) have higher rates of optimal restraint use. Changing the population proportion for each age group with a �best practice� law changes the distribution of optimal and suboptimal restraint, which changes injury count but not person count.", 
+				'selector_type': ["independent"], 
 				'selector_desc': ["Law Population Proportion"]
 			},
 			{
@@ -218,6 +221,16 @@ Ext.namespace('UTMOST');
 				'selector_desc': ["Law Population Proportion"]
 			},
 			{
+				"val":"adaptive_headlighting",
+				"name":"Intelligent Headlighting",
+				"active":0,
+				"effectiveness":18,
+				"fleet_pen":100, 
+				"description":"Intelligent lighting systems are estimated to reduce 18% of pedestrian/cyclist low-visiblity crashes (eSafetyForum 2005).", 
+				'selector_type': ["numeric"], 
+				'selector_desc': []
+			},
+			{
 				"val":"restraint_override",
 				"name":"Restraint Override",
 				"active":0,
@@ -228,22 +241,12 @@ Ext.namespace('UTMOST');
 				'selector_desc': ["Restraint Proportion"]
 			},
 			{
-				"val":"seat_position",
-				"name":"Seat Position Population",
-				"active":0,
-				"effectiveness":0,
-				"fleet_pen":0, 
-				"description":"Autonomous Vehicles are anticipated to potentially change the proportion of where passengers are seated in crashing vehicles.", 
-				'selector_type': ["category_unique", "category_unique_secondary", "population"], 
-				'selector_desc': ["Front Seat Face", "Rear Seats Face", "Seat Location Proportions"]
-			},
-			{
 				"val":"vehicle_crashworthiness",
 				"name":"Occupant protection",
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":0, 
-				"description":"Changes in the future may make future vehicles more crashworthy, better protecting occupants from injury in the event of a crash.", 
+				"description":"Advanced occupant protection systems could reduce the risk of injury in different types of crashes. To simulate this effect, the user can enter data to shift the field-based injury risk curve by a particular percentage at a particular crash severity. Each crash direction can be adjusted separately. Users can enter values based on computational simulations. Alternatively, users could determine what percentage reduction in injury risk would be needed to achieve a particular reduction in injury or fatality counts.", 
 				'selector_type': ["independent"], 
 				'selector_desc': ["Settings"]
 			},
@@ -253,18 +256,22 @@ Ext.namespace('UTMOST');
 				"active":0,
 				"effectiveness":0,
 				"fleet_pen":100, 
-				"description":"How the age of a vehicle affects at protecting occupants from injury in the event of a crash. ", 
+				"description":"Analysis of injury and fatality risk by vehicle age shows a lower risk for vehicles less than 12 years old compared to vehicles older than 12 years old. In the current vehicle fleet, approximately 30% (check) of vehicles are older than 12 years old. This countermeasure simulates the effect of replacing older vehicles with newer vehicles.<><>Occupants in vehicles older than [12 years/ model year 2007] have been shown to have a 40% higher risk of injury and 60% higher risk of fatality in crashes.  As of [2015], roughly [66%] of vehicles on the road were this age or older.  Replacing this population of older vehicles should reduce fatality and injury risk for the involved occupants.  Fleet penetration represents the percentage of these vehicles replaced with a modern equivalent vehicle.  ", 
 				'selector_type': ["independent5"], 'selector_desc': ["Fleet Penetration"]
 			},
 			{
-				"val":"lawful",
-				"name":"Lawful Intersection Behaviour",
+				"val":"seat_position",
+				"name":"Seat Position Population",
 				"active":0,
-				"effectiveness":95,
-				"fleet_pen":100, 
-				"description":"How the age of a vehicle affects the at protecting occupants from injury in the event of a crash. ", 
-				'selector_type': ["numeric"], 'selector_desc': []
+				"effectiveness":0,
+				"fleet_pen":0, 
+				"description":"Currently, about 70% of occupants are drivers, 16% front seat passengers, and 14% rear seat passengers. Autonomous Vehicles could shift the distribution of passengers, allow different vehicle seat orientations, and remove the steering wheel. The effects of these changes are simulated by switching current injury risk curves. For examples, a rear-facing front passenger is assumed to have rear impact injury risk in frontal crashes and frontal impact injury risk in rear crashes.", 
+				'selector_type': ["category_unique", "category_unique_secondary", "population"], 
+				'selector_desc': ["Front Seat Face", "Rear Seats Face", "Seat Location Proportions"]
 			}
+			
+			
+			
 			
 		]
 	});
@@ -704,7 +711,8 @@ Ext.namespace('UTMOST');
 		name: 'cm_desc',
 		title: "Description",
 		bodyPadding: 5,
-		height: "100%",
+		//height:"100%",
+		overflowY: 'scroll',
 		flex: 1
 	});
 	var effectiveness_slider = Ext.create('Ext.slider.Single', {
@@ -796,8 +804,10 @@ Ext.namespace('UTMOST');
 		layout: "form",
 		title: "Parameters",
 		flex: 1,
-		bodyStyle: { height: "100%" },
+		//overflowY: 'scroll',
+		//bodyStyle: { height: "100%" },
 		bodyPadding: 5,
+		//height:"100%",
 		items: [
 			countermeasure_list,
 			effectiveness_slider, 
@@ -849,6 +859,7 @@ Ext.namespace('UTMOST');
 		countermeasure_independent4_selector.setVisible(false);
 		countermeasure_independent5_selector.setVisible(false);
 		cm_description.update("");
+		//cm_description.maxHeight=500;
 	}
 	
 	countermeasure_list.on('select', function(combo, record, index){
@@ -1422,8 +1433,10 @@ Ext.namespace('UTMOST');
 			{
 				xtype: 'panel',
 				layout: 'hbox',
+				manageHeight:true,
 				items: [countermeasure_edit_form, cm_description],
-				autoScroll: true,
+				overflowY: 'scroll'
+				
 			},
 			{
 				xtype: 'button',
@@ -1463,6 +1476,8 @@ Ext.namespace('UTMOST');
 						countermeasure_edit_window.hide();
 						cm_types.clearFilter();
 						var form_values = countermeasure_edit_form.getValues();
+						//countermeasure_edit_form.maxHeight=500;
+						//cm_description.maxHeight=400;
 						var rec = cm_types.findRecord('name', form_values['cm_name']);
 						rec.set('active', 1);
 						rec.set('effectiveness', form_values['cm_effect']);
@@ -1568,7 +1583,7 @@ Ext.namespace('UTMOST');
 				handler: function(){
 					cm_types.filter('active',0);
 					countermeasure_list.clearValue();
-					countermeasure_edit_window.maxHeight=450;
+					countermeasure_edit_window.maxHeight=650;
 					countermeasure_edit_window.show();
 				}
 			},
