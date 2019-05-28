@@ -723,7 +723,7 @@
 			
 			});
 		} 
-			else if (data_outcome_variable == 'fatality_count'&& ((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='nonhispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all")||(data_subset_variable=='income' && data_subset_category == "all"))){
+			else if (data_outcome_variable == 'fatality_count'&& ((data_subset_variable=='white' && data_subset_category == "all")||(data_subset_variable=='black' && data_subset_category == "all")||(data_subset_variable=='other' && data_subset_category == "all")||(data_subset_variable=='hispanic' && data_subset_category == "all")||(data_subset_variable=='non_hispanic' && data_subset_category == "all")||(data_subset_variable=='education' && data_subset_category == "all")||(data_subset_variable=='income' && data_subset_category == "all"))){
 			utmost_fatality_raw_values.load({
 				params: {
 					filter_string: cm_string,
@@ -752,16 +752,16 @@
 									'q4':parseFloat(record.get('wq4')),
 									'q5':parseFloat(record.get('wq5')),
 									'sort': record.get('sort')
-								    }
-							    );
-						        } else {
-							        var target_record = utmost_fatality_race_chart_values.getAt(index);
-							        target_record.set('q1', parseFloat(record.get('wq1'))+parseFloat(target_record.get('q1')));
+									}
+								);
+								} else {
+									var target_record = utmost_fatality_race_chart_values.getAt(index);
+									target_record.set('q1', parseFloat(record.get('wq1'))+parseFloat(target_record.get('q1')));
 									target_record.set('q2', parseFloat(record.get('wq2'))+parseFloat(target_record.get('q2')));
 									target_record.set('q3', parseFloat(record.get('wq3'))+parseFloat(target_record.get('q3')));
 									target_record.set('q4', parseFloat(record.get('wq4'))+parseFloat(target_record.get('q4')));
 									target_record.set('q5', parseFloat(record.get('wq5'))+parseFloat(target_record.get('q5')));
-							        }
+									}
 						});
 				    utmost_fatality_race_chart_values.sort('sort', 'ASC');
 					var max = 0;
@@ -896,6 +896,7 @@
 					//adjust chart max
 					var chart_max = (parseInt(max / 100) + 1) * 100;
 					utmost_fatality_race_chart.axes.getAt(0).maximum = 10000;
+					//generate_chart_quintile_values(data_subset_variable);
 					
 					
 					utmost_loadmask.hide();
@@ -1149,11 +1150,44 @@
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
 					utmost_totals_chart_values.commitChanges();
 					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
-					
+					/*if(data_subset_variable=='hispanic')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=2900;	
+					}
+					else if(data_subset_variable=='non_hispanic')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=2800;	
+					}
+					else if(data_subset_variable=='black')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=2600;	
+					}
+					else if(data_subset_variable=='other')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=3200;	
+					}
+					else if(data_subset_variable=='black')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=2600;	
+					}
+					else if(data_subset_variable=='white')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=2700;	
+					}
+					else if(data_subset_variable=='education')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=3000;	
+					}
+					else if(data_subset_variable=='income')
+					{
+					utmost_fatality_chart.axes.getAt(0).maximum=2500;	
+					}
+					else
+					{*/
 					//adjust chart max
-					var chart_max = (parseInt(max / 100) + 1) * 100;
-					utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
-					
+						var chart_max = (parseInt(max / 100) + 1) * 100;
+						utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
+					 //}
 					
 					utmost_loadmask.hide();
 					
