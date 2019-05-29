@@ -3,8 +3,7 @@
 	<head>
 		<script type "text/javascript" src="lib/ext-all-debug.js"></script>
 		<script type="text/javascript" src="utmost_model.js"></script>
-		<script type="text/javascript" src="utmost_risk.js"></script>
-		
+		<script type="text/javascript" src="utmost_risk.js"></script>		
 		<script type="text/javascript" src="utmost_countermeasure.js"></script>
 		<script type="text/javascript" src="utmost_world.js"></script>
 		<script type="text/javascript" src="utmost_subset.js"></script>
