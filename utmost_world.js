@@ -165,6 +165,7 @@
                		Ext.getBody().mask("please wait..");
 					data_update();
 					//titleArray=[];
+					generate_chart_yaxis_title(chart_subset_selector.getSubmitValue());
 					generate_chart_quintile_values(chart_subset_selector.getSubmitValue());
 					generate_subset_tabs(chart_subset_selector.getSubmitValue());
 					Ext.resumeLayouts(true);

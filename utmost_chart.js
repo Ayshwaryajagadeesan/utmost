@@ -201,7 +201,7 @@
 		
 		axes: [
 			{
-				title: 'Baseline Fatality Count (% by zipcode)',
+				title: Yaxistitle,
 				type: 'Numeric',
 				position: 'left',
 				grid: true,
