@@ -895,7 +895,7 @@
 					
 					//adjust chart max
 					var chart_max = (parseInt(max / 100) + 1) * 100;
-					utmost_fatality_race_chart.axes.getAt(0).maximum = 10000;
+					utmost_fatality_race_chart.axes.getAt(0).maximum = 16000;
 					//generate_chart_quintile_values(data_subset_variable);
 					
 					

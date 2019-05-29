@@ -256,7 +256,8 @@
 				xField: 'crash_type',
 				groupGutter: 0,
 				yField: ['q1', 'q2','q3','q4','q5'],
-				title: ['quintile1', 'quintile2','quintile3','quintile4','quintile5']
+				title:titleArray
+				// ['quintile1', 'quintile2','quintile3','quintile4','quintile5']
 			}]
 	});	
 
@@ -383,6 +384,7 @@
 				
 			}]
 	});
+	
 	
 	var utmost_totals_panel = Ext.create('Ext.panel.Panel', {
 		title: 'Total Change',
