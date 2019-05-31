@@ -1150,44 +1150,195 @@
 					utmost_totals_chart_values.getAt(0).set('person_count_adj', adj_total);					
 					utmost_totals_chart_values.commitChanges();
 					utmost_fatality_chart.axes.getAt(1).title = chart_vars.findRecord("val", chart_variable_selector.getValue()).get("name");
-					/*if(data_subset_variable=='hispanic')
+					if(data_subset_variable=='hispanic')
 					{
-					utmost_fatality_chart.axes.getAt(0).maximum=2900;	
+					if(  data_categories=='crash_type' ||data_categories=='crash_direction'||data_categories=="income")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3000;
+						}
+						else if( data_categories=="education" || data_categories=="veh_type")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3800;
+						} 
+						else if( data_categories=="age" || data_categories=="driver_age"||data_categories=="veh_age"|| data_categories=="urbanization_soc"|| data_categories=="black" )
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=4600;
+						}
+						else if(data_categories=='white'|| data_categories=="light_condition")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=5300;
+						}
+						else if( data_categories=="sex" || data_categories=="alcohol_involvement"|| data_categories=="other")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=6700;
+						} 
+						else if( data_categories=="hispanic"|| data_categories=='non_hispanic')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=9200;
+						}    	
 					}
 					else if(data_subset_variable=='non_hispanic')
 					{
-					utmost_fatality_chart.axes.getAt(0).maximum=2800;	
-					}
-					else if(data_subset_variable=='black')
-					{
-					utmost_fatality_chart.axes.getAt(0).maximum=2600;	
+						if(  data_categories=='crash_type' ||data_categories=='crash_direction'||data_categories=="income")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=2900;
+						}
+						else if( data_categories=="education" || data_categories=="veh_type")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3700;
+						} 
+						else if( data_categories=="age" || data_categories=="driver_age"||data_categories=="veh_age"|| data_categories=="urbanization_soc"|| data_categories=="black" )
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=4500;
+						}
+						else if(data_categories=='white'|| data_categories=="light_condition")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=5100;
+						}
+						else if( data_categories=="sex" || data_categories=="alcohol_involvement"|| data_categories=="other")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=6500;
+						} 
+						else if( data_categories=="hispanic"|| data_categories=='non_hispanic')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=8900;
+						}    		
 					}
 					else if(data_subset_variable=='other')
 					{
-					utmost_fatality_chart.axes.getAt(0).maximum=3200;	
+						if(  data_categories=='crash_type' ||data_categories=='crash_direction'||data_categories=="income")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3300;
+						}
+						else if( data_categories=="education" || data_categories=="veh_type"||data_categories=="veh_age"|| data_categories=="urbanization_soc"|| data_categories=="black")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=4800;
+						} 
+						else if( data_categories=="age" || data_categories=="driver_age"|| data_categories=="light_condition" )
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=5800;
+						}
+						else if(data_categories=="hispanic"|| data_categories=='non_hispanic' || data_categories=='white')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=6700;
+						}
+						else if( data_categories=="sex" || data_categories=="alcohol_involvement")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=7200;
+						} 
+						else if( data_categories=="other")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=10100;
+						}    	
 					}
 					else if(data_subset_variable=='black')
 					{
-					utmost_fatality_chart.axes.getAt(0).maximum=2600;	
+						if(  data_categories=='crash_type' ||data_categories=='crash_direction')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=2600;
+						}
+						else if( data_categories=="education"|| data_categories=="veh_type" ||data_categories=="income")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3800;
+						} 
+						else if( data_categories=="age" || data_categories=="driver_age"|| data_categories=='veh_age' ||data_categories=='urbanization_soc'|| data_categories=="hispanic"|| data_categories=='non_hispanic'|| data_categories=='other')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=4500;
+						}
+						else if( data_categories=="light_condition" )
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=5200;
+						}
+						else if( data_categories=="sex" || data_categories=="alcohol_involvement"|| data_categories=='white')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=6200;
+						} 
+						else if( data_categories=="black")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=8800;
+						}    
 					}
 					else if(data_subset_variable=='white')
 					{
-					utmost_fatality_chart.axes.getAt(0).maximum=2700;	
+						if(  data_categories=='education' ||data_categories=='income')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3300;
+						}
+						else if( data_categories=="crash_type"|| data_categories=="veh_type" ||data_categories=="crash_direction")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=2700;
+						} 
+						else if( data_categories=="age" || data_categories=="driver_age"|| data_categories=='veh_age' ||data_categories=='urbanization_soc')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=4400;
+						}
+						else if( data_categories=="light_condition" || data_categories=="hispanic"|| data_categories=='non_hispanic')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=5300;
+						}
+						else if( data_categories=="sex" || data_categories=="alcohol_involvement"|| data_categories=='black'|| data_categories=='other')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=6400;
+						} 
+						else if( data_categories=="white")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=8800;
+						}    
+						
 					}
 					else if(data_subset_variable=='education')
 					{
-					utmost_fatality_chart.axes.getAt(0).maximum=3000;	
+					if(  data_categories=='education' )
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=10800;
+						}
+						else if( data_categories=="crash_type" ||data_categories=="crash_direction"||data_categories=="age"||data_categories=="white"|| data_categories=='black')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3300;
+						} 
+						else if(data_categories=="light_condition" ||  data_categories=="driver_age"|| data_categories=='veh_age' ||data_categories=='income')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=5900;
+						}
+						else if( data_categories=="hispanic"|| data_categories=='non_hispanic'|| data_categories=="veh_type"|| data_categories=='other'||data_categories=='urbanization_soc')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=4400;
+						}
+						else if( data_categories=="sex" || data_categories=="alcohol_involvement")
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=7600;
+						} 
+						 	
 					}
 					else if(data_subset_variable=='income')
 					{
-					utmost_fatality_chart.axes.getAt(0).maximum=2500;	
+						if(data_categories=='income' )
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=8900;
+						}
+						else if( data_categories=="crash_type" ||data_categories=="crash_direction"|| data_categories=='non_hispanic')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=2900;
+						} 
+						else if(data_categories=="light_condition" ||  data_categories=="driver_age"||data_categories=="age"|| data_categories=='veh_age' )
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=4600;
+						}
+						else if( data_categories=="hispanic"|| data_categories=="veh_type"|| data_categories=='other'||data_categories=='urbanization_soc'||data_categories=="white"|| data_categories=='black')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=3800;
+						}
+						else if( data_categories=="sex" || data_categories=="alcohol_involvement"||data_categories=='education')
+						{
+							utmost_fatality_chart.axes.getAt(0).maximum=6300;
+						} 	
 					}
 					else
-					{*/
+					{
 					//adjust chart max
 						var chart_max = (parseInt(max / 100) + 1) * 100;
 						utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
-					 //}
+					 }
 					
 					utmost_loadmask.hide();
 					

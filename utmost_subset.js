@@ -35,11 +35,11 @@
 			{group_var: 'driver_age', title: 'Driver Age 31-65', category_value:'"31-65"', chart_max: 12000000},
 			{group_var: 'driver_age', title: 'Driver Age 66+', category_value:'">65"', chart_max: 1200000},
 			{group_var: 'urbanization', title: 'Large Metro', category_value:'"Large Metro"', chart_max: 5500000},
-			{group_var: 'urbanization', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
 			{group_var: 'urbanization', title: 'S/M Metro', category_value:'"S/M Metro"', chart_max: 5500000},
+			{group_var: 'urbanization', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
 			{group_var: 'urbanization_soc', title: 'Large Metro', category_value:'"Large Metro"', chart_max: 5500000},
-			{group_var: 'urbanization_soc', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
 			{group_var: 'urbanization_soc', title: 'S/M Metro', category_value:'"S/M Metro"', chart_max: 5500000},
+			{group_var: 'urbanization_soc', title: 'Nonmetro', category_value:'"Nonmetro"', chart_max: 5500000},
 			{group_var: 'white', title: '56.7% and Below ', category_value:'"56.7% and Below"', chart_max: 5500000},
 			{group_var: 'white', title: '56.7%-74.2%', category_value:'"56.7%-74.2%"', chart_max: 5500000},
 			{group_var: 'white', title: '74.2%-84.3% ', category_value:'"74.2%-84.3%"', chart_max: 5500000},
@@ -148,7 +148,7 @@
 	{    
 		data_subsets.clearFilter();
 		if(group_var=="white"){group_var = "whitetitle"; }
-		if(group_var=="black"){group_var = "blcaktitle"; }
+		if(group_var=="black"){group_var = "blacktitle"; }
 		if(group_var=="other"){group_var = "othertitle"; }
 		if(group_var=="hispanic"){group_var = "hispanictitle"; }
 		if(group_var=="non_hispanic"){group_var = "non_hispanictitle"; }
