@@ -599,7 +599,7 @@
 								
 							}
 							if(check_countermeasure('vehicle_age') && record.get('veh_age') == "12+")
-								{
+								{ 	
 									adjusted_injuries= adjusted_injuries*cm_vehicle_age_get_value(data_outcome_variable);
 								}
 							record.set('injury_count', total_base_injuries);
@@ -1338,7 +1338,7 @@
 					//adjust chart max
 						var chart_max = (parseInt(max / 100) + 1) * 100;
 						utmost_fatality_chart.axes.getAt(0).maximum = chart_max;
-					 }
+					}
 					
 					utmost_loadmask.hide();
 					

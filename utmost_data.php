@@ -2,6 +2,8 @@
 
 	//DB connect
 	$utmost_link = new mysqli('127.0.0.1', 'root', '', 'utmost_dev');
+	$limit = ini_get('memory_limit');
+	ini_set('memory_limit', -1);
 	//$utmost_link = new mysqli('cmisst-sandbox.miserver.it.umich.edu', 'cmisst', 'cmisst-a1s2d3f4', 'utmost_dev');
 	//print_r($utmost_link);
 	//cmisst-sandbox.miserver.it.umich.edu
@@ -327,5 +329,6 @@
 	$res = null;
 	
 	echo json_encode($data);
+	ini_set('memory_limit', $limit);
 
 ?>
