@@ -592,13 +592,13 @@
 							for(i = 1; i< subrows.length; i++){
 								adjusted_injuries += subrows[i].frequency * utmost_injury_risk_dv(subrows[i]);
 							} 
-							if (record.get('veh_age') == "12+" && record.get('crash_type')!="Pedestrian" && record.get('crash_type')!="Cyclist" && record.get('crash_type')!="Parked Car")
+							if (record.get('veh_age') == "12+" && record.get('crash_type')!="Pedestrian" && record.get('crash_type')!="Cyclist" && record.get('crash_type')!="Parked Car" && record.get('crash_type')!= "Motorcycle")
 							{
 								total_base_injuries=total_base_injuries*1.4;
 								adjusted_injuries=adjusted_injuries*1.4;
 								
 							}
-							if(check_countermeasure('vehicle_age') && record.get('veh_age') == "12+" && record.get('crash_type')!="Pedestrian" && record.get('crash_type')!="Cyclist" && record.get('crash_type')!="Parked Car")
+							if(check_countermeasure('vehicle_age') && record.get('veh_age') == "12+" && record.get('crash_type')!="Pedestrian" && record.get('crash_type')!="Cyclist" && record.get('crash_type')!="Parked Car" && record.get('crash_type')!= "Motorcycle")
 								{ 	
 									adjusted_injuries= adjusted_injuries*cm_vehicle_age_get_value(data_outcome_variable);
 								}
