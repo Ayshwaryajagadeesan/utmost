@@ -1429,7 +1429,7 @@ Ext.namespace('UTMOST');
 		autoScroll: true,
 		closeAction: 'hide',
 		//resizeHandles: 'w e',
-		//resizable: false,
+		resizable: false,
 		items: [
 			{
 				xtype: 'panel',
