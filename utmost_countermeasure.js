@@ -1584,7 +1584,7 @@ Ext.namespace('UTMOST');
 				handler: function(){
 					cm_types.filter('active',0);
 					countermeasure_list.clearValue();
-					countermeasure_edit_window.maxHeight=650;
+					countermeasure_edit_window.maxHeight=750;
 					countermeasure_edit_window.show();
 				}
 			},
