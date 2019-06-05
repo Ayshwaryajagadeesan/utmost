@@ -1424,11 +1424,12 @@ Ext.namespace('UTMOST');
 	var countermeasure_edit_window = Ext.create('Ext.window.Window', {
 		layout: "form",
 		title: "Adjust Countermeasure",
-        width: "50%",
+        width: "60%",
 		manageHeight:true,
 		autoScroll: true,
 		closeAction: 'hide',
-		resizable: false,
+		//resizeHandles: 'w e',
+		//resizable: false,
 		items: [
 			{
 				xtype: 'panel',
