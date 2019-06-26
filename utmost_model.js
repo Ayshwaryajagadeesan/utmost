@@ -1046,7 +1046,7 @@
 					utmost_loadmask.hide();
 					if(n==1){
 						out +="\n Large Metro";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1054,7 +1054,7 @@
 						data_update(2);
 					}else if(n==2){
 						out +="\n S/M Metro";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1063,7 +1063,7 @@
 					
 					} else if(n==3){
 						out +="\n Non Metro";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1093,7 +1093,7 @@
 					}
 					else if(n==4){
 						out +="\n No Alcohol Involved";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1103,7 +1103,7 @@
 					}
 					else if(n==5){
 						out +="\n Alcohol Involved";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1133,7 +1133,7 @@
 					}
 					else if(n==6){
 						out +="\n Age 0-1";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1143,7 +1143,7 @@
 					}
 					else if(n==7){
 						out +="\n Age 2-4";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1153,7 +1153,7 @@
 					}
 					else if(n==8){
 						out +="\n Age 5-7";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1163,7 +1163,7 @@
 					}
 					else if(n==9){
 						out +="\n Age 8-10";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1173,7 +1173,7 @@
 					}
 					else if(n==10){
 						out +="\n Age 11-13";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1183,7 +1183,7 @@
 					}
 					else if(n==11){
 						out +="\n Age 14-15";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1193,7 +1193,7 @@
 					}
 					else if(n==12){
 						out +="\n Age 16-17";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1203,7 +1203,7 @@
 					}
 					else if(n==13){
 						out +="\n Age 18-20";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1213,7 +1213,7 @@
 					}
 					else if(n==14){
 						out +="\n Age 21-30";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1223,7 +1223,7 @@
 					}
 					else if(n==15){
 						out +="\n Age 31-65";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1233,7 +1233,7 @@
 					}
 					else if(n==16){
 						out +="\n Age 66+";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1263,7 +1263,7 @@
 					}
 					else if(n==17){
 						out +="\n Driver Age 0-15";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1273,7 +1273,7 @@
 					}
 					else if(n==18){
 						out +="\n Driver Age 16-17";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1283,7 +1283,7 @@
 					}
 					else if(n==19){
 						out +="\n Driver Age 18-20";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1293,7 +1293,7 @@
 					}
 					else if(n==20){
 						out +="\n Driver Age 21-30";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1303,7 +1303,7 @@
 					}
 					else if(n==21){
 						out +="\n Driver Age 31-65";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1313,7 +1313,7 @@
 					}
 					else if(n==22){
 						out +="\n Driver Age 66+";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,injury_count,adjusted_injury_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
@@ -1986,7 +1986,7 @@
 					utmost_totals_chart.fireEvent('refresh');
 					if(n==1){
 						out +="\n Large Metro";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -1994,7 +1994,7 @@
 						data_update(2);
 					}else if(n==2){
 						out +="\n S/M Metro";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2003,7 +2003,7 @@
 					
 					} else if(n==3){
 						out +="\n Non Metro";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2032,7 +2032,7 @@
 					
 					}else if(n==4){
 						out +="\n No Alcohol Involved";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2041,7 +2041,7 @@
 					
 					}else if(n==5){
 						out +="\n Alcohol Involved";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2071,7 +2071,7 @@
 					}
 						else if(n==6){
 						out +="\n Age 0-1";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2081,7 +2081,7 @@
 					}
 					else if(n==7){
 						out +="\n Age 2-4";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2091,7 +2091,7 @@
 					}
 					else if(n==8){
 						out +="\n Age 5-7";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2101,7 +2101,7 @@
 					}
 					else if(n==9){
 						out +="\n Age 8-10";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2111,7 +2111,7 @@
 					}
 					else if(n==10){
 						out +="\n Age 11-13";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2121,7 +2121,7 @@
 					}
 					else if(n==11){
 						out +="\n Age 14-15";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2131,7 +2131,7 @@
 					}
 					else if(n==12){
 						out +="\n Age 16-17";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2141,7 +2141,7 @@
 					}
 					else if(n==13){
 						out +="\n Age 18-20";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2151,7 +2151,7 @@
 					}
 					else if(n==14){
 						out +="\n Age 21-30";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2161,7 +2161,7 @@
 					}
 					else if(n==15){
 						out +="\n Age 31-65";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2171,7 +2171,7 @@
 					}
 					else if(n==16){
 						out +="\n Age 66+";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2201,7 +2201,7 @@
 					}
 					else if(n==17){
 						out +="\n Driver Age 0-15";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2211,7 +2211,7 @@
 					}
 					else if(n==18){
 						out +="\n Driver Age 16-17";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2221,7 +2221,7 @@
 					}
 					else if(n==19){
 						out +="\n Driver Age 18-20";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2231,7 +2231,7 @@
 					}
 					else if(n==20){
 						out +="\n Driver Age 21-30";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2241,7 +2241,7 @@
 					}
 					else if(n==21){
 						out +="\n Driver Age 31-65";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
@@ -2251,7 +2251,7 @@
 					}
 					else if(n==22){
 						out +="\n Driver Age 66+";
-						out += "\n category,person_count,adjusted_person_count\n";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
 						var count = utmost_fatality_chart_values.count();
 						for (i = 0; i < count; i++){
 							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
