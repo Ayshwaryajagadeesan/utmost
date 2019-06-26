@@ -264,6 +264,22 @@
 		var data_subset_category = "Nonmetro";
 		var data_outcome_variable = get_outcome_var();
 		}
+		else if(n==4){
+			var cm_string = get_countermeasure_string();
+		var cm_cf_string = get_coeffs_string();
+		var data_categories = get_data_cateogories();
+		var data_subset_variable = get_data_subset_var();
+		var data_subset_category = "No Alcohol Involved";
+		var data_outcome_variable = get_outcome_var();
+		}
+		else if(n==5){
+			var cm_string = get_countermeasure_string();
+		var cm_cf_string = get_coeffs_string();
+		var data_categories = get_data_cateogories();
+		var data_subset_variable = get_data_subset_var();
+		var data_subset_category = "Alcohol Involved";
+		var data_outcome_variable = get_outcome_var();
+		}
 		else{
 		var cm_string = get_countermeasure_string();
 		var cm_cf_string = get_coeffs_string();
@@ -371,6 +387,46 @@
 					
 					} else if(n==3){
 						out +="\n Non Metro";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
+					}
+					else if(n==4){
+						out +="\n No Alcohol Involved";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						data_update(5);
+					
+					}
+					else if(n==5){
+						out +="\n Alcohol Involved";
 						out += "\n category,person_count,adjusted_person_count\n";
 						var count = utmost_chart_values.count();
 						for (i = 0; i < count; i++){
@@ -802,6 +858,46 @@
 					
 					} else if(n==3){
 						out +="\n Non Metro";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
+					}
+					else if(n==4){
+						out +="\n No Alcohol Involved";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						data_update(5);
+					
+					}
+					else if(n==5){
+						out +="\n Alcohol Involved";
 						out += "\n category,person_count,adjusted_person_count\n";
 						var count = utmost_injury_chart_values.count();
 						for (i = 0; i < count; i++){
@@ -1517,6 +1613,44 @@
 						data_update(0);
 						out="";
 					
+					}else if(n==4){
+						out +="\n No Alcohol Involved";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(5);
+					
+					}else if(n==5){
+						out +="\n Alcohol Involved";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
 					}
 					else{
 					
@@ -1579,6 +1713,38 @@
 			}
 			
 		}
+		else if((data_subset_variable=='alcohol_involvement' && data_subset_category=='all'))
+		{
+				if (utmost_chart.isVisible()){
+			out +="\n All"
+			out += "\n category,person_count,adjusted_person_count\n";
+			var count = utmost_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+			}
+			data_update(4);
+			
+		} else if (utmost_injury_chart.isVisible()){
+			//injury
+			out +="\n All"
+			out += "\n category,injury_count,adjusted_injury_count\n";
+			var count = utmost_injury_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+			}
+			data_update(4);
+		} else if (utmost_fatality_chart.isVisible()) {
+			//fatality
+			out +="\n All"
+			out += "\n category,fatality_count,adjusted_fatality_count\n";
+			var count = utmost_fatality_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+			}
+			data_update(4);
+			}
+			
+		}
 		else {
 		if (utmost_chart.isVisible()){
 			out += "category,person_count,adjusted_person_count\n";
@@ -1626,7 +1792,7 @@
 			document.body.appendChild(dl_link);
 		}
 		dl_link.click();
-
+		out="";
 		}
 		
 	};
