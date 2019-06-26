@@ -2459,7 +2459,7 @@
 			}}
 			else if (utmost_fatality_race_chart.isVisible()) {
 			//fatality
-			out += "category,q1,q2,q3,q4,q5\n";
+			out += "category,"+utmost_fatality_race_chart.series.get(0).title+"\n";
 			var count = utmost_fatality_race_chart_values.count();
 			for (i = 0; i < count; i++){
 				out += utmost_fatality_race_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_race_chart_values.getAt(i).get('q1')+','+utmost_fatality_race_chart_values.getAt(i).get('q2')+','+utmost_fatality_race_chart_values.getAt(i).get('q3')+','+utmost_fatality_race_chart_values.getAt(i).get('q4')+','+utmost_fatality_race_chart_values.getAt(i).get('q5')+'\n';
