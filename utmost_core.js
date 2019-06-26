@@ -86,7 +86,7 @@ function utmost_core(returning_user){
 	
 	Ext.suspendLayouts();
                		Ext.getBody().mask("please wait..");
-					data_update();
+					data_update(0);
 					Ext.resumeLayouts(true);
                 	Ext.getBody().unmask();
 	

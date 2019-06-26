@@ -108,7 +108,7 @@
 				data_subsets.filter('group_var', chart_subset_selector.getSubmitValue());
 				Ext.suspendLayouts();
                		Ext.getBody().mask("please wait..");
-					data_update();
+					data_update(0);
 					Ext.resumeLayouts(true);
                 	Ext.getBody().unmask();
 			/*	Ext.defer(function () {

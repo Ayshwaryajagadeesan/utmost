@@ -1409,7 +1409,7 @@ Ext.namespace('UTMOST');
 						rec.set('active', 0);
 						Ext.suspendLayouts();
                		Ext.getBody().mask("please wait..");
-					data_update();
+					data_update(0);
 					Ext.resumeLayouts(true);
                 	Ext.getBody().unmask();
 						return true;
@@ -1487,7 +1487,7 @@ Ext.namespace('UTMOST');
 						cm_title = form_values['cm_name'];
 						Ext.suspendLayouts();
                		Ext.getBody().mask("please wait..");
-					data_update();
+					data_update(0);
 					Ext.resumeLayouts(true);
                 	Ext.getBody().unmask();
 						
@@ -1508,7 +1508,7 @@ Ext.namespace('UTMOST');
 						}
 						Ext.suspendLayouts();
                		Ext.getBody().mask("please wait..");
-					data_update();
+					data_update(0);
 					Ext.resumeLayouts(true);
                 	Ext.getBody().unmask();
 					}  
@@ -1541,7 +1541,7 @@ Ext.namespace('UTMOST');
 						
 						Ext.suspendLayouts();
                		Ext.getBody().mask("please wait..");
-					data_update();
+					data_update(0);
 					Ext.resumeLayouts(true);
                 	Ext.getBody().unmask();
 					}
