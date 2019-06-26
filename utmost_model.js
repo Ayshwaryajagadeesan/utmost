@@ -263,6 +263,13 @@
 		else if(n==14){var data_subset_category = "21-30";}
 		else if(n==15){var data_subset_category = "31-65";}
 		else if(n==16){var data_subset_category = "66+";}
+		else if(n==17){var data_subset_category = "<16";}
+		else if(n==18){var data_subset_category = "16-17";}
+		else if(n==19){var data_subset_category = "18-20";}
+		else if(n==20){var data_subset_category = "21-30";}
+		else if(n==21){var data_subset_category = "31-65";}
+		else if(n==22){var data_subset_category = ">65";}
+		
 		else{var data_subset_category = get_data_subset_cat();}
 		var data_outcome_variable = get_outcome_var();
 		if (data_outcome_variable == 'person_count'){
@@ -567,6 +574,89 @@
 						out="";
 					
 					}
+					else if(n==17){
+						out +="\n Driver Age 0-15";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						data_update(18);
+					
+					}
+					else if(n==18){
+						out +="\n Driver Age 16-17";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						data_update(19);
+					
+					}
+					else if(n==19){
+						out +="\n Driver Age 18-20";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						data_update(20);
+					
+					}
+					else if(n==20){
+						out +="\n Driver Age 21-30";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						data_update(21);
+					
+					}
+					else if(n==21){
+						out +="\n Driver Age 31-65";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						data_update(22);
+					
+					}
+					else if(n==22){
+						out +="\n Driver Age 66+";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						}
+							 
+						else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
+					}
+					
 					
 					
 					
@@ -1171,6 +1261,87 @@
 						out="";
 					
 					}
+					else if(n==17){
+						out +="\n Driver Age 0-15";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						data_update(18);
+					
+					}
+					else if(n==18){
+						out +="\n Driver Age 16-17";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						data_update(19);
+					
+					}
+					else if(n==19){
+						out +="\n Driver Age 18-20";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						data_update(20);
+					
+					}
+					else if(n==20){
+						out +="\n Driver Age 21-30";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						data_update(21);
+					
+					}
+					else if(n==21){
+						out +="\n Driver Age 31-65";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						data_update(22);
+					
+					}
+					else if(n==22){
+						out +="\n Driver Age 66+";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_injury_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
+					}
+					
 					
 						
 					else{
@@ -2028,6 +2199,86 @@
 						out="";
 					
 					}
+					else if(n==17){
+						out +="\n Driver Age 0-15";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(18);
+					
+					}
+					else if(n==18){
+						out +="\n Driver Age 16-17";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(19);
+					
+					}
+					else if(n==19){
+						out +="\n Driver Age 18-20";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(20);
+					
+					}
+					else if(n==20){
+						out +="\n Driver Age 21-30";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(21);
+					
+					}
+					else if(n==21){
+						out +="\n Driver Age 31-65";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(22);
+					
+					}
+					else if(n==22){
+						out +="\n Driver Age 66+";
+						out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
+					}
 					else{
 					
 					//Redraw count chart
@@ -2150,6 +2401,38 @@
 				out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
 			}
 			data_update(6);
+			}
+			
+		}
+		else if((data_subset_variable=='driver_age' && data_subset_category=='all'))
+		{
+				if (utmost_chart.isVisible()){
+			out +="\n All"
+			out += "\n category,person_count,adjusted_person_count\n";
+			var count = utmost_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+			}
+			data_update(17);
+			
+		} else if (utmost_injury_chart.isVisible()){
+			//injury
+			out +="\n All"
+			out += "\n category,injury_count,adjusted_injury_count\n";
+			var count = utmost_injury_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+			}
+			data_update(17);
+		} else if (utmost_fatality_chart.isVisible()) {
+			//fatality
+			out +="\n All"
+			out += "\n category,fatality_count,adjusted_fatality_count\n";
+			var count = utmost_fatality_chart_values.count();
+			for (i = 0; i < count; i++){
+				out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+			}
+			data_update(17);
 			}
 			
 		}
