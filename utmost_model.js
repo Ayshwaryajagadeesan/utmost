@@ -284,6 +284,17 @@
 		else if(n==35){var data_subset_category = "7.3%-11.8%";}
 		else if(n==36){var data_subset_category = "11.8%-21.6%";}
 		else if(n==37){var data_subset_category = "21.6% and Above";}
+		else if(n==38){var data_subset_category = "2.8% and Below";}
+		else if(n==39){var data_subset_category = "2.8%-6.1%";}
+		else if(n==40){var data_subset_category = "6.1%-12.6%";}
+		else if(n==41){var data_subset_category = "12.6%-29.5%";}
+		else if(n==42){var data_subset_category = "29.5% and Above";}
+		else if(n==43){var data_subset_category = "70.5% and Below";}
+		else if(n==44){var data_subset_category = "70.5%-87.4%";}
+		else if(n==45){var data_subset_category = "87.4%-93.9%";}
+		else if(n==46){var data_subset_category = "93.9%-97.2%";}
+		else if(n==47){var data_subset_category = "97.2% and Above";}
+		
 		
 		else{var data_subset_category = get_data_subset_cat();}
 		var data_outcome_variable = get_outcome_var();
@@ -2500,6 +2511,146 @@
 						out="";
 					
 					}
+					else if(n==38){
+						out +="\n 2.8% and Below";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(39);
+					
+					}
+					else if(n==39){
+						out +="\n 2.8%-6.1%";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(40);
+					
+					}
+					else if(n==40){
+						out +="\n 6.1%-12.6%";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(41);
+					
+					}
+					else if(n==41){
+						out +="\n 12.6%-29.5%";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(42);
+					
+					}
+					else if(n==42){
+						out +="\n 29.5% and Above";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
+					}
+					else if(n==43){
+						out +="\n 70.5% and Below";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(44);
+					
+					}
+					else if(n==44){
+						out +="\n 70.5%-87.4%";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(45);
+					
+					}
+					else if(n==45){
+						out +="\n 87.4%-93.9%";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(46);
+					
+					}
+					else if(n==46){
+						out +="\n 93.9%-97.2%";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						data_update(47);
+					
+					}
+					else if(n==47){
+						out +="\n 97.2% and Above";
+						out += "\n category,fatality_count,adjusted_fatality_count\n";
+						var count = utmost_fatality_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+						}
+						// thanks stackoverflow
+						var outFileBlob = new Blob([out], {type:'text/plain'});
+						var outFileName = "utmost_chart_output.csv";
+						var dl_link = document.createElement("a");
+						dl_link.download = outFileName;
+						dl_link.innerHTML = "Download File";
+		 				if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+						dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+						} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+					
+					}
 					
 					else{
 					
@@ -2703,7 +2854,7 @@
 			for (i = 0; i < count; i++){
 				out += utmost_fatality_race_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_race_chart_values.getAt(i).get('q1')+','+utmost_fatality_race_chart_values.getAt(i).get('q2')+','+utmost_fatality_race_chart_values.getAt(i).get('q3')+','+utmost_fatality_race_chart_values.getAt(i).get('q4')+','+utmost_fatality_race_chart_values.getAt(i).get('q5')+'\n';
 			}
-			data_update(18);
+			data_update(38);
 			}
 		}
 		else if((data_subset_variable=='non_hispanic' && data_subset_category=='all'))
@@ -2715,7 +2866,7 @@
 			for (i = 0; i < count; i++){
 				out += utmost_fatality_race_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_race_chart_values.getAt(i).get('q1')+','+utmost_fatality_race_chart_values.getAt(i).get('q2')+','+utmost_fatality_race_chart_values.getAt(i).get('q3')+','+utmost_fatality_race_chart_values.getAt(i).get('q4')+','+utmost_fatality_race_chart_values.getAt(i).get('q5')+'\n';
 			}
-			data_update(18);
+			data_update(43);
 			}
 		}
 		else if((data_subset_variable=='education' && data_subset_category=='all'))
