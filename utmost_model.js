@@ -387,8 +387,9 @@
 					
 					//Inform chart that the chart dataset has been updated (needed because secondary dataset gets network load);
 					utmost_chart_values.fireEvent('refresh');
-				
-					
+				//	if(n!=0){
+				//	single_file_export(data_outcome_variable,n,out);
+				//	}
 					
 					if(n!=0){
 						if(n==1){out +="\n Large Metro";}
@@ -468,24 +469,7 @@
 					utmost_fatality_chart.setVisible(false);
 					utmost_fatality_race_chart.setVisible(false);
 					utmost_chart.redraw(true);
-
-
-
-
-
-
-
-
-
-
-
-
 					}
-					
-						
-						
-				
-				
 				}
 			});
 		} 
@@ -2024,3 +2008,163 @@
 		}
 		
 	};
+
+	/*single_file_export(data_outcome_variable,n)
+	{
+		if(n==1){out +="\n Large Metro";}
+							if(n==2){out +="\n S/M Metro";}
+							if(n==3){out +="\n Non Metro";}
+							if(n==4){out +="\n No Alcohol Involved";}
+							if(n==5){out +="\n Alcohol Involved";}
+							if(n==6){out +="\n Age 0-1";}
+							if(n==7){out +="\n Age 2-4";}
+							if(n==8){out +="\n Age 5-7";}
+							if(n==9){out +="\n Age 8-10";}
+							if(n==10){out +="\n Age 11-13";}
+							if(n==11){out +="\n Age 14-15";}
+							if(n==12){out +="\n Age 16-17";}
+							if(n==13){out +="\n Age 18-20";}
+							if(n==14){out +="\n Age 21-30";}
+							if(n==15){out +="\n Age 31-65";}
+							if(n==16){out +="\n Age 66+";}
+							if(n==17){out +="\n Driver Age 0-15";}
+							if(n==18){out +="\n Driver Age 16-17";}
+							if(n==19){out +="\n Driver Age 18-20";}
+							if(n==20){out +="\n Driver Age 21-30";}
+							if(n==21){out +="\n Driver Age 31-65";}
+							if(n==22){out +="\n Driver Age 66+";}
+							if(n==23){out +="\n 56.7% and Below";}
+							if(n==24){out +="\n 56.7%-74.2%";}
+							if(n==25){out +="\n 74.2%-84.3%";}
+							if(n==26){out +="\n 84.3%-92.1%";}
+							if(n==27){out +="\n 92.1% and Above";}
+							if(n==28){out +="\n 1.2% and Below";}
+							if(n==29){out +="\n 1.2%-3.4%";}
+							if(n==30){out +="\n 3.4%-7.8%";}
+							if(n==31){out +="\n 7.8%-19.4%";}
+							if(n==32){out +="\n 19.4% and Above";}
+							if(n==33){out +="\n 4.1% and Below";}
+							if(n==34){out +="\n 4.1%-7.3%";}
+							if(n==35){out +="\n 7.3%-11.8%";}
+							if(n==36){out +="\n 11.8%-21.6%";}
+							if(n==37){out +="\n 21.6% and Above";}
+							if(n==38){out +="\n 2.8% and Below";}
+							if(n==39){out +="\n 2.8%-6.1%";}
+							if(n==40){out +="\n 6.1%-12.6%";}
+							if(n==41){out +="\n 12.6%-29.5%";}
+							if(n==42){out +="\n 29.5% and Above";}
+							if(n==43){out +="\n 70.5% and Below";}
+							if(n==44){out +="\n 70.5%-87.4%";}
+							if(n==45){out +="\n 87.4%-93.9%";}
+							if(n==46){out +="\n 93.9%-97.2%";}
+							if(n==47){out +="\n 97.2% and Above";}
+							if(n==48){out +="\n 15.6% and Below";}
+							if(n==49){out +="\n 15.6%-22.0%";}
+							if(n==50){out +="\n 22.0%-30.4%";}
+							if(n==51){out +="\n 30.4%-43.8%";}
+							if(n==52){out +="\n 43.8% and Above";}
+							if(n==53){out +="\n Less than $40179";}
+							if(n==54){out +="\n $40179 to $49190";}
+							if(n==55){out +="\n $49190 to $60224";}
+							if(n==56){out +="\n $60224 to $77298";}
+							if(n==57){out +="\n Greater than $77298";}
+							if(data_outcome_variable == 'person_count'){
+								out += "\n category,person_count,adjusted_person_count\n";
+						var count = utmost_chart_values.count();
+						for (i = 0; i < count; i++){
+							out += utmost_chart_values.getAt(i).get('crash_type')+','+utmost_chart_values.getAt(i).get('person_count')+','+utmost_chart_values.getAt(i).get('person_count_adj')+'\n';
+						}}
+
+							if(data_outcome_variable == 'injury_count'){
+							out += "\n category,injury_count,adjusted_injury_count\n";
+							var count = utmost_injury_chart_values.count();
+							for (i = 0; i < count; i++){
+								out += utmost_injury_chart_values.getAt(i).get('crash_type')+','+utmost_injury_chart_values.getAt(i).get('injury_count')+','+utmost_injury_chart_values.getAt(i).get('injury_count_adj')+'\n';
+							}
+							}
+
+							if(data_outcome_variable == 'fatality_count'){
+							out += "\n category,fatality_count,adjusted_fatality_count\n";
+							var count = utmost_fatality_chart_values.count();
+							for (i = 0; i < count; i++){
+								out += utmost_fatality_chart_values.getAt(i).get('crash_type')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count')+','+utmost_fatality_chart_values.getAt(i).get('fatality_count_adj')+'\n';
+							}
+							}
+							if(n==1){data_update(2);}
+							if(n==2){data_update(3);}
+							if(n==4){data_update(5);}
+							if(n==6){data_update(7);}
+							if(n==7){data_update(8);}
+							if(n==8){data_update(9);}
+							if(n==9){data_update(10);}
+							if(n==10){data_update(11);}
+							if(n==11){data_update(12);}
+							if(n==12){data_update(13);}
+							if(n==13){data_update(14);}
+							if(n==14){data_update(15);}
+							if(n==15){data_update(16);}
+							if(n==17){data_update(18);}
+							if(n==18){data_update(19);}
+							if(n==19){data_update(20);}
+							if(n==20){data_update(21);}
+							if(n==21){data_update(22);}
+							if(n==23){data_update(24);}
+							if(n==24){data_update(25);}
+							if(n==25){data_update(26);}
+							if(n==26){data_update(27);}
+							if(n==28){data_update(29);}
+							if(n==29){data_update(30);}
+							if(n==30){data_update(31);}
+							if(n==31){data_update(32);}
+							if(n==33){data_update(34);}
+							if(n==34){data_update(35);}
+							if(n==35){data_update(36);}
+							if(n==36){data_update(37);}
+							if(n==38){data_update(39);}
+							if(n==39){data_update(40);}
+							if(n==40){data_update(41);}
+							if(n==41){data_update(42);}
+							if(n==43){data_update(44);}
+							if(n==44){data_update(45);}
+							if(n==45){data_update(46);}
+							if(n==46){data_update(47);}
+							if(n==48){data_update(49);}
+							if(n==49){data_update(50);}
+							if(n==50){data_update(51);}
+							if(n==51){data_update(52);}
+							if(n==53){data_update(54);}
+							if(n==54){data_update(55);}
+							if(n==55){data_update(56);}
+							if(n==56){data_update(57);}
+							
+
+							
+							
+							
+
+							
+							if(n==22 || n==16 || n==5 || n==3 ||n==27 || n==32 || n==37 || n==42 || n==47 || n==52 || n==57 )
+							{
+							// thanks stackoverflow
+							var outFileBlob = new Blob([out], {type:'text/plain'});
+							var outFileName = "utmost_chart_output.csv";
+							var dl_link = document.createElement("a");
+							dl_link.download = outFileName;
+							dl_link.innerHTML = "Download File";
+		 					if (window.webkitURL != null){
+						// Chrome allows the link to be clicked
+						// without actually adding it to the DOM.
+								dl_link.href = window.webkitURL.createObjectURL(outFileBlob);
+							} else {
+						// Firefox requires the link to be added to the DOM
+						// before it can be clicked.
+						dl_link.href = window.URL.createObjectURL(outFileBlob);
+						dl_link.onclick = document.body.removeChild(event.target);
+						dl_link.style.display = "none";
+						document.body.appendChild(dl_link);
+						}
+						dl_link.click();
+						data_update(0);
+						out="";
+						}
+	}*/
